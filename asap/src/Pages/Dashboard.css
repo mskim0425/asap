@@ -1,0 +1,26 @@
+.Dashboard {
+  width: 80%;
+  display: grid;
+}
+
+@media (min-width: 1200px) {
+  .Dashboard {
+    grid-template-columns: repeat(3, 2fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .Dashboard {
+    grid-template-columns: repeat(2, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Dashboard {
+    grid-template-columns: repeat(1, 2fr);
+  }
+}
+
+.graph {
+  border: 1px solid red;
+}

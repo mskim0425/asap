@@ -137,7 +137,24 @@ body {
   transform: translate(-50%);
   width: 1500px;
   height: 100vh;
-  border: 1px solid;
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  .body {
+    width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .body {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    width: 450px;
+  }
 }
