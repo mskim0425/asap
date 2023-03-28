@@ -1,4 +1,10 @@
-.Sidebar{
-    width: 20%;
-    border: 1px solid red;
+.Sidebar {
+  box-sizing: border-box;
+  width: 20%;
+  border: 1px solid red;
+}
+
+.menu-button {
+  border: 1px solid blue;
+  padding: 20px;
 }
