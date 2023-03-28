@@ -33,17 +33,18 @@ public class ProductRepository implements ProductMapper{
     }
 
     @Override
-    public Product findbyId() {
+    public Product findById() {
         return null;
     }
 
     @Override
-    public Product findbyName() {
+    public Product findByName() {
         return null;
     }
 
     @Override
-    public List<Product> findbyAll() {
+    public List<Product> findByAll() {
         return null;
     }
+
 }

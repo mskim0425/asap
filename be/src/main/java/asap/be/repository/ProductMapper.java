@@ -14,8 +14,8 @@ public interface ProductMapper {
     Product name();
     Product price();
     Product barcode();
-    Product findbyId();
-    Product findbyName();
-    List<Product> findbyAll();
+    Product findById();
+    Product findByName();
+    List<Product> findByAll();
 }
 
