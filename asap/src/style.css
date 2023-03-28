@@ -107,6 +107,8 @@ section {
 }
 body {
   line-height: 1;
+  display: flex;
+  justify-content: center;
 }
 ol,
 ul {
@@ -126,4 +128,13 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.body {
+  margin-top: 20px;
+  width: 1500px;
+  height: 100vh;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
 }
