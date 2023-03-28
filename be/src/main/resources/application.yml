@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+
+mybatis:
+  type-aliases-package:
+  configuration:
+    map-underscore-to-camel-case: true
+
