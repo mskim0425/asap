@@ -131,8 +131,8 @@ table {
 }
 
 .body {
-  margin-top: 20px;
-  height: 100vh;
+  margin-top: 15px;
+  height: 97vh;
   border: 1px solid black;
   box-sizing: border-box;
   display: flex;
@@ -154,4 +154,8 @@ table {
   .body {
     width: 450px;
   }
+}
+
+.scroll {
+  overflow: hidden;
 }
