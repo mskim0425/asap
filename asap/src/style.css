@@ -132,9 +132,26 @@ table {
 
 .body {
   margin-top: 20px;
-  width: 1500px;
   height: 100vh;
   border: 1px solid black;
   box-sizing: border-box;
   display: flex;
+}
+
+@media (min-width: 1200px) {
+  .body {
+    width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .body {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    width: 450px;
+  }
 }
