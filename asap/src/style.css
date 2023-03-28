@@ -159,3 +159,21 @@ body {
     width: 450px;
   }
 }
+
+@media (min-width: 1200px) {
+  .body {
+    width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .body {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    width: 450px;
+  }
+}
