@@ -6,7 +6,7 @@
 
 @media (min-width: 1200px) {
   .Dashboard {
-    grid-template-columns: repeat(2, 2fr);
+    grid-template-columns: repeat(1, 2fr);
   }
 }
 
@@ -26,6 +26,9 @@
 }
 
 .Chart {
-  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 300px;
+  box-shadow: 5px 0 10px #0000001e;
 }
