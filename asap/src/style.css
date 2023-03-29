@@ -177,3 +177,7 @@ body {
     width: 450px;
   }
 }
+
+.scroll {
+  overflow: hidden;
+}

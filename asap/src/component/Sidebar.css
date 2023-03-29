@@ -1,10 +1,42 @@
-.Sidebar {
-  box-sizing: border-box;
-  width: 20%;
-  border: 1px solid red;
+.Sidebar{
+    text-align: center;
 }
 
 .menu-button {
-  border: 1px solid blue;
-  padding: 20px;
+  height: 10%;
+  border: 1px solid black;
+  background-color: yellow;
 }
+
+.navBtn:hover {
+  background-color: green;
+}
+
+@media (min-width: 1200px) {
+  .Sidebar {
+    width: 10%;
+    border: 1px solid red;
+  }
+}
+
+@media (max-width: 1200px) {
+  .Sidebar {
+    width: 10%;
+    border: 1px solid red;
+  }
+}
+
+@media (max-width: 768px) {
+  .Sidebar {
+    position: absolute;
+    display: flex;
+    width: 450px;
+  }
+
+  .navBtn{
+    width: 50%;
+    text-align: center;
+    height: 30px;
+  }
+}
+
