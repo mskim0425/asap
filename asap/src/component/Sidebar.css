@@ -1,42 +1,71 @@
-.Sidebar{
-    text-align: center;
+.sidebar {
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 5px 0 20px #0000001e;
+  font-weight: bold;
+  color: #333;
+  z-index: 1;
+}
+
+.sidebar div {
+  padding-left: 15px;
+}
+
+.sidebar div:nth-child(1):before,
+.sidebar div:nth-child(2):before {
+  font-family: fontawesome;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.sidebar div:nth-child(1):before {
+  content: "\f200";
+}
+
+.sidebar div:nth-child(2):before {
+  content: "\f03a";
 }
 
 .menu-button {
-  height: 10%;
-  border: 1px solid black;
-  background-color: yellow;
+  padding: 15px 0;
 }
 
-.navBtn:hover {
-  background-color: green;
+.menu-button:hover {
+  color: #fff;
+  border-radius: 0 20px 20px 0;
+  background-color: #1b73e8;
+}
+
+.menu-button.active {
+  color: #fff;
+  border-radius: 0 20px 20px 0;
+  background-color: #1b73e8;
 }
 
 @media (min-width: 1200px) {
-  .Sidebar {
-    width: 10%;
-    border: 1px solid red;
+  .sidebar {
+    width: 20%;
+    /* border: 1px solid red; */
   }
 }
 
 @media (max-width: 1200px) {
-  .Sidebar {
-    width: 10%;
-    border: 1px solid red;
+  .sidebar {
+    width: 20%;
+    /* border: 1px solid red; */
   }
 }
 
 @media (max-width: 768px) {
-  .Sidebar {
+  .sidebar {
     position: absolute;
     display: flex;
     width: 450px;
   }
 
-  .navBtn{
+  .menu-button {
     width: 50%;
     text-align: center;
     height: 30px;
   }
 }
-

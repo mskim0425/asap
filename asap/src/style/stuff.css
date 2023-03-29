@@ -1,7 +1,8 @@
 .container {
   box-sizing: border-box;
-  width: 100%;
-  border: 10px solid pink;
+  width: 90%;
+  background-color: #f8f9fa;
+  /* border: 10px solid pink; */
 }
 
 .visualization {
@@ -15,18 +16,53 @@
   float: left;
   width: 80%;
 }
+
 .search {
-  /* border: 1px solid red; */
+  padding: 10px;
+  background-color: #ecf3fe;
   overflow: hidden;
 }
-input[type="text"] {
-  float: left;
-  width: 77%;
+
+.search input[type="text"],
+input[type="text"] ~ div {
+  outline: none;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-input[type="text"] ~ button {
-  width: 20%;
+.search input[type="text"] {
+  float: left;
+  width: 80%;
+  border-radius: 5px 0 0 5px;
+  background-color: #fff;
+  color: #888;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+.search input[type="text"]:focus,
+.search input[type="text"]:hover {
+  border: 1px solid #1b73e8;
+  box-shadow: 0 0 5px #1b73e8;
+}
+
+.search input[type="text"]::placeholder {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.search input[type="text"]:focus::placeholder {
+  opacity: 0;
+  visibility: none;
+}
+
+input[type="text"] ~ div {
   float: right;
+  width: 20%;
+  text-align: center;
+  background-color: #1b73e8;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
 }
 
 .list > div:nth-child(1),
@@ -72,4 +108,11 @@ input[type="text"] ~ button {
 }
 .add-data button {
   width: 80%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    flex-direction: column;
+  }
 }
