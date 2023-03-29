@@ -1,0 +1,75 @@
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  border: 10px solid pink;
+}
+
+.visualization {
+  width: 100%;
+  height: 30%;
+  border: 1px solid orangered;
+}
+
+.data {
+  /* border: 1px solid red; */
+  float: left;
+  width: 80%;
+}
+.search {
+  /* border: 1px solid red; */
+  overflow: hidden;
+}
+input[type="text"] {
+  float: left;
+  width: 77%;
+}
+
+input[type="text"] ~ button {
+  width: 20%;
+  float: right;
+}
+
+.list > div:nth-child(1),
+.list > div:nth-child(2) {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.list > div:nth-child(1) {
+  background-color: lightgray;
+  margin-top: 15px;
+}
+
+.list > div:nth-child(2) {
+  border-bottom: 1px solid lightgray;
+}
+
+.add-data {
+  /* border: 1px solid blue; */
+  float: right;
+  width: 20%;
+  background-color: lightgray;
+}
+
+.add-data div {
+  box-sizing: border-box;
+  padding: 10px;
+  /* border: 1px solid red; */
+  overflow: hidden;
+  width: 100%;
+}
+
+.add-data div h4 {
+  margin-bottom: 3px;
+}
+
+.button {
+  /* border: 1px solid red; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.add-data button {
+  width: 80%;
+}

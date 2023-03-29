@@ -105,11 +105,7 @@ nav,
 section {
   display: block;
 }
-body {
-  line-height: 1;
-  display: flex;
-  justify-content: center;
-}
+
 ol,
 ul {
   list-style: none;
@@ -130,12 +126,38 @@ table {
   border-spacing: 0;
 }
 
+body {
+  line-height: 1;
+  position: relative;
+}
+
 .body {
-  margin-top: 20px;
+  border: 1px solid red;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: 1500px;
   height: 100vh;
-  border: 1px solid black;
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  .body {
+    width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .body {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .body {
+    width: 450px;
+  }
 }
 
 @media (min-width: 1200px) {
