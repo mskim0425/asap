@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 html,
 body,
 div,
@@ -132,7 +134,7 @@ body {
 }
 
 .body {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   position: absolute;
   left: 50%;
   transform: translate(-50%);

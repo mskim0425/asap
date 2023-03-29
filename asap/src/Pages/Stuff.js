@@ -6,8 +6,12 @@ export default function Stuff() {
       <div className="visualization"></div>
       <div className="data">
         <div className="search">
-          <input type="text" />
-          <button>검색</button>
+          <input
+            type="text"
+            placeholder="상품을 검색을 해주세요."
+            id="search"
+          />
+          <div>검색</div>
         </div>
         <div className="list">
           <div>
