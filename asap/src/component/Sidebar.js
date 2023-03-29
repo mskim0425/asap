@@ -18,7 +18,7 @@ export default function Sidebar() {
     <section className="Sidebar">
       {tab.map((el) => {
         return (
-          <div className="navBtn" key={el} onClick={link}>
+          <div key={el} onClick={link} className="menu-button">
             {el}
           </div>
         );

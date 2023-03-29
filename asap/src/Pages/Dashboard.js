@@ -3,7 +3,10 @@ import Chart2 from "../component/Chart/Chart2";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const graph = [1, 2, 3, 4, 5, 6];
+  const graph = [];
+  for(let i = 0; i < 60; i++){
+    graph.push(i)
+  }
 
   return (
     <section className="Dashboard">

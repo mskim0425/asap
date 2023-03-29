@@ -13,7 +13,6 @@ export default function Chart2() {
   const options = {
     title: "카테고리별 판매량",
     pieHole: 0.3,
-    animation: { duration: 1000, easing: "inAndOut", startup: true },
   };
 
   return (

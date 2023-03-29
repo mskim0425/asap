@@ -1,6 +1,7 @@
 .Dashboard {
   width: 90%;
   display: grid;
+  overflow: scroll;
 }
 
 @media (min-width: 1200px) {
@@ -26,4 +27,5 @@
 
 .Chart {
   border: 1px solid red;
+  height: 300px;
 }
