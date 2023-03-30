@@ -20,4 +20,5 @@ public class ProductDto {
 	private Long wId;
 	private String wname;
 	private String wloc;
+	private int pstatus;
 }

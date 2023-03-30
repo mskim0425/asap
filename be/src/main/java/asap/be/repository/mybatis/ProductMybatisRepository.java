@@ -19,9 +19,10 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public void delete(long pId) {
-        productMapper.delete(pId);
+    public void status(RequestDto.UpdatePStatus requestDto) {
+        productMapper.status(requestDto);
     }
+
 
     @Override
     public void name(RequestDto.UpdatePName requestDto) {

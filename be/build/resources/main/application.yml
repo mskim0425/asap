@@ -2,30 +2,17 @@ spring:
   profiles:
     active: local
   datasource:
-<<<<<<< HEAD
-    url: jdbc:mysql://127.0.0.1:3306/asap?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1q2w3e4r!
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-
-mybatis:
-  type-aliases-package: asap.be.repository #패키지명을 다 안적어도 되겠금 도와주는...
-  configuration:
-    map-underscore-to-camel-case: true
-=======
     driver-class-name: com.mysql.cj.jdbc.Driver
     # allowMultiQueries=true : 다중 insert 허용
     url: jdbc:mysql://localhost:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: hyoreal000501
+    password: 1q2w3e4r!
 
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto
   configuration:
     map-underscore-to-camel-case: true
 
->>>>>>> 74b667b1a4aaa8b355abc8b55966996ef8c7f056
 logging:
   level:
     asap:

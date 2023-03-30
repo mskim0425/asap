@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductRepository {
 	void save(ProductDto productDto);
-	void delete(long pId);
+	void status(RequestDto.UpdatePStatus requestDto);
 	void name(RequestDto.UpdatePName requestDto);
 	void price(RequestDto.UpdatePrice requestDto);
 	void barcode(RequestDto.UpdatePCode requestDto);

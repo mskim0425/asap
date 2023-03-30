@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ###.yml ###
-**/server/**/application-local.yml
+*.yml

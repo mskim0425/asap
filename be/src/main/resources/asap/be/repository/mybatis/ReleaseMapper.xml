@@ -19,8 +19,7 @@
 
         INSERT INTO Release_table (sId, quantity, total, release_at)
         VALUES (#{s.pId}, #{s.quantity},
-        (SELECT price * #{s.quantity} FROM Product_table
-        WHERE pId = #{s.pId}), now());
+        (SELECT price * #{s.quantity} FROM Product_table WHERE pId = #{s.pId}), now());
     </update>
 
     <update id="update">

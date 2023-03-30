@@ -1,8 +1,6 @@
 package asap.be.repository.mybatis;
 
-import asap.be.domain.Product;
-import asap.be.domain.Stock;
-import asap.be.domain.Warehouse;
+
 import asap.be.dto.ProductDto;
 import asap.be.dto.RequestDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +12,7 @@ import java.util.Optional;
 @Mapper
 public interface ProductMapper {
     void save(ProductDto productDto); //상품등록
-    void delete(long pId);
+    void status(@Param("p") RequestDto.UpdatePStatus requestDto);
     void name(@Param("p") RequestDto.UpdatePName requestDto);
     void price(@Param("p") RequestDto.UpdatePrice requestDto);
     void barcode(@Param("p") RequestDto.UpdatePCode requestDto);

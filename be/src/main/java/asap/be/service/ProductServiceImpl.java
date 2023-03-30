@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public void delete(long pId) {
-        productMybatisRepository.delete(pId);
+    public void delete(RequestDto.UpdatePStatus dto) {
+        productMybatisRepository.status(dto);
     }
 
     @Override

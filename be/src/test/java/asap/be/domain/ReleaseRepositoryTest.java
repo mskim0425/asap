@@ -40,7 +40,7 @@ public class ReleaseRepositoryTest {
 	@Test
 	void release() {
 		// given
-		Long pId = 2L;
+		Long pId = 12L;
 		int quantity = 13;
 
 		ReleaseStockDto stockDto = ReleaseStockDto.builder()

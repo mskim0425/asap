@@ -9,7 +9,7 @@ spring:
 
 
 mybatis:
-  type-aliases-package: asap.be.repository #패키지명을 다 안적어도 되겠금 도와주는...
+  type-aliases-package: asap.be.domain, asap.be.dto #패키지명을 다 안적어도 되겠금 도와주는...
   configuration:
     map-underscore-to-camel-case: true
 logging:

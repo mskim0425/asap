@@ -1,5 +1,7 @@
 package asap.be.controller;
 
+import asap.be.aop.ForUpdate;
+import asap.be.domain.Product;
 import asap.be.dto.ProductDto;
 import asap.be.dto.RequestDto;
 import asap.be.service.ProductService;
@@ -35,13 +37,24 @@ public class MainController {
 		return new ResponseEntity<>(productService.findById(productDto.getPId()), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/prod/{p-id}")
+	@PatchMapping("/prod/{p-id}")
 	public ResponseEntity<List<ProductDto>> deleteProduct(@PathVariable("p-id") Long pId) {
-		System.out.println(pId);
-		productService.delete(pId);
+
+		RequestDto.UpdatePStatus build = RequestDto.UpdatePStatus.builder().pStatus(0).pId(pId).build();
+		productService.delete(build);
 
 		return new ResponseEntity<>(productService.findByAll(), HttpStatus.OK);
 	}
+
+	@ForUpdate
+	@PatchMapping("/prod")
+	public ResponseEntity<ProductDto> updateProductName(Product product) {
+
+//		productService.name(updatePName);
+
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
+//
 //
 //	@PatchMapping("/prod")
 //	public ResponseEntity<ProductDto> updateProductName(@RequestBody RequestDto.UpdatePName updatePName) {
