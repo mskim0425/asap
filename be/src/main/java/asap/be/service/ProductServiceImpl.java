@@ -1,49 +1,63 @@
 package asap.be.service;
 
-import asap.be.domain.Product;
-import asap.be.domain.Stock;
-import asap.be.domain.Warehouse;
+import asap.be.dto.ProductDto;
+import asap.be.dto.RequestDto;
+import asap.be.repository.mybatis.ProductMybatisRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
+    private final ProductMybatisRepository productMybatisRepository;
     @Override
-    public void save(Product product, Stock stock, Warehouse warehouse) {
-
+    @Transactional
+    public void save(ProductDto dto) {
+        productMybatisRepository.save(dto);
     }
 
     @Override
-    public void delete(long sId) {
-
+    @Transactional
+    public void delete(long pId) {
+        productMybatisRepository.delete(pId);
     }
 
     @Override
-    public Product name() {
-        return null;
+    @Transactional
+    public void name(RequestDto.UpdatePName requestDto) {
+        productMybatisRepository.name(requestDto);
     }
 
     @Override
-    public Product price() {
-        return null;
+    @Transactional
+    public void price(RequestDto.UpdatePrice requestDto) {
+        productMybatisRepository.price(requestDto);
     }
 
     @Override
-    public Product barcode() {
-        return null;
+    @Transactional
+    public void barcode(RequestDto.UpdatePCode requestDto) {
+         productMybatisRepository.barcode(requestDto);
     }
 
     @Override
-    public Product findbyId() {
-        return null;
+    @Transactional(readOnly = true)
+    public ProductDto findById(Long pId) {
+        return productMybatisRepository.findById(pId);
     }
 
     @Override
-    public Product findbyName() {
-        return null;
+    @Transactional(readOnly = true)
+    public List<ProductDto> findByName(String pName) {
+        return productMybatisRepository.findByName(pName);
     }
 
     @Override
-    public List<Product> findbyAll() {
-        return null;
+    @Transactional(readOnly = true)
+    public List<ProductDto> findByAll() {
+        return productMybatisRepository.findByAll();
     }
 }

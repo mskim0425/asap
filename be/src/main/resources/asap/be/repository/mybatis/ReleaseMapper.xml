@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asap.be.repository.mybatis.ReleaseMapper">
+
+    <insert id="sSave" useGeneratedKeys="true" parameterType="ProductDto">
+        INSERT INTO Stock_table (pId, cnt, receive_in)
+        VALUES (#{pId}, #{cnt}, now());
+
+        <selectKey resultType="Long" keyProperty="sId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="release">
+        UPDATE Stock_table
+        SET cnt = cnt - #{s.quantity}
+        WHERE pId = #{s.pId};
+
+        INSERT INTO Release_table (sId, quantity, total, release_at)
+        VALUES (#{s.pId}, #{s.quantity},
+        (SELECT price * #{s.quantity} FROM Product_table
+        WHERE pId = #{s.pId}), now());
+    </update>
+
+    <update id="update">
+        UPDATE Stock_table
+        SET cnt = cnt + #{s.quantity}, receive_in = now()
+        WHERE pId = #{s.pId};
+    </update>
+
+    <select id="findAll" resultType="Release">
+        SELECT * FROM Release_table ORDER BY release_at DESC
+    </select>
+
+    <select id="findReleaseById" resultType="Release">
+        SELECT * FROM Release_table WHERE sId = #{sId} ORDER BY release_at DESC
+    </select>
+
+    <select id="findStockByPId" resultType="Stock">
+        SELECT * FROM Stock_table WHERE pId = #{pId}
+    </select>
+
+</mapper>
