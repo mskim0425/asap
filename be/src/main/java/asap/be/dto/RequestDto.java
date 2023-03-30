@@ -26,4 +26,10 @@ public class RequestDto {
 		private String pCode;
 	}
 
+	@Getter
+	@Builder
+	public static class	UpdatePStatus{
+		private Long pId;
+		private int pStatus;
+	}
 }

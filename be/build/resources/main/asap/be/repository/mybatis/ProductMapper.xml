@@ -4,27 +4,18 @@
 <mapper namespace="asap.be.repository.mybatis.ProductMapper">
 
     <insert id="save" useGeneratedKeys="true" parameterType="ProductDto">
-        INSERT INTO Product_table (pname, price, pcode)
-        VALUES (#{pname}, #{price}, #{pcode});
+        INSERT INTO Product_table (pname, price, pcode, pstatus)
+        VALUES (#{pname}, #{price}, #{pcode}, 1);
 
         <selectKey resultType="Long" keyProperty="pId" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
-    
-    <delete id="delete">
-        DELETE FROM Warehouse_table
-        WHERE sId = #{pId};
 
-        DELETE FROM Release_table
-        WHERE sId = #{sId};
-
-        DELETE FROM Stock_table
-        WHERE pId = #{pId};
-
-        DELETE FROM Product_table
-        WHERE pId = #{pId};
-    </delete>
+    <update id="status">
+        UPDATE Product_table SET pStatus = #{p.pStatus}
+        WHERE pId = #{p.pId}
+    </update>
     
     <update id="name">
         UPDATE Product_table SET pName = #{p.pName}

@@ -8,6 +8,7 @@ import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,6 +52,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("프로덕트 저장")
 	void save() {
 		//given
 		Product product = Product.builder()
@@ -77,23 +79,31 @@ class ProductRepositoryTest {
 		warehouseMybatisRepository.wSave(productDto);
 
 		//then
-		ProductDto findProd = productMybatisRepository.findById(product.getPId());
-		assertThat(findProd.getPId()).isEqualTo(product.getPId());
+		ProductDto findProd = productMybatisRepository.findById(productDto.getPId());
+		assertThat(findProd.getPId()).isEqualTo(productDto.getPId());
 	}
 
 	@Test
+	@DisplayName("삭제")
 	void delete() {
-//		// given
-//		long pId = 1L;
-//
-//		// when
-//		productRepository.delete(pId);
-//
-//		// then
-//		assertThat(productRepository.findById(pId)).isNull();
+		// given
+		int status = 0;
+		Long pId = 1L;
+
+		RequestDto.UpdatePStatus build =
+		RequestDto.UpdatePStatus.builder()
+				.pId(1L)
+				.pStatus(status).build();
+
+		// when
+		productMybatisRepository.status(build);
+
+		// then
+		assertThat(productMybatisRepository.findById(pId).getPstatus()).isEqualTo(0);
 	}
 
 	@Test
+	@DisplayName("이름 수정")
 	void updateName() {
 		// given
 		Long pId = 3L;
@@ -112,6 +122,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("가격 수정")
 	void updatePrice() {
 		// given
 		Long pId = 3L;
@@ -130,6 +141,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("바코드 수정")
 	void updateBarcode() {
 		// given
 		Long pId = 3L;
@@ -148,6 +160,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("아이디로 찾기")
 	void findById() {
 		// given
 		Long pId = 5L;
@@ -160,6 +173,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("이름으로 찾기")
 	void findByName() {
 		// given
 		String pName1 = "asd";
@@ -175,6 +189,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("전부 찾기")
 	void findAll() {
 		// given
 

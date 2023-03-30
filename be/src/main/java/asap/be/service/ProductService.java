@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductService {
     void save(ProductDto productDto); //상품등록
-    void delete(long pId);
+    void delete(RequestDto.UpdatePStatus requestDto);
     void name(RequestDto.UpdatePName requestDto);
     void price(RequestDto.UpdatePrice requestDto);
     void barcode(RequestDto.UpdatePCode requestDto);
