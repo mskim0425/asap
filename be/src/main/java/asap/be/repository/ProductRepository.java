@@ -1,50 +1,17 @@
 package asap.be.repository;
 
-import asap.be.domain.Product;
-import asap.be.domain.Stock;
-import asap.be.domain.Warehouse;
+import asap.be.dto.ProductDto;
+import asap.be.dto.RequestDto;
 
 import java.util.List;
 
-public class ProductRepository implements ProductMapper{
-    @Override
-    public void save(Product product, Stock stock, Warehouse warehouse) {
-
-    }
-
-    @Override
-    public void delete(long sId) {
-
-    }
-
-    @Override
-    public Product name() {
-        return null;
-    }
-
-    @Override
-    public Product price() {
-        return null;
-    }
-
-    @Override
-    public Product barcode() {
-        return null;
-    }
-
-    @Override
-    public Product findById() {
-        return null;
-    }
-
-    @Override
-    public Product findByName() {
-        return null;
-    }
-
-    @Override
-    public List<Product> findByAll() {
-        return null;
-    }
-
+public interface ProductRepository {
+	void save(ProductDto productDto);
+	void delete(long pId);
+	void name(RequestDto.UpdatePName requestDto);
+	void price(RequestDto.UpdatePrice requestDto);
+	void barcode(RequestDto.UpdatePCode requestDto);
+	ProductDto findById(Long pId);
+	List<ProductDto> findByName(String pName);
+	List<ProductDto> findByAll();
 }

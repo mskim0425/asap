@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/asap?serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: hyoreal000501
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
+#    properties:
+#      rewriteBatchedStatements: true
+#    username: root
+#    password: hyoreal000501
+  sql:
+    init:
+      schema-locations: classpath*:db/schema.sql
+      data-locations: classpath*:db/mock_data.sql
+      mode: always
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: TRACE
+
+mybatis:
+  type-aliases-package:
+  configuration:
+    map-underscore-to-camel-case: true
+
