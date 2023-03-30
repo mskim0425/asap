@@ -1,20 +1,20 @@
 package asap.be.repository;
 
 import asap.be.domain.Warehouse;
+import asap.be.dto.ProductDto;
 
-public class WarehouseRepository implements WarehouseMapper{
-    @Override
-    public void wDelete() {
+import java.util.List;
 
-    }
+public interface WarehouseRepository {
+	void wSave(ProductDto productDto);
 
-    @Override
-    public Warehouse wChangeName() {
-        return null;
-    }
+	void wDelete();
 
-    @Override
-    public Warehouse wChangeLoc() {
-        return null;
-    }
+	void wChangeName(String newName, String wName);
+
+	void wChangeLoc(String wLoc, String wName);
+
+	List<Warehouse> findWarehouseByName(String wName);
+
+	List<Warehouse> findWarehouseByLoc(String wLoc);
 }

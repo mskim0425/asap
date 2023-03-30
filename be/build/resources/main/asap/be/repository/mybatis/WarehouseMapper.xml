@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asap.be.repository.mybatis.WarehouseMapper">
+
+    <insert id="wSave" useGeneratedKeys="true">
+        INSERT INTO Warehouse_table (sId, wName, wLoc)
+        VALUES (#{sId}, #{wname}, #{wloc});
+    </insert>
+
+    <update id="wChangeName">
+        UPDATE Warehouse_table
+        SET wName = #{new_wName}
+        WHERE wName = #{old_wName}
+    </update>
+
+    <update id="wChangeLoc">
+        UPDATE Warehouse_table
+        SET wLoc = #{wLoc}
+        WHERE wName = #{wName}
+    </update>
+
+    <select id="findWarehouseByName" resultType="Warehouse">
+        SELECT * FROM Warehouse_table
+        WHERE wName = #{wName}
+    </select>
+
+    <select id="findWarehouseByLoc" resultType="Warehouse">
+        SELECT * FROM Warehouse_table
+        WHERE wLoc = #{wLoc}
+    </select>
+
+</mapper>
