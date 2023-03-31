@@ -3,9 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asap.be.repository.mybatis.ReleaseMapper">
 
+    <select id="cnt" resultType="Integer">
+            SELECT cnt
+            FROM Stock_table
+            WHERE pId = #{pId};
+    </select>
+
     <insert id="sSave" useGeneratedKeys="true" parameterType="EverythingDto">
-        INSERT INTO Stock_table (wId,pId, cnt, receive_in)
-        VALUES (#{wId}, #{pId}, #{cnt}, now());
+
+        INSERT INTO Stock_table (wId,pId, cnt, receive_in, pInsert)
+        VALUES (#{wId}, #{pId}, #{cnt} + #{pinsert}, now(), #{pinsert});
 
         <selectKey resultType="Long" keyProperty="sId" order="AFTER">
             SELECT LAST_INSERT_ID()

@@ -12,6 +12,8 @@ import java.util.List;
 @Mapper
 public interface ReleaseMapper {
     Long sSave(EverythingDto everythingDto);
+
+    Integer cnt(Long pId);
     void release(@Param("s") ReleaseStockDto stockDto);
     void update(@Param("s") ReleaseStockDto stockDto);
     List<Release> findAll();
