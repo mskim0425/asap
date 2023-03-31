@@ -2,7 +2,7 @@ package asap.be.controller;
 
 import asap.be.aop.ForUpdate;
 import asap.be.domain.Product;
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.RequestDto;
 import asap.be.service.ProductService;
 import asap.be.service.ReleaseService;
@@ -10,7 +10,6 @@ import asap.be.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,16 +28,16 @@ public class MainController {
 	private final WarehouseService warehouseService;
 
 	@PostMapping("/prod")
-	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) {
-		productService.save(productDto);
-		releaseService.sSave(productDto);
-		warehouseService.wSave(productDto);
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody EverythingDto everythingDto) {
+		productService.save(everythingDto);
+		releaseService.sSave(everythingDto);
+		warehouseService.wSave(everythingDto);
 
-		return new ResponseEntity<>(productService.findById(productDto.getPId()), HttpStatus.OK);
+		return new ResponseEntity<>(productService.findById(everythingDto.getPId()), HttpStatus.OK);
 	}
 
 	@PatchMapping("/prod/{p-id}")
-	public ResponseEntity<List<ProductDto>> deleteProduct(@PathVariable("p-id") Long pId) {
+	public ResponseEntity<List<EverythingDto>> deleteProduct(@PathVariable("p-id") Long pId) {
 
 		RequestDto.UpdatePStatus build = RequestDto.UpdatePStatus.builder().pStatus(0).pId(pId).build();
 		productService.delete(build);
@@ -48,7 +47,7 @@ public class MainController {
 
 	@ForUpdate
 	@PatchMapping("/prod")
-	public ResponseEntity<ProductDto> updateProductName(Product product) {
+	public ResponseEntity<EverythingDto> updateProductName(Product product) {
 
 //		productService.name(updatePName);
 
@@ -57,21 +56,21 @@ public class MainController {
 //
 //
 //	@PatchMapping("/prod")
-//	public ResponseEntity<ProductDto> updateProductName(@RequestBody RequestDto.UpdatePName updatePName) {
+//	public ResponseEntity<EverythingDto> updateProductName(@RequestBody RequestDto.UpdatePName updatePName) {
 //		productService.name(updatePName);
 //
 //		return new ResponseEntity<>(productService.findById(updatePName.getPId()), HttpStatus.OK);
 //	}
 //
 //	@PatchMapping("/prod")
-//	public ResponseEntity<ProductDto> updateProductPrice(@RequestBody RequestDto.UpdatePrice updatePrice) {
+//	public ResponseEntity<EverythingDto> updateProductPrice(@RequestBody RequestDto.UpdatePrice updatePrice) {
 //		productService.price(updatePrice);
 //
 //		return new ResponseEntity<>(productService.findById(updatePrice.getPId()), HttpStatus.OK);
 //	}
 //
 //	@PatchMapping("/prod")
-//	public ResponseEntity<ProductDto> updateProductPCode(@RequestBody RequestDto.UpdatePCode updatePCode) {
+//	public ResponseEntity<EverythingDto> updateProductPCode(@RequestBody RequestDto.UpdatePCode updatePCode) {
 //		productService.barcode(updatePCode);
 //
 //		return new ResponseEntity<>(productService.findById(updatePCode.getPId()), HttpStatus.OK);

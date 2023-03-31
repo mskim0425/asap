@@ -1,6 +1,6 @@
 package asap.be.repository.mybatis;
 
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.RequestDto;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,8 @@ public class ProductMybatisRepository implements ProductRepository {
     private final ProductMapper productMapper;
 
     @Override
-    public void save(ProductDto productDto) {
-        productMapper.save(productDto);
+    public void save(EverythingDto everythingDto) {
+        productMapper.save(everythingDto);
     }
 
     @Override
@@ -40,17 +40,17 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public ProductDto findById(Long pId) {
+    public EverythingDto findById(Long pId) {
         return productMapper.findById(pId);
     }
 
     @Override
-    public List<ProductDto> findByName(String pName) {
+    public List<EverythingDto> findByName(String pName) {
         return productMapper.findByName(pName);
     }
 
     @Override
-    public List<ProductDto> findByAll() {
+    public List<EverythingDto> findByAll() {
         return productMapper.findByAll();
     }
 

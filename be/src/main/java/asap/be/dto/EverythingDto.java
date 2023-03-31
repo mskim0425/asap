@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+public class EverythingDto {
 	private Long pId;
 	private String pname;
 	private int price;

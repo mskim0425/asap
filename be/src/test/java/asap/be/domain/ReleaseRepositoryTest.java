@@ -4,6 +4,7 @@ import asap.be.dto.ReleaseStockDto;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,7 @@ public class ReleaseRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("재고 출하")
 	void release() {
 		// given
 		Long pId = 12L;
@@ -56,6 +58,7 @@ public class ReleaseRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("릴리즈 업데이트")
 	void update() {
 		// given
 		Long pId = 2L;
@@ -76,6 +79,7 @@ public class ReleaseRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("전체조회")
 	void findAll() {
 		// given
 

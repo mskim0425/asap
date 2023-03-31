@@ -2,7 +2,7 @@ spring:
   profiles:
     active: local
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/asap?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/asap?allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&allowMultiQueries=true
     username: root
     password: 1q2w3e4r!
     driver-class-name: com.mysql.cj.jdbc.Driver

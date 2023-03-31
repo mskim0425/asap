@@ -1,7 +1,7 @@
 package asap.be.repository.mybatis;
 
 import asap.be.domain.Warehouse;
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,8 +13,8 @@ import java.util.List;
 public class WarehouseMybatisRepository implements WarehouseRepository {
     private final WarehouseMapper warehouseMapper;
 
-    public void wSave(ProductDto productDto) {
-        warehouseMapper.wSave(productDto);
+    public void wSave(EverythingDto everythingDto) {
+        warehouseMapper.wSave(everythingDto);
     }
 
     public void wDelete() {

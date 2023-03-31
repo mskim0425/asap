@@ -1,7 +1,7 @@
 package asap.be.service;
 
 import asap.be.domain.Warehouse;
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     private final WarehouseMybatisRepository warehouseMybatisRepository;
 
     @Override
-    public void wSave(ProductDto productDto) {
-        warehouseMybatisRepository.wSave(productDto);
+    public void wSave(EverythingDto everythingDto) {
+        warehouseMybatisRepository.wSave(everythingDto);
     }
 
     @Override
