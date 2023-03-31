@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ReleaseService {
     void sSave(EverythingDto everythingDto);
+    Integer cnt(Long pId);
     void release(ReleaseStockDto stockDto);
     void update(ReleaseStockDto stockDto);
     List<Release> findAll();

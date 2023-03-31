@@ -17,7 +17,14 @@ public class Stock {
     private Long wId;
     private int cnt;
     private String receive_in;
+    private int pInsert;
 
+    public Stock(Long sId, Long wId, String receive_in, int pInsert) {
+        this.sId = sId;
+        this.wId = wId;
+        this.receive_in = receive_in;
+        this.pInsert = pInsert;
+    }
 //    public Stock(int cnt, LocalDateTime receive_in) {
 //        this.cnt = cnt;
 //        this.receive_in = receive_in;

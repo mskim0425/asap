@@ -28,10 +28,9 @@ public class MainController {
 	private final WarehouseService warehouseService;
 
 	@PostMapping("/prod")
-	public ResponseEntity<EverythingDto> addProduct(@RequestBody EverythingDto everythingDto) {
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody EverythingDto everythingDto) { //TODO: request 수정
 		productService.save(everythingDto);
 		releaseService.sSave(everythingDto);
-		warehouseService.wSave(everythingDto);
 
 		return new ResponseEntity<>(productService.findById(everythingDto.getPId()), HttpStatus.OK);
 	}

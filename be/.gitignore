@@ -37,4 +37,4 @@ out/
 .vscode/
 .gradle
 ###.yml ###
- src/test/resources/application.yml
+src/test/resources/application.yml

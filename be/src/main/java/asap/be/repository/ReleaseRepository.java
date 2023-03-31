@@ -10,6 +10,7 @@ import java.util.List;
 public interface ReleaseRepository {
 	void sSave(EverythingDto everythingDto);
 
+	Integer cnt(Long pId);
 	void release(ReleaseStockDto stockDto);
 
 	void update(ReleaseStockDto stockDto);

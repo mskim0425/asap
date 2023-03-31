@@ -22,6 +22,11 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
+    public Integer cnt(Long pId) {
+        return releaseMybatisRepository.cnt(pId);
+    }
+
+    @Override
     @Transactional
     public void release(ReleaseStockDto stockDto) {
         releaseMybatisRepository.release(stockDto);

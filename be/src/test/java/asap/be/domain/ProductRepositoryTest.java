@@ -60,17 +60,20 @@ class ProductRepositoryTest {
 				.pCode("4534554533")
 				.build();
 
-		Stock stock = new Stock(product.getPId(), 1L, 10, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		Stock stock = new Stock(product.getPId(), 1L, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),10);
 		//TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
 
+		Integer cnt = releaseMybatisRepository.cnt(product.getPId());
 		EverythingDto everythingDto = EverythingDto.builder()
 				.pname(product.getPName())
 				.price(product.getPrice())
 				.pcode(product.getPCode())
 				.wId(1L)
-				.cnt(stock.getCnt())
+				.cnt(cnt==null ? 0 : cnt)
+				.pinsert(10)
 				.receiveIn(stock.getReceive_in())
 				.build();
+
 
 		//when
 		productMybatisRepository.save(everythingDto);
@@ -79,6 +82,7 @@ class ProductRepositoryTest {
 		//then
 		EverythingDto findProd = productMybatisRepository.findById(everythingDto.getPId());
 		assertThat(findProd.getPId()).isEqualTo(everythingDto.getPId());
+		assertThat(findProd.getCnt()).isEqualTo(everythingDto.getCnt()+10);
 	}
 
 	@Test

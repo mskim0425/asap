@@ -21,6 +21,11 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
+    public Integer cnt(Long pId) {
+        return releaseMapper.cnt(pId);
+    }
+
+    @Override
     public void release(ReleaseStockDto stockDto) {
         releaseMapper.release(stockDto) ;
     }
