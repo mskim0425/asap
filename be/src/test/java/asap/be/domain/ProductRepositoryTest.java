@@ -1,8 +1,7 @@
 package asap.be.domain;
 
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.RequestDto;
-import asap.be.repository.ProductRepository;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
@@ -60,27 +59,26 @@ class ProductRepositoryTest {
 				.price(10000)
 				.pCode("4534554533")
 				.build();
-		Stock stock = new Stock(product.getPId(), 10, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		Warehouse warehouse = new Warehouse(product.getPId(), "TEMP WAREHOUSE NAME", "SEOUL");
 
-		ProductDto productDto = ProductDto.builder()
+		Stock stock = new Stock(product.getPId(), 1L, 10, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		//TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
+
+		EverythingDto everythingDto = EverythingDto.builder()
 				.pname(product.getPName())
 				.price(product.getPrice())
 				.pcode(product.getPCode())
+				.wId(1L)
 				.cnt(stock.getCnt())
 				.receiveIn(stock.getReceive_in())
-				.wname(warehouse.getWName())
-				.wloc(warehouse.getWLoc())
 				.build();
 
 		//when
-		productMybatisRepository.save(productDto);
-		releaseMybatisRepository.sSave(productDto);
-		warehouseMybatisRepository.wSave(productDto);
+		productMybatisRepository.save(everythingDto);
+		releaseMybatisRepository.sSave(everythingDto);
 
 		//then
-		ProductDto findProd = productMybatisRepository.findById(productDto.getPId());
-		assertThat(findProd.getPId()).isEqualTo(productDto.getPId());
+		EverythingDto findProd = productMybatisRepository.findById(everythingDto.getPId());
+		assertThat(findProd.getPId()).isEqualTo(everythingDto.getPId());
 	}
 
 	@Test
@@ -166,10 +164,10 @@ class ProductRepositoryTest {
 		Long pId = 5L;
 
 		// when
-		ProductDto productDto = productMybatisRepository.findById(pId);
+		EverythingDto everythingDto = productMybatisRepository.findById(pId);
 
 		// then
-		assertThat(productDto.getPId()).isEqualTo(pId);
+		assertThat(everythingDto.getPId()).isEqualTo(pId);
 	}
 
 	@Test
@@ -180,8 +178,8 @@ class ProductRepositoryTest {
 		String pName2 = "Fish";
 
 		// when
-		List<ProductDto> wrong = productMybatisRepository.findByName(pName1);
-		List<ProductDto> right = productMybatisRepository.findByName(pName2);
+		List<EverythingDto> wrong = productMybatisRepository.findByName(pName1);
+		List<EverythingDto> right = productMybatisRepository.findByName(pName2);
 
 		// then
 		assertThat(wrong).isNullOrEmpty();
@@ -194,7 +192,7 @@ class ProductRepositoryTest {
 		// given
 
 		// when
-		List<ProductDto> list = productMybatisRepository.findByAll();
+		List<EverythingDto> list = productMybatisRepository.findByAll();
 
 		// then
 		assertThat(list).isNotNull();

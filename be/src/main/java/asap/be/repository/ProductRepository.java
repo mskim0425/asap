@@ -1,17 +1,17 @@
 package asap.be.repository;
 
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.RequestDto;
 
 import java.util.List;
 
 public interface ProductRepository {
-	void save(ProductDto productDto);
+	void save(EverythingDto everythingDto);
 	void status(RequestDto.UpdatePStatus requestDto);
 	void name(RequestDto.UpdatePName requestDto);
 	void price(RequestDto.UpdatePrice requestDto);
 	void barcode(RequestDto.UpdatePCode requestDto);
-	ProductDto findById(Long pId);
-	List<ProductDto> findByName(String pName);
-	List<ProductDto> findByAll();
+	EverythingDto findById(Long pId);
+	List<EverythingDto> findByName(String pName);
+	List<EverythingDto> findByAll();
 }

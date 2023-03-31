@@ -1,6 +1,6 @@
 package asap.be.service;
 
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.RequestDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class ProductServiceImpl implements ProductService{
     private final ProductMybatisRepository productMybatisRepository;
     @Override
     @Transactional
-    public void save(ProductDto dto) {
+    public void save(EverythingDto dto) {
         productMybatisRepository.save(dto);
     }
 
@@ -45,19 +45,19 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional(readOnly = true)
-    public ProductDto findById(Long pId) {
+    public EverythingDto findById(Long pId) {
         return productMybatisRepository.findById(pId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductDto> findByName(String pName) {
+    public List<EverythingDto> findByName(String pName) {
         return productMybatisRepository.findByName(pName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductDto> findByAll() {
+    public List<EverythingDto> findByAll() {
         return productMybatisRepository.findByAll();
     }
 }

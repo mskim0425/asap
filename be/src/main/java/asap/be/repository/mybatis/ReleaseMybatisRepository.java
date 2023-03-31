@@ -2,7 +2,7 @@ package asap.be.repository.mybatis;
 
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.ReleaseStockDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
 
     @Override
-    public void sSave(ProductDto productDto) {
-        releaseMapper.sSave(productDto);
+    public void sSave(EverythingDto everythingDto) {
+        releaseMapper.sSave(everythingDto);
     }
 
     @Override

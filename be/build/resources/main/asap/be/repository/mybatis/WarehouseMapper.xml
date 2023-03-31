@@ -4,8 +4,8 @@
 <mapper namespace="asap.be.repository.mybatis.WarehouseMapper">
 
     <insert id="wSave" useGeneratedKeys="true">
-        INSERT INTO Warehouse_table (sId, wName, wLoc)
-        VALUES (#{sId}, #{wname}, #{wloc});
+        INSERT INTO Warehouse_table (wName, wLoc)
+        VALUES (#{wname}, #{wloc});
     </insert>
 
     <update id="wChangeName">

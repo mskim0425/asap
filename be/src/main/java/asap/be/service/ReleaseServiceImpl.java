@@ -2,7 +2,7 @@ package asap.be.service;
 
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
-import asap.be.dto.ProductDto;
+import asap.be.dto.EverythingDto;
 import asap.be.dto.ReleaseStockDto;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class ReleaseServiceImpl implements ReleaseService {
     private final ReleaseMybatisRepository releaseMybatisRepository;
 
     @Override
-    public void sSave(ProductDto productDto) {
-        releaseMybatisRepository.sSave(productDto);
+    public void sSave(EverythingDto everythingDto) {
+        releaseMybatisRepository.sSave(everythingDto);
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Stock {
     private Long sId;
+    private Long wId;
     private int cnt;
     private String receive_in;
 
