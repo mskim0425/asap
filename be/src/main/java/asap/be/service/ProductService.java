@@ -1,6 +1,7 @@
 package asap.be.service;
 
 import asap.be.dto.EverythingDto;
+import asap.be.dto.MoneyDto;
 import asap.be.dto.RequestDto;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface ProductService {
     EverythingDto findById(Long pId);
     List<EverythingDto> findByName(String pName);
     List<EverythingDto> findByAll();
+
 }
