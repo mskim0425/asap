@@ -49,4 +49,7 @@
         SELECT * FROM Stock_table WHERE pId = #{pId}
     </select>
 
+    <select id="totalByDate" resultType="Integer">
+        SELECT SUM(total) FROM Release_table WHERE release_at = #{release_at}
+    </select>
 </mapper>

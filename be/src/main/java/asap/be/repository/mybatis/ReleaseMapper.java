@@ -19,4 +19,6 @@ public interface ReleaseMapper {
     List<Release> findAll();
     List<Release> findReleaseById(Long sId);
     Stock findStockByPId(Long pId);
+
+    Integer totalByDate(String receiveIn);
 }

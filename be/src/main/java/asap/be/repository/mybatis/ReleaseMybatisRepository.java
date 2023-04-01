@@ -49,4 +49,9 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     public Stock findStockByPId(Long pId) {
         return releaseMapper.findStockByPId(pId);
     }
+
+    @Override
+    public Integer totalByDate(String receiveIn) {
+        return releaseMapper.totalByDate(receiveIn);
+    }
 }
