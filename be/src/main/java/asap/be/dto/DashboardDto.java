@@ -14,15 +14,6 @@ public class DashboardDto {
 	@Builder
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class MoneyDto {
-		private String date; //09-01 식으로
-		private int money;
-	}
-
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class ProductCntDto {
 		private String date;
 		private int insertCnt;
