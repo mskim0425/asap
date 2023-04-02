@@ -1,6 +1,9 @@
 package asap.be.service;
 
 import asap.be.dto.DashboardDto.*;
+import asap.be.dto.CountryDto;
+import asap.be.dto.MoneyDto;
+import asap.be.dto.YearStatusDto;
 
 import java.util.List;
 
@@ -11,4 +14,6 @@ public interface DashBoardService {
     List<ProductCntDto> CntProduct(Long pId);
 
     RankDto ProductCntRank();
+    List<YearStatusDto> getMonthlyStockSummary(String year);
+    List<CountryDto> getCountryProductStauts(); // TODO: 오타 수정해주세여
 }

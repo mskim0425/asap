@@ -47,8 +47,12 @@
         SELECT * FROM Stock_table WHERE pId = #{pId}
     </select>
 
-    <select id="totalByDate" resultType="Integer">
-        SELECT SUM(total) FROM Release_table WHERE release_at = #{release_at}
+    <select id="totalByDates" resultType="MoneyDto">
+        SELECT release_at AS releaseat, SUM(total) AS money
+        FROM Release_table
+        WHERE release_at BETWEEN #{start_date} AND #{end_date}
+        GROUP BY release_at
+        ORDER BY release_at
     </select>
 
     <select id="insertCnt" resultType="java.util.Map">
@@ -100,4 +104,49 @@
         ORDER BY releaseCnt DESC
         LIMIT 10;
     </select>
+
+    <resultMap id="yearStatusResult" type="YearStatusDto">
+        <result property="month" column="month"/>
+        <result property="allQuantity" column="total_cnt"/>
+        <result property="allReleaseAt" column="total_quantity"/>
+        <result property="allInsert" column="total_pInsert"/>
+    </resultMap>
+    <select id="getMonthlyStockSummary" resultMap="yearStatusResult">
+        SELECT
+            m.month,
+            COALESCE(s.total_cnt, 0) AS total_cnt,
+            COALESCE(s.total_pInsert, 0) AS total_pInsert,
+            COALESCE(s.total_quantity, 0) AS total_quantity
+        FROM
+            (   SELECT 1 AS month
+                UNION SELECT 2
+                UNION SELECT 3
+                UNION SELECT 4
+                UNION SELECT 5
+                UNION SELECT 6
+                UNION SELECT 7
+                UNION SELECT 8
+                UNION SELECT 9
+                UNION SELECT 10
+                UNION SELECT 11
+                UNION SELECT 12
+            ) AS m
+                LEFT JOIN (
+                SELECT
+                    MONTH(s.receive_in) AS month,
+                    SUM(s.cnt) AS total_cnt,
+                    SUM(s.pInsert) AS total_pInsert,
+                    SUM(r.quantity) AS total_quantity
+                FROM
+                    Stock_table s
+                    LEFT JOIN Release_table r ON s.sId = r.sId
+                WHERE
+                    YEAR(s.receive_in) = #{year} OR YEAR(r.release_at) = #{year}
+                GROUP BY
+                    MONTH(s.receive_in)
+            ) AS s ON m.month = s.month
+        ORDER BY
+            m.month
+    </select>
+
 </mapper>

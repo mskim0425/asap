@@ -1,57 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="10787eae-d474-4e6a-a83c-33ee43bd716c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/checksums/md5-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/checksums/sha1-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/dependencies-accessors/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/7.6.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/file-system.probe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/domain/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/domain/Release.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/domain/Stock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/domain/Warehouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/dto/ReleaseStockDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/ProductMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/ProductRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/ReleaseMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/ReleaseRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/WarehouseMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/repository/WarehouseRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/ProductServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/ReleaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/ReleaseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/WarehouseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/java/asap/be/service/WarehouseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/resources/asap/be/repository/ProductMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/resources/asap/be/repository/ReleaseMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/be/src/main/resources/asap/be/repository/Warehouse.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/be/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="c8a85e74-7bd0-480e-ac6c-7c2c0642259d" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,31 +18,27 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2NdHdQizxp3p3niSJwPGagwm3OY" />
+  <component name="ProjectId" id="2NmmNPBntfIqVm10aP8aCVVUpu6" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/Desktop/asap/be/build.gradle&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/hyoreal51/IdeaProjects/asap"
   }
-}</component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="138be8c4-ed46-45e2-83b8-a14911e3878d" name="Changes" comment="" />
-      <created>1679987126145</created>
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="c8a85e74-7bd0-480e-ac6c-7c2c0642259d" name="변경" comment="" />
+      <created>1680277590654</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1679987126145</updated>
-      <workItem from="1679987128316" duration="349000" />
+      <updated>1680277590654</updated>
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>

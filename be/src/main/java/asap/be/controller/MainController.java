@@ -63,11 +63,13 @@ public class MainController {
 
 	@GetMapping("/date/{p-id}")
 	public ResponseEntity getProductCntByDate(@PathVariable("p-id") Long pId) {
+
 		return new ResponseEntity<>(dashBoardService.CntProduct(pId), HttpStatus.OK);
 	}
 
 	@GetMapping("/temp")
 	public ResponseEntity getTop10() {
+
 		return new ResponseEntity<>(dashBoardService.ProductCntRank(), HttpStatus.OK);
 	}
 //

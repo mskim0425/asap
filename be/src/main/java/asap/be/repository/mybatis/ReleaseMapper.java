@@ -3,7 +3,9 @@ package asap.be.repository.mybatis;
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.MoneyDto;
 import asap.be.dto.ReleaseStockDto;
+import asap.be.dto.YearStatusDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,7 +28,9 @@ public interface ReleaseMapper {
 
     Stock findStockByPId(Long pId);
 
-    Integer totalByDate(String receiveIn);
+
+    List<MoneyDto> totalByDates(String start_date, String end_date);
+    List<YearStatusDto> getMonthlyStockSummary(String year);
 
     List<Map<String, Object>> insertCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
 
@@ -35,4 +39,5 @@ public interface ReleaseMapper {
     List<Map<String, Object>> insertCntRank(String receive_in);
 
     List<Map<String, Object>> releaseCntRank(String release_at);
+
 }

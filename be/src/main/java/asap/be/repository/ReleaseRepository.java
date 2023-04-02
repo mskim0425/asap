@@ -3,7 +3,9 @@ package asap.be.repository;
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.MoneyDto;
 import asap.be.dto.ReleaseStockDto;
+import asap.be.dto.YearStatusDto;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,9 @@ public interface ReleaseRepository {
 
 	Stock findStockByPId(Long pId);
 
-	Integer totalByDate(String receiveIn);
+	List<MoneyDto> totalByDate(String start, String end);
+
+	List<YearStatusDto> getMonthlyStockSummary(String year);
 
 	List<Map<String, Object>> insertCnt(Long pId, String startAt, String endAt);
 

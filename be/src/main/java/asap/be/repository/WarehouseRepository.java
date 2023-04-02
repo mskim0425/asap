@@ -1,6 +1,7 @@
 package asap.be.repository;
 
 import asap.be.domain.Warehouse;
+import asap.be.dto.CountryDto;
 import asap.be.dto.EverythingDto;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface WarehouseRepository {
 	List<Warehouse> findWarehouseByName(String wName);
 
 	List<Warehouse> findWarehouseByLoc(String wLoc);
+
+    List<CountryDto> countryStaus();
 }

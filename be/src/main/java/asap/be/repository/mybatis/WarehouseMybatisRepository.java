@@ -1,6 +1,7 @@
 package asap.be.repository.mybatis;
 
 import asap.be.domain.Warehouse;
+import asap.be.dto.CountryDto;
 import asap.be.dto.EverythingDto;
 import asap.be.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,10 @@ public class WarehouseMybatisRepository implements WarehouseRepository {
 
     public List<Warehouse> findWarehouseByLoc(String wLoc) {
         return warehouseMapper.findWarehouseByLoc(wLoc);
+    }
+
+    @Override
+    public List<CountryDto> countryStaus() {
+        return warehouseMapper.countryStaus();
     }
 }

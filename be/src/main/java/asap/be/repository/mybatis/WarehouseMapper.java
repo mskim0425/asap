@@ -1,6 +1,7 @@
 package asap.be.repository.mybatis;
 
 import asap.be.domain.Warehouse;
+import asap.be.dto.CountryDto;
 import asap.be.dto.EverythingDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,6 @@ public interface WarehouseMapper {
     void wChangeLoc(@Param("wLoc") String wLoc, @Param("wName") String wName);
     List<Warehouse> findWarehouseByName(String wName);
     List<Warehouse> findWarehouseByLoc(String wLoc);
+
+    List<CountryDto> countryStaus();
 }
