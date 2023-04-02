@@ -4,6 +4,7 @@ import asap.be.dto.DashboardDto.*;
 import asap.be.dto.CountryDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
@@ -118,28 +119,26 @@ class DashBoardServiceImplTest {
         //TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
 
         Integer cnt = releaseMybatisRepository.cnt(product.getPId());
-        EverythingDto everythingDto = EverythingDto.builder()
-                .pname(product.getPName())
+        PostProductDto productDto = PostProductDto.builder()
+                .pName(product.getPName())
                 .price(product.getPrice())
-                .pcode(product.getPCode())
-                .wId(9999999L)
-                .wname("RED")
-                .wloc("zzz country")
-                .cnt(10000)
-                .pinsert(10)
-                .receiveIn(stock.getReceive_in())
+                .pCode(product.getPCode())
+                .wId(1L)
+//				.cnt(cnt==null ? 0 : cnt)
+                .pInsert(10)
+//				.receiveIn(stock.getReceive_in())
                 .build();
 
 
         //when
-        productMybatisRepository.save(everythingDto);
-        warehouseMybatisRepository.wSave(everythingDto);
+        productMybatisRepository.save(productDto);
+        releaseMybatisRepository.sSave(productDto);
 
         List<CountryDto> countryProductStauts = dashBoardService.getCountryProductStauts();
         for (CountryDto dto : countryProductStauts) {
             log.info("{} 에 있는 창고에 {}",dto.getCountryName(), dto.getProductCnt());
         }
 
-        Assertions.assertThat(countryProductStauts.get(countryProductStauts.size() - 1).getCountryName()).isEqualTo(everythingDto.getWloc());
+        Assertions.assertThat(countryProductStauts.get(countryProductStauts.size() - 1).getCountryName()).isEqualTo("South Korea");
     }
 }

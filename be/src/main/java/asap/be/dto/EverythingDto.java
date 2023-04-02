@@ -20,7 +20,6 @@ public class EverythingDto {
 	private Long wId;
 	private String wname;
 	private String wloc;
-	private int pstatus;
-	private int pinsert;
+	private int pStatus;
 }
 //TODO: request용과 전체데이터관리용 dto 변경 필요

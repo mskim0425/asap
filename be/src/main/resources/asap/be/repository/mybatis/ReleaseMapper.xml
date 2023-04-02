@@ -11,7 +11,7 @@
 
     <insert id="sSave" useGeneratedKeys="true" parameterType="EverythingDto">
         INSERT INTO Stock_table (wId,pId, cnt, receive_in, pInsert)
-        VALUES (#{wId}, #{pId}, #{cnt} + #{pinsert}, now(), #{pinsert});
+        VALUES (#{wId}, #{pId}, IFNULL(cnt, #{pInsert}), now(), #{pInsert});
 
         <selectKey resultType="Long" keyProperty="sId" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -44,7 +44,11 @@
     </select>
 
     <select id="findStockByPId" resultType="Stock">
-        SELECT * FROM Stock_table WHERE pId = #{pId}
+        SELECT * FROM Stock_table WHERE pId = #{pId} AND sId = #{sId}
+    </select>
+
+    <select id="findStockByPNameAndWId" resultType="Stock">
+        SELECT * FROM Stock_table WHERE pId = (SELECT pId FROM product_table WHERE pName = #{pName}) AND wId = #{wId}
     </select>
 
     <select id="totalByDates" resultType="MoneyDto">
@@ -148,5 +152,14 @@
         ORDER BY
             m.month
     </select>
+
+    <!--  상품이 존재한다면 업데이트  -->
+    <update id="updateStock">
+        UPDATE Stock_table
+        SET cnt = cnt + #{pInsert}, receive_in = NOW()
+        WHERE wId = #{wId} AND pId = (
+        SELECT pId FROM Product_table WHERE pName = #{pName}
+        );
+    </update>
 
 </mapper>

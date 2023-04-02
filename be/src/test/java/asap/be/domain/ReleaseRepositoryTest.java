@@ -62,10 +62,12 @@ public class ReleaseRepositoryTest {
 	void update() {
 		// given
 		Long pId = 2L;
+		Long sId = 2L;
 		int quantity = 13;
 
 		ReleaseStockDto stockDto = ReleaseStockDto.builder()
 				.pId(pId)
+				.sId(sId)
 				.quantity(quantity)
 				.build();
 

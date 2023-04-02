@@ -9,6 +9,7 @@ public class RequestDto {
 	@Builder
 	public static class UpdatePName {
 		private Long pId;
+		private Long sId;
 		private String pName;
 	}
 
@@ -16,6 +17,7 @@ public class RequestDto {
 	@Builder
 	public static class UpdatePrice {
 		private Long pId;
+		private Long sId;
 		private int price;
 	}
 
@@ -23,6 +25,7 @@ public class RequestDto {
 	@Builder
 	public static class UpdatePCode {
 		private Long pId;
+		private Long sId;
 		private String pCode;
 	}
 
@@ -30,6 +33,7 @@ public class RequestDto {
 	@Builder
 	public static class	UpdatePStatus{
 		private Long pId;
+		private Long sId;
 		private int pStatus;
 	}
 }

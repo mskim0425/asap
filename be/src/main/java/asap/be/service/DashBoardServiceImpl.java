@@ -1,6 +1,5 @@
 package asap.be.service;
 
-
 import asap.be.dto.DashboardDto.*;
 import asap.be.dto.CountryDto;
 import asap.be.dto.MoneyDto;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +27,6 @@ public class DashBoardServiceImpl implements DashBoardService {
 	public List<ProductCntDto> CntProduct(Long pId) {
 
 		List<ProductCntDto> result = new ArrayList<>();
-
-//		String startdate = "2022-01-01";
-//		String enddate = "2022-01-21";
-//
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//		LocalDate start = LocalDate.parse(startdate, formatter);
-//		LocalDate end = LocalDate.parse(enddate, formatter);
 
 		LocalDate today = LocalDate.now().minusDays(1);
 		LocalDate start = today.minusDays(20); // 최근 21일위한
@@ -99,7 +90,7 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public List<CountryDto> getCountryProductStauts() {
-        return warehouseMybatisRepository.countryStaus();
+    public List<CountryDto> getCountryProductStauts() { // 오타...
+        return warehouseMybatisRepository.countryStaus(); // 여기둥...
     }
 }
