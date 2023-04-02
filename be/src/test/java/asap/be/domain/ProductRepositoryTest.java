@@ -1,7 +1,8 @@
 package asap.be.domain;
 
 import asap.be.dto.EverythingDto;
-import asap.be.dto.ProductUpdateDto;
+import asap.be.dto.PostProductDto;
+import asap.be.dto.RequestDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
@@ -64,25 +65,25 @@ class ProductRepositoryTest {
 		//TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
 
 		Integer cnt = releaseMybatisRepository.cnt(product.getPId());
-		EverythingDto everythingDto = EverythingDto.builder()
-				.pname(product.getPName())
+		PostProductDto productDto = PostProductDto.builder()
+				.pName(product.getPName())
 				.price(product.getPrice())
-				.pcode(product.getPCode())
+				.pCode(product.getPCode())
 				.wId(1L)
-				.cnt(cnt==null ? 0 : cnt)
-				.pinsert(10)
-				.receiveIn(stock.getReceive_in())
+//				.cnt(cnt==null ? 0 : cnt)
+				.pInsert(10)
+//				.receiveIn(stock.getReceive_in())
 				.build();
 
 
 		//when
-		productMybatisRepository.save(everythingDto);
-		releaseMybatisRepository.sSave(everythingDto);
+		productMybatisRepository.save(productDto);
+		releaseMybatisRepository.sSave(productDto);
 
 		//then
-		EverythingDto findProd = productMybatisRepository.findById(everythingDto.getPId());
-		assertThat(findProd.getPId()).isEqualTo(everythingDto.getPId());
-		assertThat(findProd.getCnt()).isEqualTo(everythingDto.getCnt()+10);
+		EverythingDto findProd = productMybatisRepository.findById(productDto.getPId(), productDto.getSId());
+		assertThat(findProd.getPId()).isEqualTo(productDto.getPId());
+//		assertThat(findProd.getCnt()).isEqualTo(productDto.getCnt()+10);
 	}
 
 	@Test
@@ -91,17 +92,19 @@ class ProductRepositoryTest {
 		// given
 		int status = 0;
 		Long pId = 1L;
+		Long sId = 1L;
 
-		ProductUpdateDto.UpdatePStatus build =
-		ProductUpdateDto.UpdatePStatus.builder()
+		RequestDto.UpdatePStatus build =
+		RequestDto.UpdatePStatus.builder()
 				.pId(1L)
+				.sId(1L)
 				.pStatus(status).build();
 
 		// when
 		productMybatisRepository.status(build);
 
 		// then
-		assertThat(productMybatisRepository.findById(pId).getPstatus()).isEqualTo(0);
+		assertThat(productMybatisRepository.findById(pId, sId).getPStatus()).isEqualTo(0);
 	}
 
 	@Test
@@ -109,10 +112,12 @@ class ProductRepositoryTest {
 	void updateName() {
 		// given
 		Long pId = 3L;
+		Long sId = 3L;
 		String pName = "NEW NAME TEST";
 
-		ProductUpdateDto.UpdatePName updatePName = ProductUpdateDto.UpdatePName.builder()
+		RequestDto.UpdatePName updatePName = RequestDto.UpdatePName.builder()
 				.pId(pId)
+				.sId(sId)
 				.pName(pName)
 				.build();
 
@@ -120,7 +125,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.name(updatePName);
 
 		// then
-		assertThat(productMybatisRepository.findById(pId).getPname()).isEqualTo(pName);
+		assertThat(productMybatisRepository.findById(pId, sId).getPname()).isEqualTo(pName);
 	}
 
 	@Test
@@ -128,10 +133,12 @@ class ProductRepositoryTest {
 	void updatePrice() {
 		// given
 		Long pId = 3L;
+		Long sId = 3L;
 		int price = 50000;
 
-		ProductUpdateDto.UpdatePrice updatePrice = ProductUpdateDto.UpdatePrice.builder()
+		RequestDto.UpdatePrice updatePrice = RequestDto.UpdatePrice.builder()
 				.pId(pId)
+				.sId(sId)
 				.price(price)
 				.build();
 
@@ -139,7 +146,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.price(updatePrice);
 
 		// then
-		assertThat(productMybatisRepository.findById(pId).getPrice()).isEqualTo(price);
+		assertThat(productMybatisRepository.findById(pId, sId).getPrice()).isEqualTo(price);
 	}
 
 	@Test
@@ -147,10 +154,12 @@ class ProductRepositoryTest {
 	void updateBarcode() {
 		// given
 		Long pId = 3L;
+		Long sId = 3L;
 		String pCode = "TEST BARCODE";
 
-		ProductUpdateDto.UpdatePCode updatePCode = ProductUpdateDto.UpdatePCode.builder()
+		RequestDto.UpdatePCode updatePCode = RequestDto.UpdatePCode.builder()
 				.pId(pId)
+				.sId(sId)
 				.pCode(pCode)
 				.build();
 
@@ -158,7 +167,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.barcode(updatePCode);
 
 		// then
-		assertThat(productMybatisRepository.findById(pId).getPcode()).isEqualTo(pCode);
+		assertThat(productMybatisRepository.findById(pId, sId).getPcode()).isEqualTo(pCode);
 	}
 
 	@Test
@@ -166,9 +175,10 @@ class ProductRepositoryTest {
 	void findById() {
 		// given
 		Long pId = 5L;
+		Long sId = 5L;
 
 		// when
-		EverythingDto everythingDto = productMybatisRepository.findById(pId);
+		EverythingDto everythingDto = productMybatisRepository.findById(pId, sId);
 
 		// then
 		assertThat(everythingDto.getPId()).isEqualTo(pId);

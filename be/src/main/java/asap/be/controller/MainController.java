@@ -2,15 +2,21 @@ package asap.be.controller;
 
 import asap.be.aop.ForUpdate;
 import asap.be.domain.Product;
+import asap.be.domain.Stock;
+import asap.be.dto.CountryDto;
+import asap.be.dto.DashboardDto;
 import asap.be.dto.EverythingDto;
-import asap.be.dto.ProductUpdateDto;
+import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
+import asap.be.dto.RequestDto;
+import asap.be.dto.YearStatusDto;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
 import asap.be.service.ProductService;
 import asap.be.service.ReleaseService;
 import asap.be.service.WarehouseService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -36,17 +43,26 @@ public class MainController {
 	private final NotificationService notificationService;
 
 	@PostMapping("/prod")
-	public ResponseEntity<EverythingDto> addProduct(@RequestBody EverythingDto everythingDto) { //TODO: request 수정
-		productService.save(everythingDto);
-		releaseService.sSave(everythingDto);
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) { //TODO: request 수정
+		// TODO: 동일 pId, wId를 갖는 상품이 존재할 경우 입고해야함. 현재는 저장만 됨
+		Long pId, sId;
+		if (productService.existProductByNameAndWId(productDto.getPName(), productDto.getWId())){
+			releaseService.updateStock(productDto);
+			Stock s = releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId());
+			pId = s.getPId(); sId = s.getSId();
+		} else {
+			productService.save(productDto);
+			releaseService.sSave(productDto);
+			pId = productDto.getPId(); sId = productDto.getSId();
+		}
 
-		return new ResponseEntity<>(productService.findById(everythingDto.getPId()), HttpStatus.OK);
+		return new ResponseEntity<>(productService.findById(pId, sId), HttpStatus.OK);
 	}
 
 	@PatchMapping("/prod/{p-id}")
 	public ResponseEntity<List<EverythingDto>> deleteProduct(@PathVariable("p-id") Long pId) {
 
-		ProductUpdateDto.UpdatePStatus build = ProductUpdateDto.UpdatePStatus.builder().pStatus(0).pId(pId).build();
+		RequestDto.UpdatePStatus build = RequestDto.UpdatePStatus.builder().pStatus(0).pId(pId).build();
 		productService.delete(build);
 
 		return new ResponseEntity<>(productService.findByAll(), HttpStatus.OK);
@@ -61,39 +77,35 @@ public class MainController {
 		return new ResponseEntity<>( HttpStatus.OK);
 	}
 
-	@GetMapping("/date/{p-id}")
-	public ResponseEntity getProductCntByDate(@PathVariable("p-id") Long pId) {
+	@GetMapping("/cnt-product-by-date/{p-id}")
+	public ResponseEntity<List<DashboardDto.ProductCntDto>> getProductCntByDate(@PathVariable("p-id") Long pId) {
 
 		return new ResponseEntity<>(dashBoardService.CntProduct(pId), HttpStatus.OK);
 	}
 
-	@GetMapping("/temp")
-	public ResponseEntity getTop10() {
+	@GetMapping("/product-rank")
+	public ResponseEntity<DashboardDto.RankDto> getTop10() {
 
 		return new ResponseEntity<>(dashBoardService.ProductCntRank(), HttpStatus.OK);
 	}
-//
-//
-//	@PatchMapping("/prod")
-//	public ResponseEntity<EverythingDto> updateProductName(@RequestBody RequestDto.UpdatePName updatePName) {
-//		productService.name(updatePName);
-//
-//		return new ResponseEntity<>(productService.findById(updatePName.getPId()), HttpStatus.OK);
-//	}
-//
-//	@PatchMapping("/prod")
-//	public ResponseEntity<EverythingDto> updateProductPrice(@RequestBody RequestDto.UpdatePrice updatePrice) {
-//		productService.price(updatePrice);
-//
-//		return new ResponseEntity<>(productService.findById(updatePrice.getPId()), HttpStatus.OK);
-//	}
-//
-//	@PatchMapping("/prod")
-//	public ResponseEntity<EverythingDto> updateProductPCode(@RequestBody RequestDto.UpdatePCode updatePCode) {
-//		productService.barcode(updatePCode);
-//
-//		return new ResponseEntity<>(productService.findById(updatePCode.getPId()), HttpStatus.OK);
-//	}
+
+	@GetMapping("/total-product-amount")
+	public ResponseEntity<List<MoneyDto>> getTotalProductAmount(@RequestParam String startDate, @RequestParam String endDate) {
+
+		return new ResponseEntity<>(dashBoardService.TotalProductAmount(startDate, endDate), HttpStatus.OK);
+	}
+
+	@GetMapping("/monthly-stock-summary")
+	public ResponseEntity<List<YearStatusDto>> getMonthlyStockSum(@RequestParam String year) {
+
+		return new ResponseEntity<>(dashBoardService.getMonthlyStockSummary(year), HttpStatus.OK);
+	}
+
+	@GetMapping("/country-product-status")
+	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
+
+		return new ResponseEntity<>(dashBoardService.getCountryProductStauts(), HttpStatus.OK);
+	}
 
 	/**
 	 * SSE 통신

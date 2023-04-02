@@ -1,7 +1,8 @@
 package asap.be.repository.mybatis;
 
 import asap.be.dto.EverythingDto;
-import asap.be.dto.ProductUpdateDto;
+import asap.be.dto.PostProductDto;
+import asap.be.dto.RequestDto;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,34 +15,34 @@ public class ProductMybatisRepository implements ProductRepository {
     private final ProductMapper productMapper;
 
     @Override
-    public void save(EverythingDto everythingDto) {
-        productMapper.save(everythingDto);
+    public void save(PostProductDto productDto) {
+        productMapper.save(productDto);
     }
 
     @Override
-    public void status(ProductUpdateDto.UpdatePStatus requestDto) {
+    public void status(RequestDto.UpdatePStatus requestDto) {
         productMapper.status(requestDto);
     }
 
 
     @Override
-    public void name(ProductUpdateDto.UpdatePName requestDto) {
+    public void name(RequestDto.UpdatePName requestDto) {
         productMapper.name(requestDto);
     }
 
     @Override
-    public void price(ProductUpdateDto.UpdatePrice requestDto) {
+    public void price(RequestDto.UpdatePrice requestDto) {
         productMapper.price(requestDto);
     }
 
     @Override
-    public void barcode(ProductUpdateDto.UpdatePCode requestDto) {
+    public void barcode(RequestDto.UpdatePCode requestDto) {
         productMapper.barcode(requestDto);
     }
 
     @Override
-    public EverythingDto findById(Long pId) {
-        return productMapper.findById(pId);
+    public EverythingDto findById(Long pId, Long sId) {
+        return productMapper.findById(pId, sId);
     }
 
     @Override
@@ -52,6 +53,11 @@ public class ProductMybatisRepository implements ProductRepository {
     @Override
     public List<EverythingDto> findByAll() {
         return productMapper.findByAll();
+    }
+
+    @Override
+    public Boolean existProductByNameAndWId(String pName, Long wId) {
+        return productMapper.existProductByNameAndWId(pName, wId);
     }
 
 }

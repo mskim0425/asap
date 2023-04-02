@@ -14,6 +14,8 @@ public interface DashBoardService {
     List<ProductCntDto> CntProduct(Long pId);
 
     RankDto ProductCntRank();
+
     List<YearStatusDto> getMonthlyStockSummary(String year);
+
     List<CountryDto> getCountryProductStauts(); // TODO: 오타 수정해주세여
 }

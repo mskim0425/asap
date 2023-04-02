@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
 import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
@@ -20,7 +21,7 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
 
     @Override
-    public void sSave(EverythingDto everythingDto) {
+    public void sSave(PostProductDto everythingDto) {
         releaseMapper.sSave(everythingDto);
     }
 
@@ -55,6 +56,11 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
+    public Stock findStockByPNameAndWId(String pName, Long wId) {
+        return releaseMapper.findStockByPNameAndWId(pName, wId);
+    }
+
+    @Override
     public List<MoneyDto> totalByDate(String start, String end) {
         return releaseMapper.totalByDates(start, end);
     }
@@ -82,6 +88,11 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     @Override
     public List<Map<String, Object>> releaseCntRank(String release_at) {
         return releaseMapper.releaseCntRank(release_at);
+    }
+
+    @Override
+    public void updateStock(PostProductDto productDto) {
+        releaseMapper.updateStock(productDto);
     }
 
 }
