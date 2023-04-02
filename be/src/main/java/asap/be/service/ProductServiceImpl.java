@@ -1,7 +1,7 @@
 package asap.be.service;
 
 import asap.be.dto.EverythingDto;
-import asap.be.dto.RequestDto;
+import asap.be.dto.ProductUpdateDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,25 +21,25 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public void delete(RequestDto.UpdatePStatus dto) {
+    public void delete(ProductUpdateDto.UpdatePStatus dto) {
         productMybatisRepository.status(dto);
     }
 
     @Override
     @Transactional
-    public void name(RequestDto.UpdatePName requestDto) {
+    public void name(ProductUpdateDto.UpdatePName requestDto) {
         productMybatisRepository.name(requestDto);
     }
 
     @Override
     @Transactional
-    public void price(RequestDto.UpdatePrice requestDto) {
+    public void price(ProductUpdateDto.UpdatePrice requestDto) {
         productMybatisRepository.price(requestDto);
     }
 
     @Override
     @Transactional
-    public void barcode(RequestDto.UpdatePCode requestDto) {
+    public void barcode(ProductUpdateDto.UpdatePCode requestDto) {
          productMybatisRepository.barcode(requestDto);
     }
 

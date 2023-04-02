@@ -1,7 +1,7 @@
 package asap.be.repository.mybatis;
 
 import asap.be.dto.EverythingDto;
-import asap.be.dto.RequestDto;
+import asap.be.dto.ProductUpdateDto;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,23 +19,23 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public void status(RequestDto.UpdatePStatus requestDto) {
+    public void status(ProductUpdateDto.UpdatePStatus requestDto) {
         productMapper.status(requestDto);
     }
 
 
     @Override
-    public void name(RequestDto.UpdatePName requestDto) {
+    public void name(ProductUpdateDto.UpdatePName requestDto) {
         productMapper.name(requestDto);
     }
 
     @Override
-    public void price(RequestDto.UpdatePrice requestDto) {
+    public void price(ProductUpdateDto.UpdatePrice requestDto) {
         productMapper.price(requestDto);
     }
 
     @Override
-    public void barcode(RequestDto.UpdatePCode requestDto) {
+    public void barcode(ProductUpdateDto.UpdatePCode requestDto) {
         productMapper.barcode(requestDto);
     }
 

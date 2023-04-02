@@ -3,7 +3,7 @@ package asap.be.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-public class RequestDto {
+public class ProductUpdateDto {
 
 	@Getter
 	@Builder

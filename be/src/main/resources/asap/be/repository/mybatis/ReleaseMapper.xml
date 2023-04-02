@@ -10,7 +10,6 @@
     </select>
 
     <insert id="sSave" useGeneratedKeys="true" parameterType="EverythingDto">
-
         INSERT INTO Stock_table (wId,pId, cnt, receive_in, pInsert)
         VALUES (#{wId}, #{pId}, #{cnt} + #{pinsert}, now(), #{pinsert});
 
@@ -20,7 +19,6 @@
     </insert>
 
     <update id="release" parameterType="ReleaseStockDto">
-
             UPDATE Stock_table
             SET cnt = cnt - #{s.quantity}
             WHERE pId = #{s.pId};
@@ -51,5 +49,55 @@
 
     <select id="totalByDate" resultType="Integer">
         SELECT SUM(total) FROM Release_table WHERE release_at = #{release_at}
+    </select>
+
+    <select id="insertCnt" resultType="java.util.Map">
+        SELECT DATE_FORMAT(t.date_range, '%Y-%m-%d') AS receive_in, IFNULL(SUM(s.pInsert), 0) AS pInsert
+        FROM (
+            SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS date_range
+            FROM (SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t4,
+                 (SELECT 0 t16 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t16,
+                 (SELECT 0 t64 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t64
+            HAVING date_range BETWEEN #{start_at} AND #{end_at}
+        ) t
+        LEFT JOIN Stock_table s ON t.date_range = DATE(s.receive_in) AND s.pId = #{pId}
+        GROUP BY DATE_FORMAT(t.date_range, '%Y-%m-%d')
+        ORDER BY receive_in ASC;
+    </select>
+
+    <select id="releaseCnt" resultType="java.util.Map">
+        SELECT DATE_FORMAT(t.date_range, '%Y-%m-%d') AS release_at, IFNULL(SUM(r.quantity), 0) AS pRelease
+        FROM (
+            SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS date_range
+            FROM (SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t4,
+                 (SELECT 0 t16 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t16,
+                 (SELECT 0 t64 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t64
+            HAVING date_range BETWEEN #{start_at} AND #{end_at}
+        ) t
+        LEFT JOIN Release_table r ON t.date_range = DATE(r.release_at) AND r.sId = #{pId}
+        GROUP BY DATE_FORMAT(t.date_range, '%Y-%m-%d')
+        ORDER BY release_at ASC;
+    </select>
+
+    <select id="insertCntRank" resultType="java.util.Map">
+        SELECT RANK() OVER (ORDER BY SUM(pInsert) DESC) as ranking,
+               (SELECT pName From Product_table WHERE pId = sId) AS pName,
+               SUM(pInsert) as insertCnt
+        FROM Stock_table
+        WHERE receive_in = #{receive_in}
+        GROUP BY pName
+        ORDER BY insertCnt DESC
+        LIMIT 10;
+    </select>
+
+    <select id="releaseCntRank" resultType="java.util.Map">
+        SELECT RANK() OVER (ORDER BY SUM(quantity) DESC) as ranking,
+               (SELECT pName From Product_table WHERE pId = sId) AS pName,
+               SUM(quantity) as releaseCnt
+        FROM Release_table
+        WHERE release_at = #{release_at}
+        GROUP BY pName
+        ORDER BY releaseCnt DESC
+        LIMIT 10;
     </select>
 </mapper>

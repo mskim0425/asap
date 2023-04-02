@@ -1,6 +1,6 @@
 package asap.be.domain;
 
-import asap.be.dto.MoneyDto;
+import asap.be.dto.DashboardDto.*;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
@@ -20,7 +20,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @Slf4j
@@ -55,13 +55,36 @@ class DashBoardServiceImplTest {
 
     @Test
     @DisplayName("날짜와 함께 조회되는지")
-    void first_display(){
+    void first_display() {
         List<MoneyDto> moneyDtos = dashBoardService.TotalProductAmount("2023-03-20", "2023-04-01");
         for (MoneyDto dto : moneyDtos) {
             log.info(dto.getDate() + " "+ dto.getMoney());
         }
 
         Assertions.assertThat(moneyDtos.size()).isEqualTo(13);
+    }
+
+    @Test
+    @DisplayName("날짜, 입고량, 출고량 조회")
+    void cntProduct() {
+        // given
+        String pName = "Meat";
+        Long pId = 2L;
+
+        // when
+        List<ProductCntDto> list = dashBoardService.CntProduct(pId);
+
+        for (ProductCntDto dto : list)
+            log.info(dto.getDate() + " " + dto.getInsertCnt() + " " + dto.getReleaseCnt());
+
+        // then
+        assertThat(list.size()).isEqualTo(21);
+    }
+
+    @Test
+    @DisplayName("일별 입고량/출고량 TOP 10")
+    void top10() {
+        RankDto rankDto = dashBoardService.ProductCntRank();
     }
 
 }
