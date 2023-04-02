@@ -1,5 +1,6 @@
 package asap.be.domain;
 
+import asap.be.dto.DashboardDto.*;
 import asap.be.dto.CountryDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
@@ -25,7 +26,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @Slf4j
@@ -70,6 +71,29 @@ class DashBoardServiceImplTest {
     }
 
     @Test
+    @DisplayName("날짜, 입고량, 출고량 조회")
+    void cntProduct() {
+        // given
+        String pName = "Meat";
+        Long pId = 2L;
+
+        // when
+        List<ProductCntDto> list = dashBoardService.CntProduct(pId);
+
+        for (ProductCntDto dto : list)
+            log.info(dto.getDate() + " " + dto.getInsertCnt() + " " + dto.getReleaseCnt());
+
+        // then
+        assertThat(list.size()).isEqualTo(21);
+    }
+
+    @Test
+    @DisplayName("일별 입고량/출고량 TOP 10")
+    void top10() {
+        RankDto rankDto = dashBoardService.ProductCntRank();
+    }
+
+
     @DisplayName("연도 주입시 1월-12월까지 출력여부")
     void sec_display(){
         List<YearStatusDto> monthlyStockSummary = dashBoardService.getMonthlyStockSummary("2022");

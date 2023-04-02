@@ -8,6 +8,7 @@ import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -62,4 +63,25 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     public List<YearStatusDto> getMonthlyStockSummary(String year) {
         return releaseMapper.getMonthlyStockSummary(year);
     }
+
+    @Override
+    public List<Map<String, Object>> insertCnt(Long pId, String startAt, String endAt) {
+        return releaseMapper.insertCnt(pId, startAt, endAt);
+    }
+
+    @Override
+    public List<Map<String, Object>> releaseCnt(Long pId, String startAt, String endAt) {
+        return releaseMapper.releaseCnt(pId, startAt, endAt);
+    }
+
+    @Override
+    public List<Map<String, Object>> insertRank(String receive_in) {
+        return releaseMapper.insertCntRank(receive_in);
+    }
+
+    @Override
+    public List<Map<String, Object>> releaseCntRank(String release_at) {
+        return releaseMapper.releaseCntRank(release_at);
+    }
+
 }

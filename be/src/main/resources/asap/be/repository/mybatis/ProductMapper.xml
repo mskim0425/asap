@@ -14,17 +14,17 @@
 
     <update id="status">
         UPDATE Product_table SET pStatus = #{p.pStatus}
-        WHERE pId = #{p.pId}
+        WHERE pId = #{p.pId}, sId = #{p.sId}
     </update>
     
     <update id="name">
         UPDATE Product_table SET pName = #{p.pName}
-        WHERE pId = #{p.pId}
+        WHERE pId = #{p.pId}, sId = #{p.sId}
     </update>
 
     <update id="price">
         UPDATE Product_table SET price = #{p.price}
-        WHERE pId = #{p.pId}
+        WHERE pId = #{p.pId}, sId = #{p.sId}
     </update>
 
     <update id="barcode">

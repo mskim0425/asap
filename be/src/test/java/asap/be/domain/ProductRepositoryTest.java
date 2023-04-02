@@ -1,7 +1,7 @@
 package asap.be.domain;
 
 import asap.be.dto.EverythingDto;
-import asap.be.dto.RequestDto;
+import asap.be.dto.ProductUpdateDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
@@ -92,8 +92,8 @@ class ProductRepositoryTest {
 		int status = 0;
 		Long pId = 1L;
 
-		RequestDto.UpdatePStatus build =
-		RequestDto.UpdatePStatus.builder()
+		ProductUpdateDto.UpdatePStatus build =
+		ProductUpdateDto.UpdatePStatus.builder()
 				.pId(1L)
 				.pStatus(status).build();
 
@@ -111,7 +111,7 @@ class ProductRepositoryTest {
 		Long pId = 3L;
 		String pName = "NEW NAME TEST";
 
-		RequestDto.UpdatePName updatePName = RequestDto.UpdatePName.builder()
+		ProductUpdateDto.UpdatePName updatePName = ProductUpdateDto.UpdatePName.builder()
 				.pId(pId)
 				.pName(pName)
 				.build();
@@ -130,7 +130,7 @@ class ProductRepositoryTest {
 		Long pId = 3L;
 		int price = 50000;
 
-		RequestDto.UpdatePrice updatePrice = RequestDto.UpdatePrice.builder()
+		ProductUpdateDto.UpdatePrice updatePrice = ProductUpdateDto.UpdatePrice.builder()
 				.pId(pId)
 				.price(price)
 				.build();
@@ -149,7 +149,7 @@ class ProductRepositoryTest {
 		Long pId = 3L;
 		String pCode = "TEST BARCODE";
 
-		RequestDto.UpdatePCode updatePCode = RequestDto.UpdatePCode.builder()
+		ProductUpdateDto.UpdatePCode updatePCode = ProductUpdateDto.UpdatePCode.builder()
 				.pId(pId)
 				.pCode(pCode)
 				.build();

@@ -14,15 +14,30 @@ import java.util.Map;
 
 @Mapper
 public interface ReleaseMapper {
-    Long sSave(EverythingDto everythingDto);
+    void sSave(EverythingDto everythingDto);
 
     Integer cnt(Long pId);
+
     void release(@Param("s") ReleaseStockDto stockDto);
+
     void update(@Param("s") ReleaseStockDto stockDto);
+
     List<Release> findAll();
+
     List<Release> findReleaseById(Long sId);
+
     Stock findStockByPId(Long pId);
+
 
     List<MoneyDto> totalByDates(String start_date, String end_date);
     List<YearStatusDto> getMonthlyStockSummary(String year);
+
+    List<Map<String, Object>> insertCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+
+    List<Map<String, Object>> releaseCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+
+    List<Map<String, Object>> insertCntRank(String receive_in);
+
+    List<Map<String, Object>> releaseCntRank(String release_at);
+
 }
