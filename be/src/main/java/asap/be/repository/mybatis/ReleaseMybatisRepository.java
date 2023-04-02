@@ -3,12 +3,15 @@ package asap.be.repository.mybatis;
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.MoneyDto;
 import asap.be.dto.ReleaseStockDto;
+import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -51,7 +54,12 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public Integer totalByDate(String receiveIn) {
-        return releaseMapper.totalByDate(receiveIn);
+    public List<MoneyDto> totalByDate(String start, String end) {
+        return releaseMapper.totalByDates(start, end);
+    }
+
+    @Override
+    public List<YearStatusDto> getMonthlyStockSummary(String year) {
+        return releaseMapper.getMonthlyStockSummary(year);
     }
 }

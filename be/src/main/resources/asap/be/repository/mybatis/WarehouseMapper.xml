@@ -30,4 +30,9 @@
         WHERE wLoc = #{wLoc}
     </select>
 
+    <select id="countryStaus" resultType="CountryDto">
+        SELECT w.wLoc AS countryName, COUNT(s.wId) AS productCnt
+        FROM Warehouse_table w LEFT OUTER JOIN Stock_table s ON w.wId = s.wId
+        GROUP BY w.wLoc;
+    </select>
 </mapper>

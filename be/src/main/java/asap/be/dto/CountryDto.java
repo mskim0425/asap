@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MoneyDto {
-    private String releaseat; //2023-09-01 식으로
-    private int money;
+public class CountryDto {
+    private String countryName;
+    private int productCnt;
 }
-
