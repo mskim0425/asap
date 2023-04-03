@@ -50,8 +50,8 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public RankDto ProductCntRank() {
 		String date = LocalDate.now().toString();
-		List<Map<String, Object>> insertRankList = releaseMybatisRepository.insertRank("2022-01-01");
-		List<Map<String, Object>> releaseRankList = releaseMybatisRepository.releaseCntRank("2022-01-01");
+		List<Map<String, Object>> insertRankList = releaseMybatisRepository.insertRank(date);
+		List<Map<String, Object>> releaseRankList = releaseMybatisRepository.releaseCntRank(date);
 
 		return RankDto.builder()
 				.insertRankDto(insertRankList)

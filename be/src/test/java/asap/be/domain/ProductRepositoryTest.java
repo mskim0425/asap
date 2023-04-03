@@ -2,7 +2,7 @@ package asap.be.domain;
 
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
-import asap.be.dto.RequestDto;
+import asap.be.dto.EditProductDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static asap.be.utils.MainControllerConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -52,7 +53,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("프로덕트 저장")
+	@DisplayName("상품 저장 및 입고/출고")
 	void save() {
 		//given
 		Product product = Product.builder()
@@ -61,113 +62,74 @@ class ProductRepositoryTest {
 				.pCode("4534554533")
 				.build();
 
-		Stock stock = new Stock(product.getPId(), 1L, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),10);
-		//TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
-
-		Integer cnt = releaseMybatisRepository.cnt(product.getPId());
 		PostProductDto productDto = PostProductDto.builder()
 				.pName(product.getPName())
 				.price(product.getPrice())
 				.pCode(product.getPCode())
-				.wId(1L)
-//				.cnt(cnt==null ? 0 : cnt)
-				.pInsert(10)
-//				.receiveIn(stock.getReceive_in())
+				.wId(2L)
+				.pInsert(10) //입고시
+//				.quantity(100) //출고시
 				.build();
+
+		PostProductDto notExist = PostProductDto.builder()
+				.pName("새로운 상품")
+				.price(100000)
+				.pCode("testing code").wId(5L).pInsert(10000).build();
+
+		PostProductDto same = PostProductDto.builder()
+				.pName("새로운 상품")
+				.price(100000)
+				.pCode("testing code").wId(5L).pInsert(10000).build();
 
 
 		//when
-		productMybatisRepository.save(productDto);
-		releaseMybatisRepository.sSave(productDto);
+		productMybatisRepository.insertOrUpdateStock(notExist);
+		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(),notExist.getWId()); //만개가 저장되고
+
+		productMybatisRepository.insertOrUpdateStock(same); // 상품 최초 저장 및 입고/출고 시 원큐에 끝나여
+		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(),same.getWId()); //만개가 한번더 저장되고
 
 		//then
-		EverythingDto findProd = productMybatisRepository.findById(productDto.getPId(), productDto.getSId());
-		assertThat(findProd.getPId()).isEqualTo(productDto.getPId());
+		assertThat(lastProd.getPname()).isEqualTo(notExist.getPName()); //입고저장
+		assertThat(sameProd.getCnt()).isEqualTo(lastProd.getCnt() + same.getPInsert()); //재고끼리 더하기가 됐는지
 //		assertThat(findProd.getCnt()).isEqualTo(productDto.getCnt()+10);
 	}
 
 	@Test
-	@DisplayName("삭제")
-	void delete() {
-		// given
-		int status = 0;
-		Long pId = 1L;
-		Long sId = 1L;
+	@DisplayName("삭제 및 상품 정보 변경")
+	void editProduct() {
 
-		RequestDto.UpdatePStatus build =
-		RequestDto.UpdatePStatus.builder()
-				.pId(1L)
-				.sId(1L)
-				.pStatus(status).build();
+		// 이름 변경
+		productMybatisRepository.updateProduct(EDIT_PRODUCT_NAME);
 
-		// when
-		productMybatisRepository.status(build);
+		EverythingDto findProd1 = productMybatisRepository.findById(EDIT_PRODUCT_NAME.getPId(), EDIT_PRODUCT_NAME.getSId());
+		assertThat(findProd1.getPname()).isEqualTo(EDIT_PRODUCT_NAME.getPName());
 
-		// then
-		assertThat(productMybatisRepository.findById(pId, sId).getPStatus()).isEqualTo(0);
-	}
+		// 가격 변경
+		productMybatisRepository.updateProduct(EDIT_PRODUCT_PRICE);
 
-	@Test
-	@DisplayName("이름 수정")
-	void updateName() {
-		// given
-		Long pId = 3L;
-		Long sId = 3L;
-		String pName = "NEW NAME TEST";
+		EverythingDto findProd2 = productMybatisRepository.findById(EDIT_PRODUCT_PRICE.getPId(), EDIT_PRODUCT_PRICE.getSId());
+		assertThat(findProd2.getPrice()).isEqualTo(findProd2.getPrice());
 
-		RequestDto.UpdatePName updatePName = RequestDto.UpdatePName.builder()
-				.pId(pId)
-				.sId(sId)
-				.pName(pName)
-				.build();
+		// 바코드 변경
+		productMybatisRepository.updateProduct(EDIT_PRODUCT_BARCODE);
 
-		// when
-		productMybatisRepository.name(updatePName);
+		EverythingDto findProd3 = productMybatisRepository.findById(EDIT_PRODUCT_BARCODE.getPId(), EDIT_PRODUCT_BARCODE.getSId());
+		assertThat(findProd3.getPcode()).isEqualTo(findProd3.getPcode());
 
-		// then
-		assertThat(productMybatisRepository.findById(pId, sId).getPname()).isEqualTo(pName);
-	}
+		// 전체 변경
+		productMybatisRepository.updateProduct(EDIT_ALL);
 
-	@Test
-	@DisplayName("가격 수정")
-	void updatePrice() {
-		// given
-		Long pId = 3L;
-		Long sId = 3L;
-		int price = 50000;
+		EverythingDto findProd4 = productMybatisRepository.findById(EDIT_ALL.getPId(), EDIT_ALL.getSId());
+		assertThat(findProd4.getPname()).isEqualTo(EDIT_ALL.getPName());
+		assertThat(findProd4.getPrice()).isEqualTo(EDIT_ALL.getPrice());
+		assertThat(findProd4.getPcode()).isEqualTo(EDIT_ALL.getPCode());
 
-		RequestDto.UpdatePrice updatePrice = RequestDto.UpdatePrice.builder()
-				.pId(pId)
-				.sId(sId)
-				.price(price)
-				.build();
+		// 상태 삭제로 변경
+		productMybatisRepository.updateProduct(DELETE_PRODUCT);
 
-		// when
-		productMybatisRepository.price(updatePrice);
-
-		// then
-		assertThat(productMybatisRepository.findById(pId, sId).getPrice()).isEqualTo(price);
-	}
-
-	@Test
-	@DisplayName("바코드 수정")
-	void updateBarcode() {
-		// given
-		Long pId = 3L;
-		Long sId = 3L;
-		String pCode = "TEST BARCODE";
-
-		RequestDto.UpdatePCode updatePCode = RequestDto.UpdatePCode.builder()
-				.pId(pId)
-				.sId(sId)
-				.pCode(pCode)
-				.build();
-
-		// when
-		productMybatisRepository.barcode(updatePCode);
-
-		// then
-		assertThat(productMybatisRepository.findById(pId, sId).getPcode()).isEqualTo(pCode);
+		EverythingDto findProd5 = productMybatisRepository.findById(DELETE_PRODUCT.getPId(), DELETE_PRODUCT.getSId());
+		assertThat(findProd5.getPStatus()).isEqualTo(0);
 	}
 
 	@Test

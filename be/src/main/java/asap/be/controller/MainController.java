@@ -1,14 +1,11 @@
 package asap.be.controller;
 
-import asap.be.aop.ForUpdate;
-import asap.be.domain.Product;
-import asap.be.domain.Stock;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DashboardDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.PostProductDto;
-import asap.be.dto.RequestDto;
+import asap.be.dto.EditProductDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
@@ -16,7 +13,7 @@ import asap.be.service.ProductService;
 import asap.be.service.ReleaseService;
 import asap.be.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -44,35 +41,17 @@ public class MainController {
 
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
-		Long pId, sId;
-		if (productService.existProductByNameAndWId(productDto.getPName(), productDto.getWId())){
-			releaseService.updateStock(productDto);
-			Stock s = releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId());
-			pId = s.getPId(); sId = s.getSId();
-		} else {
-			productService.save(productDto);
-			releaseService.sSave(productDto);
-			pId = productDto.getPId(); sId = productDto.getSId();
-		}
-		return new ResponseEntity<>(productService.findById(pId, sId), HttpStatus.OK);
+		log.info("요청이 왔는지 여부 확인");
+		productService.insertOrUpdateStock(productDto);
+		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId()), HttpStatus.OK);
+
 	}
 
-	@PatchMapping("/prod/{p-id}")
-	public ResponseEntity<List<EverythingDto>> deleteProduct(@PathVariable("p-id") Long pId) {
-
-		RequestDto.UpdatePStatus build = RequestDto.UpdatePStatus.builder().pStatus(0).pId(pId).build();
-		productService.delete(build);
-
-		return new ResponseEntity<>(productService.findByAll(), HttpStatus.OK);
-	}
-
-	@ForUpdate
 	@PatchMapping("/prod")
-	public ResponseEntity<EverythingDto> updateProductName(Product product) {
+	public ResponseEntity<EverythingDto> deleteAndUpdateProduct(@RequestBody EditProductDto dto) {
 
-//		productService.name(updatePName);
-
-		return new ResponseEntity<>( HttpStatus.OK);
+		productService.updateProduct(dto);
+		return new ResponseEntity<>(productService.findById(dto.getPId(), dto.getSId()), HttpStatus.OK);
 	}
 
 	@GetMapping("/cnt-product-by-date/{p-id}")

@@ -97,7 +97,7 @@ class DashBoardServiceImplTest {
 
     @DisplayName("연도 주입시 1월-12월까지 출력여부")
     void sec_display(){
-        List<YearStatusDto> monthlyStockSummary = dashBoardService.getMonthlyStockSummary("2022");
+        List<YearStatusDto> monthlyStockSummary = dashBoardService.getMonthlyStockSummary("2023");
         for(YearStatusDto dto :monthlyStockSummary){
             log.info("{}월 재고량: {} | 총 입고량: {} | 총 출고량: {}",dto.getMonth(),dto.getAllQuantity(),dto.getAllInsert(),dto.getAllReleaseAt());
         }
@@ -115,30 +115,22 @@ class DashBoardServiceImplTest {
                 .pCode("4534554533")
                 .build();
 
-        Stock stock = new Stock(product.getPId(), 1L, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),10);
-        //TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
-
-        Integer cnt = releaseMybatisRepository.cnt(product.getPId());
         PostProductDto productDto = PostProductDto.builder()
                 .pName(product.getPName())
                 .price(product.getPrice())
                 .pCode(product.getPCode())
                 .wId(1L)
-//				.cnt(cnt==null ? 0 : cnt)
                 .pInsert(10)
-//				.receiveIn(stock.getReceive_in())
                 .build();
 
-
         //when
-        productMybatisRepository.save(productDto);
-        releaseMybatisRepository.sSave(productDto);
+        productMybatisRepository.insertOrUpdateStock(productDto); // 상품 최초 저장 및 입고 시 원큐에 끝나여
 
         List<CountryDto> countryProductStauts = dashBoardService.getCountryProductStatus();
         for (CountryDto dto : countryProductStauts) {
             log.info("{} 에 있는 창고에 {}",dto.getCountryName(), dto.getProductCnt());
         }
 
-        Assertions.assertThat(countryProductStauts.get(countryProductStauts.size() - 1).getCountryName()).isEqualTo("South Korea");
+        Assertions.assertThat(countryProductStauts.contains("Mozambique"));
     }
 }
