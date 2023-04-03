@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -86,6 +87,9 @@ public class MainController {
 
 	/**
 	 * SSE 통신
+	 * sse 통신 위해 MIME 타입은 text/event-stream 로 지정
+	 *
+	 * lastEventId : 클라이언트 미수신 Event 유실 예방 위함
 	 */
 	@GetMapping(value = "/connect", produces = "text/event-stream")
 	public SseEmitter sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {

@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notification {
-	private Long id;
-	private Long userId;
+	private String userId;
 	private String title; // 알림 대표 제목(?)
 	private String content; // 알림 내용
 	private NotificationType notificationType;

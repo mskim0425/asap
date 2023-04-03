@@ -1,17 +1,5 @@
 package asap.be.controller;
 
-import static asap.be.utils.MainControllerConstants.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.will;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import asap.be.dto.DashboardDto;
 import asap.be.service.DashBoardService;
 import com.google.gson.Gson;
@@ -33,6 +21,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static asap.be.utils.MainControllerConstants.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
 @SpringBootTest
@@ -169,7 +168,7 @@ public class DashboardRestDocs {
 	@DisplayName("나라 별 재고 분포도 테스트")
 	void getCountryProductStatus() throws Exception {
 
-		given(dashBoardService.getCountryProductStauts()).willReturn(COUNTRY_DTO_LIST);
+		given(dashBoardService.getCountryProductStatus()).willReturn(COUNTRY_DTO_LIST);
 
 		ResultActions actions =
 				mockMvc.perform(RestDocumentationRequestBuilders.get("/api/country-product-status")

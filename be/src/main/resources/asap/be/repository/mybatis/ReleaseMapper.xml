@@ -4,19 +4,19 @@
 <mapper namespace="asap.be.repository.mybatis.ReleaseMapper">
 
     <select id="cnt" resultType="Integer">
-            SELECT cnt
-            FROM Stock_table
-            WHERE pId = #{pId};
+        SELECT cnt
+        FROM Stock_table
+        WHERE pId = #{pId};
     </select>
 
     <update id="release" parameterType="ReleaseStockDto">
-            UPDATE Stock_table
-            SET cnt = cnt - #{s.quantity}
-            WHERE pId = #{s.pId};
+        UPDATE Stock_table
+        SET cnt = cnt - #{s.quantity}
+        WHERE pId = #{s.pId};
 
-            INSERT INTO Release_table (sId, quantity, total, release_at)
-            VALUES (#{s.pId}, #{s.quantity},
-            (SELECT price * #{s.quantity} FROM Product_table WHERE pId = #{s.pId}), now());
+        INSERT INTO Release_table (sId, quantity, total, release_at)
+        VALUES (#{s.pId}, #{s.quantity},
+        (SELECT price * #{s.quantity} FROM Product_table WHERE pId = #{s.pId}), now());
 
     </update>
 
@@ -149,13 +149,5 @@
         ORDER BY
             m.month
     </select>
-
-    <!--  상품이 존재한다면 업데이트  -->
-    <update id="updateStock">
-        UPDATE Stock_table
-        JOIN Product_table ON Stock_table.pId = Product_table.pId
-        SET cnt = cnt + #{pInsert}, receive_in = NOW()
-        WHERE Product_table.pName = #{pName} AND Stock_table.wId = #{wId}
-    </update>
 
 </mapper>
