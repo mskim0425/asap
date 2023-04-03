@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,12 +36,12 @@ public class NotificationServiceImpl implements NotificationService{
 		sendToClient(emitter, id, "연결되었습니다. " + id + "님");
 
 		// 미수신 Event 목록 존재 시 전송으로 Event 유실 방지
-		if (!lastEventId.isEmpty()) {
-			Map<String, SseEmitter> events = emitterRepository.findAllStartById(id);
-			events.entrySet().stream()
-					.filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
-					.forEach(entry -> sendToClient(emitter, entry.getKey(), entry.getValue()));
-		}
+//		if (!lastEventId.isEmpty()) {
+//			List<Map<String, Object>> events = emitterRepository.findAllStartById(id);
+//			events.entrySet().stream()
+//					.filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
+//					.forEach(entry -> sendToClient(emitter, entry.getKey(), entry.getValue()));
+//		}
 
 		return emitter;
 	}

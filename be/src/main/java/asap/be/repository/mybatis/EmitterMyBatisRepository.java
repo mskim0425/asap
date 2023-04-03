@@ -4,6 +4,8 @@ import asap.be.repository.EmitterRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -13,13 +15,11 @@ public class EmitterMyBatisRepository implements EmitterRepository {
 	public final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 	public final Map<String, Object> eventCache = new ConcurrentHashMap<>();
 
-	@Override
 	public SseEmitter save(String id, SseEmitter sseEmitter) {
 		emitters.put(id, sseEmitter);
 		return sseEmitter;
 	}
 
-	@Override
 	public void saveEventCache(String id, Object event) {
 		eventCache.put(id, event);
 	}
@@ -31,10 +31,11 @@ public class EmitterMyBatisRepository implements EmitterRepository {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	@Override
 	public void deleteAllStartByWithId(String id) {
 		emitters.forEach((key, emitter) -> {
-			if (key.startsWith(id)) emitters.remove(key);
+			if (key.startsWith(id)) {
+				emitters.remove(key);
+			}
 		});
 	}
 }

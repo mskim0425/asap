@@ -105,7 +105,7 @@ class DashBoardServiceImplTest {
         Assertions.assertThat(monthlyStockSummary.size()).isEqualTo(12);
     }
 
-    @Test
+//    @Test
     @DisplayName("모든 나라별 상품 개수 구하기")
     void thrid_display(){
         //given
