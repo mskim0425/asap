@@ -87,3 +87,23 @@ include::{snippets}/product-rank/response-body.adoc[]
 
 .Response-Fields
 include::{snippets}/product-rank/response-fields.adoc[]
+
+=== 날짜별로 얻어낸 수익 측정
+
+.Curl-Request
+include::{snippets}/total-product-amount/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/total-product-amount/http-request.adoc[]
+
+.Request-Body
+ NULL
+
+.Http-Response
+include::{snippets}/total-product-amount/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/total-product-amount/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/total-product-amount/response-fields.adoc[]

@@ -30,6 +30,7 @@
         SELECT COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
         #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert} FROM dual
         WHERE NOT EXISTS (SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId})
+        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
         SELECT
         COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),

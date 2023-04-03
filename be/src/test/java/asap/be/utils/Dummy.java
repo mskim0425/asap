@@ -2,6 +2,7 @@ package asap.be.utils;
 
 import asap.be.dto.CountryDto;
 import asap.be.dto.DashboardDto;
+import asap.be.dto.MoneyDto;
 import asap.be.dto.YearStatusDto;
 
 public class Dummy {
@@ -244,6 +245,66 @@ public class Dummy {
 			CountryDto.builder()
 					.countryName("South Korea")
 					.productCnt(23)
+					.build();
+
+	public static final MoneyDto MONEY_DTO01 =
+			MoneyDto.builder()
+					.releaseat("2023-01-01")
+					.money(5000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO02 =
+			MoneyDto.builder()
+					.releaseat("2023-01-02")
+					.money(6000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO03 =
+			MoneyDto.builder()
+					.releaseat("2023-01-03")
+					.money(7000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO04 =
+			MoneyDto.builder()
+					.releaseat("2023-01-04")
+					.money(5000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO05 =
+			MoneyDto.builder()
+					.releaseat("2023-01-05")
+					.money(6000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO06 =
+			MoneyDto.builder()
+					.releaseat("2023-01-06")
+					.money(7000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO07 =
+			MoneyDto.builder()
+					.releaseat("2023-01-07")
+					.money(5000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO08 =
+			MoneyDto.builder()
+					.releaseat("2023-01-08")
+					.money(6000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO09 =
+			MoneyDto.builder()
+					.releaseat("2023-01-09")
+					.money(7000)
+					.build();
+
+	public static final MoneyDto MONEY_DTO10 =
+			MoneyDto.builder()
+					.releaseat("2023-01-10")
+					.money(5000)
 					.build();
 
 }
