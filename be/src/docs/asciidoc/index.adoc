@@ -1,0 +1,89 @@
+= ASAP
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Team <ASAP>
+
+v1.0.6, 2023.04.03
+
+***
+
+== DashboardService
+=== 월별 재고 현황
+.Curl-Request
+include::{snippets}/monthly-stock-summary/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/monthly-stock-summary/http-request.adoc[]
+
+.Request-Body
+ NULL
+
+.Http-Response
+include::{snippets}/monthly-stock-summary/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/monthly-stock-summary/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/monthly-stock-summary/response-fields.adoc[]
+
+=== 나라 별 재고 분포도
+.Curl-Request
+include::{snippets}/country-product-status/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/country-product-status/http-request.adoc[]
+
+.Request-Body
+ NULL
+
+.Http-Response
+include::{snippets}/country-product-status/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/country-product-status/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/country-product-status/response-fields.adoc[]
+
+=== 아이템 별 최신 21일 입/출고량
+.Curl-Request
+include::{snippets}/cnt-product-by-date/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/cnt-product-by-date/http-request.adoc[]
+
+.Request-Body
+ NULL
+
+.Http-Response
+include::{snippets}/cnt-product-by-date/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/cnt-product-by-date/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/cnt-product-by-date/response-fields.adoc[]
+
+=== 일별 상품 입/출고수 TOP 10
+.Curl-Request
+include::{snippets}/product-rank/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/product-rank/http-request.adoc[]
+
+.Request-Body
+ NULL
+
+.Http-Response
+include::{snippets}/product-rank/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/product-rank/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/product-rank/response-fields.adoc[]

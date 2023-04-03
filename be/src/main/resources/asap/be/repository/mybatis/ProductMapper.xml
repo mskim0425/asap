@@ -13,12 +13,11 @@
         WHERE pId = @pId AND wId = #{p.wId}
         FOR UPDATE;
 
-        START TRANSACTION;
-
         <!--    상품이 존재하는 경우 Stock_table 업데이트    -->
         UPDATE Stock_table
         SET cnt = cnt + #{p.pInsert}, pInsert = #{p.pInsert}, receive_in = NOW()
-        WHERE pId = @pId AND wId = #{p.wId};
+        WHERE pId = @pId AND wId = #{p.wId}
+        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
         <!--    상품이 존재하지 않는 경우 Product_table, Stock_table insert    -->
         INSERT INTO Product_table (pName, price, pCode, pStatus)
@@ -26,7 +25,8 @@
         FROM dual
         WHERE NOT EXISTS (
         SELECT 1 FROM Product_table WHERE pId = @pId
-        );
+        )
+        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
         INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
         SELECT
@@ -38,7 +38,8 @@
         FROM dual
         WHERE NOT EXISTS (
         SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId}
-        );
+        )
+        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
         UPDATE Stock_table
         SET cnt = cnt - #{p.quantity}
@@ -52,8 +53,6 @@
         AND Stock_table.pId = Product_table.pId
         AND Stock_table.pId = @pId
         AND Stock_table.wId = #{p.wId};
-
-        COMMIT;
     </insert>
 
     <update id="updateProduct">
