@@ -1,25 +1,35 @@
 .container {
   box-sizing: border-box;
   width: 90%;
-  background-color: #f8f9fa;
-  /* border: 10px solid pink; */
+  background-color: #f7f7f7;
+}
+
+.visualization,
+.data {
+  border: 1px solid orangered;
+  margin: 25px;
 }
 
 .visualization {
-  width: 100%;
   height: 30%;
-  border: 1px solid orangered;
 }
 
 .data {
-  /* border: 1px solid red; */
-  float: left;
-  width: 80%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  overflow: hidden;
+  /* float: left; */
+  box-sizing: border-box;
+  animation-name: pullUp;
+  animation-duration: 1.1s;
+  /* animation-direction: reverse; */
+  /* animation-timing-function: ease-out; */
+  /* transform-origin: 50% 100%; */
 }
 
 .search {
   padding: 10px;
-  background-color: #ecf3fe;
+  background-color: #f3fbff;
   overflow: hidden;
 }
 
@@ -65,19 +75,41 @@ input[type="text"] ~ div {
   border-radius: 0 5px 5px 0;
 }
 
-.list > div:nth-child(1),
-.list > div:nth-child(2) {
+.list-table {
+  display: table;
+  /* border: 1px solid red; */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.table-heading {
+  display: table-header-group;
+  background-color: #eeeeee;
+}
+.table-row,
+.info {
+  display: table-row;
+  /* background-color: antiquewhite; */
+}
+
+.head,
+.cell {
+  border-bottom: 1px solid #eee;
+  display: table-cell;
   padding: 10px;
-  display: flex;
-  justify-content: space-around;
 }
 
-.list > div:nth-child(1) {
-  background-color: lightgray;
-  margin-top: 15px;
+.table-content {
+  display: table-row-group;
 }
 
-.list > div:nth-child(2) {
+.info {
+  background-color: #fff;
+  border-bottom: 1px solid lightgray;
+}
+
+.info.active {
+  background-color: #f3fbff;
   border-bottom: 1px solid lightgray;
 }
 
@@ -114,5 +146,29 @@ input[type="text"] ~ div {
   .container {
     width: 100%;
     flex-direction: column;
+  }
+}
+
+@keyframes pullUp {
+  0% {
+    transform: scaleY(0.1);
+  }
+  40% {
+    transform: scaleY(1.02);
+  }
+  60% {
+    transform: scaleY(0.98);
+  }
+  80% {
+    transform: scaleY(1.01);
+  }
+  100% {
+    transform: scaleY(0.98);
+  }
+  80% {
+    transform: scaleY(1.01);
+  }
+  100% {
+    transform: scaleY(1);
   }
 }
