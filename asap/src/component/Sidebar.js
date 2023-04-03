@@ -1,13 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Sidebar.css";
 
 export default function Sidebar() {
-  const [tabIndex, setTabIndex] = useState(1);
   const navigate = useNavigate();
+  const tabId = localStorage.getItem("tabId");
 
-  const handleClick = (index, event) => {
-    setTabIndex(index);
+  const [tabIndex, setTabIndex] = useState(
+    localStorage.getItem("tabId") !== null ? Number(tabId) : 1
+  );
+
+  useEffect(() => {
+    setTabIndex(Number(tabId));
+  });
+
+  const handleClick = (id, event) => {
+    localStorage.setItem("tabId", JSON.stringify(id));
+    setTabIndex(id);
     if (event.target.innerText === "Dashboard") {
       navigate("/");
     } else {
@@ -22,13 +31,13 @@ export default function Sidebar() {
 
   return (
     <section className="sidebar">
-      {tab.map((el, index) => {
+      {tab.map((el) => {
         return (
           <div
-            key={index}
-            onClick={(e) => handleClick(index, e)}
+            key={el.id}
+            onClick={(e) => handleClick(el.id, e)}
             className={
-              tabIndex === index ? "menu-button active" : "menu-button"
+              tabIndex === el.id ? "menu-button active" : "menu-button"
             }
           >
             {el.category}

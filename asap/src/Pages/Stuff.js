@@ -1,6 +1,44 @@
 import "../style/stuff.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+import Error from "../component/Error/Error";
+import Loading from "../component/loading/Loading";
 
 export default function Stuff() {
+  const [loading, setloading] = useState(false);
+  const [error, setError] = useState(null);
+  const [list, setList] = useState(null);
+
+  const stuffList = async () => {
+    try {
+      setloading(true);
+      const response = await axios.get("http://localhost:3001/stuff");
+      setList(response.data);
+    } catch (e) {
+      setError(e);
+    }
+    setloading(false);
+  };
+
+  useEffect(() => {
+    stuffList();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="container">
+        <Loading></Loading>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="container">
+        <Error></Error>
+      </div>
+    );
+  if (!list) return null;
+
   return (
     <div className="container">
       <div className="visualization"></div>
@@ -13,28 +51,38 @@ export default function Stuff() {
           />
           <div>검색</div>
         </div>
-        <div className="list">
-          <div>
-            <span>상품 코드</span>
-            <span>상품명</span>
-            <span>수량</span>
-            <span>가격</span>
-            <span>총 가격</span>
-            <span>창고명</span>
-            <span>창고 위치</span>
+        <div className="list-table">
+          <div className="table-heading">
+            <div className="table-row">
+              <span class="head">상품명</span>
+              <span class="head">수량</span>
+              <span class="head">가격</span>
+              <span class="head">총 가격</span>
+              <span class="head">창고명</span>
+              <span class="head">창고 위치</span>
+            </div>
           </div>
-          <div>
-            <span>aaa</span>
-            <span>물</span>
-            <span>2개</span>
-            <span>1000원</span>
-            <span>2000원</span>
-            <span>빠빠좋</span>
-            <span>내마음속</span>
+          <div className="table-content">
+            {list.map((el, index) => {
+              console.log(index % 2);
+              return (
+                <div
+                  className={index % 2 === 0 ? "info" : "info active"}
+                  key={el.id}
+                >
+                  <span class="cell">{el.pName}</span>
+                  <span class="cell">{el.quantity}개</span>
+                  <span class="cell">{el.price}원</span>
+                  <span class="cell">총 {el.total}원</span>
+                  <span class="cell">{el.wName}</span>
+                  <span class="cell">{el.wLoc}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-      <div className="add-data">
+      {/* <div className="add-data">
         <div>
           <h4>수량코드</h4>
           <input type="text" id="code"></input>
@@ -67,7 +115,7 @@ export default function Stuff() {
           <button>추가</button>
         </div>
       </div>
-      <section></section>
+      <section></section> */}
     </div>
   );
 }
