@@ -134,7 +134,7 @@ class DashBoardServiceImplTest {
         productMybatisRepository.save(productDto);
         releaseMybatisRepository.sSave(productDto);
 
-        List<CountryDto> countryProductStauts = dashBoardService.getCountryProductStauts();
+        List<CountryDto> countryProductStauts = dashBoardService.getCountryProductStatus();
         for (CountryDto dto : countryProductStauts) {
             log.info("{} 에 있는 창고에 {}",dto.getCountryName(), dto.getProductCnt());
         }

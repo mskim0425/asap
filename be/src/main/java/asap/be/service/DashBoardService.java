@@ -17,5 +17,5 @@ public interface DashBoardService {
 
     List<YearStatusDto> getMonthlyStockSummary(String year);
 
-    List<CountryDto> getCountryProductStauts(); // TODO: 오타 수정해주세여
+    List<CountryDto> getCountryProductStatus(); // TOD  O: 오타 수정해주세여
 }

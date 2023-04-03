@@ -43,8 +43,7 @@ public class MainController {
 	private final NotificationService notificationService;
 
 	@PostMapping("/prod")
-	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) { //TODO: request 수정
-		// TODO: 동일 pId, wId를 갖는 상품이 존재할 경우 입고해야함. 현재는 저장만 됨
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
 		Long pId, sId;
 		if (productService.existProductByNameAndWId(productDto.getPName(), productDto.getWId())){
 			releaseService.updateStock(productDto);
@@ -55,7 +54,6 @@ public class MainController {
 			releaseService.sSave(productDto);
 			pId = productDto.getPId(); sId = productDto.getSId();
 		}
-
 		return new ResponseEntity<>(productService.findById(pId, sId), HttpStatus.OK);
 	}
 
@@ -104,7 +102,7 @@ public class MainController {
 	@GetMapping("/country-product-status")
 	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
 
-		return new ResponseEntity<>(dashBoardService.getCountryProductStauts(), HttpStatus.OK);
+		return new ResponseEntity<>(dashBoardService.getCountryProductStatus(), HttpStatus.OK);
 	}
 
 	/**
