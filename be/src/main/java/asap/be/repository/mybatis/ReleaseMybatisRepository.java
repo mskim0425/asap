@@ -4,7 +4,6 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
-import asap.be.dto.PostProductDto;
 import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
@@ -18,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
+
     @Override
     public Integer cnt(Long pId) {
         return releaseMapper.cnt(pId);
@@ -81,11 +81,6 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     @Override
     public List<Map<String, Object>> releaseCntRank(String release_at) {
         return releaseMapper.releaseCntRank(release_at);
-    }
-
-    @Override
-    public void updateStock(PostProductDto productDto) {
-        releaseMapper.updateStock(productDto);
     }
 
 }

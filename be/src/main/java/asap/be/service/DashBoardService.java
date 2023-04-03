@@ -18,4 +18,5 @@ public interface DashBoardService {
     List<YearStatusDto> getMonthlyStockSummary(String year);
 
     List<CountryDto> getCountryProductStatus();
+
 }

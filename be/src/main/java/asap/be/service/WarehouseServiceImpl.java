@@ -52,6 +52,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<CountryDto> countryStatus() {
-        return warehouseMybatisRepository.countryStaus();
+        return warehouseMybatisRepository.countryStaus(); // 🥲
     }
+
 }

@@ -19,5 +19,5 @@ public interface WarehouseRepository {
 
 	List<Warehouse> findWarehouseByLoc(String wLoc);
 
-    List<CountryDto> countryStaus();
+    List<CountryDto> countryStaus(); // 오타,,🥲
 }

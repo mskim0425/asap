@@ -1,10 +1,6 @@
 package asap.be.controller;
 
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
-import asap.be.service.ProductService;
 import asap.be.service.ProductServiceImpl;
-import asap.be.service.ReleaseServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,19 +16,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import static asap.be.utils.MainControllerConstants.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
+import static asap.be.utils.MainControllerConstants.RELEASE_PRODUCT;
+import static asap.be.utils.MainControllerConstants.SAVE_AND_RECEIVE_PRODUCT;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.snippet.Attributes.key;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
 @SpringBootTest

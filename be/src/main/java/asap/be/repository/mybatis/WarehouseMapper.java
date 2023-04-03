@@ -11,11 +11,17 @@ import java.util.List;
 @Mapper
 public interface WarehouseMapper {
     void wSave(EverythingDto everythingDto);
+
     void wDelete();
+
     void wChangeName(@Param("new_wName") String newName, @Param("old_wName") String wName);
+
     void wChangeLoc(@Param("wLoc") String wLoc, @Param("wName") String wName);
+
     List<Warehouse> findWarehouseByName(String wName);
+
     List<Warehouse> findWarehouseByLoc(String wLoc);
 
-    List<CountryDto> countryStaus();
+    List<CountryDto> countryStaus(); // 🥲
+
 }

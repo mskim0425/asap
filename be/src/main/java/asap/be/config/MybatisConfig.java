@@ -1,11 +1,15 @@
 package asap.be.config;
 
+import asap.be.repository.EmitterRepository;
+import asap.be.repository.mybatis.EmitterMyBatisRepository;
 import asap.be.repository.mybatis.ProductMapper;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMapper;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMapper;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
+import asap.be.service.NotificationService;
+import asap.be.service.NotificationServiceImpl;
 import asap.be.service.ProductService;
 import asap.be.service.ProductServiceImpl;
 import asap.be.service.ReleaseService;
@@ -25,7 +29,7 @@ public class MybatisConfig {
 
 	@Bean
 	public ProductService productService() {
-		return new ProductServiceImpl(productRepository());
+		return new ProductServiceImpl(releaseService(), notificationService(), productRepository());
 	}
 
 	@Bean
@@ -36,6 +40,11 @@ public class MybatisConfig {
 	@Bean
 	public WarehouseService warehouseService() {
 		return new WarehouseServiceImpl(warehouseRepository());
+	}
+
+	@Bean
+	public NotificationService notificationService() {
+		return new NotificationServiceImpl(emitterRepository());
 	}
 
 	@Bean
@@ -51,5 +60,10 @@ public class MybatisConfig {
 	@Bean
 	public ReleaseMybatisRepository releaseRepository() {
 		return new ReleaseMybatisRepository(releaseMapper);
+	}
+
+	@Bean
+	public EmitterRepository emitterRepository() {
+		return new EmitterMyBatisRepository();
 	}
 }
