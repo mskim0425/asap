@@ -1,5 +1,6 @@
 import Chart1 from "../component/Chart/Chart1";
 import Chart2 from "../component/Chart/Chart2";
+import Chart3 from "../component/Chart/Chart3";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -10,19 +11,24 @@ function Dashboard() {
 
   return (
     <section className="Dashboard">
-      <div className="Chart">
+      {/* <div className="Chart">
         <Chart1 />
       </div>
       <div className="Chart">
         <Chart2 />
       </div>
-      {graph.map((el) => {
+      <div className="Chart">
+        <Chart3 />
+      </div> */}
+      {/* {graph.map((el) => {
         return (
           <div key={el} className="Chart">
             {el}
           </div>
         );
-      })}
+      })} */}
+      <div className="leftBox"></div>
+      <div className="rightBox"></div>
     </section>
   );
 }

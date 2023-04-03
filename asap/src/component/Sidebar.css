@@ -44,15 +44,13 @@
 
 @media (min-width: 1200px) {
   .sidebar {
-    width: 20%;
-    /* border: 1px solid red; */
+    width: 10%;
   }
 }
 
 @media (max-width: 1200px) {
   .sidebar {
-    width: 20%;
-    /* border: 1px solid red; */
+    width: 10%;
   }
 }
 

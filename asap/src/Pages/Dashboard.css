@@ -4,6 +4,22 @@
   overflow: scroll;
 }
 
+.leftBox{
+  border: 1px solid black;
+}
+
+.rightBox{
+  border: 1px solid red;
+}
+
+.Chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  box-shadow: 5px 0 10px #0000001e;
+}
+
 @media (min-width: 1200px) {
   .Dashboard {
     grid-template-columns: repeat(1, 2fr);
@@ -23,12 +39,4 @@
     flex-direction: column;
     align-items: center;
   }
-}
-
-.Chart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  box-shadow: 5px 0 10px #0000001e;
 }

@@ -27,6 +27,7 @@ export default function Chart1() {
   }
 
   const clickHandler = (e) => {
+    // console.log(data.slice(1).filter(el => getTime(el[0]) >= start && getTime(el[0]) >= end))
     setData([["Year", "Many"], ...data.slice(1).filter(el => getTime(el[0]) >= start && getTime(el[0]) >= end)])
   }
 
