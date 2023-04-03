@@ -130,15 +130,11 @@ table {
 
 body {
   line-height: 1;
-  position: relative;
 }
 
 .body {
   /* border: 1px solid red; */
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  width: 1500px;
+  width: 100%;
   height: 100vh;
   display: flex;
   box-sizing: border-box;
@@ -146,31 +142,13 @@ body {
 
 @media (min-width: 1200px) {
   .body {
-    width: 1200px;
+    width: 100%;
   }
 }
 
 @media (max-width: 1200px) {
   .body {
-    width: 768px;
-  }
-}
-
-@media (max-width: 768px) {
-  .body {
-    width: 450px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .body {
-    width: 1200px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .body {
-    width: 768px;
+    width: 100%;
   }
 }
 
