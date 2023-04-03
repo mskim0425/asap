@@ -1,18 +1,17 @@
 package asap.be.utils;
 
 import asap.be.domain.Warehouse;
-import asap.be.dto.CountryDto;
+import asap.be.dto.*;
 import asap.be.dto.DashboardDto.ProductCntDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
-import asap.be.dto.YearStatusDto;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static asap.be.utils.Dummy.*;
 
+/**
+ * 더미데이터
+ */
 public class MainControllerConstants {
 	public static final PostProductDto SAVE_AND_RECEIVE_PRODUCT =
 			PostProductDto.builder()
@@ -25,10 +24,10 @@ public class MainControllerConstants {
 
 	public static final PostProductDto RELEASE_PRODUCT =
 			PostProductDto.builder()
-					.pName("상품명2")
+					.pName("상품명")
 					.price(10000)
-					.pCode("상품 바코드2")
-					.wId(2L) // 창고코드
+					.pCode("상품바코드")
+					.wId(1L) // 창고코드
 					.quantity(30) // 출고 수량
 					.build();
 
@@ -93,6 +92,10 @@ public class MainControllerConstants {
 					COUNTRY_DTO4, COUNTRY_DTO5, COUNTRY_DTO6,
 					COUNTRY_DTO7, COUNTRY_DTO8, COUNTRY_DTO9,
 					COUNTRY_DTO10);
+
+	public static final List<MoneyDto> MONEY_DTO_LIST =
+			List.of(MONEY_DTO01, MONEY_DTO02, MONEY_DTO03, MONEY_DTO04,
+					MONEY_DTO05, MONEY_DTO06, MONEY_DTO07, MONEY_DTO08, MONEY_DTO09, MONEY_DTO10);
 
 	public static final EverythingDto SAVE_EVERYTHING_DTO =
 			EverythingDto.builder()
