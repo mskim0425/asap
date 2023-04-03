@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.1'
 	id 'io.spring.dependency-management' version '1.1.0'
-//	id "org.asciidoctor.jvm.convert" version "3.3.2" // Asciidoctor
+	id "org.asciidoctor.jvm.convert" version "3.3.2" // Asciidoctor
 }
 
 group = 'asap'
@@ -13,16 +13,16 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-//	asciidoctorExtensions
+	asciidoctorExtensions
 }
-//
-//ext {
-//	set('snippetsDir', file("build/generated-snippets"))
-//}
-//
-//configurations {
-//	asciidoctorExtensions // Spring Rest Docs
-//}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+configurations {
+	asciidoctorExtensions // Spring Rest Docs
+}
 
 repositories {
 	mavenCentral()
@@ -40,39 +40,35 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
-//	implementation 'com.google.code.gson:gson'
-//	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // Spring Rest Docs
-//	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor' // Spring Rest Docs, Asciidoctor
+	implementation 'com.google.code.gson:gson'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // Spring Rest Docs
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor' // Spring Rest Docs, Asciidoctor
 }
 
 tasks.named('test') {
-//    outputs.dir snippetsDir
+    outputs.dir snippetsDir
 	useJUnitPlatform()
-//}
-//
-//tasks.named('asciidoctor') {
-//    configurations "asciidoctorExtensions"
-//    inputs.dir snippetsDir
-//    dependsOn test
-//}
-//
-//task copyDocument(type: Copy) {
-//    dependsOn asciidoctor
-//    from file("${asciidoctor.outputDir}")
-//    into file("src/main/resources/static/docs")
-//}
-//
-//build {
-//    dependsOn copyDocument
-//}
-//
-//bootJar {
-//    dependsOn copyDocument
-//    from("${asciidoctor.outputDir}") {
-//        into 'static/docs'
-//    }
-//}
-//
-//test {
-//	exclude '**/*'
+}
+
+tasks.named('asciidoctor') {
+    configurations "asciidoctorExtensions"
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("${asciidoctor.outputDir}")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}
+
+bootJar {
+    dependsOn copyDocument
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
 }
