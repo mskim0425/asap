@@ -40,14 +40,27 @@ public class MainController {
 	private final DashBoardService dashBoardService;
 	private final NotificationService notificationService;
 
+	/**
+	 *
+	 * 상품의 저장/입고 그리고 출고를 저장하는 컨트롤러
+	 * 입고시
+	 * @param productDto "pName": "{{$randomWord}}", "price": "{{$randomInt}}", "pCode": "{{$randomUUID}}",
+	 *                     "wId": {{$randomInt}}, "pInsert":  {{$randomInt}}
+	 * 출고시
+	 * @param productDto "pName": "{{$randomWord}}", "price": "{{$randomInt}}", "pCode": "{{$randomUUID}}",
+	 *                     "wId": {{$randomInt}}, "quantity": {{$randomInt}}
+	 */
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
-		log.info("요청이 왔는지 여부 확인");
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId()), HttpStatus.OK);
 
 	}
 
+	/**
+	 * 상품정보 변경
+	 * @param dto ("pId": 100003, "sId": 172, "pName": "이름 바꿔잇!")
+	 */
 	@PatchMapping("/prod")
 	public ResponseEntity<EverythingDto> deleteAndUpdateProduct(@RequestBody EditProductDto dto) {
 
@@ -55,30 +68,47 @@ public class MainController {
 		return new ResponseEntity<>(productService.findById(dto.getPId(), dto.getSId()), HttpStatus.OK);
 	}
 
+	/**
+	 * product의 ID를 통해 최근 21일간 입출고량 컨트롤러
+	 * @param pId
+	 */
 	@GetMapping("/cnt-product-by-date/{p-id}")
 	public ResponseEntity<List<DashboardDto.ProductCntDto>> getProductCntByDate(@PathVariable("p-id") Long pId) {
 
 		return new ResponseEntity<>(dashBoardService.CntProduct(pId), HttpStatus.OK);
 	}
 
+	/**
+	 * 각각의 입고/ 재고 top 10조회
+	 */
 	@GetMapping("/product-rank")
 	public ResponseEntity<DashboardDto.RankDto> getTop10() {
 
 		return new ResponseEntity<>(dashBoardService.ProductCntRank(), HttpStatus.OK);
 	}
 
+	/**
+	 * 날짜별로 얻어낸 수익 측정 메서드
+	 * @param startDate 2023-04-01
+	 * @param endDate 2023-04-05
+	 */
 	@GetMapping("/total-product-amount")
 	public ResponseEntity<List<MoneyDto>> getTotalProductAmount(@RequestParam String startDate, @RequestParam String endDate) {
 
 		return new ResponseEntity<>(dashBoardService.TotalProductAmount(startDate, endDate), HttpStatus.OK);
 	}
 
+	/**
+	 * 특정 년도의 1월~12월까지의 나온 데이터
+	 */
 	@GetMapping("/monthly-stock-summary")
 	public ResponseEntity<List<YearStatusDto>> getMonthlyStockSum(@RequestParam String year) {
 
 		return new ResponseEntity<>(dashBoardService.getMonthlyStockSummary(year), HttpStatus.OK);
 	}
-
+	/*
+	 * 나라별 상품 포진
+	 */
 	@GetMapping("/country-product-status")
 	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
 

@@ -451,6 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_나라_별_재고_분포도">1.2. 나라 별 재고 분포도</a></li>
 <li><a href="#_아이템_별_최신_21일_입출고량">1.3. 아이템 별 최신 21일 입/출고량</a></li>
 <li><a href="#_일별_상품_입출고수_top_10">1.4. 일별 상품 입/출고수 TOP 10</a></li>
+<li><a href="#_날짜별로_얻어낸_수익_측정">1.5. 날짜별로 얻어낸 수익 측정</a></li>
 </ul>
 </li>
 </ul>
@@ -811,13 +812,88 @@ Content-Length: 153
 </tbody>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_날짜별로_얻어낸_수익_측정">1.5. 날짜별로 얻어낸 수익 측정</h3>
+<div class="listingblock">
+<div class="title">Curl-Request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/total-product-amount?startDate=2023-01-01&amp;endDate=2023-01-10' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/total-product-amount?startDate=2023-01-01&amp;endDate=2023-01-10 HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="title">Request-Body</div>
+<div class="content">
+<pre>NULL</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 401
+
+[{"releaseat":"2023-01-01","money":5000},{"releaseat":"2023-01-02","money":6000},{"releaseat":"2023-01-03","money":7000},{"releaseat":"2023-01-04","money":5000},{"releaseat":"2023-01-05","money":6000},{"releaseat":"2023-01-06","money":7000},{"releaseat":"2023-01-07","money":5000},{"releaseat":"2023-01-08","money":6000},{"releaseat":"2023-01-09","money":7000},{"releaseat":"2023-01-10","money":5000}]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response-Body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>[{"releaseat":"2023-01-01","money":5000},{"releaseat":"2023-01-02","money":6000},{"releaseat":"2023-01-03","money":7000},{"releaseat":"2023-01-04","money":5000},{"releaseat":"2023-01-05","money":6000},{"releaseat":"2023-01-06","money":7000},{"releaseat":"2023-01-07","money":5000},{"releaseat":"2023-01-08","money":6000},{"releaseat":"2023-01-09","money":7000},{"releaseat":"2023-01-10","money":5000}]</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Response-Fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].releaseat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">해당 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].money</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">금액</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-03 15:29:31 +0900
+Last updated 2023-04-03 22:03:18 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

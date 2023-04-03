@@ -56,13 +56,13 @@ public class DashboardRestDocs {
 		Long pId = 1L;
 
 		given(dashBoardService.CntProduct(anyLong())).willReturn(PRODUCT_CNT_DTO_LIST);
-
+		//when
 		ResultActions actions =
 				mockMvc.perform(
 						RestDocumentationRequestBuilders.get("/api/cnt-product-by-date/{p-id}", pId)
 								.accept(MediaType.APPLICATION_JSON)
 				);
-
+		//then
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"cnt-product-by-date",
@@ -187,4 +187,30 @@ public class DashboardRestDocs {
 				));
 
 	}
+
+	@Test
+	@DisplayName("날짜별로 얻어낸 수익 측정")
+	void eachDateTotalProductAmount() throws Exception{
+		String start = "2023-01-01";
+		String end = "2023-01-10";
+		//G
+		given(dashBoardService.TotalProductAmount(anyString(), anyString())).willReturn(MONEY_DTO_LIST);
+
+		//W
+		ResultActions actions =
+				mockMvc.perform(RestDocumentationRequestBuilders.get("/api/total-product-amount?startDate={start}&endDate={end}", start, end)
+						.accept(MediaType.APPLICATION_JSON));
+		//T
+		actions.andExpect(status().isOk())
+				.andDo(document("total-product-amount",
+						responseFields(
+								List.of(
+										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과데이터"),
+										fieldWithPath("[].releaseat").type(JsonFieldType.STRING).description("해당 날짜"),
+										fieldWithPath("[].money").type(JsonFieldType.NUMBER).description("금액")
+								)
+						)));
+
+	}
+
 }

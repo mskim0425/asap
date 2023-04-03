@@ -91,7 +91,6 @@ public class ProductRestDocs {
 	@DisplayName("상품 출고 테스트")
 	void releaseProductTest() throws Exception {
 		String content = gson.toJson(RELEASE_PRODUCT);
-
 		doNothing().when(productService).insertOrUpdateStock(RELEASE_PRODUCT);
 
 		ResultActions actions =
