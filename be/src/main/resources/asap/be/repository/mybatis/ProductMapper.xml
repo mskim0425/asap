@@ -3,45 +3,68 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asap.be.repository.mybatis.ProductMapper">
 
-    <insert id="save" useGeneratedKeys="true" parameterType="PostProductDto">
-        INSERT INTO Product_table (pName, price, pCode, pStatus)
-        VALUES (#{pName}, #{price}, #{pCode}, 1);
+    <insert id="insertOrUpdateStock" parameterType="PostProductDto">
+        SET @pId = (SELECT pt.pId FROM Product_table AS pt
+        WHERE pt.pName = #{p.pName}
+        AND pt.price = #{p.price}
+        AND pt.pCode = #{p.pCode});
 
-        <selectKey resultType="Long" keyProperty="pId" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+        SELECT * FROM Stock_table
+        WHERE pId = @pId AND wId = #{p.wId}
+        FOR UPDATE;
+
+        START TRANSACTION;
+
+        <!--    상품이 존재하는 경우 Stock_table 업데이트    -->
+        UPDATE Stock_table
+        SET cnt = cnt + #{p.pInsert}, pInsert = #{p.pInsert}, receive_in = NOW()
+        WHERE pId = @pId AND wId = #{p.wId};
+
+        <!--    상품이 존재하지 않는 경우 Product_table, Stock_table insert    -->
+        INSERT INTO Product_table (pName, price, pCode, pStatus)
+        SELECT #{p.pName}, #{p.price}, #{p.pCode}, 1
+        FROM dual
+        WHERE NOT EXISTS (
+        SELECT 1 FROM Product_table WHERE pId = @pId
+        );
+
+        INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
+        SELECT
+        COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
+        #{p.wId},
+        #{p.pInsert},
+        NOW(),
+        #{p.pInsert}
+        FROM dual
+        WHERE NOT EXISTS (
+        SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId}
+        );
+
+        UPDATE Stock_table
+        SET cnt = cnt - #{p.quantity}
+        WHERE pId = @pId AND wId = #{p.wId} AND cnt >= #{p.quantity};
+
+        INSERT INTO Release_table (sId, quantity, total, release_at)
+        SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
+        FROM Stock_table, Product_table
+        WHERE #{p.quantity} IS NOT NULL AND #{p.quantity} != 0
+        AND #{p.quantity} &lt;= Stock_table.cnt
+        AND Stock_table.pId = Product_table.pId
+        AND Stock_table.pId = @pId
+        AND Stock_table.wId = #{p.wId};
+
+        COMMIT;
     </insert>
 
-    <update id="status">
+    <update id="updateProduct">
         UPDATE Product_table
-        INNER JOIN Stock_table
-        ON Product_table.pId = Stock_table.pId AND Stock_table.sId = #{p.sId}
-        SET Product_table.pStatus = #{p.pStatus}
-        WHERE Product_table.pId = #{p.pId} AND Stock_table.sId = #{p.sId}
-    </update>
-    
-    <update id="name">
-        UPDATE Product_table
-        INNER JOIN Stock_table
-        ON Product_table.pId = Stock_table.pId AND Stock_table.sId = #{p.sId}
-        SET Product_table.pName = #{p.pName}
-        WHERE Product_table.pId = #{p.pId} AND Stock_table.sId = #{p.sId}
-    </update>
-
-    <update id="price">
-        UPDATE Product_table
-        INNER JOIN Stock_table
-        ON Product_table.pId = Stock_table.pId AND Stock_table.sId = #{p.sId}
-        SET Product_table.price = #{p.price}
-        WHERE Product_table.pId = #{p.pId} AND Stock_table.sId = #{p.sId}
-    </update>
-
-    <update id="barcode">
-        UPDATE Product_table
-        INNER JOIN Stock_table
-        ON Product_table.pId = Stock_table.pId AND Stock_table.sId = #{p.sId}
-        SET Product_table.pCode = #{p.pCode}
-        WHERE Product_table.pId = #{p.pId} AND Stock_table.sId = #{p.sId}
+        SET pName = COALESCE(#{p.pName}, pName),
+            price = COALESCE(#{p.price}, price),
+            pCode = COALESCE(#{p.pCode}, pCode),
+            pStatus = COALESCE(#{p.pStatus}, pStatus)
+        WHERE pId = #{p.pId} AND EXISTS (
+        SELECT 1 FROM Stock_table WHERE pId = #{p.pId} AND sId = #{p.sId}
+        );
     </update>
 
     <select id="findById" resultType="EverythingDto">
@@ -78,15 +101,6 @@
         SELECT 1 FROM Product_table
         WHERE pName = #{pName} AND wId = #{wId})
     </select>
-
-    <!--  상품명, wId로 존재하는지 조회  -->
-    <select id="existProductByNameAndWId" resultType="java.lang.Boolean">
-        SELECT EXISTS(
-            SELECT 1 FROM Product_table p
-            LEFT JOIN Stock_table s ON p.pId = s.pId
-            WHERE p.pName = #{pName} AND s.wId = #{wId});
-    </select>
-
 </mapper>
 
 <!-- 예시

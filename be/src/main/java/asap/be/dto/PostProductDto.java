@@ -13,4 +13,5 @@ public class PostProductDto {
 	private String pCode;
 	private Long wId;
 	private int pInsert;
+	private int quantity;
 }

@@ -9,15 +9,6 @@
             WHERE pId = #{pId};
     </select>
 
-    <insert id="sSave" useGeneratedKeys="true" parameterType="EverythingDto">
-        INSERT INTO Stock_table (wId,pId, cnt, receive_in, pInsert)
-        VALUES (#{wId}, #{pId}, IFNULL(cnt, #{pInsert}), now(), #{pInsert});
-
-        <selectKey resultType="Long" keyProperty="sId" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-    </insert>
-
     <update id="release" parameterType="ReleaseStockDto">
             UPDATE Stock_table
             SET cnt = cnt - #{s.quantity}
@@ -47,10 +38,18 @@
         SELECT * FROM Stock_table WHERE pId = #{pId} AND sId = #{sId}
     </select>
 
-    <select id="findStockByPNameAndWId" resultType="Stock">
-        SELECT * FROM Stock_table
-        JOIN Product_table ON Stock_table.pId = Product_table.pId
-        WHERE Product_table.pName = #{pName} AND Stock_table.wId = #{wId}
+    <select id="findStockByPNameAndWId" resultType="EverythingDto">
+        SELECT pt.pId, pt.pName, pt.price, pt.pCode, pt.pStatus,
+               s.sId, s.cnt, s.receive_in, s.wId,
+               w.wName, w.wLoc
+        FROM Product_table AS pt
+        JOIN Stock_table AS s ON pt.pId = s.pId AND s.wId = #{wId}
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE pt.pName = #{pName}
+
+<!--        SELECT * FROM Stock_table-->
+<!--        JOIN Product_table ON Stock_table.pId = Product_table.pId-->
+<!--        WHERE Product_table.pName = #{pName} AND Stock_table.wId = #{wId}-->
 <!--        -->
 <!--        SELECT * FROM Stock_table WHERE pId = (-->
 <!--        SELECT pId FROM product_table WHERE pName = #{pName}) AND wId = #{wId}-->

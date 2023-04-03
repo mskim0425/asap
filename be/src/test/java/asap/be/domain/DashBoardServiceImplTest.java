@@ -124,15 +124,11 @@ class DashBoardServiceImplTest {
                 .price(product.getPrice())
                 .pCode(product.getPCode())
                 .wId(1L)
-//				.cnt(cnt==null ? 0 : cnt)
                 .pInsert(10)
-//				.receiveIn(stock.getReceive_in())
                 .build();
 
-
         //when
-        productMybatisRepository.save(productDto);
-        releaseMybatisRepository.sSave(productDto);
+        productMybatisRepository.insertOrUpdateStock(productDto); // 상품 최초 저장 및 입고 시 원큐에 끝나여
 
         List<CountryDto> countryProductStauts = dashBoardService.getCountryProductStauts();
         for (CountryDto dto : countryProductStauts) {

@@ -9,7 +9,6 @@ import asap.be.dto.ReleaseStockDto;
 import java.util.List;
 
 public interface ReleaseService {
-    void sSave(PostProductDto everythingDto);
     Integer cnt(Long pId);
     void release(ReleaseStockDto stockDto);
     void update(ReleaseStockDto stockDto);
@@ -17,5 +16,5 @@ public interface ReleaseService {
     List<Release> findReleaseById(Long sId);
     Stock findStockByPId(Long pId);
     void updateStock(PostProductDto dto);
-    Stock findStockByPNameAndWId(String pName, Long wId);
+    EverythingDto findStockByPNameAndWId(String pName, Long wId);
 }

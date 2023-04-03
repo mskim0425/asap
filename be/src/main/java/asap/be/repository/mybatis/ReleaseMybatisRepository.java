@@ -9,7 +9,6 @@ import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,12 +18,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
-
-    @Override
-    public void sSave(PostProductDto everythingDto) {
-        releaseMapper.sSave(everythingDto);
-    }
-
     @Override
     public Integer cnt(Long pId) {
         return releaseMapper.cnt(pId);
@@ -56,7 +49,7 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public Stock findStockByPNameAndWId(String pName, Long wId) {
+    public EverythingDto findStockByPNameAndWId(String pName, Long wId) {
         return releaseMapper.findStockByPNameAndWId(pName, wId);
     }
 
