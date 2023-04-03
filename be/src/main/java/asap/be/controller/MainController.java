@@ -13,6 +13,7 @@ import asap.be.service.ProductService;
 import asap.be.service.ReleaseService;
 import asap.be.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -40,9 +41,10 @@ public class MainController {
 
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
-
+		log.info("요청이 왔는지 여부 확인");
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId()), HttpStatus.OK);
+
 	}
 
 	@PatchMapping("/prod")
@@ -79,7 +81,7 @@ public class MainController {
 	@GetMapping("/country-product-status")
 	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
 
-		return new ResponseEntity<>(dashBoardService.getCountryProductStauts(), HttpStatus.OK);
+		return new ResponseEntity<>(dashBoardService.getCountryProductStatus(), HttpStatus.OK);
 	}
 
 	/**

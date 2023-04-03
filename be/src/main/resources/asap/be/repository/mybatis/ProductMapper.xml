@@ -4,13 +4,12 @@
 <mapper namespace="asap.be.repository.mybatis.ProductMapper">
 
     <insert id="insertOrUpdateStock" parameterType="PostProductDto">
-        SET @pId = (SELECT pt.pId FROM Product_table AS pt
-        WHERE pt.pName = #{p.pName}
-        AND pt.price = #{p.price}
-        AND pt.pCode = #{p.pCode});
+        <!-- 완전하게 동일한 상품이 있는지 확인 여기서 PID를 가져온다-->
+        SET @pId = (SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+        AND pt.price = #{p.price} AND pt.pCode = #{p.pCode});
 
-        SELECT * FROM Stock_table
-        WHERE pId = @pId AND wId = #{p.wId}
+        <!-- 창고까지 동일한지 확인한다 -->
+        SELECT * FROM Stock_table WHERE pId = @pId AND wId = #{p.wId}
         FOR UPDATE;
 
         <!--    상품이 존재하는 경우 Stock_table 업데이트    -->
@@ -23,12 +22,15 @@
         INSERT INTO Product_table (pName, price, pCode, pStatus)
         SELECT #{p.pName}, #{p.price}, #{p.pCode}, 1
         FROM dual
-        WHERE NOT EXISTS (
-        SELECT 1 FROM Product_table WHERE pId = @pId
-        )
+        WHERE NOT EXISTS (SELECT 1 FROM Product_table WHERE pId = @pId)
         AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
+        <!-- 재고테이블 값을 넣는 쿼리 -->
         INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
+        SELECT COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
+        #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert} FROM dual
+        WHERE NOT EXISTS (SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId})
+
         SELECT
         COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
         #{p.wId},
@@ -41,10 +43,12 @@
         )
         AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
 
+        <!-- 재고테이블에 cnt 값이 있는경우 cnt = cnt - quantity -->
         UPDATE Stock_table
         SET cnt = cnt - #{p.quantity}
         WHERE pId = @pId AND wId = #{p.wId} AND cnt >= #{p.quantity};
 
+        <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
         INSERT INTO Release_table (sId, quantity, total, release_at)
         SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
         FROM Stock_table, Product_table
@@ -101,37 +105,3 @@
         WHERE pName = #{pName} AND wId = #{wId})
     </select>
 </mapper>
-
-<!-- 예시
-    <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into item (item_name, price, quantity)
-        values (#{itemName}, #{price}, #{quantity})
-    </insert>
-
-    <update id="update">
-        update item
-        set item_name=#{updateParam.itemName},
-            price=#{updateParam.price},
-            quantity=#{updateParam.quantity}
-        where id = #{id}
-    </update>
-
-    <select id="findById" resultType="Item">
-        select id, item_name, price, quantity
-        from item
-        where id = #{id}
-    </select>
-
-    <select id="findAll" resultType="Item">
-        select id, item_name, price, quantity
-        from item
-        <where>
-            <if test="itemName != null and itemName != ''">
-                and item_name like concat('%', #{itemName}, '%')
-            </if>
-            <if test="maxPrice != null">
-                and price &lt;= #{maxPrice}
-            </if>
-        </where>
-    </select>
-    -->

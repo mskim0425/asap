@@ -6,6 +6,7 @@ import asap.be.dto.PostProductDto;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class ProductMybatisRepository implements ProductRepository {
     private final ProductMapper productMapper;
 
     @Override
+    @Transactional
     public void insertOrUpdateStock(PostProductDto dto) {
         productMapper.insertOrUpdateStock(dto);
     }

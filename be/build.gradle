@@ -16,6 +16,10 @@ configurations {
 	asciidoctorExtensions
 }
 
+asciidoctor {
+	dependsOn test
+}
+
 ext {
 	set('snippetsDir', file("build/generated-snippets"))
 }
@@ -72,3 +76,4 @@ bootJar {
         into 'static/docs'
     }
 }
+

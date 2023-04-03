@@ -46,13 +46,6 @@
         JOIN Stock_table AS s ON pt.pId = s.pId AND s.wId = #{wId}
         JOIN Warehouse_table AS w ON s.wId = w.wId
         WHERE pt.pName = #{pName}
-
-<!--        SELECT * FROM Stock_table-->
-<!--        JOIN Product_table ON Stock_table.pId = Product_table.pId-->
-<!--        WHERE Product_table.pName = #{pName} AND Stock_table.wId = #{wId}-->
-<!--        -->
-<!--        SELECT * FROM Stock_table WHERE pId = (-->
-<!--        SELECT pId FROM product_table WHERE pName = #{pName}) AND wId = #{wId}-->
     </select>
 
     <select id="totalByDates" resultType="MoneyDto">

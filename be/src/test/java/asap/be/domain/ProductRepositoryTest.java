@@ -62,25 +62,36 @@ class ProductRepositoryTest {
 				.pCode("4534554533")
 				.build();
 
-		Stock stock = new Stock(product.getPId(), 1L, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),10);
-		//TODO: wId1~5까지 프론트에서 드롭박스형태로 줘야함
-
-		Integer cnt = releaseMybatisRepository.cnt(product.getPId());
 		PostProductDto productDto = PostProductDto.builder()
 				.pName(product.getPName())
 				.price(product.getPrice())
 				.pCode(product.getPCode())
 				.wId(2L)
-				.pInsert(10)
-//				.quantity(100)
+				.pInsert(10) //입고시
+//				.quantity(100) //출고시
 				.build();
 
+		PostProductDto notExist = PostProductDto.builder()
+				.pName("새로운 상품")
+				.price(100000)
+				.pCode("testing code").wId(5L).pInsert(10000).build();
+
+		PostProductDto same = PostProductDto.builder()
+				.pName("새로운 상품")
+				.price(100000)
+				.pCode("testing code").wId(5L).pInsert(10000).build();
+
+
 		//when
-		productMybatisRepository.insertOrUpdateStock(productDto); // 상품 최초 저장 및 입고/출고 시 원큐에 끝나여
+		productMybatisRepository.insertOrUpdateStock(notExist);
+		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(),notExist.getWId()); //만개가 저장되고
+
+		productMybatisRepository.insertOrUpdateStock(same); // 상품 최초 저장 및 입고/출고 시 원큐에 끝나여
+		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(),same.getWId()); //만개가 한번더 저장되고
 
 		//then
-		EverythingDto findProd = productMybatisRepository.findById(100001L, 170L);
-		assertThat(findProd.getPId()).isEqualTo(100001L);
+		assertThat(lastProd.getPname()).isEqualTo(notExist.getPName()); //입고저장
+		assertThat(sameProd.getCnt()).isEqualTo(lastProd.getCnt() + same.getPInsert()); //재고끼리 더하기가 됐는지
 //		assertThat(findProd.getCnt()).isEqualTo(productDto.getCnt()+10);
 	}
 
