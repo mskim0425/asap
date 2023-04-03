@@ -18,11 +18,6 @@ public class ReleaseServiceImpl implements ReleaseService {
     private final ReleaseMybatisRepository releaseMybatisRepository;
 
     @Override
-    public void sSave(PostProductDto everythingDto) {
-        releaseMybatisRepository.sSave(everythingDto);
-    }
-
-    @Override
     public Integer cnt(Long pId) {
         return releaseMybatisRepository.cnt(pId);
     }
@@ -63,7 +58,7 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
-    public Stock findStockByPNameAndWId(String pName, Long wId) {
+    public EverythingDto findStockByPNameAndWId(String pName, Long wId) {
         return releaseMybatisRepository.findStockByPNameAndWId(pName, wId);
     }
 }

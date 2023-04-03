@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface ReleaseRepository {
-	void sSave(PostProductDto everythingDto);
-
 	Integer cnt(Long pId);
 
 	void release(ReleaseStockDto stockDto);
@@ -26,7 +24,7 @@ public interface ReleaseRepository {
 
 	Stock findStockByPId(Long pId);
 
-	Stock findStockByPNameAndWId(String pName, Long wId);
+	EverythingDto findStockByPNameAndWId(String pName, Long wId);
 
 	List<MoneyDto> totalByDate(String start, String end);
 

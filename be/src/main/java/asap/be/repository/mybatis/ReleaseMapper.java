@@ -15,8 +15,6 @@ import java.util.Map;
 
 @Mapper
 public interface ReleaseMapper {
-    void sSave(PostProductDto everythingDto);
-
     Integer cnt(Long pId);
 
     void release(@Param("s") ReleaseStockDto stockDto);
@@ -29,7 +27,7 @@ public interface ReleaseMapper {
 
     Stock findStockByPId(Long pId);
 
-    Stock findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId);
+    EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId);
 
     List<MoneyDto> totalByDates(String start_date, String end_date);
 
