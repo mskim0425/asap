@@ -38,8 +38,8 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public List<EverythingDto> findByAll() {
-        return productMapper.findByAll();
+    public List<EverythingDto> findByAll(int startPage, int pageSize) {
+        return productMapper.findByAll(startPage, pageSize);
     }
 
     @Override

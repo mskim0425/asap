@@ -95,8 +95,11 @@
                s.sId, s.cnt, s.receive_in,
                s.wId, w.wName, w.wLoc
         FROM Product_table AS p
-        JOIN Stock_table AS s ON p.pId = s.pId
-        JOIN Warehouse_table AS w ON s.wId = w.wId
+                 JOIN Stock_table AS s ON p.pId = s.pId
+                 JOIN Warehouse_table AS w ON s.wId = w.wId
+        ORDER BY s.sId DESC
+        LIMIT #{startPage}, #{pageSize};
+        <!-- no offset 방식 -->
     </select>
 
     <select id="checkExistence" resultType="java.lang.Boolean">

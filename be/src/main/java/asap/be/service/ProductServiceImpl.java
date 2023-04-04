@@ -58,8 +58,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EverythingDto> findByAll() {
-        return productMybatisRepository.findByAll();
+    public List<EverythingDto> findByAll(int startPage, int pageSize) {
+        return productMybatisRepository.findByAll(startPage,pageSize);
     }
 
     @Override
