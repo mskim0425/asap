@@ -13,46 +13,46 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WarehouseServiceImpl implements WarehouseService {
-    private final WarehouseMybatisRepository warehouseMybatisRepository;
+	private final WarehouseMybatisRepository warehouseMybatisRepository;
 
-    @Override
-    public void wSave(EverythingDto everythingDto) {
-        warehouseMybatisRepository.wSave(everythingDto);
-    }
+	@Override
+	public void wSave(EverythingDto everythingDto) {
+		warehouseMybatisRepository.wSave(everythingDto);
+	}
 
-    @Override
-    @Transactional
-    public void wDelete(Long wId) {
-        warehouseMybatisRepository.wDelete(wId);
-    }
+	@Override
+	@Transactional
+	public void wDelete(Long wId) {
+		warehouseMybatisRepository.wDelete(wId);
+	}
 
-    @Override
-    @Transactional
-    public void wChangeName(String newName, String wName) {
-        warehouseMybatisRepository.wChangeName(newName, wName);
-    }
+	@Override
+	@Transactional
+	public void wChangeName(String newName, String wName) {
+		warehouseMybatisRepository.wChangeName(newName, wName);
+	}
 
-    @Override
-    @Transactional
-    public void wChangeLoc(String wLoc, String wName) {
-        warehouseMybatisRepository.wChangeLoc(wLoc, wName);
-    }
+	@Override
+	@Transactional
+	public void wChangeLoc(String wLoc, String wName) {
+		warehouseMybatisRepository.wChangeLoc(wLoc, wName);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Warehouse> findWarehouseByName(String wName) {
-        return warehouseMybatisRepository.findWarehouseByName(wName);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Warehouse> findWarehouseByName(String wName) {
+		return warehouseMybatisRepository.findWarehouseByName(wName);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Warehouse> findWarehouseByLoc(String wLoc) {
-        return warehouseMybatisRepository.findWarehouseByLoc(wLoc);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Warehouse> findWarehouseByLoc(String wLoc) {
+		return warehouseMybatisRepository.findWarehouseByLoc(wLoc);
+	}
 
-    @Override
-    public List<CountryDto> countryStatus() {
-        return warehouseMybatisRepository.countryStatus();
-    }
+	@Override
+	public List<CountryDto> countryStatus() {
+		return warehouseMybatisRepository.countryStatus();
+	}
 
 }

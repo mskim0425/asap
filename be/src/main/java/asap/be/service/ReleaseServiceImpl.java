@@ -13,30 +13,30 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReleaseServiceImpl implements ReleaseService {
-    private final ReleaseMybatisRepository releaseMybatisRepository;
+	private final ReleaseMybatisRepository releaseMybatisRepository;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Release> findAll() {
-        return releaseMybatisRepository.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Release> findAll() {
+		return releaseMybatisRepository.findAll();
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Release> findReleaseById(Long sId) {
-        return releaseMybatisRepository.findReleaseById(sId);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Release> findReleaseById(Long sId) {
+		return releaseMybatisRepository.findReleaseById(sId);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public Stock findStockByPId(Long pId) {
-        return releaseMybatisRepository.findStockByPId(pId);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Stock findStockByPId(Long pId) {
+		return releaseMybatisRepository.findStockByPId(pId);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode) {
-        return releaseMybatisRepository.findStockByPNameAndWId(pName, wId, pCode);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode) {
+		return releaseMybatisRepository.findStockByPNameAndWId(pName, wId, pCode);
+	}
 
 }

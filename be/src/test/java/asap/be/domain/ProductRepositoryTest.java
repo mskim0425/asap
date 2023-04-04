@@ -32,16 +32,15 @@ class ProductRepositoryTest {
 	ReleaseMybatisRepository releaseMybatisRepository;
 	@Autowired
 	WarehouseMybatisRepository warehouseMybatisRepository;
-    @Autowired
+	@Autowired
 	PlatformTransactionManager transactionManager;
-    TransactionStatus status;
+	TransactionStatus status;
 
-    @BeforeEach
-    void beforeEach() {
-        //트랜잭션 시작
-        status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-    }
-
+	@BeforeEach
+	void beforeEach() {
+		//트랜잭션 시작
+		status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+	}
 
 	@AfterEach
 	void afterEach() {
@@ -81,10 +80,10 @@ class ProductRepositoryTest {
 
 		//when
 		productMybatisRepository.insertOrUpdateStock(notExist);
-		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(),notExist.getWId(), notExist.getPCode()); //만개가 저장되고
+		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(), notExist.getWId(), notExist.getPCode()); //만개가 저장되고
 
 		productMybatisRepository.insertOrUpdateStock(same); // 상품 최초 저장 및 입고/출고 시 원큐에 끝나여
-		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(),same.getWId(), same.getPCode()); //만개가 한번더 저장되고
+		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(), same.getWId(), same.getPCode()); //만개가 한번더 저장되고
 
 		//then
 		assertThat(lastProd.getPname()).isEqualTo(notExist.getPName()); //입고저장
@@ -163,9 +162,9 @@ class ProductRepositoryTest {
 	@DisplayName("전부 찾기")
 	void findAll() {
 		// given
-		int startPage = 10, pageSize= 10; //10-20
+		int startPage = 10, pageSize = 10; //10-20
 
-		List<EverythingDto> list = productMybatisRepository.findByAll(startPage, startPage+pageSize);
+		List<EverythingDto> list = productMybatisRepository.findByAll(startPage, startPage + pageSize);
 
 		// then
 		assertThat(list.size()).isEqualTo(10);

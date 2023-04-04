@@ -13,24 +13,24 @@ import java.util.Map;
 
 @Mapper
 public interface ReleaseMapper {
-    List<Release> findAll();
+	List<Release> findAll();
 
-    List<Release> findReleaseById(Long sId);
+	List<Release> findReleaseById(Long sId);
 
-    Stock findStockByPId(Long pId);
+	Stock findStockByPId(Long pId);
 
-    EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId, @Param("pCode") String pCode);
+	EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId, @Param("pCode") String pCode);
 
-    List<MoneyDto> totalByDates(String start_date, String end_date);
+	List<MoneyDto> totalByDates(String start_date, String end_date);
 
-    List<YearStatusDto> getMonthlyStockSummary(String year);
+	List<YearStatusDto> getMonthlyStockSummary(String year);
 
-    List<Map<String, Object>> insertCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+	List<Map<String, Object>> insertCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
 
-    List<Map<String, Object>> releaseCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+	List<Map<String, Object>> releaseCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
 
-    List<Map<String, Object>> insertCntRank(String receive_in);
+	List<Map<String, Object>> insertCntRank(String receive_in);
 
-    List<Map<String, Object>> releaseCntRank(String release_at);
+	List<Map<String, Object>> releaseCntRank(String release_at);
 
 }
