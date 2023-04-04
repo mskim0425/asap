@@ -9,7 +9,7 @@ spring:
 #    password: 1q2w3e4r!
     url: jdbc:mysql://localhost:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: hyoreal000501
+    password: 1q2w3e4r!
 
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto

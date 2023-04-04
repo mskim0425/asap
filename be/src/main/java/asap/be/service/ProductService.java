@@ -1,9 +1,6 @@
 package asap.be.service;
 
-import asap.be.dto.AllProductCntDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
+import asap.be.dto.*;
 
 import java.util.List;
 
@@ -16,8 +13,9 @@ public interface ProductService {
 
     List<EverythingDto> findByName(String pName);
 
-    List<EverythingDto> findByAll(int startPage, int pageSize);
+    List<EverythingPageDto> findByAll(Integer lastId);
 
     AllProductCntDto findAllCntByPId(Long pId);
+    List<DetailInfoDto> detailPageUsingPId(Long pId);
 
 }

@@ -452,6 +452,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_아이템_별_최신_21일_입출고량">1.3. 아이템 별 최신 21일 입/출고량</a></li>
 <li><a href="#_일별_상품_입출고수_top_10">1.4. 일별 상품 입/출고수 TOP 10</a></li>
 <li><a href="#_날짜별로_얻어낸_수익_측정">1.5. 날짜별로 얻어낸 수익 측정</a></li>
+<li><a href="#_상세_페이지_조회">1.6. 상세 페이지 조회</a></li>
+<li><a href="#_전체_페이지_조회">1.7. 전체 페이지 조회</a></li>
 </ul>
 </li>
 </ul>
@@ -829,11 +831,9 @@ Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
 <div class="title">Request-Body</div>
-<div class="content">
-<pre>NULL</pre>
-</div>
+<p>NULL</p>
 </div>
 <div class="listingblock">
 <div class="title">Http-Response</div>
@@ -887,13 +887,229 @@ Content-Length: 401
 </tbody>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_상세_페이지_조회">1.6. 상세 페이지 조회</h3>
+<div class="listingblock">
+<div class="title">Curl-Request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/find-one?pId=1' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/find-one?pId=1 HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Request-Body</div>
+<p>NULL</p>
+</div>
+<div class="listingblock">
+<div class="title">Http-Response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 1736
+
+[{"release_at":null,"quantity":null,"receive_in":"2023-04-03","cnt":348,"price":765,"pinsert":348,"pstatus":1,"wid":38,"pid":1,"pname":"피자","sid":1,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Palau","wname":"BMW M6","rid":null},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":1,"pid":1,"pname":"피자","sid":520,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Nicaragua","wname":"BMW M5","rid":266},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":2,"pid":1,"pname":"피자","sid":521,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Finland","wname":"Audi R8","rid":265},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":3,"pid":1,"pname":"피자","sid":522,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Thailand","wname":"Kia Ceed","rid":null},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":4,"pid":1,"pname":"피자","sid":523,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Greece","wname":"Audi V8","rid":null},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":5,"pid":1,"pname":"피자","sid":524,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Andorra","wname":"Ford Focus","rid":null},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":6,"pid":1,"pname":"피자","sid":525,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Panama","wname":"Mitsubishi Lancer","rid":264}]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response-Body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>[{"release_at":null,"quantity":null,"receive_in":"2023-04-03","cnt":348,"price":765,"pinsert":348,"pstatus":1,"wid":38,"pid":1,"pname":"피자","sid":1,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Palau","wname":"BMW M6","rid":null},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":1,"pid":1,"pname":"피자","sid":520,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Nicaragua","wname":"BMW M5","rid":266},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":2,"pid":1,"pname":"피자","sid":521,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Finland","wname":"Audi R8","rid":265},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":3,"pid":1,"pname":"피자","sid":522,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Thailand","wname":"Kia Ceed","rid":null},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":4,"pid":1,"pname":"피자","sid":523,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Greece","wname":"Audi V8","rid":null},{"release_at":null,"quantity":null,"receive_in":"2023-04-04","cnt":30,"price":765,"pinsert":30,"pstatus":1,"wid":5,"pid":1,"pname":"피자","sid":524,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Andorra","wname":"Ford Focus","rid":null},{"release_at":"2023-04-04","quantity":10,"receive_in":"2023-04-04","cnt":20,"price":765,"pinsert":30,"pstatus":1,"wid":6,"pid":1,"pname":"피자","sid":525,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","wloc":"Panama","wname":"Mitsubishi Lancer","rid":264}]</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Response-Fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].release_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고일, NULL이면 입고</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고 수량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].receive_in</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].cnt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재고수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">단가</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pcode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">바코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].sid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재고코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pinsert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pstatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품상태</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고위치</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].rid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고코드</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_전체_페이지_조회">1.7. 전체 페이지 조회</h3>
+<div class="listingblock">
+<div class="title">Curl-Request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/find-all?lastId=10' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/find-all?lastId=10 HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Request-Body</div>
+<p>NULL</p>
+</div>
+<div class="listingblock">
+<div class="title">Http-Response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 887
+
+[{"pname":"닭고기","price":656,"pcode":"7e5fbc0d-bf00-4c2d-bb58-a78fdbf326f3","lastid":0,"pid":9},{"pname":"밀가루","price":793,"pcode":"9ca329b1-59e7-4a13-8e58-e402b58b3f09","lastid":0,"pid":8},{"pname":"해산물","price":589,"pcode":"3a6c9fec-34c8-4e62-bbc0-ce85eedffc36","lastid":0,"pid":7},{"pname":"생강","price":917,"pcode":"c8027c24-06f3-459c-90ec-5b1b759f2d1e","lastid":0,"pid":6},{"pname":"떡볶이","price":31,"pcode":"712834d2-29ed-4642-a4dd-7119924e629d","lastid":0,"pid":5},{"pname":"쌀","price":15,"pcode":"47653f92-5d68-4710-93e0-5a6b36fed4cf","lastid":0,"pid":4},{"pname":"된장","price":137,"pcode":"e1498293-adf3-49aa-8e81-abad9c2373b0","lastid":0,"pid":3},{"pname":"오리고기","price":351,"pcode":"9d310542-acbc-4c70-9f4f-c48e32c0fcee","lastid":0,"pid":2},{"pname":"피자","price":765,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","lastid":0,"pid":1}]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response-Body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>[{"pname":"닭고기","price":656,"pcode":"7e5fbc0d-bf00-4c2d-bb58-a78fdbf326f3","lastid":0,"pid":9},{"pname":"밀가루","price":793,"pcode":"9ca329b1-59e7-4a13-8e58-e402b58b3f09","lastid":0,"pid":8},{"pname":"해산물","price":589,"pcode":"3a6c9fec-34c8-4e62-bbc0-ce85eedffc36","lastid":0,"pid":7},{"pname":"생강","price":917,"pcode":"c8027c24-06f3-459c-90ec-5b1b759f2d1e","lastid":0,"pid":6},{"pname":"떡볶이","price":31,"pcode":"712834d2-29ed-4642-a4dd-7119924e629d","lastid":0,"pid":5},{"pname":"쌀","price":15,"pcode":"47653f92-5d68-4710-93e0-5a6b36fed4cf","lastid":0,"pid":4},{"pname":"된장","price":137,"pcode":"e1498293-adf3-49aa-8e81-abad9c2373b0","lastid":0,"pid":3},{"pname":"오리고기","price":351,"pcode":"9d310542-acbc-4c70-9f4f-c48e32c0fcee","lastid":0,"pid":2},{"pname":"피자","price":765,"pcode":"df26e23d-4136-442f-92d3-7a0170d79a22","lastid":0,"pid":1}]</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Response-Fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">단가</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pcode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">바코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].lastid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">무한스크롤을 사용하기 위한 데이터</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-03 22:03:18 +0900
+Last updated 2023-04-04 21:28:40 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

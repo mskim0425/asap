@@ -1,10 +1,7 @@
 package asap.be.service;
 
 import asap.be.domain.notification.NotificationType;
-import asap.be.dto.AllProductCntDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
+import asap.be.dto.*;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -58,13 +55,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EverythingDto> findByAll(int startPage, int pageSize) {
-        return productMybatisRepository.findByAll(startPage,pageSize);
+    public List<EverythingPageDto> findByAll(Integer lastId) {
+        return productMybatisRepository.findByAll(lastId);
     }
 
     @Override
     public AllProductCntDto findAllCntByPId(Long pId) {
         return productMybatisRepository.findAllCntByPId(pId);
+    }
+
+    @Override
+    public List<DetailInfoDto> detailPageUsingPId(Long pId) {
+        return productMybatisRepository.detailPageUsingPId(pId);
     }
 
 }
