@@ -8,16 +8,16 @@ import asap.be.dto.PostProductDto;
 import java.util.List;
 
 public interface ProductService {
-    void insertOrUpdateStock(PostProductDto dto);
+	void insertOrUpdateStock(PostProductDto dto);
 
-    void updateProduct(EditProductDto dto);
+	void updateProduct(EditProductDto dto);
 
-    EverythingDto findById(Long pId, Long sId);
+	EverythingDto findById(Long pId, Long sId);
 
-    List<EverythingDto> findByName(String pName);
+	List<EverythingDto> findByName(String pName);
 
-    List<EverythingDto> findByAll(int startPage, int pageSize);
+	List<EverythingDto> findByAll(int startPage, int pageSize);
 
-    AllProductCntDto findAllCntByPId(Long pId);
+	AllProductCntDto findAllCntByPId(Long pId);
 
 }

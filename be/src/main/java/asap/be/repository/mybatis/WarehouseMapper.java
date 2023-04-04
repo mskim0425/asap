@@ -10,18 +10,18 @@ import java.util.List;
 
 @Mapper
 public interface WarehouseMapper {
-    void wSave(EverythingDto everythingDto);
+	void wSave(EverythingDto everythingDto);
 
-    void wDelete(Long wId);
+	void wDelete(Long wId);
 
-    void wChangeName(@Param("new_wName") String newName, @Param("old_wName") String wName);
+	void wChangeName(@Param("new_wName") String newName, @Param("old_wName") String wName);
 
-    void wChangeLoc(@Param("wLoc") String wLoc, @Param("wName") String wName);
+	void wChangeLoc(@Param("wLoc") String wLoc, @Param("wName") String wName);
 
-    List<Warehouse> findWarehouseByName(String wName);
+	List<Warehouse> findWarehouseByName(String wName);
 
-    List<Warehouse> findWarehouseByLoc(String wLoc);
+	List<Warehouse> findWarehouseByLoc(String wLoc);
 
-    List<CountryDto> countryStatus();
+	List<CountryDto> countryStatus();
 
 }

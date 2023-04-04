@@ -7,12 +7,12 @@ import asap.be.dto.EverythingDto;
 import java.util.List;
 
 public interface ReleaseService {
-    List<Release> findAll();
+	List<Release> findAll();
 
-    List<Release> findReleaseById(Long sId);
+	List<Release> findReleaseById(Long sId);
 
-    Stock findStockByPId(Long pId);
+	Stock findStockByPId(Long pId);
 
-    EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode);
+	EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode);
 
 }

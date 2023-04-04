@@ -183,7 +183,7 @@ public class DashboardRestDocs {
 
 	@Test
 	@DisplayName("날짜별로 얻어낸 수익 측정")
-	void eachDateTotalProductAmount() throws Exception{
+	void eachDateTotalProductAmount() throws Exception {
 		String start = "2023-01-01";
 		String end = "2023-01-10";
 		//G

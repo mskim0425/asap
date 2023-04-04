@@ -1,7 +1,8 @@
 package asap.be.service;
 
-import asap.be.dto.DashboardDto.*;
 import asap.be.dto.CountryDto;
+import asap.be.dto.DashboardDto.ProductCntDto;
+import asap.be.dto.DashboardDto.RankDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
@@ -59,38 +60,38 @@ public class DashBoardServiceImpl implements DashBoardService {
 				.build();
 	}
 
-    @Override
-    public List<MoneyDto> TotalProductAmount(String startDate, String endDate) {
-        //0000-00-00 ~ 0000-00-00 2022-12-31~ 2023-01-15
-        //release_at 에서 받은 날짜를
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate start = LocalDate.parse(startDate, formatter);
-        LocalDate end = LocalDate.parse(endDate, formatter);
+	@Override
+	public List<MoneyDto> TotalProductAmount(String startDate, String endDate) {
+		//0000-00-00 ~ 0000-00-00 2022-12-31~ 2023-01-15
+		//release_at 에서 받은 날짜를
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate start = LocalDate.parse(startDate, formatter);
+		LocalDate end = LocalDate.parse(endDate, formatter);
 
-        List<MoneyDto> result = new ArrayList<>();
-        List<MoneyDto> dto = releaseMybatisRepository.totalByDate(startDate, endDate); //결과값이 2022-12-31 : 400개 <<이런식으로 list에 쌓임
+		List<MoneyDto> result = new ArrayList<>();
+		List<MoneyDto> dto = releaseMybatisRepository.totalByDate(startDate, endDate); //결과값이 2022-12-31 : 400개 <<이런식으로 list에 쌓임
 
-        int idx = 0;
-        for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
-            if (idx < dto.size() && dto.get(idx).getReleaseat().equals(date.toString())) { //dto에 해당 날짜값이 있다면
-                result.add(new MoneyDto(date.toString(), dto.get(idx).getMoney()));
-                idx++;
-            } else {
-                result.add(new MoneyDto(date.toString(), 0)); //없다면 해당날짜에 0 반환
-            }
-        }
-        // 요청한 기간 내의 출고액 합계를 계산하여 Map 객체에 저장
+		int idx = 0;
+		for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+			if (idx < dto.size() && dto.get(idx).getReleaseat().equals(date.toString())) { //dto에 해당 날짜값이 있다면
+				result.add(new MoneyDto(date.toString(), dto.get(idx).getMoney()));
+				idx++;
+			} else {
+				result.add(new MoneyDto(date.toString(), 0)); //없다면 해당날짜에 0 반환
+			}
+		}
+		// 요청한 기간 내의 출고액 합계를 계산하여 Map 객체에 저장
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public List<YearStatusDto> getMonthlyStockSummary(String year) {
-        return releaseMybatisRepository.getMonthlyStockSummary(year);
-    }
+	@Override
+	public List<YearStatusDto> getMonthlyStockSummary(String year) {
+		return releaseMybatisRepository.getMonthlyStockSummary(year);
+	}
 
-    @Override
-    public List<CountryDto> getCountryProductStatus() {
-        return warehouseMybatisRepository.countryStatus();
-    }
+	@Override
+	public List<CountryDto> getCountryProductStatus() {
+		return warehouseMybatisRepository.countryStatus();
+	}
 }
