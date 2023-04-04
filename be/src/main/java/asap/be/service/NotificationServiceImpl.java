@@ -15,14 +15,14 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
 	private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 	private static final Long DEFAULT_TIMEOUT = 60L * 1000 * 60; // SSE 유효시간
 	private final EmitterRepository emitterRepository;
 
 	/**
 	 * SSE 통신
- 	 */
+	 */
 	@Override
 	public SseEmitter connection(String lastEventId) {
 

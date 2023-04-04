@@ -11,30 +11,31 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ProductMybatisRepository implements ProductRepository {
-    private final ProductMapper productMapper;
 
-    @Override
-    @Transactional
-    public void insertOrUpdateStock(PostProductDto dto) {
-        productMapper.insertOrUpdateStock(dto);
-    }
+	private final ProductMapper productMapper;
 
-    @Override
-    public void updateProduct(EditProductDto dto) {
-        productMapper.updateProduct(dto);
-    }
+	@Override
+	@Transactional
+	public void insertOrUpdateStock(PostProductDto dto) {
+		productMapper.insertOrUpdateStock(dto);
+	}
 
-    @Override
-    public EverythingDto findById(Long pId, Long sId) {
-        return productMapper.findById(pId, sId);
-    }
+	@Override
+	public void updateProduct(EditProductDto dto) {
+		productMapper.updateProduct(dto);
+	}
 
-    @Override
-    public List<EverythingDto> findByName(String pName) {
-        return productMapper.findByName(pName);
-    }
+	@Override
+	public EverythingDto findById(Long pId, Long sId) {
+		return productMapper.findById(pId, sId);
+	}
 
-    @Override
+	@Override
+	public List<EverythingDto> findByName(String pName) {
+		return productMapper.findByName(pName);
+	}
+
+  @Override
     public List<EverythingPageDto> findByAll(Integer lastId) {
         return productMapper.findByAll(lastId);
     }
@@ -43,7 +44,6 @@ public class ProductMybatisRepository implements ProductRepository {
     public AllProductCntDto findAllCntByPId(Long pId) {
         return productMapper.findAllCntByPId(pId);
     }
-
     @Override
     public List<DetailInfoDto> detailPageUsingPId(Long pId) {
         return productMapper.detailPageUsingPId(pId);

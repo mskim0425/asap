@@ -62,12 +62,13 @@
     </select>
 
     <select id="insertCntRank" resultType="java.util.Map">
-        SELECT RANK() OVER (ORDER BY SUM(pInsert) DESC) as ranking,
-               (SELECT pName From Product_table WHERE pId = sId) AS pName,
-               SUM(pInsert) as insertCnt
-        FROM Stock_table
-        WHERE receive_in = #{receive_in}
-        GROUP BY pName
+        SELECT RANK() OVER (ORDER BY SUM(s.pInsert) DESC) AS ranking,
+               p.pName,
+               SUM(s.pInsert) AS insertCnt
+        FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE s.receive_in = #{receive_in}
+        GROUP BY p.pId
         ORDER BY insertCnt DESC
         LIMIT 10;
     </select>

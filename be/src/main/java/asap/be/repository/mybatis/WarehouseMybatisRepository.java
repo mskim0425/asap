@@ -12,36 +12,36 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class WarehouseMybatisRepository implements WarehouseRepository {
-    private final WarehouseMapper warehouseMapper;
+	private final WarehouseMapper warehouseMapper;
 
-    public void wSave(EverythingDto everythingDto) {
-        warehouseMapper.wSave(everythingDto);
-    }
+	public void wSave(EverythingDto everythingDto) {
+		warehouseMapper.wSave(everythingDto);
+	}
 
-    @Override
-    public void wDelete(Long wId) {
-        warehouseMapper.wDelete(wId);
-    }
+	@Override
+	public void wDelete(Long wId) {
+		warehouseMapper.wDelete(wId);
+	}
 
-    public void wChangeName(String newName, String wName) {
-        warehouseMapper.wChangeName(newName, wName);
-    }
+	public void wChangeName(String newName, String wName) {
+		warehouseMapper.wChangeName(newName, wName);
+	}
 
-    public void wChangeLoc(String wLoc, String wName) {
-        warehouseMapper.wChangeLoc(wLoc, wName);
-    }
+	public void wChangeLoc(String wLoc, String wName) {
+		warehouseMapper.wChangeLoc(wLoc, wName);
+	}
 
-    public List<Warehouse> findWarehouseByName(String wName) {
-        return warehouseMapper.findWarehouseByName(wName);
-    }
+	public List<Warehouse> findWarehouseByName(String wName) {
+		return warehouseMapper.findWarehouseByName(wName);
+	}
 
-    public List<Warehouse> findWarehouseByLoc(String wLoc) {
-        return warehouseMapper.findWarehouseByLoc(wLoc);
-    }
+	public List<Warehouse> findWarehouseByLoc(String wLoc) {
+		return warehouseMapper.findWarehouseByLoc(wLoc);
+	}
 
-    @Override
-    public List<CountryDto> countryStatus() {
-        return warehouseMapper.countryStatus();
-    }
+	@Override
+	public List<CountryDto> countryStatus() {
+		return warehouseMapper.countryStatus();
+	}
 
 }

@@ -1,5 +1,6 @@
 package asap.be.controller;
 
+
 import asap.be.dto.*;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
@@ -35,7 +36,6 @@ public class MainController {
 	private final NotificationService notificationService;
 
 	/**
-	 *
 	 * 상품의 저장/입고 그리고 출고를 저장하는 컨트롤러
 	 * 입고시
 	 * @param productDto "pName": "{{$randomWord}}", "price": "{{$randomInt}}", "pCode": "{{$randomUUID}}",
@@ -84,7 +84,7 @@ public class MainController {
 	/**
 	 * 날짜별로 얻어낸 수익 측정 메서드
 	 * @param startDate 2023-04-01
-	 * @param endDate 2023-04-05
+	 * @param endDate   2023-04-05
 	 */
 	@GetMapping("/total-product-amount")
 	public ResponseEntity<List<MoneyDto>> getTotalProductAmount(@RequestParam String startDate, @RequestParam String endDate) {
@@ -100,6 +100,7 @@ public class MainController {
 
 		return new ResponseEntity<>(dashBoardService.getMonthlyStockSummary(year), HttpStatus.OK);
 	}
+
 	/*
 	 * 나라별 상품 포진
 	 */

@@ -64,7 +64,7 @@ public class ProductRestDocs {
 
 		actions.andExpect(status().isOk())
 				.andDo(document(
-						"post-prod",
+						"post-and-receive-prod",
 						requestFields(
 								List.of(
 										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
@@ -88,8 +88,8 @@ public class ProductRestDocs {
 										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
 										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
 										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자")
-						)
-				)));
+								)
+						)));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class ProductRestDocs {
 
 		actions.andExpect(status().isOk())
 				.andDo(document(
-						"post-prod",
+						"release-prod",
 						requestFields(
 								List.of(
 										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
@@ -144,7 +144,7 @@ public class ProductRestDocs {
 
 		given(productService.findAllCntByPId(anyLong())).willReturn(ALL_PRODUCT_CNT_DTO);
 
-		ResultActions actions=
+		ResultActions actions =
 				mockMvc.perform(
 						RestDocumentationRequestBuilders.get("/api/all-cnt/{p-id}", pId)
 								.accept(MediaType.APPLICATION_JSON)
@@ -227,6 +227,227 @@ public class ProductRestDocs {
 								)
 						)
 
+				));
+	}
+  
+	@DisplayName("상품 이름 수정 테스트")
+	void patchProductName() throws Exception {
+
+		String content = gson.toJson(EDIT_PRODUCT_NAME);
+
+		doNothing().when(productService).updateProduct(EDIT_PRODUCT_NAME);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.patch("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"patch-product-name",
+						requestFields(
+								List.of(
+										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("pName").type(JsonFieldType.STRING).description("변경 상품명")
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
+										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
+										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최근 입고일"),
+										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
+								)
+						)
+				));
+	}
+
+	@Test
+	@DisplayName("상품 가격 수정 테스트")
+	void patchProductPrice() throws Exception {
+
+		String content = gson.toJson(EDIT_PRODUCT_PRICE);
+
+		doNothing().when(productService).updateProduct(EDIT_PRODUCT_PRICE);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.patch("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"patch-product-price",
+						requestFields(
+								List.of(
+										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("변경 가격")
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
+										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
+										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최근 입고일"),
+										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
+								)
+						)
+				));
+	}
+
+	@Test
+	@DisplayName("상품 바코드 수정 테스트")
+	void patchProductBarcode() throws Exception {
+
+		String content = gson.toJson(EDIT_PRODUCT_BARCODE);
+
+		doNothing().when(productService).updateProduct(EDIT_PRODUCT_BARCODE);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.patch("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"patch-product-barcode",
+						requestFields(
+								List.of(
+										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("변경 바코드")
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
+										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
+										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최근 입고일"),
+										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
+								)
+						)
+				));
+	}
+
+	@Test
+	@DisplayName("상품 전체 수정 테스트")
+	void patchProduct() throws Exception {
+
+		String content = gson.toJson(EDIT_ALL);
+
+		doNothing().when(productService).updateProduct(EDIT_ALL);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.patch("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"patch-product",
+						requestFields(
+								List.of(
+										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("pName").type(JsonFieldType.STRING).description("바뀐 상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("바뀐 가격"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("바뀐 바코드")
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
+										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
+										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최근 입고일"),
+										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
+								)
+						)
+				));
+	}
+
+	@Test
+	@DisplayName("상품 상태 변경 테스트 (삭제)")
+	void deleteProduct() throws Exception {
+
+		String content = gson.toJson(DELETE_PRODUCT);
+
+		doNothing().when(productService).updateProduct(DELETE_PRODUCT);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.patch("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"delete-product",
+						requestFields(
+								List.of(
+										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("pStatus").type(JsonFieldType.NUMBER).description("삭제 상태로 변경:0, 활성화 상태:1")
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pid").type(JsonFieldType.NUMBER).description("상품 식별자"),
+										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
+										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자"),
+										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
+										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최근 입고일"),
+										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
+								)
+						)
 				));
 	}
 
