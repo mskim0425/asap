@@ -41,7 +41,7 @@ public class NotificationServiceImpl implements NotificationService{
 		// 연결 직후, 데이터 전송이 없을 시 503 에러 발생. 에러 방지 위한 더미데이터 전송
 		sendToClient(emitter, id, "연결되었습니다. " + id + "님");
 
-		if (!lastEventId.isEmpty()) { // 클라이언트가 미수신한 Event 유실 예방
+		if (!lastEventId.isEmpty()) { // 클라이언트가 미수신한 Event 유실 예방, 연결이 끊켰거나 미수신된 데이터를 다 찾아서 보내준다.
 			Map<String, SseEmitter> events = emitterRepository.findAllStartById(userid);
 			events.entrySet().stream()
 					.filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
