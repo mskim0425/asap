@@ -15,6 +15,6 @@ public interface ProductRepository {
 
 	List<EverythingDto> findByName(String pName);
 
-	List<EverythingDto> findByAll();
+	List<EverythingDto> findByAll(int startPage, int pageSize);
 
 }

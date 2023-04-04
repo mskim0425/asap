@@ -18,7 +18,7 @@ public interface ProductMapper {
 
     List<EverythingDto> findByName(String pName);
 
-    List<EverythingDto> findByAll();
+    List<EverythingDto> findByAll(int startPage, int pageSize);
 
 }
 

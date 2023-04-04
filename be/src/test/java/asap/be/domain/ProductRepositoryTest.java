@@ -163,12 +163,12 @@ class ProductRepositoryTest {
 	@DisplayName("전부 찾기")
 	void findAll() {
 		// given
+		int startPage = 10, pageSize= 10; //10-20
 
-		// when
-		List<EverythingDto> list = productMybatisRepository.findByAll();
+		List<EverythingDto> list = productMybatisRepository.findByAll(startPage, startPage+pageSize);
 
 		// then
-		assertThat(list).isNotNull();
+		assertThat(list.size()).isEqualTo(10);
 	}
 
 }
