@@ -43,6 +43,7 @@ export default function PieChart() {
     <div className="chartbox">
       <Chart className="chartCSS" chartType="PieChart" data={data} options={options} />
       <Chart className="chartCSS" chartType="PieChart" data={data2} options={options2} />
+      <div> gg</div>
     </div>
   );
 }

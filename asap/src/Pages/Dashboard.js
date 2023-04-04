@@ -1,6 +1,7 @@
-import Chart1 from "../component/Chart/Chart1";
+import CalendarChart from "../component/Chart/CalendarChart";
 import ComboChart from "../component/Chart/ComboChart";
 import GeoChart from "../component/Chart/GeoChart";
+import LineChart from "../component/Chart/LineChart";
 import PieChart from "../component/Chart/PieChart";
 
 import "./Dashboard.css";
@@ -12,10 +13,11 @@ function Dashboard() {
       <div className="leftBox">
         <div className="left-up">
           <div className="left-up-chart">
-            <Chart1 />
+            <LineChart />
           </div>
           <div className="left-up-chart">
-            <ComboChart data={ComboData} title={"월별 전체 현황"}/>
+            <ComboChart data={ComboData} title={"월별 재고 현황"} width="99%" height="100%"/>
+            {/* <CalendarChart /> */}
           </div>
         </div>
 
@@ -24,7 +26,6 @@ function Dashboard() {
             <GeoChart/>
           </div>
           <div className="left-down-chart">
-            <input />
             <ComboChart data={ComboData2} title={"아이템별 입출고량"} />
           </div>
           <div className="left-down-chart">
@@ -35,7 +36,7 @@ function Dashboard() {
 
       <div className="rightBox">
         <div className="test">hello</div>
-        {todo.map(el => {return <div className="test2">{el}</div>})}
+        {todo.map(el => {return <div className="test2" key={el}>{el}</div>})}
       </div>
     </section>
   );
@@ -54,6 +55,18 @@ const ComboData = [
 
 const ComboData2 = [
   ['Date', '재고', '입고', '출고'],
+  ['2023/3/15',  16,      98,         52],
+  ['2023/3/16',  15,      120,        59],
+  ['2023/3/17',  17,      167,        57],
+  ['2023/3/18',  16,      98,         52],
+  ['2023/3/19',  15,      120,        59],
+  ['2023/3/20',  17,      167,        57],
+  ['2023/3/21',  16,      98,         52],
+  ['2023/3/22',  15,      120,        59],
+  ['2023/3/23',  17,      167,        57],
+  ['2023/3/24',  16,      98,         52],
+  ['2023/3/25',  15,      120,        59],
+  ['2023/3/26',  17,      167,        57],
   ['2023/3/27',  16,      98,         52],
   ['2023/3/28',  15,      120,        59],
   ['2023/3/29',  17,      167,        57],
