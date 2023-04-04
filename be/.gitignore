@@ -40,5 +40,4 @@ application.yml
 
 ###.yml ###
 src/test/resources
-**/*.yml
-.yml
+src/main/resources/*.yml
