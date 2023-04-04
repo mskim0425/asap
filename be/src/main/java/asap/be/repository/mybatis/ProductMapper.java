@@ -1,5 +1,6 @@
 package asap.be.repository.mybatis;
 
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
@@ -20,5 +21,6 @@ public interface ProductMapper {
 
     List<EverythingDto> findByAll();
 
+    AllProductCntDto findAllCntByPId(Long pId);
 }
 

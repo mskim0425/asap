@@ -4,6 +4,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # allowMultiQueries=true : 다중 insert 허용
+#    url: jdbc:mysql://0.tcp.jp.ngrok.io:19665/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+#    username: root
+#    password: 1q2w3e4r!
     url: jdbc:mysql://localhost:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: hyoreal000501

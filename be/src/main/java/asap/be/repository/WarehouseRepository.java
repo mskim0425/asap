@@ -9,7 +9,7 @@ import java.util.List;
 public interface WarehouseRepository {
 	void wSave(EverythingDto everythingDto);
 
-	void wDelete();
+	void wDelete(Long wId);
 
 	void wChangeName(String newName, String wName);
 
@@ -19,5 +19,5 @@ public interface WarehouseRepository {
 
 	List<Warehouse> findWarehouseByLoc(String wLoc);
 
-    List<CountryDto> countryStaus(); // 오타,,🥲
+    List<CountryDto> countryStatus();
 }

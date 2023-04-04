@@ -1,5 +1,6 @@
 package asap.be.service;
 
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
@@ -16,5 +17,7 @@ public interface ProductService {
     List<EverythingDto> findByName(String pName);
 
     List<EverythingDto> findByAll();
+
+    AllProductCntDto findAllCntByPId(Long pId);
 
 }

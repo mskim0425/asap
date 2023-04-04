@@ -4,7 +4,6 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
-import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,21 +16,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
-
-    @Override
-    public Integer cnt(Long pId) {
-        return releaseMapper.cnt(pId);
-    }
-
-    @Override
-    public void release(ReleaseStockDto stockDto) {
-        releaseMapper.release(stockDto) ;
-    }
-
-    @Override
-    public void update(ReleaseStockDto stockDto) {
-        releaseMapper.update(stockDto);
-    }
 
     @Override
     public List<Release> findAll() {
@@ -49,8 +33,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public EverythingDto findStockByPNameAndWId(String pName, Long wId) {
-        return releaseMapper.findStockByPNameAndWId(pName, wId);
+    public EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode) {
+        return releaseMapper.findStockByPNameAndWId(pName, wId, pCode);
     }
 
     @Override

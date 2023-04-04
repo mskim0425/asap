@@ -4,55 +4,59 @@
 <mapper namespace="asap.be.repository.mybatis.ProductMapper">
 
     <insert id="insertOrUpdateStock" parameterType="PostProductDto">
-        <!-- 완전하게 동일한 상품이 있는지 확인 여기서 PID를 가져온다-->
-        SET @pId = (SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
-        AND pt.price = #{p.price} AND pt.pCode = #{p.pCode});
 
-        <!-- 창고까지 동일한지 확인한다 -->
-        SELECT * FROM Stock_table WHERE pId = @pId AND wId = #{p.wId}
-        FOR UPDATE;
+        <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
+        <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
+            SELECT IFNULL((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
+        </selectKey>
 
-        <!--    상품이 존재하는 경우 Stock_table 업데이트    -->
-        UPDATE Stock_table
-        SET cnt = cnt + #{p.pInsert}, pInsert = #{p.pInsert}, receive_in = NOW()
-        WHERE pId = @pId AND wId = #{p.wId}
-        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
+        <!-- 입고일때 -->
+        <if test="p.pInsert != null and p.pInsert != 0">
+            <choose>
+                <!-- 상품이 존재하는 경우 -->
+                <when test="pId != 0 and pId != null">
 
-        <!--    상품이 존재하지 않는 경우 Product_table, Stock_table insert    -->
-        INSERT INTO Product_table (pName, price, pCode, pStatus)
-        SELECT #{p.pName}, #{p.price}, #{p.pCode}, 1
-        FROM dual
-        WHERE NOT EXISTS (SELECT 1 FROM Product_table WHERE pId = @pId)
-        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
+                    <!-- 입력받은 wId와 Stock_table 의 wId가 같은 경우 -->
+                    UPDATE Stock_table
+                    SET cnt = cnt + #{p.pInsert}
+                    WHERE pId = #{pId} AND wId = #{p.wId};
 
-        <!-- 재고테이블 값을 넣는 쿼리 -->
-        INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
-        SELECT COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
-        #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert} FROM dual
-        WHERE NOT EXISTS (SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId})
-        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
+                    <!-- 입력받은 wId와 Stock_table 의 wId가 다른 경우 -->
+                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
+                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert}
+                    WHERE NOT EXISTS (SELECT * FROM Stock_table WHERE pId = #{pId} AND wId = #{p.wId});
+                </when>
 
-        SELECT
-        COALESCE((SELECT pId FROM Product_table WHERE pId = @pId), LAST_INSERT_ID()),
-        #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert}
-        FROM dual
-        WHERE NOT EXISTS (SELECT 1 FROM Stock_table WHERE pId = @pId AND wId = #{p.wId})
-        AND #{p.pInsert} != 0 AND #{p.pInsert} IS NOT NULL;
+                <!-- 상품이 존재하지 않는 경우 Product_table, Stock_table insert -->
+                <otherwise>
+                    INSERT INTO Product_table (pName, price, pCode, pStatus)
+                    VALUES (#{p.pName}, #{p.price}, #{p.pCode}, 1);
 
-        <!-- 재고테이블에 cnt 값이 있는경우 cnt = cnt - quantity -->
-        UPDATE Stock_table
-        SET cnt = cnt - #{p.quantity}
-        WHERE pId = @pId AND wId = #{p.wId} AND cnt >= #{p.quantity};
+                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
+                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert});
+                </otherwise>
+            </choose>
+        </if>
 
-        <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
-        INSERT INTO Release_table (sId, quantity, total, release_at)
-        SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
-        FROM Stock_table, Product_table
-        WHERE #{p.quantity} IS NOT NULL AND #{p.quantity} != 0
-        AND #{p.quantity} &lt;= Stock_table.cnt
-        AND Stock_table.pId = Product_table.pId
-        AND Stock_table.pId = @pId
-        AND Stock_table.wId = #{p.wId};
+        <!-- 출고일때 -->
+        <if test="p.quantity != null and p.quantity != 0">
+            UPDATE Stock_table
+            SET cnt = cnt - #{p.quantity}
+            WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
+
+            <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
+            <if test="true">
+                INSERT INTO Release_table (sId, quantity, total, release_at)
+                SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
+                FROM Stock_table, Product_table
+                WHERE #{p.quantity} &lt;= Stock_table.cnt
+                AND Stock_table.pId = Product_table.pId
+                AND Stock_table.pId = #{pId}
+                AND Stock_table.wId = #{p.wId};
+            </if>
+        </if>
+
     </insert>
 
     <update id="updateProduct">
@@ -99,6 +103,17 @@
         SELECT EXISTS(
         SELECT 1 FROM Product_table
         WHERE pName = #{pName} AND wId = #{wId})
+    </select>
+
+    <!--    하나의 Product ID 를 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
+    <select id="findAllCntByPId" resultType="AllProductCntDto">
+        SELECT (SELECT SUM(s.pInsert) FROM Stock_table s WHERE s.pId = #{pId}) AS pInsertCnt,
+               (SELECT SUM(s.cnt) FROM Stock_table s WHERE s.pId = #{pId}) AS stockCnt,
+               MAX(s.receive_in) AS lastReceiveIn,
+               SUM(r.quantity) AS releaseCnt
+        FROM Stock_table s
+        LEFT JOIN Release_table r ON s.sId = r.sId
+        WHERE s.pId = #{pId};
     </select>
 
 </mapper>

@@ -12,7 +12,7 @@ import java.util.List;
 public interface WarehouseMapper {
     void wSave(EverythingDto everythingDto);
 
-    void wDelete();
+    void wDelete(Long wId);
 
     void wChangeName(@Param("new_wName") String newName, @Param("old_wName") String wName);
 
@@ -22,6 +22,6 @@ public interface WarehouseMapper {
 
     List<Warehouse> findWarehouseByLoc(String wLoc);
 
-    List<CountryDto> countryStaus(); // 🥲
+    List<CountryDto> countryStatus();
 
 }

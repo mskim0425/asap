@@ -111,4 +111,12 @@ public class MainControllerConstants {
 					.wloc(WAREHOUSE.getWLoc())
 					.pStatus(1)
 					.build();
+
+	public static final AllProductCntDto ALL_PRODUCT_CNT_DTO =
+			AllProductCntDto.builder()
+					.pInsertCnt(10000L)
+					.stockCnt(30000L)
+					.releaseCnt(5000L)
+					.lastReceiveIn("2023-03-01")
+					.build();
 }

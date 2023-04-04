@@ -54,7 +54,6 @@ public class DashboardRestDocs {
 	void getProductCntByDate() throws Exception {
 
 		Long pId = 1L;
-
 		given(dashBoardService.CntProduct(anyLong())).willReturn(PRODUCT_CNT_DTO_LIST);
 		//when
 		ResultActions actions =
@@ -127,12 +126,6 @@ public class DashboardRestDocs {
 								)
 						)
 				));
-	}
-
-//	@Test
-	@DisplayName("일별 출고 금액 테스트")
-	void getTotalProductAmount() throws Exception {
-		/* 민섭님 담당 레스트독스 */
 	}
 
 	@Test
