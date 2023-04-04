@@ -1,10 +1,13 @@
 package asap.be.domain;
 
+import asap.be.dto.DetailInfoDto;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.EverythingPageDto;
 import asap.be.dto.PostProductDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
+@Slf4j
 class ProductRepositoryTest {
 
 	@Autowired
@@ -162,12 +166,28 @@ class ProductRepositoryTest {
 	@DisplayName("전부 찾기")
 	void findAll() {
 		// given
-		int startPage = 10, pageSize = 10; //10-20
 
-		List<EverythingDto> list = productMybatisRepository.findByAll(startPage, startPage + pageSize);
+		Integer lastId = null; //10-20
 
+
+		List<EverythingPageDto> list = productMybatisRepository.findByAll(lastId);
+		Integer nextData = list.get(0).getLastid();
+		List<EverythingPageDto> byAll = productMybatisRepository.findByAll(nextData);
 		// then
 		assertThat(list.size()).isEqualTo(10);
+		assertThat(byAll.size()).isEqualTo(10);
+	}
+
+	@Test
+	@DisplayName("상세 찾기")
+	void findOne() {
+		// given
+		Long id = 1L;
+
+		List<DetailInfoDto> dtos = productMybatisRepository.detailPageUsingPId(id);
+
+		// then
+		assertThat(dtos.get(0).getPId()).isEqualTo(1L);
 	}
 
 }

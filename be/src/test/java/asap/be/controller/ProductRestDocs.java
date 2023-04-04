@@ -1,5 +1,6 @@
 package asap.be.controller;
 
+import asap.be.dto.DetailInfoDto;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static asap.be.utils.MainControllerConstants.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -166,6 +168,68 @@ public class ProductRestDocs {
 	}
 
 	@Test
+	@DisplayName("상세페이지 조회")
+	void detailPage() throws Exception {
+		Long pId = 1L;
+		given(productService.detailPageUsingPId(anyLong())).willReturn(DETAIL_INFO_DTO_LIST);
+
+		ResultActions actions = mockMvc.perform(
+				RestDocumentationRequestBuilders.get("/api/find-one?pId={pId}", pId).accept(MediaType.APPLICATION_JSON)
+		);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"find-one",
+						responseFields(
+								List.of(
+										fieldWithPath("[].release_at").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
+										fieldWithPath("[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
+										fieldWithPath("[].receive_in").type(JsonFieldType.STRING).description("입고일"),
+										fieldWithPath("[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
+										fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("단가"),
+										fieldWithPath("[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
+										fieldWithPath("[].pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("[].pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
+										fieldWithPath("[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
+										fieldWithPath("[].pstatus").type(JsonFieldType.NUMBER).description("상품상태"),
+										fieldWithPath("[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("[].wloc").type(JsonFieldType.STRING).description("창고위치"),
+										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional()
+								)
+						)
+
+				));
+
+	}
+
+	@Test
+	@DisplayName("전체페이지 조회")
+	void totalPage() throws Exception {
+		Integer lastId = 10;
+		given(productService.findByAll(anyInt())).willReturn(ALL_INFO_DTO_LIST);
+
+		ResultActions actions = mockMvc.perform(
+				RestDocumentationRequestBuilders.get("/api/find-all?lastId={lastId}", lastId).accept(MediaType.APPLICATION_JSON)
+		);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"find-all",
+						responseFields(
+								List.of(
+										fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("단가"),
+										fieldWithPath("[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("[].pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("[].pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("[].lastid").type(JsonFieldType.NUMBER).description("무한스크롤을 사용하기 위한 데이터")
+								)
+						)
+
+				));
+	}
+  
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
@@ -386,4 +450,5 @@ public class ProductRestDocs {
 						)
 				));
 	}
+
 }

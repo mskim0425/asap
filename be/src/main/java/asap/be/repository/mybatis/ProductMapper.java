@@ -1,9 +1,6 @@
 package asap.be.repository.mybatis;
 
-import asap.be.dto.AllProductCntDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
+import asap.be.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,8 +16,11 @@ public interface ProductMapper {
 
 	List<EverythingDto> findByName(String pName);
 
-	List<EverythingDto> findByAll(int startPage, int pageSize);
+    List<EverythingPageDto> findByAll(Integer lastId);
 
-	AllProductCntDto findAllCntByPId(Long pId);
+    AllProductCntDto findAllCntByPId(Long pId);
+
+    List<DetailInfoDto> detailPageUsingPId(Long pId);
+
 }
 

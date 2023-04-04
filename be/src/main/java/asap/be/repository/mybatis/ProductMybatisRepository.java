@@ -1,9 +1,6 @@
 package asap.be.repository.mybatis;
 
-import asap.be.dto.AllProductCntDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
+import asap.be.dto.*;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,6 +11,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ProductMybatisRepository implements ProductRepository {
+
 	private final ProductMapper productMapper;
 
 	@Override
@@ -37,14 +35,18 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.findByName(pName);
 	}
 
-	@Override
-	public List<EverythingDto> findByAll(int startPage, int pageSize) {
-		return productMapper.findByAll(startPage, pageSize);
-	}
+  @Override
+    public List<EverythingPageDto> findByAll(Integer lastId) {
+        return productMapper.findByAll(lastId);
+    }
 
-	@Override
-	public AllProductCntDto findAllCntByPId(Long pId) {
-		return productMapper.findAllCntByPId(pId);
-	}
+    @Override
+    public AllProductCntDto findAllCntByPId(Long pId) {
+        return productMapper.findAllCntByPId(pId);
+    }
+    @Override
+    public List<DetailInfoDto> detailPageUsingPId(Long pId) {
+        return productMapper.detailPageUsingPId(pId);
+    }
 
 }

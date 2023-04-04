@@ -1,13 +1,7 @@
 package asap.be.controller;
 
-import asap.be.dto.AllProductCntDto;
-import asap.be.dto.CountryDto;
-import asap.be.dto.DashboardDto;
-import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.MoneyDto;
-import asap.be.dto.PostProductDto;
-import asap.be.dto.YearStatusDto;
+
+import asap.be.dto.*;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
 import asap.be.service.ProductService;
@@ -125,6 +119,21 @@ public class MainController {
 		return new ResponseEntity<>(productService.findAllCntByPId(pId), HttpStatus.OK);
 	}
 
+	/*
+	 * no Offset 방식으로 구현한 무한스크롤 페이지네이션
+	 */
+	@GetMapping("/find-all")
+	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId){
+
+		return new ResponseEntity<>(productService.findByAll(lastId),HttpStatus.OK);
+
+	}
+
+	@GetMapping("/find-one")
+	public ResponseEntity<List<DetailInfoDto>> getDetailInfo(@RequestParam(value = "pId") long pId){
+		return new ResponseEntity<>(productService.detailPageUsingPId(pId), HttpStatus.OK);
+	}
+
 	/**
 	 * SSE 통신
 	 * sse 통신 위해 MIME 타입은 text/event-stream 로 지정
@@ -136,4 +145,6 @@ public class MainController {
 
 		return notificationService.connection(lastEventId);
 	}
+
+
 }
