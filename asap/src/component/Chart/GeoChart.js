@@ -21,7 +21,6 @@ export default function GeoChart() {
             console.error(error)
         }
     }
-    console.log(data)
 
     useEffect(()=>{
         dataFetch()
@@ -34,7 +33,7 @@ export default function GeoChart() {
 
     return (
         <div className="chartbox">
-            <Chart className="chartCSS" chartType="GeoChart" data={data} options={options} />
+            {data !== undefined ? <Chart className="chartCSS" chartType="GeoChart" data={data} options={options} /> : null}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import { getTime } from "../../function/getTime";
+import { getTime } from "../../Function/getTime";
 import { testdata } from "./data";
 import "../../Pages/Dashboard.css"
 
