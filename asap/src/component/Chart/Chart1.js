@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { getTime } from "../../function/getTime";
 import { testdata } from "./data";
+import "../../Pages/Dashboard.css"
 
 export default function Chart1() {
-  const [data, setData] = useState([["Year", "Many"]]);
+  const [data, setData] = useState([["Year", "$"]]);
   const [start, setStart] = useState()
   const [end, setEnd] = useState()
 
   const options = {
-    title: "연간 생산량",
+    title: "전체 출고 금액",
     animation: { duration: 1000, easing: "inAndOut", startup: true },
-    width: 1000,
+    width: "99%",
+    height: "99%"
   };
 
   const dateHandler = (e) => {
@@ -39,11 +41,11 @@ export default function Chart1() {
   }, []);
 
   return (
-    <section className="chart1">
-      <Chart chartType="ColumnChart" data={data} options={options} />
-      <input type="date" name="startDate" onChange={dateHandler}/>
+    <div className="chartbox">
+      <Chart className="chartCSS" chartType="ColumnChart" data={data} options={options} />
+      {/* <input type="date" name="startDate" onChange={dateHandler}/>
       <input type="date" name="endDate" onChange={dateHandler}/>
-      <button onClick={clickHandler}>btn</button>
-    </section>
+      <button onClick={clickHandler}>btn</button> */}
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import Chart from "react-google-charts";
 
-export default function Chart3 () {
+export default function CalendarChart () {
     const data = [
         [{ type: 'date', id: 'Date' }, { type: 'number', id: 'Won/Loss' }],
         [new Date(2020, 1, 23), 38345],
