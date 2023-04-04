@@ -7,7 +7,7 @@ export default function GeoChart() {
     
     const dataFetch = async () => {
         try{
-            const response = await axios.get("https://a61c-183-98-54-250.jp.ngrok.io/api/country-product-status", {
+            const response = await axios.get(`/country-product-status`, {
                 headers: {
                     'ngrok-skip-browser-warning': 'none'
                 }
@@ -21,19 +21,19 @@ export default function GeoChart() {
             console.error(error)
         }
     }
-
+    
     useEffect(()=>{
         dataFetch()
     }, [])
 
     const options = {
-        width: "99%",
-        height: "99%",
+        width: "90%",
+        height: "90%",
     }
 
     return (
         <div className="chartbox">
-            {data !== undefined ? <Chart className="chartCSS" chartType="GeoChart" data={data} options={options} /> : null}
+            <Chart className="chartCSS" chartType="GeoChart" data={data} options={options} />
         </div>
     )
 }

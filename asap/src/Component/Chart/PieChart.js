@@ -8,12 +8,12 @@ export default function PieChart() {
 
   const dataFetch = async () => {
     try{
-      const response = await axios.get('https://a61c-183-98-54-250.jp.ngrok.io/api/product-rank', {headers: {'ngrok-skip-browser-warning': 'none'}})
+      const response = await axios.get(`product-rank`, {headers: {'ngrok-skip-browser-warning': 'none'}})
 
       const newStoreData = [["상품명", "입고량"]]
-      const newReleaseData = [["상품명", "출고량"]]
-
       const insertFetchData = response.data.insertRankDto
+      
+      const newReleaseData = [["상품명", "출고량"]]
       const releaseFetchData = response.data.releaseRankDto
 
       for(let i = 0; i < insertFetchData.length; i++){

@@ -1,8 +1,9 @@
-import CalendarChart from "../component/Chart/CalendarChart";
-import ComboChart from "../component/Chart/ComboChart";
-import GeoChart from "../component/Chart/GeoChart";
-import LineChart from "../component/Chart/LineChart";
-import PieChart from "../component/Chart/PieChart";
+import CalendarChart from "../Component/Chart/CalendarChart";
+import ComboChart from "../Component/Chart/ComboChart";
+import GeoChart from "../Component/Chart/GeoChart";
+import LineChart from "../Component/Chart/LineChart";
+import PieChart from "../Component/Chart/PieChart";
+import SSE from "../Component/SSE";
 
 import "./Dashboard.css";
 
@@ -11,32 +12,33 @@ function Dashboard() {
   return (
     <section className="Dashboard">
       <div className="leftBox">
-        <div className="left-up">
-          <div className="left-up-chart">
-            <LineChart />
+        <div className="lb-left">
+          <div className="lb-left-top chartSection">
+            <h2>TODAY</h2>
           </div>
-          <div className="left-up-chart">
-            <ComboChart data={ComboData} title={"월별 재고 현황"} width="99%" height="100%"/>
-            {/* <CalendarChart /> */}
+          <div className="lb-left-middle chartSection">
+            <h2>TOP 10</h2>
+          </div>
+          <div className="lb-left-bottom chartSection">
+            <h2>Our World Storage</h2>
+            <GeoChart />
           </div>
         </div>
-
-        <div className="left-down">
-          <div className="left-down-chart">
-            <GeoChart/>
+        <div className="lb-right">
+          <div className="lb-right-top chartSection">
+            <h2>Monthly Stock Flow</h2>
           </div>
-          <div className="left-down-chart">
-            <ComboChart data={ComboData2} title={"아이템별 입출고량"} />
+          <div className="lb-right-middle chartSection">
+            <h2>Daily Stock Flow by Product</h2>
           </div>
-          <div className="left-down-chart">
-            <PieChart/>
+          <div className="lb-right-bottom chartSection">
+            <h2>Daily Total Sales</h2>
           </div>
         </div>
       </div>
 
       <div className="rightBox">
-        <div className="test">hello</div>
-        {todo.map(el => {return <div className="test2" key={el}>{el}</div>})}
+        {/* <SSE /> */}
       </div>
     </section>
   );

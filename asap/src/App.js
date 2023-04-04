@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import Stuff from "./Pages/Stuff";
 
-import Sidebar from "./component/Sidebar";
-import Error from "./component/Error/Error";
-import Loading from "./component/loading/Loading";
+import Sidebar from "./Component/Sidebar";
+import Error from "./Component/Error/Error";
+import Loading from "./Component/loading/Loading";
 
 function App() {
   return (
