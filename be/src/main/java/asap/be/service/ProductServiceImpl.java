@@ -1,6 +1,7 @@
 package asap.be.service;
 
 import asap.be.domain.notification.NotificationType;
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
@@ -23,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
     public void insertOrUpdateStock(PostProductDto dto) {
         productMybatisRepository.insertOrUpdateStock(dto);
 
-        EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId());
+        EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());
         StringBuffer sb = new StringBuffer();
 
         if (everythingDto != null && dto.getPInsert() != 0) {
@@ -59,6 +60,11 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<EverythingDto> findByAll(int startPage, int pageSize) {
         return productMybatisRepository.findByAll(startPage,pageSize);
+    }
+
+    @Override
+    public AllProductCntDto findAllCntByPId(Long pId) {
+        return productMybatisRepository.findAllCntByPId(pId);
     }
 
 }

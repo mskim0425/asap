@@ -1,5 +1,6 @@
 package asap.be.repository.mybatis;
 
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
@@ -39,6 +40,11 @@ public class ProductMybatisRepository implements ProductRepository {
     @Override
     public List<EverythingDto> findByAll(int startPage, int pageSize) {
         return productMapper.findByAll(startPage, pageSize);
+    }
+
+    @Override
+    public AllProductCntDto findAllCntByPId(Long pId) {
+        return productMapper.findAllCntByPId(pId);
     }
 
 }

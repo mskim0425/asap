@@ -9,7 +9,7 @@ import java.util.List;
 public interface WarehouseService {
     void wSave(EverythingDto everythingDto);
 
-    void wDelete();
+    void wDelete(Long wId);
 
     void wChangeName(String newName, String wName);
 

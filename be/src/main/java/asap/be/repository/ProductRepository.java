@@ -1,5 +1,6 @@
 package asap.be.repository;
 
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
@@ -17,4 +18,5 @@ public interface ProductRepository {
 
 	List<EverythingDto> findByAll(int startPage, int pageSize);
 
+	AllProductCntDto findAllCntByPId(Long pId);
 }

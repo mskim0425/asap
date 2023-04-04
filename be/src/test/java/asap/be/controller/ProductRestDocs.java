@@ -18,11 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static asap.be.utils.MainControllerConstants.RELEASE_PRODUCT;
-import static asap.be.utils.MainControllerConstants.SAVE_AND_RECEIVE_PRODUCT;
+import static asap.be.utils.MainControllerConstants.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,5 +132,36 @@ public class ProductRestDocs {
 										fieldWithPath("sid").type(JsonFieldType.NUMBER).description("재고 식별자")
 								)
 						)));
+	}
+
+	@Test
+	@DisplayName("상품 ID 를 통한 총 입고량, 총 출고량, 총 재고량, 최신 입고일 조회 테스트")
+	void getAllProductCnt() throws Exception {
+
+		Long pId = 1L;
+
+		given(productService.findAllCntByPId(anyLong())).willReturn(ALL_PRODUCT_CNT_DTO);
+
+		ResultActions actions=
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.get("/api/all-cnt/{p-id}", pId)
+								.accept(MediaType.APPLICATION_JSON)
+				);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"get-all-cnt",
+						pathParameters(
+								parameterWithName("p-id").description("상품 번호")
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("pinsertCnt").type(JsonFieldType.NUMBER).description("총 입고량"),
+										fieldWithPath("stockCnt").type(JsonFieldType.NUMBER).description("총 재고량"),
+										fieldWithPath("releaseCnt").type(JsonFieldType.NUMBER).description("총 출고량"),
+										fieldWithPath("lastReceiveIn").type(JsonFieldType.STRING).description("최근 입고일")
+								)
+						)
+				));
 	}
 }

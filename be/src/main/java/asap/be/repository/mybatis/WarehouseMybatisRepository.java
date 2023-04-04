@@ -18,7 +18,9 @@ public class WarehouseMybatisRepository implements WarehouseRepository {
         warehouseMapper.wSave(everythingDto);
     }
 
-    public void wDelete() {
+    @Override
+    public void wDelete(Long wId) {
+        warehouseMapper.wDelete(wId);
     }
 
     public void wChangeName(String newName, String wName) {
@@ -38,8 +40,8 @@ public class WarehouseMybatisRepository implements WarehouseRepository {
     }
 
     @Override
-    public List<CountryDto> countryStaus() { // 오타,,🥲
-        return warehouseMapper.countryStaus(); // 여기두,,
+    public List<CountryDto> countryStatus() {
+        return warehouseMapper.countryStatus();
     }
 
 }

@@ -81,10 +81,10 @@ class ProductRepositoryTest {
 
 		//when
 		productMybatisRepository.insertOrUpdateStock(notExist);
-		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(),notExist.getWId()); //만개가 저장되고
+		EverythingDto lastProd = releaseMybatisRepository.findStockByPNameAndWId(notExist.getPName(),notExist.getWId(), notExist.getPCode()); //만개가 저장되고
 
 		productMybatisRepository.insertOrUpdateStock(same); // 상품 최초 저장 및 입고/출고 시 원큐에 끝나여
-		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(),same.getWId()); //만개가 한번더 저장되고
+		EverythingDto sameProd = releaseMybatisRepository.findStockByPNameAndWId(same.getPName(),same.getWId(), same.getPCode()); //만개가 한번더 저장되고
 
 		//then
 		assertThat(lastProd.getPname()).isEqualTo(notExist.getPName()); //입고저장

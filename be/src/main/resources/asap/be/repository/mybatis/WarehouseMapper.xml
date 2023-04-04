@@ -8,6 +8,11 @@
         VALUES (#{wname}, #{wloc});
     </insert>
 
+    <delete id="wDelete">
+        DELETE FROM Warehouse_table
+        WHERE wId = #{wId};
+    </delete>
+
     <update id="wChangeName">
         UPDATE Warehouse_table
         SET wName = #{new_wName}
@@ -30,7 +35,7 @@
         WHERE wLoc = #{wLoc}
     </select>
 
-    <select id="countryStaus" resultType="CountryDto">
+    <select id="countryStatus" resultType="CountryDto">
         SELECT w.wLoc AS countryName, COUNT(s.wId) AS productCnt
         FROM Warehouse_table w LEFT OUTER JOIN Stock_table s ON w.wId = s.wId
         GROUP BY w.wLoc;

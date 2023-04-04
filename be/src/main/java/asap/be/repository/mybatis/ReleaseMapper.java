@@ -4,7 +4,6 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
-import asap.be.dto.ReleaseStockDto;
 import asap.be.dto.YearStatusDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,19 +13,13 @@ import java.util.Map;
 
 @Mapper
 public interface ReleaseMapper {
-    Integer cnt(Long pId);
-
-    void release(@Param("s") ReleaseStockDto stockDto);
-
-    void update(@Param("s") ReleaseStockDto stockDto);
-
     List<Release> findAll();
 
     List<Release> findReleaseById(Long sId);
 
     Stock findStockByPId(Long pId);
 
-    EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId);
+    EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId, @Param("pCode") String pCode);
 
     List<MoneyDto> totalByDates(String start_date, String end_date);
 

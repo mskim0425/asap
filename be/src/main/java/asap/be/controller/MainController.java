@@ -1,5 +1,6 @@
 package asap.be.controller;
 
+import asap.be.dto.AllProductCntDto;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DashboardDto;
 import asap.be.dto.EverythingDto;
@@ -53,7 +54,7 @@ public class MainController {
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
 		productService.insertOrUpdateStock(productDto);
-		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId()), HttpStatus.OK);
+		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
 
 	}
 
@@ -116,6 +117,15 @@ public class MainController {
 	}
 
 	/**
+	 * 상품 ID를 통해 총 입고량, 총 재고량, 총 출고량, 최신 입고일 조회
+	 */
+	@GetMapping("/all-cnt/{p-id}")
+	public ResponseEntity<AllProductCntDto> getAllProductCnt(@PathVariable("p-id") Long pId) {
+
+		return new ResponseEntity<>(productService.findAllCntByPId(pId), HttpStatus.OK);
+	}
+
+	/**
 	 * SSE 통신
 	 * sse 통신 위해 MIME 타입은 text/event-stream 로 지정
 	 *
@@ -123,6 +133,7 @@ public class MainController {
 	 */
 	@GetMapping(value = "/connect", produces = "text/event-stream")
 	public SseEmitter sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {
+
 		return notificationService.connection(lastEventId);
 	}
 }

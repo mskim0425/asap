@@ -22,8 +22,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional
-    public void wDelete() {
-
+    public void wDelete(Long wId) {
+        warehouseMybatisRepository.wDelete(wId);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<CountryDto> countryStatus() {
-        return warehouseMybatisRepository.countryStaus(); // 🥲
+        return warehouseMybatisRepository.countryStatus();
     }
 
 }
