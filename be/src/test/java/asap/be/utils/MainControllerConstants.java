@@ -24,11 +24,11 @@ public class MainControllerConstants {
 
 	public static final PostProductDto RELEASE_PRODUCT =
 			PostProductDto.builder()
-					.pName("상품명")
-					.price(10000)
-					.pCode("상품바코드")
-					.wId(1L) // 창고코드
-					.quantity(30) // 출고 수량
+					.pName("블랙올리브")
+					.price(996)
+					.pCode("eb2817de-4072-4fc3-b7df-03cb0e5c2ef9")
+					.wId(40L) // 창고코드
+					.quantity(10) // 출고 수량
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_NAME =
