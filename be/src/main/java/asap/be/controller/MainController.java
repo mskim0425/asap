@@ -67,7 +67,7 @@ public class MainController {
 	 * @param pId
 	 */
 	@GetMapping("/cnt-product-by-date/{p-id}")
-	public ResponseEntity<List<DashboardDto.ProductCntDto>> getProductCntByDate(@PathVariable("p-id") Long pId) {
+	public ResponseEntity<List<ProductCntDto>> getProductCntByDate(@PathVariable("p-id") Long pId) {
 
 		return new ResponseEntity<>(dashBoardService.CntProduct(pId), HttpStatus.OK);
 	}

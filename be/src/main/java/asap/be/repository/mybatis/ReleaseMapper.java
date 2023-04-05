@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,9 +26,7 @@ public interface ReleaseMapper {
 
 	List<YearStatusDto> getMonthlyStockSummary(String year);
 
-	List<Map<String, Object>> insertCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
-
-	List<Map<String, Object>> releaseCnt(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+	List<ProductCntDto> cntProductByDate(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
 
 	List<Map<String, Object>> insertCntRank(String receive_in);
 

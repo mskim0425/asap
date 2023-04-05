@@ -1,7 +1,7 @@
 package asap.be.domain;
 
 import asap.be.dto.CountryDto;
-import asap.be.dto.DashboardDto.ProductCntDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.DashboardDto.RankDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.PostProductDto;

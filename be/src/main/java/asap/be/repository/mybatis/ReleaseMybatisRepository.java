@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,13 +49,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public List<Map<String, Object>> insertCnt(Long pId, String startAt, String endAt) {
-        return releaseMapper.insertCnt(pId, startAt, endAt);
-    }
-
-    @Override
-    public List<Map<String, Object>> releaseCnt(Long pId, String startAt, String endAt) {
-        return releaseMapper.releaseCnt(pId, startAt, endAt);
+    public List<ProductCntDto> cntProductByDate(Long pId, String startAt, String endAt) {
+        return releaseMapper.cntProductByDate(pId, startAt, endAt);
     }
 
     @Override

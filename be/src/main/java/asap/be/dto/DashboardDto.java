@@ -14,18 +14,9 @@ public class DashboardDto {
 	@Builder
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class ProductCntDto {
-		private String date;
-		private int insertCnt;
-		private int releaseCnt;
-	}
-
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
 	public static class RankDto {
 		private List<Map<String, Object>> insertRankDto;
 		private List<Map<String, Object>> releaseRankDto;
 	}
 }
+
