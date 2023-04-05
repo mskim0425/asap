@@ -26,10 +26,6 @@ public interface ReleaseRepository {
 
 	List<ProductCntDto> cntProductByDate(Long pId, String startAt, String endAt);
 
-//	List<Map<String, Object>> insertCnt(Long pId, String startAt, String endAt);
-//
-//	List<Map<String, Object>> releaseCnt(Long pId, String startAt, String endAt);
-
 	List<Map<String, Object>> insertRank(String receive_in);
 
 	List<Map<String, Object>> releaseCntRank(String release_at);
