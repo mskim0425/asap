@@ -19,6 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
+		//cnt가 ? 디비에 접근을 2번해야하는 단점이생김
 		productMybatisRepository.insertOrUpdateStock(dto);
 
 		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());

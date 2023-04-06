@@ -46,6 +46,8 @@ public class MainController {
 	 */
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
+		if(productDto.getPName().isEmpty()) return null;
+		log.info("입고량 : {}  출고량: {} sId: {} pId: {}",productDto.getPInsert(),productDto.getQuantity(), productDto.getSId(),productDto.getPId());
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
 
