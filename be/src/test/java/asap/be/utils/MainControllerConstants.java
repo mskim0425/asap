@@ -2,7 +2,7 @@ package asap.be.utils;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.*;
-import asap.be.dto.DashboardDto.ProductCntDto;
+import asap.be.dto.ProductCntDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,7 +28,7 @@ public class MainControllerConstants {
 					.price(10000)
 					.pCode("상품바코드")
 					.wId(1L) // 창고코드
-					.quantity(30) // 출고 수량
+					.pInsert(100) // 입고 수량
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_NAME =

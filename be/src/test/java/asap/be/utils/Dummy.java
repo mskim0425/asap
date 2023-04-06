@@ -1,91 +1,91 @@
 package asap.be.utils;
 
 import asap.be.dto.CountryDto;
-import asap.be.dto.DashboardDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 
 public class Dummy {
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO1 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO1 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO2 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO2 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO3 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO3 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO4 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO4 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO5 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO5 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO6 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO6 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO7 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO7 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO8 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO8 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO9 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO9 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO10 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO10 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO11 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO11 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)
 					.build();
 
-	public static final DashboardDto.ProductCntDto PRODUCT_CNT_DTO12 =
-			DashboardDto.ProductCntDto.builder()
+	public static final ProductCntDto PRODUCT_CNT_DTO12 =
+			ProductCntDto.builder()
 					.date("2023-01-01")
 					.insertCnt(100)
 					.releaseCnt(100)

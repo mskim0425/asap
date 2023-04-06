@@ -33,32 +33,22 @@
         ORDER BY release_at
     </select>
 
-    <select id="insertCnt" resultType="java.util.Map">
-        SELECT DATE_FORMAT(t.date_range, '%Y-%m-%d') AS receive_in, IFNULL(SUM(s.pInsert), 0) AS pInsert
+    <select id="cntProductByDate" resultType="ProductCntDto">
+        SELECT DATE_FORMAT(t.end_date, '%Y-%m-%d') AS date,
+               COALESCE(SUM(s.pInsert), 0) AS insertCnt,
+               COALESCE(SUM(r.quantity), 0) AS releaseCnt
         FROM (
-            SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS date_range
+        SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS end_date
             FROM (SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t4,
                  (SELECT 0 t16 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t16,
                  (SELECT 0 t64 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t64
-            HAVING date_range BETWEEN #{start_at} AND #{end_at}
+            WHERE ADDDATE(#{start_at}, INTERVAL 20 DAY) BETWEEN #{start_at} AND #{end_at}
         ) t
-        LEFT JOIN Stock_table s ON t.date_range = DATE(s.receive_in) AND s.pId = #{pId}
-        GROUP BY DATE_FORMAT(t.date_range, '%Y-%m-%d')
-        ORDER BY receive_in ASC;
-    </select>
-
-    <select id="releaseCnt" resultType="java.util.Map">
-        SELECT DATE_FORMAT(t.date_range, '%Y-%m-%d') AS release_at, IFNULL(SUM(r.quantity), 0) AS pRelease
-        FROM (
-            SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS date_range
-            FROM (SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t4,
-                 (SELECT 0 t16 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t16,
-                 (SELECT 0 t64 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t64
-            HAVING date_range BETWEEN #{start_at} AND #{end_at}
-        ) t
-        LEFT JOIN Release_table r ON t.date_range = DATE(r.release_at) AND r.sId = #{pId}
-        GROUP BY DATE_FORMAT(t.date_range, '%Y-%m-%d')
-        ORDER BY release_at ASC;
+        LEFT JOIN Stock_table s ON t.end_date = DATE(s.receive_in) AND s.pId = #{pId}
+        LEFT JOIN Release_table r ON t.end_date = DATE(r.release_at) AND r.sId = s.sId
+        GROUP BY DATE_FORMAT(t.end_date, '%Y-%m-%d')
+        ORDER BY date ASC
+        LIMIT 21;
     </select>
 
     <select id="insertCntRank" resultType="java.util.Map">
