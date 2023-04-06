@@ -41,20 +41,19 @@
 
         <!-- 출고일때 -->
         <if test="p.quantity != null and p.quantity != 0">
+            <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
+            <if test="true">
+            INSERT INTO Release_table (sId, quantity, total, release_at)
+            SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
+            FROM Stock_table, Product_table
+            WHERE #{p.quantity} &lt;= Stock_table.cnt
+            AND Stock_table.pId = Product_table.pId
+            AND Stock_table.pId = #{pId}
+            AND Stock_table.wId = #{p.wId};
+            </if>
             UPDATE Stock_table
             SET cnt = cnt - #{p.quantity}
             WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
-
-            <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
-            <if test="true">
-                INSERT INTO Release_table (sId, quantity, total, release_at)
-                SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
-                FROM Stock_table, Product_table
-                WHERE #{p.quantity} &lt;= Stock_table.cnt
-                AND Stock_table.pId = Product_table.pId
-                AND Stock_table.pId = #{pId}
-                AND Stock_table.wId = #{p.wId};
-            </if>
         </if>
 
     </insert>
@@ -134,4 +133,6 @@
           JOIN Warehouse_table AS w ON s.wId = w.wId
          WHERE p.pId = #{pId};
     </select>
+
+
 </mapper>

@@ -36,7 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 .gradle
-application.yml
 
 ###.yml ###
 src/test/resources
+src/main/resources/*.yml

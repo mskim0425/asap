@@ -229,7 +229,8 @@ public class ProductRestDocs {
 
 				));
 	}
-  
+
+	@Test
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
