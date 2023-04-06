@@ -16,5 +16,6 @@ public interface ProductRepository {
 	List<EverythingPageDto> findByAll(Integer lastId);
 
 	AllProductCntDto findAllCntByPId(Long pId);
+
 	List<DetailInfoDto> detailPageUsingPId(Long pId);
 }

@@ -1,7 +1,7 @@
 package asap.be.service;
 
 import asap.be.dto.CountryDto;
-import asap.be.dto.DashboardDto.ProductCntDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.DashboardDto.RankDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.YearStatusDto;
@@ -27,25 +27,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public List<ProductCntDto> CntProduct(Long pId) {
 
-		List<ProductCntDto> result = new ArrayList<>();
-
 		LocalDate today = LocalDate.now().minusDays(1);
-		LocalDate start = today.minusDays(20); // 최근 21일위한
+		LocalDate start = today.minusDays(20); // 오늘 제외한 최근 21일
 
-		List<Map<String, Object>> insertCnt = releaseMybatisRepository.insertCnt(pId, start.toString(), today.toString());
-		List<Map<String, Object>> releaseCnt = releaseMybatisRepository.releaseCnt(pId, start.toString(), today.toString());
-
-		for (int i = 0; i < insertCnt.size(); i++) {
-			ProductCntDto cntDto = ProductCntDto.builder()
-					.date(insertCnt.get(i).get("receive_in").toString())
-					.insertCnt(insertCnt.get(i).get("pInsert") == null ? 0 : Integer.parseInt(insertCnt.get(i).get("pInsert").toString()))
-					.releaseCnt(releaseCnt.get(i).get("pRelease") == null ? 0 : Integer.parseInt(releaseCnt.get(i).get("pRelease").toString()))
-					.build();
-
-			result.add(cntDto);
-		}
-
-		return result;
+		return releaseMybatisRepository.cntProductByDate(pId, start.toString(), today.toString());
 	}
 
 	@Override

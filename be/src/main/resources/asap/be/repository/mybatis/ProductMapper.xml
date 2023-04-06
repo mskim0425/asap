@@ -5,6 +5,13 @@
 
     <insert id="insertOrUpdateStock" parameterType="PostProductDto">
 
+        <if test="p.date == null">
+            SET @date = now();
+        </if>
+        <if test="p.date != null">
+            SET @date = #{p.date};
+        </if>
+
         <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
         <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
             SELECT IFNULL((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
@@ -24,7 +31,7 @@
 
                     <!-- 입력받은 wId와 Stock_table 의 wId가 다른 경우 -->
                     INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
-                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert}
+                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}
                     WHERE NOT EXISTS (SELECT * FROM Stock_table WHERE pId = #{pId} AND wId = #{p.wId});
                 </when>
 
@@ -34,7 +41,7 @@
                     VALUES (#{p.pName}, #{p.price}, #{p.pCode}, 1);
 
                     INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
-                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, NOW(), #{p.pInsert});
+                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, @date, #{p.pInsert});
                 </otherwise>
             </choose>
         </if>
@@ -48,7 +55,7 @@
             <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
             <if test="true">
                 INSERT INTO Release_table (sId, quantity, total, release_at)
-                SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
+                SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
                 FROM Stock_table, Product_table
                 WHERE #{p.quantity} &lt;= Stock_table.cnt
                 AND Stock_table.pId = Product_table.pId
@@ -126,7 +133,7 @@
 
     <select id="detailPageUsingPId" resultType="DetailInfoDto">
         SELECT r.rId, r.release_at, r.quantity,
-               s.sId, p.pId,s.wId, s.receive_in, w.wName, w.wLoc, p.pName,p.pCode,
+               s.sId, p.pId,s.wId, s.receive_in, w.wName, w.wLoc, p.pName ,p.pCode,
                s.pInsert,  s.cnt, p.price, p.pStatus
           FROM Product_table AS p
           JOIN Stock_table AS s ON p.pId = s.pId

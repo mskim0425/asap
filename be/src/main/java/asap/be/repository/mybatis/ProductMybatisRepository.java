@@ -35,7 +35,7 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.findByName(pName);
 	}
 
-  @Override
+    @Override
     public List<EverythingPageDto> findByAll(Integer lastId) {
         return productMapper.findByAll(lastId);
     }
@@ -44,6 +44,7 @@ public class ProductMybatisRepository implements ProductRepository {
     public AllProductCntDto findAllCntByPId(Long pId) {
         return productMapper.findAllCntByPId(pId);
     }
+
     @Override
     public List<DetailInfoDto> detailPageUsingPId(Long pId) {
         return productMapper.detailPageUsingPId(pId);

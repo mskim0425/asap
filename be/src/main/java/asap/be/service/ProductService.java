@@ -13,10 +13,10 @@ public interface ProductService {
 
 	List<EverythingDto> findByName(String pName);
 
-  List<EverythingPageDto> findByAll(Integer lastId);
+	List<EverythingPageDto> findByAll(Integer lastId);
 
-  AllProductCntDto findAllCntByPId(Long pId);
-  
-  List<DetailInfoDto> detailPageUsingPId(Long pId);
+	AllProductCntDto findAllCntByPId(Long pId);
+
+	List<DetailInfoDto> detailPageUsingPId(Long pId);
 
 }

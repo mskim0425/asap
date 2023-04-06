@@ -57,6 +57,8 @@ include::{snippets}/cnt-product-by-date/curl-request.adoc[]
 .Http-Request
 include::{snippets}/cnt-product-by-date/http-request.adoc[]
 
+include::{snippets}/cnt-product-by-date/path-parameters.adoc[]
+
 .Request-Body
  NULL
 
@@ -107,7 +109,7 @@ include::{snippets}/total-product-amount/response-body.adoc[]
 .Response-Fields
 include::{snippets}/total-product-amount/response-fields.adoc[]
 
-=======
+
 == Product
 === 상품 저장 및 입고
 .Curl-Request
@@ -160,8 +162,7 @@ include::{snippets}/get-all-cnt/curl-request.adoc[]
 .Http-Request
 include::{snippets}/get-all-cnt/http-request.adoc[]
 
-.Request-Body
-include::{snippets}/get-all-cnt/request-body.adoc[]
+include::{snippets}/get-all-cnt/path-parameters.adoc[]
 
 .Http-Response
 include::{snippets}/get-all-cnt/http-response.adoc[]
@@ -174,7 +175,7 @@ include::{snippets}/get-all-cnt/response-fields.adoc[]
 
 === 상품 이름 수정
 .Curl-Request
-include::{snippets}/patch-product-name/curl-request.adoc[]
+include::{snippets}/
 
 .Http-Request
 include::{snippets}/patch-product-name/http-request.adoc[]
@@ -291,7 +292,7 @@ include::{snippets}/find-one/curl-request.adoc[]
 include::{snippets}/find-one/http-request.adoc[]
 
 .Request-Body
-NULL
+ NULL
 
 .Http-Response
 include::{snippets}/find-one/http-response.adoc[]
@@ -311,7 +312,7 @@ include::{snippets}/find-all/curl-request.adoc[]
 include::{snippets}/find-all/http-request.adoc[]
 
 .Request-Body
-NULL
+ NULL
 
 .Http-Response
 include::{snippets}/find-all/http-response.adoc[]

@@ -14,4 +14,5 @@ public class PostProductDto {
 	private Long wId;
 	private int pInsert;
 	private int quantity;
+	private String date;
 }

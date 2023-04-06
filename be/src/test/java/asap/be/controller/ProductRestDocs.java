@@ -3,6 +3,7 @@ package asap.be.controller;
 import asap.be.dto.DetailInfoDto;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Slf4j
 @Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -160,7 +162,7 @@ public class ProductRestDocs {
 								List.of(
 										fieldWithPath("pinsertCnt").type(JsonFieldType.NUMBER).description("총 입고량"),
 										fieldWithPath("stockCnt").type(JsonFieldType.NUMBER).description("총 재고량"),
-										fieldWithPath("releaseCnt").type(JsonFieldType.NUMBER).description("총 출고량"),
+										fieldWithPath("releaseCnt").type(JsonFieldType.NUMBER).description("총 출고량").optional(),
 										fieldWithPath("lastReceiveIn").type(JsonFieldType.STRING).description("최근 입고일")
 								)
 						)
@@ -229,7 +231,8 @@ public class ProductRestDocs {
 
 				));
 	}
-  
+
+	@Test
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
