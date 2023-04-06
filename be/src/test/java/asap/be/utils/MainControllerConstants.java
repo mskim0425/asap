@@ -80,7 +80,7 @@ public class MainControllerConstants {
 					.release_at("2023-04-03").quantity(10).receive_in("2023-04-03")
 					.cnt(348).price(765).pId(1).wId(38).pName("피자")
 					.pCode("df26e23d-4136-442f-92d3-7a0170d79a22")
-					.sId(1L).pInsert(348).pStatus(1).wName("BMW M6")
+					.sId(1L).pInsertLog("348").pStatus(1).wName("BMW M6")
 					.wLoc("Palau").rId(1L)
 					.build();
 
@@ -89,7 +89,7 @@ public class MainControllerConstants {
 					.release_at("2023-04-03").quantity(10).receive_in("2023-04-03")
 					.cnt(348).price(765).pId(1).wId(38).pName("피자")
 					.pCode("df26e23d-4136-442f-92d3-7a0170d79a22")
-					.sId(1L).pInsert(348).pStatus(1).wName("BMW M6")
+					.sId(1L).pInsertLog("348").pStatus(1).wName("BMW M6")
 					.wLoc("Palau").rId(1L)
 					.build();
 

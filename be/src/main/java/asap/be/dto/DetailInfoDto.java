@@ -20,7 +20,7 @@ public class DetailInfoDto {
     private String pName;
     private String pCode;
 
-    private int pInsert;
+    private String pInsertLog;
     private int cnt;
     private int price;
     private int pStatus;
