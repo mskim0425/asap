@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 	//TODO:
-	// 1. 입고와 출고를 매퍼를 통해 나누기
+	// 1. 입고와 출고를 매퍼를 통해 나누기 11
 	// 2.출고에서 처음에 cnt가 cnt &gt;= #{p.quantity} 이여부를 판단하고 맞으면 <if>
 	void insertOrUpdateStock(@Param("p") PostProductDto dto); // 상품 등록 및 입고/출고
 
