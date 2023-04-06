@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
@@ -17,7 +19,8 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Override
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
-		productMapper.insertOrUpdateStock(dto);
+		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		productMapper.insertOrUpdateStock(dto,today);
 	}
 
 	@Override
