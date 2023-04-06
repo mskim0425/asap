@@ -51,7 +51,7 @@
             <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
             <if test="true">
             INSERT INTO Release_table (sId, quantity, total, release_at)
-            SELECT sId, #{p.quantity}, #{p.quantity} * price, NOW()
+            SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
             FROM Stock_table, Product_table
             WHERE #{p.quantity} &lt;= Stock_table.cnt
             AND Stock_table.pId = Product_table.pId
