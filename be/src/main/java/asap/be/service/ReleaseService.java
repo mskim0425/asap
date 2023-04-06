@@ -3,6 +3,7 @@ package asap.be.service;
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.PostProductDto;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface ReleaseService {
 
 	EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode);
 
+	Integer getCnt(PostProductDto dto);
 }

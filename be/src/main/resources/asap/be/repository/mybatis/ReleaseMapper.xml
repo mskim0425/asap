@@ -34,21 +34,12 @@
     </select>
 
     <select id="cntProductByDate" resultType="ProductCntDto">
-        SELECT DATE_FORMAT(t.end_date, '%Y-%m-%d') AS date,
-               COALESCE(SUM(s.pInsert), 0) AS insertCnt,
-               COALESCE(SUM(r.quantity), 0) AS releaseCnt
-        FROM (
-        SELECT ADDDATE(#{start_at}, t4+t16*4+t64*16) AS end_date
-            FROM (SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t4,
-                 (SELECT 0 t16 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t16,
-                 (SELECT 0 t64 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) t64
-            WHERE ADDDATE(#{start_at}, INTERVAL 20 DAY) BETWEEN #{start_at} AND #{end_at}
-        ) t
-        LEFT JOIN Stock_table s ON t.end_date = DATE(s.receive_in) AND s.pId = #{pId}
-        LEFT JOIN Release_table r ON t.end_date = DATE(r.release_at) AND r.sId = s.sId
-        GROUP BY DATE_FORMAT(t.end_date, '%Y-%m-%d')
-        ORDER BY date ASC
-        LIMIT 21;
+        SELECT date, SUM(pInsert) AS insertCnt, SUM(quantity) AS releaseCnt
+        FROM (SELECT DATE(s.receive_in) AS date, s.pInsert AS pInsert, r.quantity AS quantity FROM Stock_table s
+              LEFT JOIN Release_table r ON r.sId = s.sId AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
+              WHERE s.pId = #{pId} AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at}) t
+        GROUP BY date
+        ORDER BY date ASC;
     </select>
 
     <select id="insertCntRank" resultType="java.util.Map">
@@ -116,6 +107,14 @@
             ) AS s ON m.month = s.month
         ORDER BY
             m.month
+    </select>
+
+    <select id="getCnt" parameterType="PostProductDto" resultType="java.lang.Integer">
+        SELECT COALESCE((SELECT cnt FROM Stock_table WHERE pId =
+        (SELECT pt.pId FROM Product_table pt
+        WHERE pt.pName = #{p.pName}
+        AND pt.price = #{p.price}
+        AND pt.pCode = #{p.pCode})) , 0) AS cnt;
     </select>
 
 </mapper>

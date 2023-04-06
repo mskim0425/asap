@@ -3,6 +3,7 @@ package asap.be.service;
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
+import asap.be.dto.PostProductDto;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class ReleaseServiceImpl implements ReleaseService {
 	@Transactional(readOnly = true)
 	public EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode) {
 		return releaseMybatisRepository.findStockByPNameAndWId(pName, wId, pCode);
+	}
+
+	@Override
+	public Integer getCnt(PostProductDto dto) {
+		return releaseMybatisRepository.getCnt(dto);
 	}
 
 }

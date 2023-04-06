@@ -50,7 +50,6 @@ public class MainController {
 		log.info("입고량 : {}  출고량: {} sId: {} pId: {}",productDto.getPInsert(),productDto.getQuantity(), productDto.getSId(),productDto.getPId());
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
-
 	}
 
 	/**

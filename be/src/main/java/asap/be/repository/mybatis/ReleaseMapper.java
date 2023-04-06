@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
 import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,4 +33,5 @@ public interface ReleaseMapper {
 
 	List<Map<String, Object>> releaseCntRank(String release_at);
 
+	Integer getCnt(@Param("p") PostProductDto dto);
 }

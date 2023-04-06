@@ -30,7 +30,19 @@ public class DashBoardServiceImpl implements DashBoardService {
 		LocalDate today = LocalDate.now().minusDays(1);
 		LocalDate start = today.minusDays(20); // 오늘 제외한 최근 21일
 
-		return releaseMybatisRepository.cntProductByDate(pId, start.toString(), today.toString());
+		List<ProductCntDto> result = new ArrayList<>();
+		List<ProductCntDto> dto = releaseMybatisRepository.cntProductByDate(pId, start.toString(), today.toString());
+
+		int i = 0;
+		for (LocalDate date = start; !date.isAfter(today); date = date.plusDays(1)) {
+			if (i < dto.size() && dto.get(i).getDate().equals(date.toString())) {
+				result.add(new ProductCntDto(date.toString(), dto.get(i).getInsertCnt(), dto.get(i).getReleaseCnt()));
+				i++;
+			}
+			else result.add(new ProductCntDto(date.toString(), 0, 0));
+		}
+
+		return result;
 	}
 
 	@Override

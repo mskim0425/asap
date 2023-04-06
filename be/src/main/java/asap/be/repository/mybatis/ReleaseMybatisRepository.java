@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
 import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.ReleaseRepository;
@@ -61,6 +62,11 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     @Override
     public List<Map<String, Object>> releaseCntRank(String release_at) {
         return releaseMapper.releaseCntRank(release_at);
+    }
+
+    @Override
+    public Integer getCnt(PostProductDto dto) {
+        return releaseMapper.getCnt(dto);
     }
 
 }

@@ -21,6 +21,11 @@ public class ProductMybatisRepository implements ProductRepository {
 	}
 
 	@Override
+	public void insertOrUpdateRelease(PostProductDto dto) {
+		productMapper.insertOrUpdateRelease(dto);
+	}
+
+	@Override
 	public void updateProduct(EditProductDto dto) {
 		productMapper.updateProduct(dto);
 	}

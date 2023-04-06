@@ -2,13 +2,17 @@ package asap.be.service;
 
 import asap.be.domain.notification.NotificationType;
 import asap.be.dto.*;
+import asap.be.exception.BusinessLogicException;
+import asap.be.exception.ExceptionCode;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -19,8 +23,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
-		//cnt가 ? 디비에 접근을 2번해야하는 단점이생김
+
 		productMybatisRepository.insertOrUpdateStock(dto);
+
+		if (releaseService.getCnt(dto) < dto.getQuantity())
+			throw new BusinessLogicException(ExceptionCode.OVER_QUANTITY_THAN_STOCK);
+
+		productMybatisRepository.insertOrUpdateRelease(dto);
 
 		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());
 		StringBuffer sb = new StringBuffer();
