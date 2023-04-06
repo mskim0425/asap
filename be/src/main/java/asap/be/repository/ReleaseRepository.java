@@ -4,6 +4,7 @@ import asap.be.domain.Release;
 import asap.be.domain.Stock;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
 import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 
@@ -30,4 +31,5 @@ public interface ReleaseRepository {
 
 	List<Map<String, Object>> releaseCntRank(String release_at);
 
+	Integer getCnt(PostProductDto dto);
 }

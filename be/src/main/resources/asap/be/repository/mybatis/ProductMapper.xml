@@ -23,10 +23,9 @@
             <choose>
                 <!-- 상품이 존재하는 경우 -->
                 <when test="pId != 0 and pId != null">
-
                     <!-- 입력받은 wId와 Stock_table 의 wId가 같은 경우 -->
                     UPDATE Stock_table
-                    SET cnt = cnt + #{p.pInsert}
+                    SET cnt = cnt + #{p.pInsert}, receive_in = @date
                     WHERE pId = #{pId} AND wId = #{p.wId};
 
                     <!-- 입력받은 wId와 Stock_table 의 wId가 다른 경우 -->
@@ -46,23 +45,38 @@
             </choose>
         </if>
 
+    </insert>
+
+    <insert id="insertOrUpdateRelease" parameterType="PostProductDto">
+        <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
+        <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
+            SELECT IFNULL((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
+        </selectKey>
+
+        <if test="p.date == null">
+            SET @date = now();
+        </if>
+        <if test="p.date != null">
+            SET @date = #{p.date};
+        </if>
+
         <!-- 출고일때 -->
         <if test="p.quantity != null and p.quantity != 0">
             <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
             <if test="true">
-            INSERT INTO Release_table (sId, quantity, total, release_at)
-            SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
-            FROM Stock_table, Product_table
-            WHERE #{p.quantity} &lt;= Stock_table.cnt
-            AND Stock_table.pId = Product_table.pId
-            AND Stock_table.pId = #{pId}
-            AND Stock_table.wId = #{p.wId};
+                INSERT INTO Release_table (sId, quantity, total, release_at)
+                SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
+                FROM Stock_table, Product_table
+                WHERE #{p.quantity} &lt;= Stock_table.cnt
+                AND Stock_table.pId = Product_table.pId
+                AND Stock_table.pId = #{pId}
+                AND Stock_table.wId = #{p.wId};
             </if>
             UPDATE Stock_table
             SET cnt = cnt - #{p.quantity}
             WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
         </if>
-
     </insert>
 
     <update id="updateProduct">
