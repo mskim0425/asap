@@ -41,4 +41,41 @@
         GROUP BY w.wLoc;
     </select>
 
+    <select id="findMaxItemAndMaxWLoc" resultType="DayMaxValueDto">
+        SELECT
+            s.receive_in,
+            (SELECT CONCAT(p.pName, ' / ', w.wLoc)
+             FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
+             WHERE s.receive_in = #{date}
+             ORDER BY s.pInsert DESC
+                LIMIT 1) AS max_pInsert_item, -- 당일 최대 입고 아이템과 이에 따른 창고 위치
+
+            (SELECT CONCAT(p.pName, ' / ', w.wLoc)
+             FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
+             LEFT JOIN Release_table AS r ON r.sId = s.sId
+             WHERE r.release_at = #{date}
+                        ORDER BY r.quantity DESC
+                        LIMIT 1) AS max_quantity_item, -- 당일 최대 출고 아이템과 이에 따른 창고 위치
+
+            (SELECT CONCAT(w.wLoc,' / ' ,SUM(s.pInsert)) AS total_pInsert
+            FROM Stock_table AS s
+            JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
+            WHERE s.receive_in = #{date}
+                ORDER BY total_pInsert DESC
+                LIMIT 1) AS max_pInsert_wareHouse, -- 당일 최대 입고 창고 위치
+
+            (SELECT CONCAT(w.wLoc, ' / ' , SUM(r.quantity)) AS total_quantity
+            FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
+            LEFT JOIN Release_table AS r ON r.sId = s.sId
+            WHERE r.release_at = #{date}
+                ORDER BY total_quantity DESC
+                LIMIT 1) AS max_quantity_wareHouse, -- 당일 최대 출고 창고 위치
+
+            SUM(CASE WHEN s.receive_in = #{date} THEN s.pInsert ELSE 0 END) AS totalPInsert,  -- 당일 총 입고
+
+            SUM(CASE WHEN r.release_at = #{date} THEN r.quantity ELSE 0 END) AS totalQuantity -- 당일 총 출고
+
+        FROM Stock_table AS s
+            LEFT JOIN Release_table AS r ON r.sId = s.sId
+    </select>
 </mapper>
