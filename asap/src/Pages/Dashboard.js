@@ -4,6 +4,7 @@ import GeoChart from "../Component/Chart/GeoChart";
 import LineChart from "../Component/Chart/LineChart";
 import PieChart from "../Component/Chart/PieChart";
 import SSE from "../Component/SSE";
+import Top10 from "../Component/Top10";
 
 import "./Dashboard.css";
 
@@ -17,7 +18,8 @@ function Dashboard() {
             <h2>TODAY</h2>
           </div>
           <div className="lb-left-middle chartSection">
-            <h2>TOP 10</h2>
+            <h2>Daily TOP 10</h2>
+            <Top10/>
           </div>
           <div className="lb-left-bottom chartSection">
             <h2>Our World Storage</h2>

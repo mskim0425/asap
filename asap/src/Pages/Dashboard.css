@@ -21,21 +21,15 @@
 }
 
 .lb-left-top{
-  width: 100%;
   height: 29%;
-  box-shadow: 1px 1px 1px 1px #999;
 }
 
 .lb-left-middle{
-  width: 100%;
   height: 39%;
-  box-shadow: 1px 1px 1px 1px #999;
 }
 
 .lb-left-bottom{
-  width: 100%;
   height: 29%;
-  box-shadow: 1px 1px 1px 1px #999;
 }
 
 .lb-right{
@@ -49,26 +43,24 @@
 
 .rightBox {
   width: 10%;
-  box-shadow: 1px 1px 1px 1px #999;
-
 }
 
 .lb-right-top{
-  width: 100%;
   height: 29%;
-  box-shadow: 1px 1px 1px 1px #999;
 }
 
 .lb-right-middle{
-  width: 100%;
   height: 39%;
-  box-shadow: 1px 1px 1px 1px #999;
 }
 
 .lb-right-bottom{
-  width: 100%;
   height: 29%;
+}
+
+.chartSection {
+  width: 100%;
   box-shadow: 1px 1px 1px 1px #999;
+  border-radius: 20px;
 }
 
 .chartSection h2{
@@ -128,4 +120,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.top10Section{
+  width: 100%;
+
+}
+
+.top10Section caption{
+  padding: .5em 0;
+}
+
+.top10Section.dataTable th,
+.top10Section.dataTable td {
+  white-space: nowrap;
 }
