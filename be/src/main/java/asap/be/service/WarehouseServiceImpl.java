@@ -17,8 +17,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private final WarehouseMybatisRepository warehouseMybatisRepository;
 
 	@Override
-	public void wSave(EverythingDto everythingDto) {
-		warehouseMybatisRepository.wSave(everythingDto);
+	public void wSave(String wName, String wLoc) {
+		warehouseMybatisRepository.wSave(wName, wLoc);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.EverythingDto;
+
 import asap.be.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,8 @@ import java.util.Map;
 public class WarehouseMybatisRepository implements WarehouseRepository {
 	private final WarehouseMapper warehouseMapper;
 
-	public void wSave(EverythingDto everythingDto) {
-		warehouseMapper.wSave(everythingDto);
+	public void wSave(String wName, String wLoc) {
+		warehouseMapper.wSave(wName, wLoc);
 	}
 
 	@Override

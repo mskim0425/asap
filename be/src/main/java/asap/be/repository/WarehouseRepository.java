@@ -4,12 +4,11 @@ import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.EverythingDto;
-
 import java.util.List;
 import java.util.Map;
 
 public interface WarehouseRepository {
-	void wSave(EverythingDto everythingDto);
+	void wSave(String wName, String wLoc);
 
 	void wDelete(Long wId);
 

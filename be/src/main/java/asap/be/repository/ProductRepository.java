@@ -20,4 +20,8 @@ public interface ProductRepository {
 	AllProductCntDto findAllCntByPId(Long pId);
 
 	List<DetailInfoDto> detailPageUsingPId(Long pId);
+
+	Boolean verifiedProduct(Long pId, Long sId);
+
+	Boolean checkExistence(String pName);
 }
