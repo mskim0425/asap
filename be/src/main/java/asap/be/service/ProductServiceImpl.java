@@ -24,15 +24,17 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
 
+		StringBuffer sb = new StringBuffer();
+//		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // 실 배포시 적용하면 당일 총 입고량 올라감 히히
+
 		productMybatisRepository.insertOrUpdateStock(dto);
 
-		if (releaseService.getCnt(dto) < dto.getQuantity())
-			throw new BusinessLogicException(ExceptionCode.OVER_QUANTITY_THAN_STOCK);
+		verifiedProductByName(dto.getPName(), dto.getWId());
+		verifiedQuantity(dto);
 
 		productMybatisRepository.insertOrUpdateRelease(dto);
 
 		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());
-		StringBuffer sb = new StringBuffer();
 
 		if (everythingDto != null && dto.getPInsert() != 0) {
 			sb.append(dto.getPName()).append(" ").append("+").append(dto.getPInsert()).append(" 입고");
@@ -48,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void updateProduct(EditProductDto dto) {
+		verifiedProduct(dto.getPId(), dto.getSId());
 		productMybatisRepository.updateProduct(dto);
 	}
 
@@ -79,4 +82,18 @@ public class ProductServiceImpl implements ProductService {
         return productMybatisRepository.detailPageUsingPId(pId);
     }
 
+	private void verifiedProduct(Long pId, Long sId) {
+		if (productMybatisRepository.verifiedProduct(pId, sId))
+			throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_EXISTS);
+	}
+
+	private void verifiedProductByName(String pName, Long wId) {
+		if (productMybatisRepository.checkExistence(pName))
+			throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_EXISTS);
+	}
+
+	private void verifiedQuantity(PostProductDto dto) {
+		if (releaseService.getCnt(dto) < dto.getQuantity())
+			throw new BusinessLogicException(ExceptionCode.OVER_QUANTITY_THAN_STOCK);
+	}
 }

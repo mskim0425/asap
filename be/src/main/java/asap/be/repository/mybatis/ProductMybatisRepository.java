@@ -58,4 +58,14 @@ public class ProductMybatisRepository implements ProductRepository {
         return productMapper.detailPageUsingPId(pId);
     }
 
+	@Override
+	public Boolean verifiedProduct(Long pId, Long sId) {
+		return productMapper.verifiedProduct(pId, sId);
+	}
+
+	@Override
+	public Boolean checkExistence(String pName) {
+		return productMapper.checkExistence(pName);
+	}
+
 }

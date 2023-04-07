@@ -32,25 +32,27 @@
         GROUP BY release_at
         ORDER BY release_at
     </select>
-    <!--TODO: 대수정-->
+
     <select id="cntProductByDate" resultType="ProductCntDto">
-       SELECT date, pInsert AS insertCnt, SUM(quantity) AS releaseCnt
-        FROM (SELECT DATE(s.receive_in) AS date, s.pInsert AS pInsert, r.quantity AS quantity FROM Stock_table s
-              LEFT JOIN Release_table r ON r.sId = s.sId AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
-              WHERE s.pId = #{pId} AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at}) t
-        GROUP BY date
+        SELECT date, pInsert AS insertCnt, SUM(quantity) AS releaseCnt
+        FROM ( SELECT DATE(s.receive_in) AS date, s.pInsert AS pInsert, r.quantity AS quantity
+               FROM Stock_table s
+               LEFT JOIN Release_table r ON r.sId = s.sId
+               AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
+               WHERE s.pId = #{pId}
+               AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at} ) t
+        GROUP BY date, pInsert
         ORDER BY date ASC;
     </select>
-    <!--TODO: 대수정-->
+
     <select id="insertCntRank" resultType="java.util.Map">
-        SELECT RANK() OVER (ORDER BY SUM(s.pInsert) DESC) AS ranking,
+        SELECT RANK() OVER (ORDER BY s.pInsert DESC) AS ranking,
                p.pName,
                s.pInsert AS insertCnt
         FROM Stock_table s
         JOIN Product_table p ON s.pId = p.pId
         WHERE s.receive_in = #{receive_in}
-        GROUP BY p.pId
-        ORDER BY insertCnt DESC
+        GROUP BY p.pId, s.pInsert
         LIMIT 10;
     </select>
 
@@ -61,7 +63,6 @@
         FROM Release_table
         WHERE release_at = #{release_at}
         GROUP BY pName
-        ORDER BY releaseCnt DESC
         LIMIT 10;
     </select>
 

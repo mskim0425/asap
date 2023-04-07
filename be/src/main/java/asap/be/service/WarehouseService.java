@@ -2,12 +2,11 @@ package asap.be.service;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
-import asap.be.dto.EverythingDto;
 
 import java.util.List;
 
 public interface WarehouseService {
-	void wSave(EverythingDto everythingDto);
+	void wSave(String wName, String wLoc);
 
 	void wDelete(Long wId);
 
