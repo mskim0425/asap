@@ -23,5 +23,5 @@ public interface ProductRepository {
 
 	Boolean verifiedProduct(Long pId, Long sId);
 
-	Boolean checkExistence(String pName, Long wId);
+	Boolean checkExistence(String pName);
 }

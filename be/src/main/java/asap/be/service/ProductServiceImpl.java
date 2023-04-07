@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
 		productMybatisRepository.insertOrUpdateStock(dto);
 
-//		verifiedProductByName(dto.getPName(), dto.getWId()); // TODO: 쿼리 수정 필요
+		verifiedProductByName(dto.getPName(), dto.getWId());
 		verifiedQuantity(dto);
 
 		productMybatisRepository.insertOrUpdateRelease(dto);
@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	private void verifiedProductByName(String pName, Long wId) {
-		if (productMybatisRepository.checkExistence(pName, wId))
+		if (productMybatisRepository.checkExistence(pName))
 			throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_EXISTS);
 	}
 

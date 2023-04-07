@@ -64,8 +64,8 @@ public class ProductMybatisRepository implements ProductRepository {
 	}
 
 	@Override
-	public Boolean checkExistence(String pName, Long wId) {
-		return productMapper.checkExistence(pName, wId);
+	public Boolean checkExistence(String pName) {
+		return productMapper.checkExistence(pName);
 	}
 
 }

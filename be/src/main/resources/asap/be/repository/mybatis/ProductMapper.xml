@@ -137,8 +137,7 @@
 
     <select id="checkExistence" resultType="java.lang.Boolean">
         SELECT EXISTS(
-        SELECT 1 FROM Product_table
-        WHERE pName = #{pName} AND wId = #{wId})
+        SELECT 1 FROM Product_table WHERE pName = #{pName})
     </select>
 
     <!--    하나의 Product ID 를 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
