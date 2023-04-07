@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -46,7 +49,7 @@ public class MainController {
 	 */
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
-		if(productDto.getPName().isEmpty()) return null;
+		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		log.info("입고량 : {}  출고량: {} sId: {} pId: {}",productDto.getPInsert(),productDto.getQuantity(), productDto.getSId(),productDto.getPId());
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
@@ -133,6 +136,14 @@ public class MainController {
 	@GetMapping("/find-one")
 	public ResponseEntity<List<DetailInfoDto>> getDetailInfo(@RequestParam(value = "pId") long pId){
 		return new ResponseEntity<>(productService.detailPageUsingPId(pId), HttpStatus.OK);
+	}
+
+	@GetMapping("/six-value")
+	public ResponseEntity<DayMaxValueDto> getSixData(@RequestParam(value = "date", defaultValue = "") String date) {
+		if(date.isEmpty()) date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+		return new ResponseEntity<>(warehouseService.sixData(date),HttpStatus.OK);
+
 	}
 
 	/**

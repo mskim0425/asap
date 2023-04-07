@@ -35,47 +35,79 @@
         WHERE wLoc = #{wLoc}
     </select>
 
+    <select id="findWarehouseLocByWId" resultType="java.lang.String">
+        SELECT wLoc FROM Warehouse_table
+        WHERE wId = #{wId};
+    </select>
+
     <select id="countryStatus" resultType="CountryDto">
         SELECT w.wLoc AS countryName, COUNT(s.wId) AS productCnt
         FROM Warehouse_table w LEFT OUTER JOIN Stock_table s ON w.wId = s.wId
         GROUP BY w.wLoc;
     </select>
 
-    <select id="findMaxItemAndMaxWLoc" resultType="DayMaxValueDto">
-        SELECT
-            s.receive_in,
-            (SELECT CONCAT(p.pName, ' / ', w.wLoc)
-             FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
-             WHERE s.receive_in = #{date}
-             ORDER BY p.pInsert DESC
-                LIMIT 1) AS max_pInsert_item, -- 당일 최대 입고 아이템과 이에 따른 창고 위치
+    <!--해당 날짜의 최대 입고 아이템이름 wLoc-->
+    <select id="max_receive_item" resultType="java.util.Map">
+    -- 해당 날짜의 최대 입고 아이템이름(pName)과 wLoc
+    SELECT p.pName AS item, w.wLoc AS warehouse
+    FROM Stock_table s JOIN Product_table p ON s.pId = p.pId JOIN Warehouse_table w ON s.wId = w.wId
+    WHERE s.receive_in = #{date}
+    ORDER BY s.pInsert DESC
+    LIMIT 1;
+    </select>
+    
+    <select id="max_release_item" resultType="java.util.Map">
+    -- 해당 날짜의 최대 출고 아이템이름(pName)과 wLoc
+    SELECT p.pName AS item, w.wLoc AS warehouse
+    FROM Stock_table s JOIN Product_table p ON s.pId = p.pId  JOIN Warehouse_table w ON s.wId = w.wId JOIN Release_table r ON s.sId = r.sId
+    WHERE r.release_at = #{date}
+    GROUP BY s.pId, s.wId
+    ORDER BY SUM(r.quantity) DESC
+    LIMIT 1;
+    </select>
+    
+    <select id="max_receive_warehouse" resultType="java.lang.String">
+    -- 해당 날짜의 입고량이 제일 많은 wLoc
+    SELECT w.wLoc AS max_pinsert_warehouse
+    FROM Stock_table s JOIN Warehouse_table w ON s.wId = w.wId
+    WHERE s.receive_in = #{date}
+    GROUP BY s.wId
+    ORDER BY s.pInsert DESC
+    LIMIT 1;
+    </select>
+    
+    <select id="max_release_warehouse" resultType="java.lang.String">
+    -- 해당 날짜의 출고량이 제일 많은 wLoc
+    SELECT w.wLoc AS max_prelease_warehouse
+    FROM Stock_table s JOIN Warehouse_table w ON s.wId = w.wId  JOIN Release_table r ON s.sId = r.sId
+    WHERE r.release_at = #{date}
+    GROUP BY s.wId
+    ORDER BY SUM(r.quantity) DESC
+    LIMIT 1;
+    </select>
+    <select id="total_pRelease" resultType="java.lang.Integer">
+    -- 해당 날짜에 발생한 모든 출고량
+    SELECT SUM(CASE WHEN r.release_at = #{date} THEN r.quantity ELSE 0 END) AS total_pRelease
+    FROM Release_table AS r
+    LEFT JOIN Stock_table AS s ON r.sId = s.sId ;
+    </select>
 
-            (SELECT CONCAT(p.pName, ' / ', w.wLoc)
-             FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
-             LEFT JOIN Release_table AS r ON r.sId = s.sId
-             WHERE r.release_at = #{date}
-                        ORDER BY r.quantity DESC
-                        LIMIT 1) AS max_quantity_item, -- 당일 최대 출고 아이템과 이에 따른 창고 위치
-
-            (SELECT CONCAT(w.wLoc,' / ' ,SUM(p.pInsert)) AS total_pInsert
-            FROM Stock_table AS s
-            JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
-            WHERE s.receive_in = #{date}
-                ORDER BY total_pInsert DESC
-                LIMIT 1) AS max_pInsert_wareHouse, -- 당일 최대 입고 창고 위치
-
-            (SELECT CONCAT(w.wLoc, ' / ' , SUM(r.quantity)) AS total_quantity
-            FROM Stock_table AS s JOIN Product_table AS p ON s.pId = p.pId JOIN Warehouse_table AS w ON s.wId = w.wId
-            LEFT JOIN Release_table AS r ON r.sId = s.sId
-            WHERE r.release_at = #{date}
-                ORDER BY total_quantity DESC
-                LIMIT 1) AS max_quantity_wareHouse, -- 당일 최대 출고 창고 위치
-
-            SUM(CASE WHEN s.receive_in = #{date} THEN p.pInsert ELSE 0 END) AS totalPInsert,  -- 당일 총 입고
-
-            SUM(CASE WHEN r.release_at = #{date} THEN r.quantity ELSE 0 END) AS totalQuantity -- 당일 총 출고
-
-        FROM Stock_table AS s
-            LEFT JOIN Release_table AS r ON r.sId = s.sId
+    <select id="total_pinsert" resultType="java.lang.Integer">
+    -- 해당 날짜에 발생한 모든 입고량 (pId와 wId가 같은 값이 있는 경우 sId가 제일 큰 pInsert값들의 합)
+    SELECT SUM(total_p) AS total_pinsert
+    FROM (SELECT s.pInsert AS total_p
+    FROM Stock_table s
+    WHERE s.receive_in = #{date}
+    AND NOT EXISTS (
+    SELECT s2.sId
+    FROM Stock_table s2
+    WHERE s2.pId = s.pId
+    AND s2.wId = s.wId
+    AND s2.receive_in = #{date}
+    AND s2.sId > s.sId
+    )
+    GROUP BY
+    s.pInsert
+    ) sub;
     </select>
 </mapper>

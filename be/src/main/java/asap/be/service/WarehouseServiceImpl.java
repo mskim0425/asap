@@ -2,6 +2,7 @@ package asap.be.service;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
+import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.EverythingDto;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Override
 	public List<CountryDto> countryStatus() {
 		return warehouseMybatisRepository.countryStatus();
+	}
+
+	@Override
+	public DayMaxValueDto sixData(String date) {
+		return warehouseMybatisRepository.sixDate(date);
 	}
 
 }

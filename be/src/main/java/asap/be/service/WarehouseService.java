@@ -2,6 +2,7 @@ package asap.be.service;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
+import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.EverythingDto;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface WarehouseService {
 
 	List<CountryDto> countryStatus();
 
+    DayMaxValueDto sixData(String date);
 }
