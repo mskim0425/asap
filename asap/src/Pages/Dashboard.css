@@ -100,20 +100,20 @@
   }
 } */
 
-.top10Section{
+.top10{
+  margin-top: 20px;
   width: 100%;
-
 }
 
-.top10Section caption{
-  padding: .5em 0;
-}
-
-.top10Section.dataTable th,
-.top10Section.dataTable td {
-  white-space: nowrap;
+.top10 td, th{
+  text-align: center;
+  vertical-align: middle;
 }
 
 .monthlyChartSection{
+  height: 80%;
+}
+
+.totalSalesChartSection{
   height: 80%;
 }

@@ -1,8 +1,9 @@
 import CalendarChart from "../Component/Chart/CalendarChart";
 import GeoChart from "../Component/Chart/GeoChart";
-import LineChart from "../Component/Chart/LineChart";
 import MonthlyChart from "../Component/Chart/MonthlyChart";
 import PieChart from "../Component/Chart/PieChart";
+import TodayRecord from "../Component/Chart/TodayRecord";
+import TotalProduct from "../Component/Chart/TotalProduct";
 import SSE from "../Component/SSE";
 import Top10 from "../Component/Top10";
 
@@ -16,9 +17,9 @@ function Dashboard() {
         <div className="lb-left">
           <div className="lb-left-top chartSection">
             <h2>TODAY</h2>
+            {/* <TodayRecord /> */}
           </div>
           <div className="lb-left-middle chartSection">
-            <h2>Daily TOP 10</h2>
             <Top10/>
           </div>
           <div className="lb-left-bottom chartSection">
@@ -34,7 +35,7 @@ function Dashboard() {
             <h2>Daily Stock Flow by Product</h2>
           </div>
           <div className="lb-right-bottom chartSection">
-            <h2>Daily Total Sales</h2>
+            <TotalProduct/>
           </div>
         </div>
       </div>
