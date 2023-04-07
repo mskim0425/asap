@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { GetTotalSales } from "../../apis/GetTotalSales";
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
 export default function TotalProduct() {
     const [data, setData] = useState([["Year", "Money"], [0,0]])

@@ -9,7 +9,7 @@ import Top10 from "../Component/Top10";
 
 import "./Dashboard.css";
 
-function Dashboard() {
+export default function Dashboard() {
 
   return (
     <section className="Dashboard">
@@ -17,7 +17,7 @@ function Dashboard() {
         <div className="lb-left">
           <div className="lb-left-top chartSection">
             <h2>TODAY</h2>
-            {/* <TodayRecord /> */}
+            <TodayRecord />
           </div>
           <div className="lb-left-middle chartSection">
             <Top10/>
@@ -41,38 +41,8 @@ function Dashboard() {
       </div>
 
       <div className="rightBox">
-        {/* <SSE /> */}
+        <SSE />
       </div>
     </section>
   );
 }
-
-export default Dashboard;
-
-
-
-const ComboData2 = [
-  ['Date', '재고', '입고', '출고'],
-  ['2023/3/15',  16,      98,         52],
-  ['2023/3/16',  15,      120,        59],
-  ['2023/3/17',  17,      167,        57],
-  ['2023/3/18',  16,      98,         52],
-  ['2023/3/19',  15,      120,        59],
-  ['2023/3/20',  17,      167,        57],
-  ['2023/3/21',  16,      98,         52],
-  ['2023/3/22',  15,      120,        59],
-  ['2023/3/23',  17,      167,        57],
-  ['2023/3/24',  16,      98,         52],
-  ['2023/3/25',  15,      120,        59],
-  ['2023/3/26',  17,      167,        57],
-  ['2023/3/27',  16,      98,         52],
-  ['2023/3/28',  15,      120,        59],
-  ['2023/3/29',  17,      167,        57],
-  ['2023/3/30',  19,      110,        65],
-  ['2023/3/31',  16,      61,         69],
-  ['2023/4/1',  18,      60,         81],
-  ['2023/4/2',  17,      68,         69],
-  ['2023/4/3',  20,      120,         50]
-]
-
-const todo = ["차트 추가", "추가할 부분 레이아웃"]

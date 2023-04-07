@@ -6,7 +6,7 @@ export default function TodayRecord () {
     useEffect(()=>{
         const todayData = async () => {
             const getData = await GetTodayRecord()
-            console.log(getData)
+            // console.log(getData)
         }
 
         todayData()
