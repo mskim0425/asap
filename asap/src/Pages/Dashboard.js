@@ -23,12 +23,13 @@ function Dashboard() {
           </div>
           <div className="lb-left-bottom chartSection">
             <h2>Our World Storage</h2>
-            <GeoChart />
+            {/* <GeoChart /> */}
           </div>
         </div>
         <div className="lb-right">
           <div className="lb-right-top chartSection">
             <h2>Monthly Stock Flow</h2>
+            <ComboChart />
           </div>
           <div className="lb-right-middle chartSection">
             <h2>Daily Stock Flow by Product</h2>
@@ -48,14 +49,7 @@ function Dashboard() {
 
 export default Dashboard;
 
-const ComboData = [
-  ['Month', '재고', '입고', '출고'],
-  ['2022/11',  165,      938,         522],
-  ['2022/12',  135,      1120,        599],
-  ['2023/01',  157,      1167,        587],
-  ['2023/02',  139,      1110,        615],
-  ['2023/03',  136,      691,         629]
-]
+
 
 const ComboData2 = [
   ['Date', '재고', '입고', '출고'],
