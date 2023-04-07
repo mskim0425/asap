@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
 		productMybatisRepository.insertOrUpdateStock(dto);
 
-		verifiedProductByName(dto.getPName(), dto.getWId());
+//		verifiedProductByName(dto.getPName(), dto.getWId()); // TODO: 쿼리 수정 필요
 		verifiedQuantity(dto);
 
 		productMybatisRepository.insertOrUpdateRelease(dto);
