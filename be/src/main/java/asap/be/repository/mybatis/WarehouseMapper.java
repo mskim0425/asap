@@ -2,6 +2,7 @@ package asap.be.repository.mybatis;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
+import asap.be.dto.EverythingDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface WarehouseMapper {
-	void wSave(String wName, String wLoc);
+	void wSave(EverythingDto everythingDto);
 
 	void wDelete(Long wId);
 

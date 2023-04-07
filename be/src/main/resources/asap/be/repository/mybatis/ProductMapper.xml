@@ -4,6 +4,7 @@
 <mapper namespace="asap.be.repository.mybatis.ProductMapper">
 
     <insert id="insertOrUpdateStock" parameterType="PostProductDto">
+        <!--TODO: 마지막 배포할때 우리가 서비스단에서 {p.date} 날짜를 요청을 해도 되고 -->
         <if test="p.date == null">
             SET @date = now();
         </if>
@@ -13,7 +14,7 @@
 
         <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
         <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
-            SELECT COALESCE((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            SELECT IFNULL((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
             AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
         </selectKey>
 
@@ -23,6 +24,7 @@
                 <!-- 상품이 존재하는 경우 -->
                 <when test="pId != 0 and pId != null">
                     <!-- 입력받은 wId와 Stock_table 의 wId가 같은 경우 -->
+
                     UPDATE Stock_table
                     SET cnt = cnt + #{p.pInsert}, receive_in = @date,
                     <choose>
@@ -37,8 +39,8 @@
                     WHERE pId = #{pId} AND wId = #{p.wId};
 
                     <!-- 입력받은 wId와 Stock_table 의 wId가 다른 경우 -->
-                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert, pInsertAll, pInsertLog)
-                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}, #{p.pInsert}, CONCAT(@date,' : ',#{p.pInsert})
+                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert)
+                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}
                     WHERE NOT EXISTS (SELECT * FROM Stock_table WHERE pId = #{pId} AND wId = #{p.wId});
                 </when>
 
@@ -48,7 +50,7 @@
                     VALUES (#{p.pName}, #{p.price}, #{p.pCode}, 1);
 
                     INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert, pInsertAll, pInsertLog)
-                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}, #{p.pInsert}, CONCAT(@date,' : ',#{p.pInsert}));
+                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, @date, #{p.pInsert},  #{p.pInsert}, CONCAT(@date,' : ',#{p.pInsert}));
                 </otherwise>
             </choose>
         </if>
@@ -58,7 +60,7 @@
     <insert id="insertOrUpdateRelease" parameterType="PostProductDto">
         <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
         <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
-            SELECT COALESCE((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            SELECT IFNULL((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
             AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
         </selectKey>
 
@@ -72,21 +74,20 @@
         <!-- 출고일때 -->
         <if test="p.quantity != null and p.quantity != 0">
             <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
-            INSERT INTO Release_table (sId, quantity, total, release_at)
-            SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
-            FROM Stock_table, Product_table
-            WHERE #{p.quantity} &lt;= Stock_table.cnt
-            AND Stock_table.pId = Product_table.pId
-            AND Stock_table.pId = #{pId}
-            AND Stock_table.wId = #{p.wId};
             <if test="true">
-                UPDATE Stock_table
-                SET cnt = cnt - #{p.quantity}
-                WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
+                INSERT INTO Release_table (sId, quantity, total, release_at)
+                SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
+                FROM Stock_table, Product_table
+                WHERE #{p.quantity} &lt;= Stock_table.cnt
+                AND Stock_table.pId = Product_table.pId
+                AND Stock_table.pId = #{pId}
+                AND Stock_table.wId = #{p.wId};
             </if>
+            UPDATE Stock_table
+            SET cnt = cnt - #{p.quantity}
+            WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
         </if>
     </insert>
-
 
     <update id="updateProduct">
         UPDATE Product_table
@@ -133,6 +134,7 @@
         ORDER BY p.pId DESC
         LIMIT 10;
         <!-- no offset 방식 -->
+
     </select>
 
     <select id="checkExistence" resultType="java.lang.Boolean">
@@ -156,17 +158,12 @@
         SELECT r.rId, r.release_at, r.quantity,
                s.sId, p.pId,s.wId, s.receive_in, w.wName, w.wLoc, p.pName ,p.pCode,
                s.pInsertLog,  s.cnt, p.price, p.pStatus
-        FROM Product_table AS p
-        JOIN Stock_table AS s ON p.pId = s.pId
-        LEFT JOIN Release_table r ON s.sId = r.sId
-        JOIN Warehouse_table AS w ON s.wId = w.wId
-        WHERE p.pId = #{pId};
+          FROM Product_table AS p
+          JOIN Stock_table AS s ON p.pId = s.pId
+          LEFT JOIN Release_table r ON s.sId = r.sId
+          JOIN Warehouse_table AS w ON s.wId = w.wId
+         WHERE p.pId = #{pId};
     </select>
 
-    <select id="verifiedProduct" resultType="java.lang.Boolean">
-        SELECT NOT EXISTS(
-        SELECT * FROM Stock_table
-        WHERE pId = #{pId} AND sId = #{sId}) AS exists_product
-    </select>
 
 </mapper>

@@ -2,11 +2,12 @@ package asap.be.repository;
 
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
+import asap.be.dto.EverythingDto;
 
 import java.util.List;
 
 public interface WarehouseRepository {
-	void wSave(String wName, String wLoc);
+	void wSave(EverythingDto everythingDto);
 
 	void wDelete(Long wId);
 

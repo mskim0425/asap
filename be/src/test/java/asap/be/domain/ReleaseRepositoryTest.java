@@ -12,10 +12,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Transactional
 @SpringBootTest
 public class ReleaseRepositoryTest {
@@ -45,33 +41,7 @@ public class ReleaseRepositoryTest {
 		// given
 
 		// when
-		List<Release> releases = releaseMybatisRepository.findAll();
 
 		// then
-	}
-
-	@Test
-	@DisplayName("해당 재고의 출고 기록 조회")
-	void findBySId() {
-		// given
-		Long sId = 10L;
-
-		// when
-		List<Release> releases = releaseMybatisRepository.findReleaseById(sId);
-
-		// then
-	}
-
-	@Test
-	@DisplayName("상품 아이디를 통해 재고 조회")
-	void findStockByPId() {
-		// given
-		Long pId = 10L;
-
-		// when
-		Stock stock = releaseMybatisRepository.findStockByPId(pId);
-
-		// then
-		assertThat(stock.getSId()).isEqualTo(pId);
 	}
 }

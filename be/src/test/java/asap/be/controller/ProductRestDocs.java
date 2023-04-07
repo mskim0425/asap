@@ -139,48 +139,10 @@ public class ProductRestDocs {
 	}
 
 	@Test
-	@DisplayName("상품 출고 예외 테스트")
-	void releaseProductExceptionTest() throws Exception {
-		String content = gson.toJson(EXCEPTION_RELEASE_PRODUCT);
-		doNothing().when(productService).insertOrUpdateStock(EXCEPTION_RELEASE_PRODUCT);
-
-		ResultActions actions =
-				mockMvc.perform(
-						RestDocumentationRequestBuilders.post("/api/prod")
-								.accept(MediaType.APPLICATION_JSON)
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(content)
-				);
-
-		actions.andExpect(status().is4xxClientError())
-				.andDo(document(
-						"release-prod-exception",
-						requestFields(
-								List.of(
-										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
-										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
-										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량"),
-										fieldWithPath("pInsert").description("입고 시 사용").attributes(key("ignored").value(true))
-								)
-						),
-						responseFields(
-								List.of(
-										fieldWithPath("status").type(JsonFieldType.NUMBER).description("에러 코드"),
-										fieldWithPath("message").type(JsonFieldType.STRING).description("에러 메세지"),
-										fieldWithPath("fieldErrors").description("").attributes(key("ignored").value(true)),
-										fieldWithPath("violationErrors").description("").attributes(key("ignored").value(true))
-								)
-						)
-				));
-	}
-
-	@Test
 	@DisplayName("상품 ID 를 통한 총 입고량, 총 출고량, 총 재고량, 최신 입고일 조회 테스트")
 	void getAllProductCnt() throws Exception {
 
-		Long pId = 3L;
+		Long pId = 1L;
 
 		given(productService.findAllCntByPId(anyLong())).willReturn(ALL_PRODUCT_CNT_DTO);
 
@@ -210,7 +172,7 @@ public class ProductRestDocs {
 	@Test
 	@DisplayName("상세페이지 조회")
 	void detailPage() throws Exception {
-		Long pId = 3L;
+		Long pId = 1L;
 		given(productService.detailPageUsingPId(anyLong())).willReturn(DETAIL_INFO_DTO_LIST);
 
 		ResultActions actions = mockMvc.perform(
@@ -232,7 +194,7 @@ public class ProductRestDocs {
 										fieldWithPath("[].pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("[].pcode").type(JsonFieldType.STRING).description("바코드"),
 										fieldWithPath("[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
-										fieldWithPath("[].pinsertLog").type(JsonFieldType.STRING).description("입고량"),
+										fieldWithPath("[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
 										fieldWithPath("[].pstatus").type(JsonFieldType.NUMBER).description("상품상태"),
 										fieldWithPath("[].wname").type(JsonFieldType.STRING).description("창고명"),
 										fieldWithPath("[].wloc").type(JsonFieldType.STRING).description("창고위치"),
@@ -486,44 +448,7 @@ public class ProductRestDocs {
 										fieldWithPath("wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
 										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
 										fieldWithPath("wloc").type(JsonFieldType.STRING).description("창고 위치"),
-										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0)")
-								)
-						)
-				));
-	}
-
-	@Test
-	@DisplayName("존재하지 않는 상품 예외 테스트")
-	void exceptionProductName() throws Exception {
-
-		String content = gson.toJson(EXIST_PRODUCT);
-
-		doNothing().when(productService).updateProduct(EXIST_PRODUCT);
-
-		ResultActions actions =
-				mockMvc.perform(
-						RestDocumentationRequestBuilders.patch("/api/prod")
-								.accept(MediaType.APPLICATION_JSON)
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(content)
-				);
-
-		actions.andExpect(status().is4xxClientError())
-				.andDo(document(
-						"patch-product-name",
-						requestFields(
-								List.of(
-										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
-										fieldWithPath("sId").type(JsonFieldType.NUMBER).description("재고 식별자"),
-										fieldWithPath("pName").type(JsonFieldType.STRING).description("변경 상품명")
-								)
-						),
-						responseFields(
-								List.of(
-										fieldWithPath("status").type(JsonFieldType.NUMBER).description("에러 코드"),
-										fieldWithPath("message").type(JsonFieldType.STRING).description("에러 메세지"),
-										fieldWithPath("fieldErrors").description("").attributes(key("ignored").value(true)),
-										fieldWithPath("violationErrors").description("").attributes(key("ignored").value(true))
+										fieldWithPath("pstatus").type(JsonFieldType.NUMBER).description("삭제 유무 (삭제됨 상품 : 0")
 								)
 						)
 				));

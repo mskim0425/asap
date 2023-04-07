@@ -17,8 +17,8 @@ public enum ExceptionCode {
     @Getter
     private String message;
 
-    ExceptionCode(int status, String message) {
-        this.status = status;
+    ExceptionCode(int code, String message) {
+        this.code = code;
         this.message = message;
     }
 }

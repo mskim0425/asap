@@ -28,16 +28,7 @@ public class MainControllerConstants {
 					.price(10000)
 					.pCode("상품바코드")
 					.wId(1L) // 창고코드
-					.quantity(1) // 출고
-					.build();
-
-	public static final PostProductDto EXCEPTION_RELEASE_PRODUCT =
-			PostProductDto.builder()
-					.pName("상품명")
-					.price(10000)
-					.pCode("상품바코드")
-					.wId(1L) // 창고코드
-					.quantity(9999999) // 출고
+					.pInsert(100) // 입고 수량
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_NAME =
@@ -76,14 +67,6 @@ public class MainControllerConstants {
 					.sId(1L)
 					.pStatus(0)
 					.build();
-
-	public static final EditProductDto EXIST_PRODUCT =
-			EditProductDto.builder()
-					.pId(123456L)
-					.sId(120L)
-					.pName("새로 변경할 상품명")
-					.build();
-
 
 	public static final Warehouse WAREHOUSE =
 			Warehouse.builder()

@@ -15,8 +15,4 @@ public class PostProductDto {
 	private int pInsert;
 	private int quantity;
 	private String date;
-
-	public void addDate(String date) {
-		this.date = date;
-	}
 }
