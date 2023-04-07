@@ -5,7 +5,7 @@
 
     <insert id="wSave" useGeneratedKeys="true">
         INSERT INTO Warehouse_table (wName, wLoc)
-        VALUES (#{wname}, #{wloc});
+        VALUES (#{wName}, #{wLoc});
     </insert>
 
     <delete id="wDelete">
