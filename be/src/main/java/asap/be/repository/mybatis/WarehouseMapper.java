@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface WarehouseMapper {
@@ -22,5 +23,15 @@ public interface WarehouseMapper {
 	List<Warehouse> findWarehouseByLoc(String wLoc);
 
 	List<CountryDto> countryStatus();
+	Map<String, String> max_receive_item(String date);
+	Map<String, String> max_release_item(String date);
+
+	String findWarehouseLocByWId(Long wId);
+
+	String max_receive_warehouse(String date);
+	String max_release_warehouse(String date);
+	Integer total_pinsert(String date);
+	Integer total_pRelease(String date);
+
 
 }

@@ -1,6 +1,7 @@
 package asap.be.repository.mybatis;
 
 import asap.be.dto.*;
+import lombok.Synchronized;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
