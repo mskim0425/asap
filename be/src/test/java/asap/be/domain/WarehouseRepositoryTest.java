@@ -75,4 +75,30 @@ public class WarehouseRepositoryTest {
 		// then
 		assertThat(list).isNotNull();
 	}
+
+	@Test
+	void wSave() {
+		// given
+		String wName = "새로운 창고";
+		String wLoc = "새로운 위치";
+
+		// when
+		warehouseMybatisRepository.wSave(wName, wLoc);
+
+		// then
+		assertThat(warehouseMybatisRepository.findWarehouseByName(wName)).isNotNull();
+	}
+
+	@Test
+	void wDelete() {
+		// given
+		Long wId = 101L;
+		String wName = "새로운 창고";
+
+		// when
+		warehouseMybatisRepository.wDelete(wId);
+
+		// then
+		assertThat(warehouseMybatisRepository.findWarehouseByName(wName).size()).isEqualTo(0);
+	}
 }
