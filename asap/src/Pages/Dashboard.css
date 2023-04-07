@@ -100,28 +100,6 @@
   }
 } */
 
-.test {
-  width: 50%;
-  height: 3%;
-  border-radius: 10px;
-  border: 1px solid black;
-  margin: 10px 0px 0px 7px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.test2 {
-  width: 50%;
-  height: 3%;
-  border-radius: 10px;
-  border: 1px solid black;
-  margin: 10px 0px 0px 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .top10Section{
   width: 100%;
 
@@ -134,4 +112,8 @@
 .top10Section.dataTable th,
 .top10Section.dataTable td {
   white-space: nowrap;
+}
+
+.monthlyChartSection{
+  height: 80%;
 }

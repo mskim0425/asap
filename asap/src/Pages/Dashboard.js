@@ -1,7 +1,7 @@
 import CalendarChart from "../Component/Chart/CalendarChart";
-import ComboChart from "../Component/Chart/ComboChart";
 import GeoChart from "../Component/Chart/GeoChart";
 import LineChart from "../Component/Chart/LineChart";
+import MonthlyChart from "../Component/Chart/MonthlyChart";
 import PieChart from "../Component/Chart/PieChart";
 import SSE from "../Component/SSE";
 import Top10 from "../Component/Top10";
@@ -28,8 +28,7 @@ function Dashboard() {
         </div>
         <div className="lb-right">
           <div className="lb-right-top chartSection">
-            <h2>Monthly Stock Flow</h2>
-            <ComboChart />
+            <MonthlyChart />
           </div>
           <div className="lb-right-middle chartSection">
             <h2>Daily Stock Flow by Product</h2>

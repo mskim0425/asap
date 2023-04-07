@@ -1,8 +1,8 @@
 import axios from "axios"
 
-export const getMonthlyData = async () => {
+export const GetMonthlyData = async (year) => {
     try{
-        const response = await axios.get('/monthly-stock-summary?year=2022',{
+        const response = await axios.get(`/monthly-stock-summary?year=${year}`,{
             headers: {
                 'ngrok-skip-browser-warning': 'none'
             }
