@@ -94,11 +94,12 @@ class DashBoardServiceImplTest {
 	}
 
 
+	@Test
 	@DisplayName("연도 주입시 1월-12월까지 출력여부")
 	void sec_display() {
 		List<YearStatusDto> monthlyStockSummary = dashBoardService.getMonthlyStockSummary("2023");
 		for (YearStatusDto dto : monthlyStockSummary) {
-			log.info("{}월 재고량: {} | 총 입고량: {} | 총 출고량: {}", dto.getMonth(), dto.getAllQuantity(), dto.getAllInsert(), dto.getAllReleaseAt());
+			log.info("{}월 재고량: {} | 총 입고량: {} | 총 출고량: {}", dto.getMonth(), dto.getTotal_cnt(), dto.getTotal_pInsert(), dto.getTotal_quantity());
 		}
 
 		Assertions.assertThat(monthlyStockSummary.size()).isEqualTo(12);

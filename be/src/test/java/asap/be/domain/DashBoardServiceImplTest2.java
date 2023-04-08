@@ -18,6 +18,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -216,5 +217,13 @@ class DashBoardServiceImplTest2 {
 
         assertThat(dto.getTotal_pinsert()).isNotNull();
         assertThat(dto.getTotal_pRelease()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("지금까지 등록된 모든 상품명 리스트")
+    void getAllPName(){
+        List<String> data = dashBoardService.showAllPName();
+
+        assertThat(data.contains(productDto.getPName())).isTrue();
     }
 }

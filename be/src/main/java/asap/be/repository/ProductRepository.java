@@ -24,4 +24,5 @@ public interface ProductRepository {
 	Boolean verifiedProduct(Long pId, Long sId);
 
 	Boolean checkExistence(String pName);
+	List<String> showAllPName();
 }
