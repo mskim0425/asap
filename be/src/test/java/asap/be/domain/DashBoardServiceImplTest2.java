@@ -1,5 +1,6 @@
 package asap.be.domain;
 
+import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.PostProductDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
@@ -179,5 +180,41 @@ class DashBoardServiceImplTest2 {
     void total_pRelease(){
         Integer total_pRelease = warehouseMybatisRepository.total_pRelease("1992-04-25");
         assertThat(total_pRelease).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("6개 전부다 측정")
+    void six_values_test(){
+        //given
+        productDto = PostProductDto.builder()
+                .pName(productDto.getPName())
+                .price(productDto.getPrice())
+                .pCode(productDto.getPCode())
+                .wId(10L)
+                .quantity(10000)
+                .date("1992-04-25")
+                .build();
+
+        dummyDto = PostProductDto.builder()
+                .pName(dummyDto.getPName())
+                .price(dummyDto.getPrice())
+                .pCode(dummyDto.getPCode())
+                .wId(14L)
+                .quantity(500)
+                .date("1992-04-25")
+                .build();
+        //when
+        productMybatisRepository.insertOrUpdateRelease(productDto); // 상품 최대 수용개수 삽입
+        productMybatisRepository.insertOrUpdateRelease(dummyDto);
+
+        DayMaxValueDto dto = warehouseMybatisRepository.sixDate("1992-04-25");
+        assertThat(dto.getMax_receive_item()).isNotNull();
+        assertThat(dto.getMax_release_item()).isNotNull();
+
+        assertThat(dto.getMax_release_warehouse()).isNotNull();
+        assertThat(dto.getMax_receive_warehouse()).isNotNull();
+
+        assertThat(dto.getTotal_pinsert()).isNotNull();
+        assertThat(dto.getTotal_pRelease()).isNotNull();
     }
 }
