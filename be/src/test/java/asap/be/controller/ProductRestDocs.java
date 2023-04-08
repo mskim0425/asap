@@ -117,8 +117,7 @@ public class ProductRestDocs {
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
 										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량"),
-										fieldWithPath("pInsert").description("입고 시 사용").attributes(key("ignored").value(true))
+										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
 						responseFields(
