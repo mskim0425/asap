@@ -49,8 +49,8 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public AllProductCntDto findAllCntByPId(Long pId) {
-        return productMapper.findAllCntByPId(pId);
+    public AllProductCntDto findAllCntByPName(String pName) {
+        return productMapper.findAllCntByPName(pName);
     }
 
     @Override

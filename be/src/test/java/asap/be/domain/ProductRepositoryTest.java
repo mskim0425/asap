@@ -182,12 +182,12 @@ class ProductRepositoryTest {
 	@DisplayName("상세 찾기")
 	void findOne() {
 		// given
-		Long id = 1L;
+		Long id = 3L;
 
 		List<DetailInfoDto> dtos = productMybatisRepository.detailPageUsingPId(id);
 
 		// then
-		assertThat(dtos.get(0).getPId()).isEqualTo(1L);
+		assertThat(dtos.get(0).getPId()).isEqualTo(3L);
 	}
 
 }

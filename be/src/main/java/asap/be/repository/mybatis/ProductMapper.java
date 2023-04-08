@@ -1,7 +1,6 @@
 package asap.be.repository.mybatis;
 
 import asap.be.dto.*;
-import lombok.Synchronized;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +20,7 @@ public interface ProductMapper {
 
     List<EverythingPageDto> findByAll(Integer lastId);
 
-    AllProductCntDto findAllCntByPId(Long pId);
+    AllProductCntDto findAllCntByPName(String pName);
 
     List<DetailInfoDto> detailPageUsingPId(Long pId);
 

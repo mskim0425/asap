@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
 	 * SSE 통신
 	 */
 	@Override
-	public SseEmitter connection(String lastEventId) {
+	public SseEmitter connection(String lastEventId, HttpServletResponse response) {
 
 		String userid = "user"; // 고정 유저 아이디. 원래는 유저 별 고유 아이디여야 하지만 로그인이 없으니,,
 		String id = userid + "_" + System.currentTimeMillis(); // 데이터 유실 시점 파악 위함
@@ -32,6 +33,10 @@ public class NotificationServiceImpl implements NotificationService {
 		// 클라이언트의 sse 연결 요청에 응답하기 위한 SseEmitter 객체 생성
 		// 유효시간 지정으로 시간이 지나면 클라이언트에서 자동으로 재연결 요청함
 		SseEmitter emitter = emitterRepository.save(id, new SseEmitter(DEFAULT_TIMEOUT));
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Connection", "keep-alive");
+		response.setHeader("Content-Type", "text/event-stream");
+		response.setCharacterEncoding("UTF-8");
 
 		// SseEmitter 의 완료/시간초과/에러로 인한 전송 불가 시 sseEmitter 삭제
 		emitter.onCompletion(() -> emitterRepository.deleteAllStartByWithId(id));
@@ -60,8 +65,8 @@ public class NotificationServiceImpl implements NotificationService {
 					.name("sse")
 					.data(data));
 		} catch (IOException e) {
-			emitterRepository.deleteAllStartByWithId(id);
-			log.error("SSE 연결 오류 발생! 오류났으니까 다 지울꺼임~", e);
+//			emitterRepository.deleteAllStartByWithId(id);
+//			log.error("SSE 연결 오류 발생! 오류났으니까 다 지울꺼임~", e);
 		}
 	}
 

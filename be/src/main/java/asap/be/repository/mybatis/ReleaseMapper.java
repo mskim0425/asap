@@ -27,7 +27,7 @@ public interface ReleaseMapper {
 
 	List<YearStatusDto> getMonthlyStockSummary(String year);
 
-	List<ProductCntDto> cntProductByDate(@Param("pId") Long pId, @Param("start_at") String startAt, @Param("end_at") String endAt);
+	List<ProductCntDto> cntProductByDate(@Param("pName") String pName, @Param("start_at") String startAt, @Param("end_at") String endAt);
 
 	List<Map<String, Object>> insertCntRank(String receive_in);
 

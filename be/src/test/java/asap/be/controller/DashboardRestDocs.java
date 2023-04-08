@@ -53,21 +53,21 @@ public class DashboardRestDocs {
 	@DisplayName("아이템 별 최신 21일 입/출고량 테스트")
 	void getProductCntByDate() throws Exception {
 
-		Long pId = 1L;
-		given(dashBoardService.CntProduct(anyLong())).willReturn(PRODUCT_CNT_DTO_LIST);
+		String pName = "소금";
+		given(dashBoardService.CntProduct(anyString())).willReturn(PRODUCT_CNT_DTO_LIST);
 		//when
 		ResultActions actions =
 				mockMvc.perform(
-						RestDocumentationRequestBuilders.get("/api/cnt-product-by-date/{p-id}", pId)
+						RestDocumentationRequestBuilders.get("/api/cnt-product-by-date?pName={pName}", pName)
 								.accept(MediaType.APPLICATION_JSON)
 				);
 		//then
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"cnt-product-by-date",
-						pathParameters(
-								parameterWithName("p-id").description("상품 번호")
-						),
+//						pathParameters(
+//								parameterWithName("p-id").description("상품 번호")
+//						),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),

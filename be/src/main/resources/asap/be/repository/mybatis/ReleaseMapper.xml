@@ -34,15 +34,15 @@
     </select>
 
     <select id="cntProductByDate" resultType="ProductCntDto">
-        SELECT date, pInsert AS insertCnt, SUM(quantity) AS releaseCnt
-        FROM ( SELECT DATE(s.receive_in) AS date, s.pInsert AS pInsert, r.quantity AS quantity
-               FROM Stock_table s
-               LEFT JOIN Release_table r ON r.sId = s.sId
-               AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
-               WHERE s.pId = #{pId}
-               AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at} ) t
-        GROUP BY date, pInsert
-        ORDER BY date ASC;
+        SELECT DATE(s.receive_in) AS date,
+               SUM(s.pInsert) AS insertCnt,
+               COALESCE(SUM(r.quantity), 0) AS releaseCnt
+        FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        LEFT JOIN Release_table r ON r.sId = s.sId AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
+        WHERE p.pName = #{pName} AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at}
+        GROUP BY DATE(s.receive_in)
+        ORDER BY DATE(s.receive_in) ASC;
     </select>
 
     <select id="insertCntRank" resultType="java.util.Map">
@@ -96,7 +96,7 @@
                 SELECT
                     MONTH(s.receive_in) AS month,
                     SUM(s.cnt) AS total_cnt,
-                    p.pInsert AS total_pInsert,
+                    s.pInsert AS total_pInsert,
                     SUM(r.quantity) AS total_quantity
                 FROM
                     Stock_table s

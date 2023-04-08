@@ -78,7 +78,7 @@ class DashBoardServiceImplTest {
 		Long pId = 2L;
 
 		// when
-		List<ProductCntDto> list = dashBoardService.CntProduct(pId);
+		List<ProductCntDto> list = dashBoardService.CntProduct(pName);
 
 		for (ProductCntDto dto : list)
 			log.info(dto.getDate() + " " + dto.getInsertCnt() + " " + dto.getReleaseCnt());

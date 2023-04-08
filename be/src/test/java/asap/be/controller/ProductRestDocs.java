@@ -21,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static asap.be.utils.MainControllerConstants.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -139,7 +138,7 @@ public class ProductRestDocs {
 	}
 
 	@Test
-	@DisplayName("상품 출고 예외 테스트")
+	@DisplayName("상품 출고 예외 테스트1")
 	void releaseProductExceptionTest() throws Exception {
 		String content = gson.toJson(EXCEPTION_RELEASE_PRODUCT);
 		doNothing().when(productService).insertOrUpdateStock(EXCEPTION_RELEASE_PRODUCT);
@@ -177,25 +176,63 @@ public class ProductRestDocs {
 	}
 
 	@Test
-	@DisplayName("상품 ID 를 통한 총 입고량, 총 출고량, 총 재고량, 최신 입고일 조회 테스트")
-	void getAllProductCnt() throws Exception {
-
-		Long pId = 3L;
-
-		given(productService.findAllCntByPId(anyLong())).willReturn(ALL_PRODUCT_CNT_DTO);
+	@DisplayName("상품 출고 예외 테스트2")
+	void releaseProductExceptionNameTest() throws Exception {
+		String content = gson.toJson(NAME_EXCEPTION_RELEASE_PRODUCT);
+		doNothing().when(productService).insertOrUpdateStock(NAME_EXCEPTION_RELEASE_PRODUCT);
 
 		ResultActions actions =
 				mockMvc.perform(
-						RestDocumentationRequestBuilders.get("/api/all-cnt/{p-id}", pId)
+						RestDocumentationRequestBuilders.post("/api/prod")
+								.accept(MediaType.APPLICATION_JSON)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(content)
+				);
+
+		actions.andExpect(status().is4xxClientError())
+				.andDo(document(
+						"release-prod-exception",
+						requestFields(
+								List.of(
+										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량"),
+										fieldWithPath("pInsert").description("입고 시 사용").attributes(key("ignored").value(true))
+								)
+						),
+						responseFields(
+								List.of(
+										fieldWithPath("status").type(JsonFieldType.NUMBER).description("에러 코드"),
+										fieldWithPath("message").type(JsonFieldType.STRING).description("에러 메세지"),
+										fieldWithPath("fieldErrors").description("").attributes(key("ignored").value(true)),
+										fieldWithPath("violationErrors").description("").attributes(key("ignored").value(true))
+								)
+						)
+				));
+	}
+
+	@Test
+	@DisplayName("상품명을 통한 총 입고량, 총 출고량, 총 재고량, 최신 입고일 조회 테스트")
+	void getAllProductCnt() throws Exception {
+
+		String pName = "소금";
+
+		given(productService.findAllCntByPName(anyString())).willReturn(ALL_PRODUCT_CNT_DTO);
+
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.get("/api/all-cnt?pName={pName}", pName)
 								.accept(MediaType.APPLICATION_JSON)
 				);
 
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-all-cnt",
-						pathParameters(
-								parameterWithName("p-id").description("상품 번호")
-						),
+//						pathParameters(
+//								parameterWithName("p-id").description("상품 번호")
+//						),
 						responseFields(
 								List.of(
 										fieldWithPath("pinsertCnt").type(JsonFieldType.NUMBER).description("총 입고량"),
