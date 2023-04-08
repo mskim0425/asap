@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletResponse;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -42,7 +45,7 @@ public class NotificationRestDocs {
 
 		String lastEventId = "";
 
-		given(notificationService.connection(anyString())).willReturn(new SseEmitter());
+		given(notificationService.connection(anyString(), any())).willReturn(new SseEmitter());
 
 		ResultActions actions =
 				mockMvc.perform(

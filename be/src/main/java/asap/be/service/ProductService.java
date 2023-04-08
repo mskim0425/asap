@@ -15,7 +15,7 @@ public interface ProductService {
 
 	List<EverythingPageDto> findByAll(Integer lastId);
 
-	AllProductCntDto findAllCntByPId(Long pId);
+	AllProductCntDto findAllCntByPName(String pName);
 
 	List<DetailInfoDto> detailPageUsingPId(Long pId);
 

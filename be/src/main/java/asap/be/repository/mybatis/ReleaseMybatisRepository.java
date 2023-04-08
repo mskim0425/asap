@@ -50,8 +50,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public List<ProductCntDto> cntProductByDate(Long pId, String startAt, String endAt) {
-        return releaseMapper.cntProductByDate(pId, startAt, endAt);
+    public List<ProductCntDto> cntProductByDate(String pName, String startAt, String endAt) {
+        return releaseMapper.cntProductByDate(pName, startAt, endAt);
     }
 
     @Override

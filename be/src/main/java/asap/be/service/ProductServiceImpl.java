@@ -29,8 +29,10 @@ public class ProductServiceImpl implements ProductService {
 
 		productMybatisRepository.insertOrUpdateStock(dto);
 
-		verifiedProductByName(dto.getPName(), dto.getWId());
-		verifiedQuantity(dto);
+		if (dto.getQuantity() != 0) {
+			verifiedProductByName(dto.getPName(), dto.getWId());
+			verifiedQuantity(dto);
+		}
 
 		productMybatisRepository.insertOrUpdateRelease(dto);
 
@@ -73,8 +75,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public AllProductCntDto findAllCntByPId(Long pId) {
-		return productMybatisRepository.findAllCntByPId(pId);
+	public AllProductCntDto findAllCntByPName(String pName) {
+		return productMybatisRepository.findAllCntByPName(pName);
 	}
 
     @Override

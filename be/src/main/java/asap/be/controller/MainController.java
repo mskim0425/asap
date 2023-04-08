@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -68,12 +67,12 @@ public class MainController {
 
 	/**
 	 * product의 ID를 통해 최근 21일간 입출고량 컨트롤러
-	 * @param pId
+	 * @param pName
 	 */
-	@GetMapping("/cnt-product-by-date/{p-id}")
-	public ResponseEntity<List<ProductCntDto>> getProductCntByDate(@PathVariable("p-id") Long pId) {
+	@GetMapping("/cnt-product-by-date")
+	public ResponseEntity<List<ProductCntDto>> getProductCntByDate(@RequestParam String pName) {
 
-		return new ResponseEntity<>(dashBoardService.CntProduct(pId), HttpStatus.OK);
+		return new ResponseEntity<>(dashBoardService.CntProduct(pName), HttpStatus.OK);
 	}
 
 	/**
@@ -117,10 +116,10 @@ public class MainController {
 	/**
 	 * 상품 ID를 통해 총 입고량, 총 재고량, 총 출고량, 최신 입고일 조회
 	 */
-	@GetMapping("/all-cnt/{p-id}")
-	public ResponseEntity<AllProductCntDto> getAllProductCnt(@PathVariable("p-id") Long pId) {
+	@GetMapping("/all-cnt")
+	public ResponseEntity<AllProductCntDto> getAllProductCnt(@RequestParam String pName) {
 
-		return new ResponseEntity<>(productService.findAllCntByPId(pId), HttpStatus.OK);
+		return new ResponseEntity<>(productService.findAllCntByPName(pName), HttpStatus.OK);
 	}
 
 	/*
@@ -153,9 +152,9 @@ public class MainController {
 	 * lastEventId : 클라이언트 미수신 Event 유실 예방 위함
 	 */
 	@GetMapping(value = "/connect", produces = "text/event-stream")
-	public SseEmitter sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {
+	public ResponseEntity<SseEmitter> sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId, HttpServletResponse response) {
 
-		return notificationService.connection(lastEventId);
+		return new ResponseEntity<>(notificationService.connection(lastEventId, response), HttpStatus.OK);
 	}
 
 

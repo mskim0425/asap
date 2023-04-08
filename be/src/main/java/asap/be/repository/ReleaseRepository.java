@@ -25,7 +25,7 @@ public interface ReleaseRepository {
 
 	List<YearStatusDto> getMonthlyStockSummary(String year);
 
-	List<ProductCntDto> cntProductByDate(Long pId, String startAt, String endAt);
+	List<ProductCntDto> cntProductByDate(String pName, String startAt, String endAt);
 
 	List<Map<String, Object>> insertRank(String receive_in);
 

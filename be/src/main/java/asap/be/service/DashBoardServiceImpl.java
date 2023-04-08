@@ -25,13 +25,13 @@ public class DashBoardServiceImpl implements DashBoardService {
 	private final WarehouseMybatisRepository warehouseMybatisRepository;
 
 	@Override
-	public List<ProductCntDto> CntProduct(Long pId) {
+	public List<ProductCntDto> CntProduct(String pName) {
 
 		LocalDate today = LocalDate.now().minusDays(1);
 		LocalDate start = today.minusDays(20); // 오늘 제외한 최근 21일
 
 		List<ProductCntDto> result = new ArrayList<>();
-		List<ProductCntDto> dto = releaseMybatisRepository.cntProductByDate(pId, start.toString(), today.toString());
+		List<ProductCntDto> dto = releaseMybatisRepository.cntProductByDate(pName, start.toString(), today.toString());
 
 		int i = 0;
 		for (LocalDate date = start; !date.isAfter(today); date = date.plusDays(1)) {
