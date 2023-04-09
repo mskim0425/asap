@@ -79,9 +79,9 @@
 
     <resultMap id="yearStatusResult" type="YearStatusDto">
         <result property="month" column="month"/>
-        <result property="allQuantity" column="total_cnt"/>
-        <result property="allReleaseAt" column="total_quantity"/>
-        <result property="allInsert" column="total_pInsert"/>
+        <result property="total_cnt" column="total_cnt"/>
+        <result property="total_quantity" column="total_quantity"/>
+        <result property="total_pInsert" column="total_pInsert"/>
     </resultMap>
     <select id="getMonthlyStockSummary" resultMap="yearStatusResult">
         SELECT
@@ -106,7 +106,7 @@
                 LEFT JOIN (
                 SELECT
                     MONTH(s.receive_in) AS month,
-                    SUM(s.cnt) AS total_cnt,
+                    s.cnt AS total_cnt,
                     s.pInsert AS total_pInsert,
                     SUM(r.quantity) AS total_quantity
                 FROM

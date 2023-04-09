@@ -150,6 +150,11 @@ public class MainController {
 
 	}
 
+	@GetMapping("/product-names")
+	public ResponseEntity<List<String>> showAllPName(){
+		return new ResponseEntity<>(dashBoardService.showAllPName(),HttpStatus.OK);
+	}
+
 	/**
 	 * SSE 통신
 	 * sse 통신 위해 MIME 타입은 text/event-stream 로 지정

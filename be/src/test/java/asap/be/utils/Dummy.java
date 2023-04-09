@@ -94,97 +94,97 @@ public class Dummy {
 	public static final YearStatusDto YEAR_STATUS_DTO1 =
 			YearStatusDto.builder()
 					.month(1)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO2 =
 			YearStatusDto.builder()
 					.month(2)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO3 =
 			YearStatusDto.builder()
 					.month(3)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO4 =
 			YearStatusDto.builder()
 					.month(4)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO5 =
 			YearStatusDto.builder()
 					.month(5)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO6 =
 			YearStatusDto.builder()
 					.month(6)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO7 =
 			YearStatusDto.builder()
 					.month(7)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO8 =
 			YearStatusDto.builder()
 					.month(8)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO9 =
 			YearStatusDto.builder()
 					.month(9)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO10 =
 			YearStatusDto.builder()
 					.month(10)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO11 =
 			YearStatusDto.builder()
 					.month(11)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final YearStatusDto YEAR_STATUS_DTO12 =
 			YearStatusDto.builder()
 					.month(12)
-					.allQuantity(876543)
-					.allReleaseAt(1000)
-					.allInsert(5000) // 입고 많이됏넹 언제 다 판담
+					.total_cnt(500)
+					.total_pInsert(600)
+					.total_quantity(100) // 입고 많이됏넹 언제 다 판담
 					.build();
 
 	public static final CountryDto COUNTRY_DTO1 =

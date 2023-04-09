@@ -26,4 +26,7 @@ public interface ProductRepository {
 	Boolean checkExistence(String pName);
 
 	Long findPIdByPNameAndWId(String pName, Long wId);
+
+	List<String> showAllPName();
+
 }

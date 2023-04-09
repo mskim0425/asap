@@ -168,9 +168,15 @@
         WHERE pId = #{pId} AND sId = #{sId}) AS exists_product
     </select>
 
+
     <select id="findPIdByPNameAndWId" resultType="java.lang.Long">
         SELECT p.pId AS pId FROM Stock_table s
         JOIN Product_table p ON s.pId = p.pId
         WHERE p.pName = #{pName} AND s.wId = #{wId}
+    </select>
+
+    <select id="showAllPName" resultType="java.lang.String">
+        SELECT DISTINCT pName
+        FROM Product_table
     </select>
 </mapper>

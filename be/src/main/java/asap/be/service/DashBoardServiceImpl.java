@@ -91,4 +91,9 @@ public class DashBoardServiceImpl implements DashBoardService {
 	public List<CountryDto> getCountryProductStatus() {
 		return warehouseMybatisRepository.countryStatus();
 	}
+
+	@Override
+	public List<String> showAllPName() {
+		return productMybatisRepository.showAllPName();
+	}
 }

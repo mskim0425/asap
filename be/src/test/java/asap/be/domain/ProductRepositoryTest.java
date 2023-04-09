@@ -97,6 +97,7 @@ class ProductRepositoryTest {
 	@Test
 	@DisplayName("삭제 및 상품 정보 변경")
 	void editProduct() {
+<<<<<<< HEAD
 
 		// given
 		Product product = Product.builder()
@@ -104,6 +105,10 @@ class ProductRepositoryTest {
 				.price(10000)
 				.pCode("상품바코드")
 				.build();
+=======
+		// 이름 변경
+		productMybatisRepository.updateProduct(EDIT_PRODUCT_NAME);
+>>>>>>> 25f39621879643a5b30f9753652493be4aace01a
 
 		PostProductDto productDto = PostProductDto.builder()
 				.pName(product.getPName())
