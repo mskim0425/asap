@@ -36,7 +36,8 @@ export default function Top10() {
 
   return (
     <div className="top10Section">
-      <h2>일간 입고/출고량 TOP 10</h2>
+      <div className="top10half">
+      <h2>일간 입고량 TOP 10</h2>
       <table className="top10">
         <thead>
           <tr>
@@ -48,7 +49,7 @@ export default function Top10() {
         <tbody>
           {data.map((el, index) => {
             return (
-              <tr key={el}>
+              <tr key={el} className={index%2===0 ? "even" : ""}>
                 <td>{index + 1}</td>
                 <td>{el[0]}</td>
                 <td>{el[1]}</td>
@@ -57,6 +58,9 @@ export default function Top10() {
           })}
         </tbody>
       </table>
+      </div>
+      <div className="top10half">
+      <h2>일간 출고량 TOP 10</h2>
       <table className="top10">
         <thead>
           <tr>
@@ -68,7 +72,7 @@ export default function Top10() {
         <tbody>
           {data.map((el, index) => {
             return (
-              <tr key={el}>
+              <tr key={el} className={index%2===0 ? "even" : ""}>
                 <td>{index + 1}</td>
                 <td>{el[2]}</td>
                 <td>{el[3]}</td>
@@ -77,6 +81,7 @@ export default function Top10() {
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

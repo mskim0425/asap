@@ -25,11 +25,7 @@
 }
 
 .lb-left-middle{
-  height: 39%;
-}
-
-.lb-left-bottom{
-  height: 29%;
+  height: 69%;
 }
 
 .lb-right{
@@ -137,14 +133,42 @@
   text-align: right;
 }
 
-.top10{
-  margin-top: 20px;
-  width: 100%;
+.top10Section{
+  height: 100%;
 }
 
+.top10half{
+  height: 50%;
+}
+
+.top10{
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 1.7;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 10px 0;
+}
 .top10 td, th{
   text-align: center;
   vertical-align: middle;
+}
+
+.top10 thead th {
+	padding: 5px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #e7708d;
+}
+
+.top10 td {
+	padding: 2px;
+	vertical-align: top;
+}
+
+.top10 .even {
+	background: #fdf3f5;
 }
 
 .monthlyChartSection{

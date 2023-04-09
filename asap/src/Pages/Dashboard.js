@@ -21,10 +21,6 @@ export default function Dashboard() {
           <div className="lb-left-middle chartSection">
             <Top10/>
           </div>
-          <div className="lb-left-bottom chartSection">
-            <h2>Our World Storage</h2>
-            {/* <GeoChart /> */}
-          </div>
         </div>
         <div className="lb-right">
           <div className="lb-right-top chartSection">
