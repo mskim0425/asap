@@ -1,5 +1,7 @@
 package asap.be.utils;
 
+import asap.be.domain.Release;
+import asap.be.domain.Stock;
 import asap.be.domain.Warehouse;
 import asap.be.dto.*;
 import asap.be.dto.ProductCntDto;
@@ -51,29 +53,29 @@ public class MainControllerConstants {
 
 	public static final EditProductDto EDIT_PRODUCT_NAME =
 			EditProductDto.builder()
-					.pId(57777L)
-					.sId(57777L)
+					.pId(120L)
+					.sId(120L)
 					.pName("새로 변경할 상품명")
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_PRICE =
 			EditProductDto.builder()
-					.pId(57777L)
-					.sId(57777L)
+					.pId(120L)
+					.sId(120L)
 					.price(5000)
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_BARCODE =
 			EditProductDto.builder()
-					.pId(57777L)
-					.sId(57777L)
+					.pId(120L)
+					.sId(120L)
 					.pCode("새로운 상품 바코드")
 					.build();
 
 	public static final EditProductDto EDIT_ALL =
 			EditProductDto.builder()
-					.pId(57777L)
-					.sId(57777L)
+					.pId(120L)
+					.sId(120L)
 					.pName("새로 변경할 상품명")
 					.price(2000)
 					.pCode("새로 변경할 바코드")
@@ -81,8 +83,8 @@ public class MainControllerConstants {
 
 	public static final EditProductDto DELETE_PRODUCT =
 			EditProductDto.builder()
-					.pId(57777L)
-					.sId(57777L)
+					.pId(120L)
+					.sId(120L)
 					.pStatus(0)
 					.build();
 
@@ -262,4 +264,61 @@ public class MainControllerConstants {
 					.releaseCnt(5000L)
 					.lastReceiveIn("2023-03-01")
 					.build();
+
+	public static final WarehouseDto.Post WAREHOUSE_POST = WarehouseDto.Post.builder()
+			.wname("이건 임시 창고인데여")
+			.wloc("이게 간식 창고라면 얼마나 좋을까")
+			.build();
+
+	public static final WarehouseDto.Patch WAREHOUSE_PATCH = WarehouseDto.Patch.builder()
+			.oldName("BMW M5")
+			.newName("간식창고")
+			.build();
+
+	public static final WarehouseDto.Patch WAREHOUSE_PATCH_2 = WarehouseDto.Patch.builder()
+			.oldName("BMW M5")
+			.oldLoc("Nicaragua")
+			.newLoc("이제부터 여긴 제 간식창고입니다")
+			.build();
+
+	public static final Warehouse WAREHOUSE_RESPONSE =
+			Warehouse.builder()
+					.wId(1L)
+					.wName("BMW M5")
+					.wLoc("Nicaragua")
+					.build();
+
+	public static final List<Warehouse> WAREHOUSE_LIST =
+			List.of(WAREHOUSE_RESPONSE);
+
+	public static final List<AllReleaseDto> ALLRELEASE =
+			List.of(AllReleaseDto.builder()
+					.rId(1L)
+					.total(42230)
+					.quantity(82)
+					.releaseAt(LocalDate.of(2022, 9,21))
+					.lastid(10)
+					.build());
+
+	public static final List<Release> RELEASES =
+			List.of(
+					Release.builder()
+							.rId(1L)
+							.total(42230)
+							.quantity(82)
+							.releaseAt(LocalDate.of(2022, 9, 21))
+							.build()
+			);
+
+	public static final List<Stock> STOCKS =
+			List.of(
+					Stock.builder()
+							.sId(1L)
+							.pId(1L)
+							.wId(91L)
+							.cnt(41)
+							.pInsert(123)
+							.receiveIn("2022-09-21")
+							.build()
+			);
 }

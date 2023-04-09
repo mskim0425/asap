@@ -1,6 +1,5 @@
 package asap.be.controller;
 
-import asap.be.dto.DetailInfoDto;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +25,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -116,6 +113,7 @@ public class ProductRestDocs {
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
 										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("pInsert").description("저장 및 입고 시 사용").attributes(key("ignored").value(true)),
 										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
@@ -229,9 +227,6 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-all-cnt",
-//						pathParameters(
-//								parameterWithName("p-id").description("상품 번호")
-//						),
 						responseFields(
 								List.of(
 										fieldWithPath("pinsertCnt").type(JsonFieldType.NUMBER).description("총 입고량"),

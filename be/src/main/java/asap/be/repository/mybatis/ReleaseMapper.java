@@ -2,6 +2,7 @@ package asap.be.repository.mybatis;
 
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
+import asap.be.dto.AllReleaseDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.PostProductDto;
@@ -15,11 +16,11 @@ import java.util.Map;
 
 @Mapper
 public interface ReleaseMapper {
-	List<Release> findAll();
+	List<AllReleaseDto> findAll(Integer lastId);
 
 	List<Release> findReleaseById(Long sId);
 
-	Stock findStockByPId(Long pId);
+	List<Stock> findStockByPId(Long pId);
 
 	EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId, @Param("pCode") String pCode);
 

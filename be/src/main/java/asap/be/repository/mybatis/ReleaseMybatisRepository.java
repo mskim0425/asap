@@ -2,6 +2,7 @@ package asap.be.repository.mybatis;
 
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
+import asap.be.dto.AllReleaseDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.MoneyDto;
 import asap.be.dto.PostProductDto;
@@ -20,8 +21,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     private final ReleaseMapper releaseMapper;
 
     @Override
-    public List<Release> findAll() {
-        return releaseMapper.findAll();
+    public List<AllReleaseDto> findAll(Integer lastId) {
+        return releaseMapper.findAll(lastId);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public Stock findStockByPId(Long pId) {
+    public List<Stock> findStockByPId(Long pId) {
         return releaseMapper.findStockByPId(pId);
     }
 

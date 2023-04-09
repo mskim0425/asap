@@ -68,4 +68,9 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.checkExistence(pName);
 	}
 
+	@Override
+	public Long findPIdByPNameAndWId(String pName, Long wId) {
+		return productMapper.findPIdByPNameAndWId(pName, wId);
+	}
+
 }

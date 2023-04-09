@@ -3,7 +3,7 @@ package asap.be.service;
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DayMaxValueDto;
-import asap.be.dto.EverythingDto;
+import asap.be.dto.WarehouseDto;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 	private final WarehouseMybatisRepository warehouseMybatisRepository;
 
 	@Override
-	public void wSave(String wName, String wLoc) {
-		warehouseMybatisRepository.wSave(wName, wLoc);
+	@Transactional
+	public void wSave(WarehouseDto.Post dto) {
+		warehouseMybatisRepository.wSave(dto);
 	}
 
 	@Override
@@ -29,14 +30,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	@Transactional
-	public void wChangeName(String newName, String wName) {
-		warehouseMybatisRepository.wChangeName(newName, wName);
-	}
-
-	@Override
-	@Transactional
-	public void wChangeLoc(String wLoc, String wName) {
-		warehouseMybatisRepository.wChangeLoc(wLoc, wName);
+	public void wChange(WarehouseDto.Patch dto) {
+		warehouseMybatisRepository.wChange(dto);
 	}
 
 	@Override

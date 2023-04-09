@@ -1,6 +1,8 @@
 package asap.be.controller;
 
 
+import asap.be.domain.Release;
+import asap.be.domain.Warehouse;
 import asap.be.dto.*;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
@@ -11,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -157,5 +162,47 @@ public class MainController {
 		return new ResponseEntity<>(notificationService.connection(lastEventId, response), HttpStatus.OK);
 	}
 
+	// Release
+	@GetMapping("/release")
+	public ResponseEntity<List<AllReleaseDto>> getRelease(@RequestParam(value = "lastId", required = false) Integer lastId) {
+		return new ResponseEntity<>(releaseService.findAll(lastId), HttpStatus.OK);
+	}
+
+	@GetMapping("/release/{s-id}")
+	public ResponseEntity<List<Release>> getReleaseByStock(@PathVariable("s-id") Long sId) {
+		return new ResponseEntity<>(releaseService.findReleaseById(sId), HttpStatus.OK);
+	}
+
+	// Warehouse
+	@PostMapping("/warehouse")
+	public ResponseEntity<List<Warehouse>> postWarehouse(@RequestBody WarehouseDto.Post warehouse) {
+		warehouseService.wSave(warehouse);
+		return new ResponseEntity<>(warehouseService.findWarehouseByName(warehouse.getWname()), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/warehouse/{w-id}")
+	public ResponseEntity deleteWarehouse(@PathVariable("w-id") Long wId) {
+		warehouseService.wDelete(wId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PatchMapping("/warehouse")
+	public ResponseEntity<List<Warehouse>> patchWarehouse(@RequestBody WarehouseDto.Patch dto) {
+		warehouseService.wChange(dto);
+
+		List<Warehouse> warehouses = dto.getOldLoc() == null ?
+						warehouseService.findWarehouseByName(dto.getNewName()) : warehouseService.findWarehouseByLoc(dto.getNewLoc());
+
+		return new ResponseEntity<>(warehouses, HttpStatus.OK);
+	}
+
+	@GetMapping("/warehouse")
+	public ResponseEntity<List<Warehouse>> getWarehouseByName(@RequestParam(required = false) String wName, @RequestParam(required = false) String wLoc) {
+
+		List<Warehouse> warehouses = new ArrayList<>();
+		if (wName != null && wLoc == null) warehouses = warehouseService.findWarehouseByName(wName);
+		else if (wName == null && wLoc != null) warehouses = warehouseService.findWarehouseByLoc(wLoc);
+		return new ResponseEntity<>(warehouses, HttpStatus.OK);
+	}
 
 }

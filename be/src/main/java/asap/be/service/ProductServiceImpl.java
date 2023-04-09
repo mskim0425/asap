@@ -84,6 +84,11 @@ public class ProductServiceImpl implements ProductService {
         return productMybatisRepository.detailPageUsingPId(pId);
     }
 
+	@Override
+	public Long findPIdByPNameAndWId(String pName, Long wId) {
+		return productMybatisRepository.findPIdByPNameAndWId(pName, wId);
+	}
+
 	private void verifiedProduct(Long pId, Long sId) {
 		if (productMybatisRepository.verifiedProduct(pId, sId))
 			throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_EXISTS);

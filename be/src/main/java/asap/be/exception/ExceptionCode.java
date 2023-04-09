@@ -9,9 +9,6 @@ public enum ExceptionCode {
     PRODUCT_NOT_EXISTS(404, "Product not exists"),
     OVER_QUANTITY_THAN_STOCK(400, "Over quantity than stock");
 
-
-    @Getter
-    private int code;
     @Getter
     private int status;
     @Getter

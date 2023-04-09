@@ -1,5 +1,6 @@
 package asap.be.domain;
 
+import asap.be.dto.WarehouseDto;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,27 +42,33 @@ public class WarehouseRepositoryTest {
 	@Test
 	void changeWName() {
 		// given
-		String newName = "NEW WNAME";
-		String wName = "coral";
+		WarehouseDto.Patch patch =
+				WarehouseDto.Patch.builder()
+						.oldName("coral")
+						.newName("NEW NAME")
+						.build();
 
 		// when
-		warehouseMybatisRepository.wChangeName(newName, wName);
+		warehouseMybatisRepository.wChange(patch);
 
 		// then
-		assertThat(warehouseMybatisRepository.findWarehouseByName(newName)).isNotNull();
+		assertThat(warehouseMybatisRepository.findWarehouseByName(patch.getNewName())).isNotNull();
 	}
 
 	@Test
 	void changeWLoc() {
 		// given
-		String wLoc = "NEW LOCATION";
-		String wName = "coral";
+		WarehouseDto.Patch patch =
+				WarehouseDto.Patch.builder()
+						.oldName("BMW M5")
+						.newLoc("NEW LOCATION")
+						.build();
 
 		// when
-		warehouseMybatisRepository.wChangeLoc(wLoc, wName);
+		warehouseMybatisRepository.wChange(patch);
 
 		// then
-		assertThat(warehouseMybatisRepository.findWarehouseByLoc(wLoc)).isNotNull();
+		assertThat(warehouseMybatisRepository.findWarehouseByLoc(patch.getNewLoc())).isNotNull();
 	}
 
 	@Test
@@ -82,8 +89,13 @@ public class WarehouseRepositoryTest {
 		String wName = "새로운 창고";
 		String wLoc = "새로운 위치";
 
+		WarehouseDto.Post dto = WarehouseDto.Post.builder()
+				.wname(wName)
+				.wloc(wLoc)
+				.build();
+
 		// when
-		warehouseMybatisRepository.wSave(wName, wLoc);
+		warehouseMybatisRepository.wSave(dto);
 
 		// then
 		assertThat(warehouseMybatisRepository.findWarehouseByName(wName)).isNotNull();

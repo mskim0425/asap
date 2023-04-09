@@ -2,6 +2,7 @@ package asap.be.service;
 
 import asap.be.domain.Release;
 import asap.be.domain.Stock;
+import asap.be.dto.AllReleaseDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.PostProductDto;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
@@ -18,8 +19,8 @@ public class ReleaseServiceImpl implements ReleaseService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Release> findAll() {
-		return releaseMybatisRepository.findAll();
+	public List<AllReleaseDto> findAll(Integer lastId) {
+		return releaseMybatisRepository.findAll(lastId);
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class ReleaseServiceImpl implements ReleaseService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Stock findStockByPId(Long pId) {
+	public List<Stock> findStockByPId(Long pId) {
 		return releaseMybatisRepository.findStockByPId(pId);
 	}
 

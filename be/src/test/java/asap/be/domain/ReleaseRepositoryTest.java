@@ -1,5 +1,6 @@
 package asap.be.domain;
 
+import asap.be.dto.AllReleaseDto;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,14 +41,19 @@ public class ReleaseRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("전체조회")
+	@DisplayName("전체 조회")
 	void findAll() {
 		// given
+		Integer lastId = null;
 
 		// when
-		List<Release> releases = releaseMybatisRepository.findAll();
+		List<AllReleaseDto> releases = releaseMybatisRepository.findAll(lastId);
+		Integer next = releases.get(0).getLastid();
+		List<AllReleaseDto> releaseDtos = releaseMybatisRepository.findAll(next);
 
 		// then
+		assertThat(releases.size()).isEqualTo(10);
+		assertThat(releaseDtos.size()).isEqualTo(10);
 	}
 
 	@Test
@@ -69,9 +75,9 @@ public class ReleaseRepositoryTest {
 		Long pId = 10L;
 
 		// when
-		Stock stock = releaseMybatisRepository.findStockByPId(pId);
+		List<Stock> stock = releaseMybatisRepository.findStockByPId(pId);
 
 		// then
-		assertThat(stock.getSId()).isEqualTo(pId);
+		assertThat(stock.get(0).getPId()).isEqualTo(pId);
 	}
 }

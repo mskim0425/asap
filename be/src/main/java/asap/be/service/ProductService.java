@@ -19,4 +19,5 @@ public interface ProductService {
 
 	List<DetailInfoDto> detailPageUsingPId(Long pId);
 
+	Long findPIdByPNameAndWId(String pName, Long wId);
 }
