@@ -1,11 +1,11 @@
 import CalendarChart from "../Component/Chart/CalendarChart";
 import GeoChart from "../Component/Chart/GeoChart";
-import MonthlyChart from "../Component/Chart/MonthlyChart";
 import PieChart from "../Component/Chart/PieChart";
-import TodayRecord from "../Component/Chart/TodayRecord";
+import DailyRecord from "../Component/DailyRecord";
+import Top10 from "../Component/Top10";
+import MonthlyChart from "../Component/Chart/MonthlyChart";
 import TotalProduct from "../Component/Chart/TotalProduct";
 import SSE from "../Component/SSE";
-import Top10 from "../Component/Top10";
 
 import "./Dashboard.css";
 
@@ -16,7 +16,7 @@ export default function Dashboard() {
       <div className="leftBox">
         <div className="lb-left">
           <div className="lb-left-top chartSection">
-            <TodayRecord />
+            <DailyRecord />
           </div>
           <div className="lb-left-middle chartSection">
             <Top10/>

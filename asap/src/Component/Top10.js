@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
+import { commaChecker } from "../Function/commaChecker";
+
 export default function Top10() {
   const [data, setData] = useState([]);
   const dataFetch = async () => {
@@ -37,7 +39,7 @@ export default function Top10() {
   return (
     <div className="top10Section">
       <div className="top10half">
-      <h2>일간 입고량 TOP 10</h2>
+      <h2>일일 입고량 TOP 10</h2>
       <table className="top10">
         <thead>
           <tr>
@@ -52,7 +54,7 @@ export default function Top10() {
               <tr key={el} className={index%2===0 ? "even" : ""}>
                 <td>{index + 1}</td>
                 <td>{el[0]}</td>
-                <td>{el[1]}</td>
+                <td>{commaChecker(el[1])}</td>
               </tr>
             );
           })}
@@ -60,7 +62,7 @@ export default function Top10() {
       </table>
       </div>
       <div className="top10half">
-      <h2>일간 출고량 TOP 10</h2>
+      <h2>일일 출고량 TOP 10</h2>
       <table className="top10">
         <thead>
           <tr>
@@ -75,7 +77,7 @@ export default function Top10() {
               <tr key={el} className={index%2===0 ? "even" : ""}>
                 <td>{index + 1}</td>
                 <td>{el[2]}</td>
-                <td>{el[3]}</td>
+                <td>{commaChecker(el[3])}</td>
               </tr>
             );
           })}

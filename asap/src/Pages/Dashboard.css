@@ -39,6 +39,10 @@
 
 .rightBox {
   width: 10%;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 5px #0000001e;
+  z-index: 1;
 }
 
 .lb-right-top{
@@ -63,6 +67,9 @@
   margin: 0.5vh 0;
   font-size: large;
   text-align: center;
+  font-weight: 600;
+  color: #000000;
+  text-shadow: 0px 0px 1px #b8b3f5, 0px 0px 2px #a0a5da, 0px 0px 2px #8992f0, 0px 0px 2px #95a3ba;
 }
 
 .chartbox {
@@ -176,5 +183,18 @@
 }
 
 .totalSalesChartSection{
-  height: 80%;
+  height: 88%;
+}
+
+.dateController{
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-left: 20px;
+}
+
+.dateController input{
+  margin-left: 10px;
 }

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
-import { GetDailyRecord } from "../../apis/GetDailyRecord"
+
+import { GetDailyRecord } from "../apis/GetDailyRecord"
+
+import { commaChecker } from "../Function/commaChecker"
 
 export default function DailyRecord () {
     const [data, setData] = useState(new Array(8).fill("Loding..."))
@@ -20,11 +23,11 @@ export default function DailyRecord () {
                 <div className="recordLine">
                     <div className="recordBox">
                         <h3>총 입고량</h3>
-                        <p>{`${data[6]}`}</p>
+                        <p>{`${commaChecker(data[6])}`}</p>
                     </div>
                     <div className="recordBox">
                         <h3>총 출고량</h3>
-                        <p>{`${data[7]}`}</p>
+                        <p>{`${commaChecker(data[7])}`}</p>
                     </div>
                 </div>
                 <div className="recordLine">

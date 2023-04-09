@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import { GetTotalSales } from "../../apis/GetTotalSales";
 import { format } from 'date-fns'
+
+import { GetTotalSales } from "../../apis/GetTotalSales";
 
 export default function TotalProduct() {
     const [data, setData] = useState([["Year", "Money"], [0,0]])
@@ -9,10 +10,11 @@ export default function TotalProduct() {
     const [endDate, setEndDate] = useState(format(Date.now(), "yyyy-MM-dd"))
 
     const options = {
-        title: "기간 내 전체 출고 금액",
         animation: { duration: 500, easing: "inAndOut", startup: true },
+        curveType: "function",
         width: "99%",
-        height: "99%"
+        height: "99%",
+        colors: ['#000000']
     };
 
     const yearHandler = (e) => {
@@ -29,15 +31,17 @@ export default function TotalProduct() {
 
     return (
         <div className="totalSalesChartSection">
-            <h2>Daily Total Sales</h2>
-            <label>
-                Start Date
-                <input type={"date"} name="startDate" onChange={(e) => yearHandler(e)}/>
-            </label>
-            <label>
-                End Date
-                <input type={"date"} name="endDate" onChange={(e) => yearHandler(e)}/>
-            </label>
+            <h2>기간 내 전체 출고 금액</h2>
+            <div className="dateController">
+                <label>
+                    Start Date
+                    <input type={"date"} name="startDate" onChange={(e) => yearHandler(e)}/>
+                </label>
+                <label>
+                    End Date
+                    <input type={"date"} name="endDate" onChange={(e) => yearHandler(e)}/>
+                </label>
+            </div>
             <Chart className="chartCSS" chartType="LineChart" data={data} options={options} />
         </div>
     );

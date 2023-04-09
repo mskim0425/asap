@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import "./SSE.css"
 
 export default function SSE () {
     const [message, setMessage] = useState([])
@@ -20,12 +21,18 @@ export default function SSE () {
     }, [])
 
     return (
-        <div>
+        <div className="sse">
             {message.length > 0 ? message.map((el,index) => {
                 return (
-                    <div key={index}>
-                        <div>{el}</div>
-                    </div>
+                    <label key={index}>
+                        <input type="checkbox" className="alertCheckbox" autoComplete="off" />
+                        <div className="alert error">
+                            <span className="alertClose">X</span>
+                            <span className="alertText">{el}
+                                <br className="clear"/>
+                            </span>
+                        </div>
+                    </label>
                 )
             }) : null}
         </div>
