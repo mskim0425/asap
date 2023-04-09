@@ -149,9 +149,9 @@ public class DashboardRestDocs {
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),
 										fieldWithPath("[].month").type(JsonFieldType.NUMBER).description("월"),
-										fieldWithPath("[].allQuantity").type(JsonFieldType.NUMBER).description("월 전체 수량"),
-										fieldWithPath("[].allReleaseAt").type(JsonFieldType.NUMBER).description("월 전체 출고량"),
-										fieldWithPath("[].allInsert").type(JsonFieldType.NUMBER).description("월 전체 입고량")
+										fieldWithPath("[].total_cnt").type(JsonFieldType.NUMBER).description("월 전체 수량"),
+										fieldWithPath("[].total_quantity").type(JsonFieldType.NUMBER).description("월 전체 출고량"),
+										fieldWithPath("[].total_pInsert").type(JsonFieldType.NUMBER).description("월 전체 입고량")
 								)
 						)
 				));

@@ -98,7 +98,6 @@ class ProductRepositoryTest {
 	@Test
 	@DisplayName("삭제 및 상품 정보 변경")
 	void editProduct() {
-
 		// 이름 변경
 		productMybatisRepository.updateProduct(EDIT_PRODUCT_NAME);
 

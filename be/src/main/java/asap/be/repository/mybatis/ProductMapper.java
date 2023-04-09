@@ -27,5 +27,6 @@ public interface ProductMapper {
 	Boolean verifiedProduct(Long pId, Long sId);
 
 	Boolean checkExistence(String pName);
+	List<String> showAllPName();
 }
 

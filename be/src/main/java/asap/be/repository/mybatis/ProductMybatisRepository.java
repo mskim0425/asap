@@ -68,4 +68,10 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.checkExistence(pName);
 	}
 
+	@Override
+	public List<String> showAllPName() {
+		return productMapper.showAllPName();
+	}
+
+
 }

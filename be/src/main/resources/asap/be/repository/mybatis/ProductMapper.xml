@@ -168,4 +168,8 @@
         WHERE pId = #{pId} AND sId = #{sId}) AS exists_product
     </select>
 
+    <select id="showAllPName" resultType="java.lang.String">
+        SELECT DISTINCT pName
+        FROM Product_table
+    </select>
 </mapper>
