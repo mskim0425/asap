@@ -10,7 +10,6 @@ export const GetMonthlyData = async (year) => {
         const data = [['Month', '재고', '입고', '출고']]
         const monthlyData = response.data
         monthlyData.forEach((el) => data.push([el.month, el.allInsert, el.allQuantity, el.allReleaseAt]))
-        console.log(monthlyData)
 
         return data
     }

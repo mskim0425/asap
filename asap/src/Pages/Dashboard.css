@@ -60,11 +60,11 @@
 .chartSection {
   width: 100%;
   box-shadow: 1px 1px 1px 1px #999;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .chartSection h2{
-  margin-top: 1.1vh;
+  margin: 0.5vh 0;
   font-size: large;
   text-align: center;
 }
@@ -99,6 +99,43 @@
     align-items: center;
   }
 } */
+
+.dailyRecordSection{
+  height: 90%;
+}
+
+.dailyRecords{
+  height: 100%;
+}
+
+.recordLine{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 33%;
+}
+
+.recordBox{
+  width: 45%;
+  height: 100%;
+  box-shadow: 0.5px 0.5px 0.5px 0.8px #585858;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.recordBox p{
+  text-align: center;
+  font-size: 1.5em;
+  margin: 4% 0;
+}
+
+.recordBox span{
+  font-size: small;
+  text-align: right;
+}
 
 .top10{
   margin-top: 20px;

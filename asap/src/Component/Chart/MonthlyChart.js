@@ -11,7 +11,6 @@ export default function MonthlyChart () {
         animation: { duration: 700, easing: "inAndOut", startup: true },
         vAxis: {0:{title: "개수"}, 1: {title: "개수"}},
         hAxis: {title: "Month"},
-        seriesType: 'bars',
         series: {0: {type: "line", targetAxisIndex: 1}, 1: {type: "bars", targetAxisIndex:0}, 2:{type:"bars", targetAxisIndex:0}},
         width: "99%",
         height: "99%",
@@ -26,7 +25,9 @@ export default function MonthlyChart () {
             const getData = await GetMonthlyData(year)
             setData(getData)
         }
+
         MonthlyData()
+        
     },[year])
 
     return (

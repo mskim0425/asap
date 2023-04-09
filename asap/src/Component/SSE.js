@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 
 export default function SSE () {
@@ -16,22 +15,19 @@ export default function SSE () {
 
         eventSourse.addEventListener('sse', async (e) => {
             const data = e.data
-            console.log("data", data)
-            setMessage([e.data.title, e.data.content])
-            console.log(message)
+            setMessage([...message, data])
         })
     }, [])
 
     return (
         <div>
-            {/* {message.length > 0 ? message.map(el => {
+            {message.length > 0 ? message.map((el,index) => {
                 return (
-                    <div key={el}>
-                        <div>{el[0]}</div>
-                        <div>{el[1]}</div>
+                    <div key={index}>
+                        <div>{el}</div>
                     </div>
                 )
-            }) : null} */}
+            }) : null}
         </div>
     )
 }

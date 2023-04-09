@@ -16,7 +16,6 @@ export default function Dashboard() {
       <div className="leftBox">
         <div className="lb-left">
           <div className="lb-left-top chartSection">
-            <h2>TODAY</h2>
             <TodayRecord />
           </div>
           <div className="lb-left-middle chartSection">
