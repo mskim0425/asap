@@ -264,22 +264,18 @@ public class ProductRestDocs {
 										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
-										fieldWithPath("logs[]").type(JsonFieldType.ARRAY).description("상품 입/출고 기록"),
-										fieldWithPath("logs[].releaseAt").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
-										fieldWithPath("logs[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
-										fieldWithPath("logs[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
-										fieldWithPath("logs[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional(),
-										fieldWithPath("logs[].wname").type(JsonFieldType.STRING).description("창고명"),
-										fieldWithPath("logs[].wloc").type(JsonFieldType.STRING).description("창고위치"),
-										fieldWithPath("logs[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
-										fieldWithPath("logs[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
-										fieldWithPath("logs[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
-										fieldWithPath("logs[].pinsertLog").type(JsonFieldType.STRING).description("입고량")
+										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
+										fieldWithPath("insertLogs[].receiveIn").type(JsonFieldType.STRING).description("입고 일자"),
+										fieldWithPath("insertLogs[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
+										fieldWithPath("insertLogs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("insertLogs[].wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("releaseLogs[].releaseAt").type(JsonFieldType.STRING).description("출고일"),
+										fieldWithPath("releaseLogs[].quantity").type(JsonFieldType.NUMBER).description("출고량"),
+										fieldWithPath("releaseLogs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("releaseLogs[].wloc").type(JsonFieldType.STRING).description("창고 위치")
 								)
 						)
-
 				));
-
 	}
 
 	@Test
@@ -593,17 +589,15 @@ public class ProductRestDocs {
 										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
-										fieldWithPath("logs[]").type(JsonFieldType.ARRAY).description("상품 입/출고 기록"),
-										fieldWithPath("logs[].releaseAt").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
-										fieldWithPath("logs[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
-										fieldWithPath("logs[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional(),
-										fieldWithPath("logs[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
-										fieldWithPath("logs[].wname").type(JsonFieldType.STRING).description("창고명"),
-										fieldWithPath("logs[].wloc").type(JsonFieldType.STRING).description("창고위치"),
-										fieldWithPath("logs[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
-										fieldWithPath("logs[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
-										fieldWithPath("logs[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
-										fieldWithPath("logs[].pinsertLog").type(JsonFieldType.STRING).description("입고량")
+										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
+										fieldWithPath("insertLogs[].receiveIn").type(JsonFieldType.STRING).description("입고 일자"),
+										fieldWithPath("insertLogs[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
+										fieldWithPath("insertLogs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("insertLogs[].wloc").type(JsonFieldType.STRING).description("창고 위치"),
+										fieldWithPath("releaseLogs[].releaseAt").type(JsonFieldType.STRING).description("출고일"),
+										fieldWithPath("releaseLogs[].quantity").type(JsonFieldType.NUMBER).description("출고량"),
+										fieldWithPath("releaseLogs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("releaseLogs[].wloc").type(JsonFieldType.STRING).description("창고 위치")
 								)
 						)
 

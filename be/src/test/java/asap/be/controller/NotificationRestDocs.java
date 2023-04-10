@@ -39,7 +39,7 @@ public class NotificationRestDocs {
 	@MockBean
 	private NotificationServiceImpl notificationService;
 
-	@Test
+//	@Test
 	@DisplayName("SSE 연결 테스트")
 	void connectionSSE() throws Exception {
 

@@ -122,8 +122,8 @@
     </select>
 
     <select id="getCnt" parameterType="PostProductDto" resultType="java.lang.Integer">
-        SELECT COALESCE((SELECT cnt FROM Stock_table WHERE pId =
-        (SELECT pt.pId FROM Product_table pt
+        SELECT COALESCE((SELECT cnt FROM Stock_table WHERE wId = #{p.wId}
+        AND pId = (SELECT pt.pId FROM Product_table pt
         WHERE pt.pName = #{p.pName}
         AND pt.price = #{p.price}
         AND pt.pCode = #{p.pCode})) , 0) AS cnt;
