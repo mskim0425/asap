@@ -16,12 +16,12 @@ public class ErrorResponse {
 	private List<FieldError> fieldErrors;
 	private List<ConstraintViolationError> violationErrors;
 
-	private ErrorResponse(int status, String message) {
+	public ErrorResponse(int status, String message) {
 		this.status = status;
 		this.message = message;
 	}
 
-	private ErrorResponse(final List<FieldError> fieldErrors,
+	public ErrorResponse(final List<FieldError> fieldErrors,
 						  final List<ConstraintViolationError> violationErrors) {
 		this.fieldErrors = fieldErrors;
 		this.violationErrors = violationErrors;
@@ -86,7 +86,7 @@ public class ErrorResponse {
 		private Object rejectedValue;
 		private String reason;
 
-		private ConstraintViolationError(String propertyPath, Object rejectedValue,
+		public ConstraintViolationError(String propertyPath, Object rejectedValue,
 										 String reason) {
 			this.propertyPath = propertyPath;
 			this.rejectedValue = rejectedValue;

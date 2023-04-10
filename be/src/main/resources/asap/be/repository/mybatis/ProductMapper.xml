@@ -151,10 +151,10 @@
         WHERE p.pName = #{pName};
     </select>
 
-    <select id="detailPageUsingPId" resultType="DetailInfoDto">
+    <select id="detailPageUsingPId" resultType="DetailReleaseInsertDto">
         SELECT r.rId, r.release_at, r.quantity,
-               s.sId, p.pId,s.wId, s.receive_in, w.wName, w.wLoc, p.pName ,p.pCode,
-               s.pInsertLog,  s.cnt, p.price, p.pStatus
+               s.sId, p.pId, s.wId, w.wName, w.wLoc,
+               s.pInsertLog,  s.cnt
         FROM Product_table AS p
         JOIN Stock_table AS s ON p.pId = s.pId
         LEFT JOIN Release_table r ON s.sId = r.sId
@@ -168,8 +168,20 @@
         WHERE pId = #{pId} AND sId = #{sId}) AS exists_product
     </select>
 
+
+    <select id="findPIdByPNameAndWId" resultType="java.lang.Long">
+        SELECT p.pId AS pId FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE p.pName = #{pName} AND s.wId = #{wId}
+    </select>
+
     <select id="showAllPName" resultType="java.lang.String">
         SELECT DISTINCT pName
         FROM Product_table
+    </select>
+
+    <select id="findProductById" resultType="DetailProductDto">
+        SELECT pId, pName, pCode, price, pStatus
+        FROM Product_table WHERE pId = #{pId}
     </select>
 </mapper>

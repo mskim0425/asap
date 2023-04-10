@@ -80,9 +80,30 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
-    public List<DetailInfoDto> detailPageUsingPId(Long pId) {
-        return productMybatisRepository.detailPageUsingPId(pId);
+    public DetailInfoDto detailPageUsingPId(Long pId) {
+		DetailProductDto product = productMybatisRepository.findProductById(pId);
+		List<DetailReleaseInsertDto> releaseInsertDtos = productMybatisRepository.detailPageUsingPId(pId);
+		return DetailInfoDto.builder()
+				.product(product)
+				.logs(releaseInsertDtos)
+				.build();
     }
+
+	@Override
+	public Long findPIdByPNameAndWId(String pName, Long wId) {
+		return productMybatisRepository.findPIdByPNameAndWId(pName, wId);
+	}
+
+	@Override
+	public DetailInfoDto editDetailPage(Long pId, EditProductDto dto) {
+		productMybatisRepository.updateProduct(dto);
+		DetailProductDto product = productMybatisRepository.findProductById(pId);
+		List<DetailReleaseInsertDto> releaseInsertDtos = productMybatisRepository.detailPageUsingPId(pId);
+		return DetailInfoDto.builder()
+				.product(product)
+				.logs(releaseInsertDtos)
+				.build();
+	}
 
 	private void verifiedProduct(Long pId, Long sId) {
 		if (productMybatisRepository.verifiedProduct(pId, sId))

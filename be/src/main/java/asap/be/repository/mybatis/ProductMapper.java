@@ -22,11 +22,16 @@ public interface ProductMapper {
 
     AllProductCntDto findAllCntByPName(String pName);
 
-    List<DetailInfoDto> detailPageUsingPId(Long pId);
+    List<DetailReleaseInsertDto> detailPageUsingPId(Long pId);
 
 	Boolean verifiedProduct(Long pId, Long sId);
 
 	Boolean checkExistence(String pName);
+
+	Long findPIdByPNameAndWId(String pName, Long wId);
+
 	List<String> showAllPName();
+
+	DetailProductDto findProductById(Long pId);
 }
 

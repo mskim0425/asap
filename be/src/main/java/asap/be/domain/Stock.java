@@ -14,13 +14,13 @@ public class Stock {
     private Long pId;
     private Long wId;
     private int cnt;
-    private String receive_in;
+    private String receiveIn;
     private int pInsert;
 
-    public Stock(Long sId, Long wId, String receive_in, int pInsert) {
+    public Stock(Long sId, Long wId, String receiveIn, int pInsert) {
         this.sId = sId;
         this.wId = wId;
-        this.receive_in = receive_in;
+        this.receiveIn = receiveIn;
         this.pInsert = pInsert;
     }
 }

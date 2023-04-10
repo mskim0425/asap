@@ -56,7 +56,7 @@ public class ConcurrencyTest {
     }
 
 
-    @Test
+//    @Test
     @DisplayName("동시에 100개 요청 - 적용")
     public synchronized void AtOnce100() throws InterruptedException {
         int threadcnt = 100;

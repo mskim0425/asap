@@ -3,8 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asap.be.repository.mybatis.ReleaseMapper">
 
-    <select id="findAll" resultType="Release">
-        SELECT * FROM Release_table ORDER BY release_at DESC
+    <select id="findAll" resultType="AllReleaseDto">
+        <if test="lastId == null">
+            SET @lastId = (SELECT MAX(rId) FROM Release_table);
+        </if>
+        <if test="lastId != null">
+            SET @lastId = #{lastId};
+        </if>
+
+        SELECT r.rId, r.quantity, r.total, r.release_at AS releaseAt, (@lastId - 10) AS lastid
+        FROM Release_table AS r
+        WHERE r.rId &lt; @lastId
+        ORDER BY r.rId DESC
+        LIMIT 10;
     </select>
 
     <select id="findReleaseById" resultType="Release">

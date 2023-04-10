@@ -5,7 +5,7 @@
 
     <insert id="wSave" useGeneratedKeys="true">
         INSERT INTO Warehouse_table (wName, wLoc)
-        VALUES (#{wName}, #{wLoc});
+        VALUES (#{w.wname}, #{w.wloc});
     </insert>
 
     <delete id="wDelete">
@@ -13,16 +13,19 @@
         WHERE wId = #{wId};
     </delete>
 
-    <update id="wChangeName">
+    <update id="wChange">
         UPDATE Warehouse_table
-        SET wName = #{new_wName}
-        WHERE wName = #{old_wName}
-    </update>
-
-    <update id="wChangeLoc">
-        UPDATE Warehouse_table
-        SET wLoc = #{wLoc}
-        WHERE wName = #{wName}
+        SET
+        <if test="w.newLoc != null">
+            wLoc = #{w.newLoc}
+        </if>
+        <if test="w.newName != null">
+            wName = #{w.newName}
+        </if>
+        WHERE wName = #{w.oldName}
+        <if test="w.oldLoc != null">
+            AND wLoc = #{w.oldLoc}
+        </if>
     </update>
 
     <select id="findWarehouseByName" resultType="Warehouse">

@@ -1,4 +1,4 @@
-package asap.be.domain;
+package asap.be.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,10 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Release {
-    private Long rId;
-    private int quantity;
-    private int total;
-    private LocalDate releaseAt;
+public class AllReleaseDto {
+	private Long rId;
+	private int quantity;
+	private int total;
+	private LocalDate releaseAt;
+	private Integer lastid;
 }

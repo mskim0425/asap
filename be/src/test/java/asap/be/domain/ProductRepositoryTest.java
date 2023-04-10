@@ -1,6 +1,8 @@
 package asap.be.domain;
 
 import asap.be.dto.DetailInfoDto;
+import asap.be.dto.DetailReleaseInsertDto;
+import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.EverythingPageDto;
 import asap.be.dto.PostProductDto;
@@ -18,10 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-
 import java.util.List;
 
-import static asap.be.utils.MainControllerConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -98,37 +98,98 @@ class ProductRepositoryTest {
 	@Test
 	@DisplayName("삭제 및 상품 정보 변경")
 	void editProduct() {
-		// 이름 변경
-		productMybatisRepository.updateProduct(EDIT_PRODUCT_NAME);
 
-		EverythingDto findProd1 = productMybatisRepository.findById(EDIT_PRODUCT_NAME.getPId(), EDIT_PRODUCT_NAME.getSId());
-		assertThat(findProd1.getPname()).isEqualTo(EDIT_PRODUCT_NAME.getPName());
+		// given
+		Product product = Product.builder()
+				.pName("상품명")
+				.price(10000)
+				.pCode("상품바코드")
+				.build();
+
+		PostProductDto productDto = PostProductDto.builder()
+				.pName(product.getPName())
+				.price(product.getPrice())
+				.pCode(product.getPCode())
+				.wId(1L)
+				.pInsert(10) //입고시
+				.build();
+
+		productMybatisRepository.insertOrUpdateRelease(productDto);
+		Long pId = productMybatisRepository.findPIdByPNameAndWId(product.getPName(), productDto.getWId());
+
+		EditProductDto name = EditProductDto.builder()
+				.pId(pId)
+				.sId(pId)
+				.pName("새로 변경할 상품명")
+				.build();
+
+		// 이름 변경
+		// when
+		productMybatisRepository.updateProduct(name);
+
+		// then
+		EverythingDto findProd1 = productMybatisRepository.findById(name.getPId(), name.getSId());
+		assertThat(findProd1.getPname()).isEqualTo(name.getPName());
 
 		// 가격 변경
-		productMybatisRepository.updateProduct(EDIT_PRODUCT_PRICE);
+		// when
+		EditProductDto price = EditProductDto.builder()
+				.pId(pId)
+				.sId(pId)
+				.price(5000)
+				.build();
 
-		EverythingDto findProd2 = productMybatisRepository.findById(EDIT_PRODUCT_PRICE.getPId(), EDIT_PRODUCT_PRICE.getSId());
-		assertThat(findProd2.getPrice()).isEqualTo(findProd2.getPrice());
+		productMybatisRepository.updateProduct(price);
+
+		// then
+		EverythingDto findProd2 = productMybatisRepository.findById(price.getPId(), price.getSId());
+		assertThat(price.getPrice()).isEqualTo(findProd2.getPrice());
 
 		// 바코드 변경
-		productMybatisRepository.updateProduct(EDIT_PRODUCT_BARCODE);
+		// when
+		EditProductDto barcode = EditProductDto.builder()
+				.pId(pId)
+				.sId(pId)
+				.pCode("NEW BARCODE")
+				.build();
 
-		EverythingDto findProd3 = productMybatisRepository.findById(EDIT_PRODUCT_BARCODE.getPId(), EDIT_PRODUCT_BARCODE.getSId());
-		assertThat(findProd3.getPcode()).isEqualTo(findProd3.getPcode());
+		productMybatisRepository.updateProduct(barcode);
+
+		// then
+		EverythingDto findProd3 = productMybatisRepository.findById(barcode.getPId(), barcode.getSId());
+		assertThat(barcode.getPCode()).isEqualTo(findProd3.getPcode());
 
 		// 전체 변경
-		productMybatisRepository.updateProduct(EDIT_ALL);
+		// when
+		EditProductDto all = EditProductDto.builder()
+				.pId(pId)
+				.sId(pId)
+				.pName("또다른 상품명")
+				.price(10)
+				.pCode("또다른 바코드")
+				.build();
 
-		EverythingDto findProd4 = productMybatisRepository.findById(EDIT_ALL.getPId(), EDIT_ALL.getSId());
-		assertThat(findProd4.getPname()).isEqualTo(EDIT_ALL.getPName());
-		assertThat(findProd4.getPrice()).isEqualTo(EDIT_ALL.getPrice());
-		assertThat(findProd4.getPcode()).isEqualTo(EDIT_ALL.getPCode());
+		productMybatisRepository.updateProduct(all);
+
+		// then
+		EverythingDto findProd4 = productMybatisRepository.findById(all.getPId(), all.getSId());
+		assertThat(findProd4.getPname()).isEqualTo(all.getPName());
+		assertThat(findProd4.getPrice()).isEqualTo(all.getPrice());
+		assertThat(findProd4.getPcode()).isEqualTo(all.getPCode());
 
 		// 상태 삭제로 변경
-		productMybatisRepository.updateProduct(DELETE_PRODUCT);
+		// when
+		EditProductDto delete = EditProductDto.builder()
+				.pId(pId)
+				.sId(pId)
+				.pStatus(0)
+				.build();
 
-		EverythingDto findProd5 = productMybatisRepository.findById(DELETE_PRODUCT.getPId(), DELETE_PRODUCT.getSId());
-		assertThat(findProd5.getPStatus()).isEqualTo(0);
+		productMybatisRepository.updateProduct(delete);
+
+		// then
+		EverythingDto findProd5 = productMybatisRepository.findById(delete.getPId(), delete.getSId());
+		assertThat(findProd5.getPStatus()).isEqualTo(delete.getPStatus());
 	}
 
 	@Test
@@ -183,10 +244,10 @@ class ProductRepositoryTest {
 		// given
 		Long id = 3L;
 
-		List<DetailInfoDto> dtos = productMybatisRepository.detailPageUsingPId(id);
+		List<DetailReleaseInsertDto> dtos = productMybatisRepository.detailPageUsingPId(id);
 
 		// then
-		assertThat(dtos.get(0).getPId()).isEqualTo(3L);
+		assertThat(dtos.get(0).getPid()).isEqualTo(3L);
 	}
 
 }

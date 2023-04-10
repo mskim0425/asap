@@ -65,9 +65,6 @@ public class DashboardRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"cnt-product-by-date",
-//						pathParameters(
-//								parameterWithName("p-id").description("상품 번호")
-//						),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),
