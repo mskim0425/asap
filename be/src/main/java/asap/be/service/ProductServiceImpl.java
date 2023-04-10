@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 	public void insertOrUpdateStock(PostProductDto dto) {
 
 		StringBuffer sb = new StringBuffer();
-//		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // 실 배포시 적용하면 당일 총 입고량 올라감 히히
+		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // 실 배포시 적용하면 당일 총 입고량 올라감 히히
 
 		productMybatisRepository.insertOrUpdateStock(dto);
 
@@ -82,10 +85,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public DetailInfoDto detailPageUsingPId(Long pId) {
 		DetailProductDto product = productMybatisRepository.findProductById(pId);
-		List<DetailReleaseInsertDto> releaseInsertDtos = productMybatisRepository.detailPageUsingPId(pId);
+		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
+		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
+
+		product = DetailProductDto.builder()
+				.pId(product.getPId())
+				.price(product.getPrice())
+				.pStatus(product.getPStatus())
+				.pCode(product.getPCode())
+				.pName(product.getPName())
+				.cnt(insert.get(0).getCnt())
+				.build();
+
+		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
+		insertLogLoop(insert, insertLogs);
+
 		return DetailInfoDto.builder()
 				.product(product)
-				.logs(releaseInsertDtos)
+				.insertLogs(insertLogs)
+				.releaseLogs(release)
 				.build();
     }
 
@@ -97,11 +115,27 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public DetailInfoDto editDetailPage(Long pId, EditProductDto dto) {
 		productMybatisRepository.updateProduct(dto);
+
 		DetailProductDto product = productMybatisRepository.findProductById(pId);
-		List<DetailReleaseInsertDto> releaseInsertDtos = productMybatisRepository.detailPageUsingPId(pId);
+		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
+		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
+
+		product = DetailProductDto.builder()
+				.pId(product.getPId())
+				.price(product.getPrice())
+				.pStatus(product.getPStatus())
+				.pCode(product.getPCode())
+				.pName(product.getPName())
+				.cnt(insert.get(0).getCnt())
+				.build();
+
+		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
+		insertLogLoop(insert, insertLogs);
+
 		return DetailInfoDto.builder()
 				.product(product)
-				.logs(releaseInsertDtos)
+				.insertLogs(insertLogs)
+				.releaseLogs(release)
 				.build();
 	}
 
@@ -118,5 +152,20 @@ public class ProductServiceImpl implements ProductService {
 	private void verifiedQuantity(PostProductDto dto) {
 		if (releaseService.getCnt(dto) < dto.getQuantity())
 			throw new BusinessLogicException(ExceptionCode.OVER_QUANTITY_THAN_STOCK);
+	}
+
+	private static void insertLogLoop(List<DetailInsertDto> insert, List<DetailInsertLogsDto> insertLogs) {
+		for (DetailInsertDto insertDto : insert) {
+			String[] strings = insertDto.getPInsertLog().split(",");
+			for (String string : strings) {
+				String[] split = string.split(" : ");
+				insertLogs.add(DetailInsertLogsDto.builder()
+					.wName(insertDto.getWName())
+					.wLoc(insertDto.getWLoc())
+					.receiveIn(split[0])
+					.pInsert(Integer.parseInt(split[1]))
+					.build());
+			}
+		}
 	}
 }

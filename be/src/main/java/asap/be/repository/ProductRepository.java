@@ -19,7 +19,9 @@ public interface ProductRepository {
 
 	AllProductCntDto findAllCntByPName(String pName);
 
-	List<DetailReleaseInsertDto> detailPageUsingPId(Long pId);
+	List<DetailReleaseDto> detailReleaseUsingPId(Long pId);
+
+	List<DetailInsertDto> detailInsertUsingPId(Long pId);
 
 	Boolean verifiedProduct(Long pId, Long sId);
 
