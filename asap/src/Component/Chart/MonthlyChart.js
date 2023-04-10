@@ -8,13 +8,12 @@ export default function MonthlyChart () {
     const [year, setYear] = useState(new Date().getFullYear())
 
     const options = {
-        animation: { duration: 700, easing: "inAndOut", startup: true },
-        vAxis: {0:{title: "개수"}, 1: {title: "개수"}},
         hAxis: {title: "Month"},
-        series: {0: {type: "line", targetAxisIndex: 1}, 1: {type: "bars", targetAxisIndex:0}, 2:{type:"bars", targetAxisIndex:0}},
+        series: {0: {type: "line", targetAxisIndex: 1}, 1: {type: "bars", targetAxisIndex: 0}, 2: {type:"bars", targetAxisIndex: 0}},
         width: "99%",
-        height: "99%",
-        colors: ['#000000', '#F0453C', '#697EFF']
+        height: "90%",
+        colors: ['#000000', '#F0453C', '#697EFF'],
+        animation: { duration: 700, easing: "inAndOut", startup: true }
     }
 
     const yearHandler = (e) => {
@@ -34,7 +33,7 @@ export default function MonthlyChart () {
     return (
         <div className="monthlyChartSection">
             <h2>{`${year}년 월간 재고 흐름`}</h2>
-            <input type="number" value={year} onChange={(e) => yearHandler(e)}/>
+            <input className="monthlyYearHandleInput" type="number" value={year} onChange={(e) => yearHandler(e)}/>
             <Chart className="chartCSS" chartType="ComboChart" data={data} options={options}/>
         </div>
     )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import "./SSE.css"
+
+import "../style/SSE.css"
 
 export default function SSE () {
     const [message, setMessage] = useState([])
@@ -15,8 +16,8 @@ export default function SSE () {
         })
 
         eventSourse.addEventListener('sse', async (e) => {
-            const data = e.data
-            setMessage([...message, data])
+            const newdata = e.data
+            setMessage([...message, newdata])
         })
     }, [])
 
@@ -38,3 +39,5 @@ export default function SSE () {
         </div>
     )
 }
+
+//{"userId":"user","title":"입고 알림!","content":"맛잠 +160 입고","notificationType":"RECEIVE"}
