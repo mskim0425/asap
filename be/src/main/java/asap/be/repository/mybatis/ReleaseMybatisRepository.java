@@ -31,8 +31,8 @@ public class ReleaseMybatisRepository implements ReleaseRepository {
     }
 
     @Override
-    public List<Stock> findStockByPId(Long pId) {
-        return releaseMapper.findStockByPId(pId);
+    public List<Stock> findStockByPId(Long pId, Long sId) {
+        return releaseMapper.findStockByPId(pId, sId);
     }
 
     @Override

@@ -1,11 +1,16 @@
 package asap.be.controller;
 
+import asap.be.domain.Product;
 import asap.be.dto.EditProductDto;
+import asap.be.dto.EverythingDto;
+import asap.be.dto.PostProductDto;
+import asap.be.service.ProductService;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +28,7 @@ import java.util.List;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
@@ -215,16 +220,15 @@ public class ProductRestDocs {
 	@DisplayName("상품명을 통한 총 입고량, 총 출고량, 총 재고량, 최신 입고일 조회 테스트")
 	void getAllProductCnt() throws Exception {
 
-		String pName = "소금";
-
-		given(productService.findAllCntByPName(anyString())).willReturn(ALL_PRODUCT_CNT_DTO);
-
+		// given
+		String productName = "과자";
+		// when
 		ResultActions actions =
 				mockMvc.perform(
-						RestDocumentationRequestBuilders.get("/api/all-cnt?pName={pName}", pName)
+						RestDocumentationRequestBuilders.get("/api/all-cnt?pName={pName}", productName)
 								.accept(MediaType.APPLICATION_JSON)
 				);
-
+		//then
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-all-cnt",

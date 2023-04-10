@@ -18,7 +18,7 @@ public interface ReleaseRepository {
 
 	List<Release> findReleaseById(Long sId);
 
-	List<Stock> findStockByPId(Long pId);
+	List<Stock> findStockByPId(Long pId, Long sId);
 
 	EverythingDto findStockByPNameAndWId(String pName, Long wId, String pCode);
 

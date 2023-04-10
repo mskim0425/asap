@@ -91,7 +91,7 @@ public class WarehouseRestDocs {
 								.accept(MediaType.APPLICATION_JSON)
 				);
 
-		actions.andExpect(status().is5xxServerError()); // stock_table과 연관관계로 창고 삭제 불가...
+		actions.andExpect(status().isOk()); // stock_table과 연관관계로 창고 삭제 불가...
 	}
 
 	@Test

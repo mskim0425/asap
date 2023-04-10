@@ -113,13 +113,14 @@ class ProductRepositoryTest {
 				.wId(1L)
 				.pInsert(10) //입고시
 				.build();
+		productMybatisRepository.insertOrUpdateStock(productDto);
 
-		productMybatisRepository.insertOrUpdateRelease(productDto);
-		Long pId = productMybatisRepository.findPIdByPNameAndWId(product.getPName(), productDto.getWId());
+		Long pId = productMybatisRepository.findPIdByPNameAndWId(productDto.getPName(), productDto.getWId());
+		Long sId = productMybatisRepository.findSIdByPNameAndWId(productDto.getPName(), productDto.getWId());
 
 		EditProductDto name = EditProductDto.builder()
 				.pId(pId)
-				.sId(pId)
+				.sId(sId)
 				.pName("새로 변경할 상품명")
 				.build();
 
@@ -135,7 +136,7 @@ class ProductRepositoryTest {
 		// when
 		EditProductDto price = EditProductDto.builder()
 				.pId(pId)
-				.sId(pId)
+				.sId(sId)
 				.price(5000)
 				.build();
 
@@ -149,7 +150,7 @@ class ProductRepositoryTest {
 		// when
 		EditProductDto barcode = EditProductDto.builder()
 				.pId(pId)
-				.sId(pId)
+				.sId(sId)
 				.pCode("NEW BARCODE")
 				.build();
 
@@ -163,7 +164,7 @@ class ProductRepositoryTest {
 		// when
 		EditProductDto all = EditProductDto.builder()
 				.pId(pId)
-				.sId(pId)
+				.sId(sId)
 				.pName("또다른 상품명")
 				.price(10)
 				.pCode("또다른 바코드")
@@ -181,7 +182,7 @@ class ProductRepositoryTest {
 		// when
 		EditProductDto delete = EditProductDto.builder()
 				.pId(pId)
-				.sId(pId)
+				.sId(sId)
 				.pStatus(0)
 				.build();
 
