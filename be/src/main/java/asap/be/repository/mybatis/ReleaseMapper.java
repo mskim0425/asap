@@ -20,7 +20,7 @@ public interface ReleaseMapper {
 
 	List<Release> findReleaseById(Long sId);
 
-	List<Stock> findStockByPId(Long pId);
+	List<Stock> findStockByPId(Long pId, Long sId);
 
 	EverythingDto findStockByPNameAndWId(@Param("pName") String pName, @Param("wId") Long wId, @Param("pCode") String pCode);
 

@@ -35,5 +35,7 @@ public interface ProductMapper {
 	List<String> showAllPName();
 
 	DetailProductDto findProductById(Long pId);
+
+	Long findSIdByPNameAndWId(String pName, Long wId);
 }
 

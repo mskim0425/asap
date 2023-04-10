@@ -2,6 +2,8 @@ package asap.be.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @Builder
@@ -19,4 +21,5 @@ public class PostProductDto {
 	public void addDate(String date) {
 		this.date = date;
 	}
+
 }

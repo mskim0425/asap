@@ -32,4 +32,6 @@ public interface ProductRepository {
 	List<String> showAllPName();
 
 	DetailProductDto findProductById(Long pId);
+
+	Long findSIdByPNameAndWId(String pName, Long wId);
 }

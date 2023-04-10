@@ -140,6 +140,7 @@
     </select>
 
     <!--     상품명을 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
+    <!--TODO: 수정 -->
     <select id="findAllCntByPName" resultType="AllProductCntDto">
         SELECT SUM(s.pInsertAll) AS pInsertCnt,
                SUM(s.cnt) AS stockCnt,
@@ -179,6 +180,12 @@
 
     <select id="findPIdByPNameAndWId" resultType="java.lang.Long">
         SELECT p.pId AS pId FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE p.pName = #{pName} AND s.wId = #{wId}
+    </select>
+
+    <select id="findSIdByPNameAndWId" resultType="java.lang.Long">
+        SELECT s.sId AS sId FROM Stock_table s
         JOIN Product_table p ON s.pId = p.pId
         WHERE p.pName = #{pName} AND s.wId = #{wId}
     </select>

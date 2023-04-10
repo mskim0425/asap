@@ -31,8 +31,8 @@ public class ReleaseServiceImpl implements ReleaseService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Stock> findStockByPId(Long pId) {
-		return releaseMybatisRepository.findStockByPId(pId);
+	public List<Stock> findStockByPId(Long pId, Long sId) {
+		return releaseMybatisRepository.findStockByPId(pId, sId);
 	}
 
 	@Override

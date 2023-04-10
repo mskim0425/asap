@@ -7,6 +7,7 @@ import asap.be.dto.*;
 import asap.be.dto.ProductCntDto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static asap.be.utils.Dummy.*;
@@ -290,9 +291,9 @@ public class MainControllerConstants {
 	public static final AllProductCntDto ALL_PRODUCT_CNT_DTO =
 			AllProductCntDto.builder()
 					.pInsertCnt(10000L)
-					.stockCnt(30000L)
-					.releaseCnt(5000L)
-					.lastReceiveIn("2023-03-01")
+					.stockCnt(10000L)
+					.releaseCnt(10000L)
+					.lastReceiveIn(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
 					.build();
 
 	public static final WarehouseDto.Post WAREHOUSE_POST = WarehouseDto.Post.builder()

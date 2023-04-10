@@ -114,7 +114,6 @@ public class MainController {
 	 */
 	@GetMapping("/country-product-status")
 	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
-
 		return new ResponseEntity<>(dashBoardService.getCountryProductStatus(), HttpStatus.OK);
 	}
 
