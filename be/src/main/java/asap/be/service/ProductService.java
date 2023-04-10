@@ -17,7 +17,9 @@ public interface ProductService {
 
 	AllProductCntDto findAllCntByPName(String pName);
 
-	List<DetailInfoDto> detailPageUsingPId(Long pId);
+	DetailInfoDto detailPageUsingPId(Long pId);
 
 	Long findPIdByPNameAndWId(String pName, Long wId);
+
+	DetailInfoDto editDetailPage(Long pId, EditProductDto dto);
 }

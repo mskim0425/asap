@@ -54,7 +54,7 @@ public class ProductMybatisRepository implements ProductRepository {
     }
 
     @Override
-    public List<DetailInfoDto> detailPageUsingPId(Long pId) {
+    public List<DetailReleaseInsertDto> detailPageUsingPId(Long pId) {
         return productMapper.detailPageUsingPId(pId);
     }
 
@@ -76,6 +76,11 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Override
 	public List<String> showAllPName() {
 		return productMapper.showAllPName();
+	}
+
+	@Override
+	public DetailProductDto findProductById(Long pId) {
+		return productMapper.findProductById(pId);
 	}
 
 

@@ -103,21 +103,19 @@ public class MainControllerConstants {
 					.wLoc("창고 위치")
 					.build();
 
-	public static final DetailInfoDto DETAIL_INFO_DTO01 =
-			DetailInfoDto.builder()
-					.release_at("2023-04-03").quantity(10).receive_in("2023-04-03")
-					.cnt(348).price(765).pId(1).wId(38).pName("피자")
-					.pCode("df26e23d-4136-442f-92d3-7a0170d79a22")
-					.sId(1L).pInsertLog("348").pStatus(1).wName("BMW M6")
+	public static final DetailReleaseInsertDto DETAIL_INFO_DTO01 =
+			DetailReleaseInsertDto.builder()
+					.releaseAt("2023-04-03").quantity(10)
+					.cnt(348).pid(1).wId(38)
+					.sId(1L).pInsertLog("2023-04-03 : 348").wName("BMW M6")
 					.wLoc("Palau").rId(1L)
 					.build();
 
-	public static final DetailInfoDto DETAIL_INFO_DTO02 =
-			DetailInfoDto.builder()
-					.release_at("2023-04-03").quantity(10).receive_in("2023-04-03")
-					.cnt(348).price(765).pId(1).wId(38).pName("피자")
-					.pCode("df26e23d-4136-442f-92d3-7a0170d79a22")
-					.sId(1L).pInsertLog("348").pStatus(1).wName("BMW M6")
+	public static final DetailReleaseInsertDto DETAIL_INFO_DTO02 =
+			DetailReleaseInsertDto.builder()
+					.releaseAt("2023-04-03").quantity(10)
+					.cnt(348).pid(1).wId(38)
+					.sId(1L).pInsertLog("2023-04-03 : 348").wName("BMW M6")
 					.wLoc("Palau").rId(1L)
 					.build();
 
@@ -233,8 +231,23 @@ public class MainControllerConstants {
 			List.of(MONEY_DTO01, MONEY_DTO02, MONEY_DTO03, MONEY_DTO04,
 					MONEY_DTO05, MONEY_DTO06, MONEY_DTO07, MONEY_DTO08, MONEY_DTO09, MONEY_DTO10);
 
-	public static final List<DetailInfoDto> DETAIL_INFO_DTO_LIST =
+	public static final List<DetailReleaseInsertDto> DETAIL_INFO_DTO_LIST =
 			List.of(DETAIL_INFO_DTO01, DETAIL_INFO_DTO02);
+
+	public static final DetailProductDto PRODUCT_DTO =
+			DetailProductDto.builder()
+					.pId(1)
+					.pName("피자")
+					.pCode("df26e23d-4136-442f-92d3-7a0170d79a22")
+					.pStatus(1)
+					.price(765)
+					.build();
+
+	public static final DetailInfoDto DETAIL_INFO_DTO =
+			DetailInfoDto.builder()
+					.product(PRODUCT_DTO)
+					.logs(DETAIL_INFO_DTO_LIST)
+					.build();
 
 	public static final List<EverythingPageDto> ALL_INFO_DTO_LIST =
 			List.of(EVERYTHING_PAGE_DTO01, EVERYTHING_PAGE_DTO02, EVERYTHING_PAGE_DTO03,

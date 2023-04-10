@@ -22,7 +22,7 @@ public interface ProductMapper {
 
     AllProductCntDto findAllCntByPName(String pName);
 
-    List<DetailInfoDto> detailPageUsingPId(Long pId);
+    List<DetailReleaseInsertDto> detailPageUsingPId(Long pId);
 
 	Boolean verifiedProduct(Long pId, Long sId);
 
@@ -32,5 +32,6 @@ public interface ProductMapper {
 
 	List<String> showAllPName();
 
+	DetailProductDto findProductById(Long pId);
 }
 

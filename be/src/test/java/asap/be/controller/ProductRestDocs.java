@@ -1,5 +1,6 @@
 package asap.be.controller;
 
+import asap.be.dto.EditProductDto;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -242,7 +243,7 @@ public class ProductRestDocs {
 	@DisplayName("상세페이지 조회")
 	void detailPage() throws Exception {
 		Long pId = 3L;
-		given(productService.detailPageUsingPId(anyLong())).willReturn(DETAIL_INFO_DTO_LIST);
+		given(productService.detailPageUsingPId(anyLong())).willReturn(DETAIL_INFO_DTO);
 
 		ResultActions actions = mockMvc.perform(
 				RestDocumentationRequestBuilders.get("/api/find-one?pId={pId}", pId).accept(MediaType.APPLICATION_JSON)
@@ -253,21 +254,23 @@ public class ProductRestDocs {
 						"find-one",
 						responseFields(
 								List.of(
-										fieldWithPath("[].release_at").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
-										fieldWithPath("[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
-										fieldWithPath("[].receive_in").type(JsonFieldType.STRING).description("입고일"),
-										fieldWithPath("[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
-										fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("단가"),
-										fieldWithPath("[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
-										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
-										fieldWithPath("[].pname").type(JsonFieldType.STRING).description("상품명"),
-										fieldWithPath("[].pcode").type(JsonFieldType.STRING).description("바코드"),
-										fieldWithPath("[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
-										fieldWithPath("[].pinsertLog").type(JsonFieldType.STRING).description("입고량"),
-										fieldWithPath("[].pstatus").type(JsonFieldType.NUMBER).description("상품상태"),
-										fieldWithPath("[].wname").type(JsonFieldType.STRING).description("창고명"),
-										fieldWithPath("[].wloc").type(JsonFieldType.STRING).description("창고위치"),
-										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional()
+										fieldWithPath("product").type(JsonFieldType.OBJECT).description("상품 정보"),
+										fieldWithPath("product.price").type(JsonFieldType.NUMBER).description("단가"),
+										fieldWithPath("product.pstatus").type(JsonFieldType.NUMBER).description("상품상태"),
+										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("logs[]").type(JsonFieldType.ARRAY).description("상품 입/출고 기록"),
+										fieldWithPath("logs[].releaseAt").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
+										fieldWithPath("logs[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
+										fieldWithPath("logs[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
+										fieldWithPath("logs[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional(),
+										fieldWithPath("logs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("logs[].wloc").type(JsonFieldType.STRING).description("창고위치"),
+										fieldWithPath("logs[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
+										fieldWithPath("logs[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("logs[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
+										fieldWithPath("logs[].pinsertLog").type(JsonFieldType.STRING).description("입고량")
 								)
 						)
 
@@ -558,6 +561,50 @@ public class ProductRestDocs {
 								)
 						)
 				));
+	}
+
+	@Test
+	@DisplayName("상세페이지 수정")
+	void editDetailPage() throws Exception {
+		Long pId = 3L;
+		String content = gson.toJson(EDIT_PRODUCT_NAME);
+
+		given(productService.editDetailPage(anyLong(), any(EditProductDto.class))).willReturn(DETAIL_INFO_DTO);
+
+		ResultActions actions = mockMvc.perform(
+				RestDocumentationRequestBuilders.get("/api/find-one?pId={pId}", pId)
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(content)
+		);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"patch-find-one",
+						responseFields(
+								List.of(
+										fieldWithPath("product").type(JsonFieldType.OBJECT).description("상품 정보"),
+										fieldWithPath("product.price").type(JsonFieldType.NUMBER).description("단가"),
+										fieldWithPath("product.pstatus").type(JsonFieldType.NUMBER).description("상품상태"),
+										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("logs[]").type(JsonFieldType.ARRAY).description("상품 입/출고 기록"),
+										fieldWithPath("logs[].releaseAt").type(JsonFieldType.STRING).description("출고일, NULL이면 입고").optional(),
+										fieldWithPath("logs[].quantity").type(JsonFieldType.NUMBER).description("출고 수량").optional(),
+										fieldWithPath("logs[].rid").type(JsonFieldType.NUMBER).description("출고코드").optional(),
+										fieldWithPath("logs[].cnt").type(JsonFieldType.NUMBER).description("재고수"),
+										fieldWithPath("logs[].wname").type(JsonFieldType.STRING).description("창고명"),
+										fieldWithPath("logs[].wloc").type(JsonFieldType.STRING).description("창고위치"),
+										fieldWithPath("logs[].sid").type(JsonFieldType.NUMBER).description("재고코드"),
+										fieldWithPath("logs[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("logs[].wid").type(JsonFieldType.NUMBER).description("창고아이디"),
+										fieldWithPath("logs[].pinsertLog").type(JsonFieldType.STRING).description("입고량")
+								)
+						)
+
+				));
+
 	}
 
 }

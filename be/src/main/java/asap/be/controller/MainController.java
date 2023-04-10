@@ -129,6 +129,7 @@ public class MainController {
 
 	/*
 	 * no Offset 방식으로 구현한 무한스크롤 페이지네이션
+	 * TODO: 전체페이지 상세페이지 CRUD 구현하기
 	 */
 	@GetMapping("/find-all")
 	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId){
@@ -138,8 +139,13 @@ public class MainController {
 	}
 
 	@GetMapping("/find-one")
-	public ResponseEntity<List<DetailInfoDto>> getDetailInfo(@RequestParam(value = "pId") long pId){
+	public ResponseEntity<DetailInfoDto> getDetailInfo(@RequestParam(value = "pId") long pId){
 		return new ResponseEntity<>(productService.detailPageUsingPId(pId), HttpStatus.OK);
+	}
+
+	@PatchMapping("/find-one")
+	public ResponseEntity<DetailInfoDto> editAndDeleteDetailInfo(@RequestParam(value = "pId") Long pId, @RequestBody EditProductDto dto) {
+		return new ResponseEntity<>(productService.editDetailPage(pId, dto), HttpStatus.OK);
 	}
 
 	@GetMapping("/six-value")

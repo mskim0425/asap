@@ -1,6 +1,7 @@
 package asap.be.domain;
 
 import asap.be.dto.DetailInfoDto;
+import asap.be.dto.DetailReleaseInsertDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.EverythingPageDto;
@@ -97,7 +98,6 @@ class ProductRepositoryTest {
 	@Test
 	@DisplayName("삭제 및 상품 정보 변경")
 	void editProduct() {
-<<<<<<< HEAD
 
 		// given
 		Product product = Product.builder()
@@ -105,10 +105,6 @@ class ProductRepositoryTest {
 				.price(10000)
 				.pCode("상품바코드")
 				.build();
-=======
-		// 이름 변경
-		productMybatisRepository.updateProduct(EDIT_PRODUCT_NAME);
->>>>>>> 25f39621879643a5b30f9753652493be4aace01a
 
 		PostProductDto productDto = PostProductDto.builder()
 				.pName(product.getPName())
@@ -248,10 +244,10 @@ class ProductRepositoryTest {
 		// given
 		Long id = 3L;
 
-		List<DetailInfoDto> dtos = productMybatisRepository.detailPageUsingPId(id);
+		List<DetailReleaseInsertDto> dtos = productMybatisRepository.detailPageUsingPId(id);
 
 		// then
-		assertThat(dtos.get(0).getPId()).isEqualTo(3L);
+		assertThat(dtos.get(0).getPid()).isEqualTo(3L);
 	}
 
 }
