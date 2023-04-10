@@ -151,13 +151,21 @@
         WHERE p.pName = #{pName};
     </select>
 
-    <select id="detailPageUsingPId" resultType="DetailReleaseInsertDto">
-        SELECT r.rId, r.release_at, r.quantity,
-               s.sId, p.pId, s.wId, w.wName, w.wLoc,
-               s.pInsertLog,  s.cnt
+    <select id="detailReleaseUsingPId" resultType="DetailReleaseDto">
+        SELECT r.release_at, r.quantity,
+               w.wName, w.wLoc, s.cnt
         FROM Product_table AS p
         JOIN Stock_table AS s ON p.pId = s.pId
         LEFT JOIN Release_table r ON s.sId = r.sId
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE p.pId = #{pId} AND r.release_at IS NOT NULL;
+    </select>
+
+    <select id="detailInsertUsingPId" resultType="DetailInsertDto">
+        SELECT s.pInsertLog,
+               w.wName, w.wLoc, s.cnt
+        FROM Product_table AS p
+        JOIN Stock_table AS s ON p.pId = s.pId
         JOIN Warehouse_table AS w ON s.wId = w.wId
         WHERE p.pId = #{pId};
     </select>

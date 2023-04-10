@@ -243,10 +243,27 @@ public class MainControllerConstants {
 					.price(765)
 					.build();
 
+	public static final DetailInsertLogsDto DETAIL_INSERT_LOGS_DTO =
+			DetailInsertLogsDto.builder()
+					.wName("BMW M5")
+					.wLoc("Nicaragua")
+					.pInsert(100)
+					.receiveIn("2023-03-01")
+					.build();
+
+	public static final DetailReleaseDto DETAIL_RELEASE_DTO =
+			DetailReleaseDto.builder()
+					.wName("BMW M5")
+					.wLoc("Nicaragua")
+					.releaseAt("2023-03-01")
+					.quantity(10)
+					.build();
+
 	public static final DetailInfoDto DETAIL_INFO_DTO =
 			DetailInfoDto.builder()
 					.product(PRODUCT_DTO)
-					.logs(DETAIL_INFO_DTO_LIST)
+					.insertLogs(List.of(DETAIL_INSERT_LOGS_DTO))
+					.releaseLogs(List.of(DETAIL_RELEASE_DTO))
 					.build();
 
 	public static final List<EverythingPageDto> ALL_INFO_DTO_LIST =
