@@ -1,36 +1,43 @@
-import Chart1 from "../component/Chart/Chart1";
-import Chart2 from "../component/Chart/Chart2";
-import Chart3 from "../component/Chart/Chart3";
+import CalendarChart from "../Component/Chart/CalendarChart";
+import GeoChart from "../Component/Chart/GeoChart";
+import PieChart from "../Component/Chart/PieChart";
+import DailyRecord from "../Component/DailyRecord";
+import Top10 from "../Component/Top10";
+import MonthlyChart from "../Component/Chart/MonthlyChart";
+import TotalProduct from "../Component/Chart/TotalProduct";
+import SSE from "../Component/SSE";
+
 import "./Dashboard.css";
 
-function Dashboard() {
-  const graph = [];
-  for(let i = 0; i < 60; i++){
-    graph.push(i)
-  }
+export default function Dashboard() {
 
   return (
     <section className="Dashboard">
-      {/* <div className="Chart">
-        <Chart1 />
-      </div>
-      <div className="Chart">
-        <Chart2 />
-      </div>
-      <div className="Chart">
-        <Chart3 />
-      </div> */}
-      {/* {graph.map((el) => {
-        return (
-          <div key={el} className="Chart">
-            {el}
+      <div className="leftBox">
+        <div className="lb-left">
+          <div className="lb-left-top chartSection">
+            <DailyRecord />
           </div>
-        );
-      })} */}
-      <div className="leftBox"></div>
-      <div className="rightBox"></div>
+          <div className="lb-left-middle chartSection">
+            <Top10/>
+          </div>
+        </div>
+        <div className="lb-right">
+          <div className="lb-right-top chartSection">
+            <MonthlyChart />
+          </div>
+          <div className="lb-right-middle chartSection">
+            <h2>Daily Stock Flow by Product</h2>
+          </div>
+          <div className="lb-right-bottom chartSection">
+            <TotalProduct/>
+          </div>
+        </div>
+      </div>
+
+      <div className="rightBox">
+        <SSE />
+      </div>
     </section>
   );
 }
-
-export default Dashboard;

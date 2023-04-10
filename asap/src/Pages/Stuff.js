@@ -2,8 +2,8 @@ import "../style/stuff.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import Error from "../component/Error/Error";
-import Loading from "../component/loading/Loading";
+import Error from "../Component/Error/Error";
+import Loading from "../Component/loading/Loading";
 
 export default function Stuff() {
   const [loading, setloading] = useState(false);

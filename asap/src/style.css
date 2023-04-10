@@ -138,6 +138,7 @@ body {
   height: 100vh;
   display: flex;
   box-sizing: border-box;
+  background-color: #ffffff;
 }
 
 @media (min-width: 1200px) {
@@ -158,6 +159,3 @@ body {
   }
 }
 
-.scroll {
-  overflow: hidden;
-}

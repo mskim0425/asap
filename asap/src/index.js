@@ -1,15 +1,18 @@
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import App from "./App";
+
 import "./style.css";
+
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <div className="body">
       <App />
     </div>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
