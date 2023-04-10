@@ -106,8 +106,8 @@
                 LEFT JOIN (
                 SELECT
                     MONTH(s.receive_in) AS month,
-                    s.cnt AS total_cnt,
-                    s.pInsert AS total_pInsert,
+                    SUM(s.cnt) AS total_cnt,
+                    SUM(s.pInsertAll) AS total_pInsert,
                     SUM(r.quantity) AS total_quantity
                 FROM
                     Stock_table s

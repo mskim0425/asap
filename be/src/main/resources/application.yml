@@ -1,24 +1,5 @@
 spring:
   profiles:
-    active: local
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    # allowMultiQueries=true : 다중 insert 허용
-#    url: jdbc:mysql://0.tcp.jp.ngrok.io:19665/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#    username: root
-#    password: 1q2w3e4r!
-    url: jdbc:mysql://localhost:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 1q2w3e4r!
-
-mybatis:
-  type-aliases-package: asap.be.domain, asap.be.dto
-  configuration:
-    map-underscore-to-camel-case: true
-
-logging:
-  level:
-    asap:
-      be:
-        repository: trace
-
+    active: dev
+  config:
+    import: classpath:application-dev.yml

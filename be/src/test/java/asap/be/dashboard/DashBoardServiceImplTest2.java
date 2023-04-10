@@ -1,5 +1,6 @@
-package asap.be.domain;
+package asap.be.dashboard;
 
+import asap.be.domain.Product;
 import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.PostProductDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;

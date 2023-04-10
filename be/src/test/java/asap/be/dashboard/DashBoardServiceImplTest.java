@@ -1,5 +1,6 @@
-package asap.be.domain;
+package asap.be.dashboard;
 
+import asap.be.domain.Product;
 import asap.be.dto.CountryDto;
 import asap.be.dto.ProductCntDto;
 import asap.be.dto.DashboardDto.RankDto;
@@ -24,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
