@@ -3,6 +3,7 @@ package asap.be.repository.mybatis;
 import asap.be.dto.*;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

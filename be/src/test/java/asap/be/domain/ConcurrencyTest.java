@@ -72,10 +72,8 @@ public class ConcurrencyTest {
     @DisplayName("1개씩 100번 출고 요청 - Redisson 적용")
     public void AtOnce100_Redisson() throws InterruptedException {
         int threadcnt = 100;
-        //given 수량100개를 저장한다.
+        //given 수량이 1000개인 데이터를 저장한다.
         List<CompletableFuture<Void>> futures = new ArrayList<>();
-
-
         PostProductDto releaseData = PostProductDto.builder()
                 .pName("TD")
                 .price(100)

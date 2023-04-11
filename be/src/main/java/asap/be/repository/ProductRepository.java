@@ -5,6 +5,7 @@ import asap.be.dto.*;
 import java.util.List;
 
 public interface ProductRepository {
+
 	void insertOrUpdateStock(PostProductDto dto);
 
 	void insertOrUpdateRelease(PostProductDto dto);

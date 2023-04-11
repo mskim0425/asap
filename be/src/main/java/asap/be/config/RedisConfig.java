@@ -38,7 +38,8 @@ public class RedisConfig extends CachingConfigurerSupport {
 	// 레디스 캐시 설정
 	@Bean
 	public RedisCacheManager redisCacheManager() {
-		RedisCacheConfiguration redisCacheConfig = RedisCacheConfiguration
+		RedisCacheConfiguration redisCacheConfig =
+				RedisCacheConfiguration
 				.defaultCacheConfig() // 만료시간 없음, null value, prefix key 허용
 				.disableCachingNullValues() // null value 방지
 				.entryTtl(Duration.ofMinutes(DEFAULT_EXPIRE_MIN)) // default 유효시간 3분
@@ -47,10 +48,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 				.serializeValuesWith(RedisSerializationContext.SerializationPair
 						.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
-		Map<String, RedisCacheConfiguration> cacheConfiguration = new HashMap<>(); // 캐시 별 유효시간 지정
-
-		cacheConfiguration.put(SIX_VALUE, redisCacheConfig.entryTtl(Duration.ofMinutes(3))); // 왜ㅠ 시간적용 안되냐우ㅠ
-		cacheConfiguration.put(MONTHLY_SUMMARY, redisCacheConfig.entryTtl(Duration.ofMinutes(3)));
+//		Map<String, RedisCacheConfiguration> cacheConfiguration = new HashMap<>(); // 캐시 별 유효시간 지정
+//
+//		cacheConfiguration.put(SIX_VALUE, redisCacheConfig.entryTtl(Duration.ofMinutes(3)));
+//		cacheConfiguration.put(MONTHLY_SUMMARY, redisCacheConfig.entryTtl(Duration.ofMinutes(3)));
 
 		return RedisCacheManager.RedisCacheManagerBuilder
 				.fromConnectionFactory(redisConnectionFactory())
