@@ -34,11 +34,11 @@ export default function TotalProduct() {
             <h2>기간 내 전체 출고 금액</h2>
             <div className="dateController">
                 <label>
-                    Start Date
+                    기간 시작일
                     <input type={"date"} name="startDate" onChange={(e) => yearHandler(e)}/>
                 </label>
                 <label>
-                    End Date
+                    기간 종료일
                     <input type={"date"} name="endDate" onChange={(e) => yearHandler(e)}/>
                 </label>
             </div>

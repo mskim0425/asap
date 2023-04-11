@@ -1,11 +1,11 @@
 .Dashboard {
-  width: 90%;
+  width: 100%;
   display: flex;
   overflow: scroll;
 }
 
 .leftBox {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -69,7 +69,7 @@
   text-align: center;
   font-weight: 600;
   color: #000000;
-  text-shadow: 0px 0px 1px #b8b3f5, 0px 0px 2px #a0a5da, 0px 0px 2px #8992f0, 0px 0px 2px #95a3ba;
+  text-shadow: 0px 0px 1px #cecbee, 0px 0px 2px #a0a5da, 0px 0px 2px #8992f0, 0px 0px 2px #95a3ba;
 }
 
 .chartbox {

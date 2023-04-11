@@ -9,8 +9,7 @@ export const GetMonthlyData = async (year) => {
         })
         const data = [['Month', '재고', '입고', '출고']]
         const monthlyData = response.data
-        monthlyData.forEach((el) => data.push([el.month, el.allInsert, el.allQuantity, el.allReleaseAt]))
-
+        monthlyData.forEach((el) => data.push([el.month, el.total_cnt, el.total_pInsert, el.total_quantity]))
         return data
     }
     catch(error){

@@ -6,6 +6,7 @@ import Stuff from "./Pages/Stuff";
 import Sidebar from "./Component/Sidebar";
 import Error from "./Component/Error/Error";
 import Loading from "./Component/loading/Loading";
+import SSE from "./Component/SSE";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/error" Component={Error} />
         <Route path="/loading" Component={Loading} />
       </Routes>
+      <SSE />
     </BrowserRouter>
   );
 }

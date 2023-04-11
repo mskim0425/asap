@@ -4,8 +4,8 @@ import PieChart from "../Component/Chart/PieChart";
 import DailyRecord from "../Component/DailyRecord";
 import Top10 from "../Component/Top10";
 import MonthlyChart from "../Component/Chart/MonthlyChart";
+import DailyCheckById from "../Component/Chart/DailyCheckbyItem";
 import TotalProduct from "../Component/Chart/TotalProduct";
-import SSE from "../Component/SSE";
 
 import "./Dashboard.css";
 
@@ -27,16 +27,12 @@ export default function Dashboard() {
             <MonthlyChart />
           </div>
           <div className="lb-right-middle chartSection">
-            <h2>Daily Stock Flow by Product</h2>
+            <DailyCheckById/>
           </div>
           <div className="lb-right-bottom chartSection">
             <TotalProduct/>
           </div>
         </div>
-      </div>
-
-      <div className="rightBox">
-        <SSE />
       </div>
     </section>
   );
