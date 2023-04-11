@@ -1,11 +1,11 @@
 .Dashboard {
-  width: 90%;
+  width: 100%;
   display: flex;
   overflow: scroll;
 }
 
 .leftBox {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;

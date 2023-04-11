@@ -6,7 +6,6 @@ import Top10 from "../Component/Top10";
 import MonthlyChart from "../Component/Chart/MonthlyChart";
 import DailyCheckById from "../Component/Chart/DailyCheckbyItem";
 import TotalProduct from "../Component/Chart/TotalProduct";
-import SSE from "../Component/SSE";
 
 import "./Dashboard.css";
 
@@ -34,10 +33,6 @@ export default function Dashboard() {
             <TotalProduct/>
           </div>
         </div>
-      </div>
-
-      <div className="rightBox">
-        <SSE />
       </div>
     </section>
   );
