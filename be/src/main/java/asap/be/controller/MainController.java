@@ -53,8 +53,7 @@ public class MainController {
 	 */
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
-		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED);
-		log.info("입고량 : {}  출고량: {} sId: {} pId: {}",productDto.getPInsert(),productDto.getQuantity(), productDto.getSId(),productDto.getPId());
+		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
 		productService.insertOrUpdateStock(productDto);
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
 	}
