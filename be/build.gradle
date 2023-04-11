@@ -75,31 +75,31 @@ task copyDocument(type: Copy) {
 build {
     dependsOn copyDocument
 }
-//
-//tasks.named('test') {
-//    outputs.dir snippetsDir
-//	useJUnitPlatform()
-//}
-//
-//tasks.named('asciidoctor') {
-//    configurations "asciidoctorExtensions"
-//    inputs.dir snippetsDir
-//    dependsOn test
-//}
-//
-//task copyDocument(type: Copy) {
-//    dependsOn asciidoctor
-//    from file("${asciidoctor.outputDir}")
-//    into file("src/main/resources/static/docs")
-//}
-//
-//build {
-//    dependsOn copyDocument
-//}
-//
-//bootJar {
-//    dependsOn copyDocument
-//    from("${asciidoctor.outputDir}") {
-//        into 'static/docs'
-//    }
-//}
+
+tasks.named('test') {
+    outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    configurations "asciidoctorExtensions"
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("${asciidoctor.outputDir}")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}
+
+bootJar {
+    dependsOn copyDocument
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
+}
