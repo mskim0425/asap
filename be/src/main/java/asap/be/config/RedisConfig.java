@@ -47,11 +47,6 @@ public class RedisConfig extends CachingConfigurerSupport {
 				.serializeValuesWith(RedisSerializationContext.SerializationPair
 						.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
-		Map<String, RedisCacheConfiguration> cacheConfiguration = new HashMap<>(); // 캐시 별 유효시간 지정
-
-		cacheConfiguration.put(SIX_VALUE, redisCacheConfig.entryTtl(Duration.ofMinutes(3))); // 왜ㅠ 시간적용 안되냐우ㅠ
-		cacheConfiguration.put(MONTHLY_SUMMARY, redisCacheConfig.entryTtl(Duration.ofMinutes(3)));
-
 		return RedisCacheManager.RedisCacheManagerBuilder
 				.fromConnectionFactory(redisConnectionFactory())
 				.cacheDefaults(redisCacheConfig)
