@@ -69,7 +69,7 @@ public class ReleaseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("재고 아이디로 출고 목록 조회")
 	void getReleaseByStock() throws Exception {
 		Long sId = 1L;

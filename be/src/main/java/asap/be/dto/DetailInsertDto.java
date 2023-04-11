@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DetailProductDto {
-	private long pId;
-	private String pName;
-	private String pCode;
-	private int price;
-	private int pStatus;
+public class DetailInsertDto {
+	private String pInsertLog;
+	private String wName;
+	private String wLoc;
 	private int cnt;
 }

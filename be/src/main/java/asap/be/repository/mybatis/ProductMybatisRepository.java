@@ -53,10 +53,16 @@ public class ProductMybatisRepository implements ProductRepository {
         return productMapper.findAllCntByPName(pName);
     }
 
-    @Override
-    public List<DetailReleaseInsertDto> detailPageUsingPId(Long pId) {
-        return productMapper.detailPageUsingPId(pId);
-    }
+	@Override
+	public List<DetailReleaseDto> detailReleaseUsingPId(Long pId) {
+		return productMapper.detailReleaseUsingPId(pId);
+	}
+
+	@Override
+	public List<DetailInsertDto> detailInsertUsingPId(Long pId) {
+		return productMapper.detailInsertUsingPId(pId);
+	}
+
 
 	@Override
 	public Boolean verifiedProduct(Long pId, Long sId) {

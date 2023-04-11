@@ -1,6 +1,10 @@
 package asap.be.domain;
 
 import asap.be.dto.DetailInfoDto;
+import asap.be.dto.DetailInsertDto;
+import asap.be.dto.DetailInsertLogsDto;
+import asap.be.dto.DetailProductDto;
+import asap.be.dto.DetailReleaseDto;
 import asap.be.dto.DetailReleaseInsertDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
@@ -20,6 +24,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -245,10 +251,42 @@ class ProductRepositoryTest {
 		// given
 		Long id = 3L;
 
-		List<DetailReleaseInsertDto> dtos = productMybatisRepository.detailPageUsingPId(id);
+		DetailProductDto product = productMybatisRepository.findProductById(id);
+		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(id);
+		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(id);
+
+		product = DetailProductDto.builder()
+				.pId(product.getPId())
+				.price(product.getPrice())
+				.pStatus(product.getPStatus())
+				.pCode(product.getPCode())
+				.pName(product.getPName())
+				.cnt(insert.get(0).getCnt())
+				.build();
+
+		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
+
+		for (DetailInsertDto insertDto : insert) {
+			String[] strings = insertDto.getPInsertLog().split(",");
+			for (String string : strings) {
+				String[] split = string.split(" : ");
+				insertLogs.add(DetailInsertLogsDto.builder()
+						.wName(insertDto.getWName())
+						.wLoc(insertDto.getWLoc())
+						.receiveIn(split[0])
+						.pInsert(Integer.parseInt(split[1]))
+						.build());
+			}
+		}
+
+		DetailInfoDto dtos = DetailInfoDto.builder()
+				.product(product)
+				.insertLogs(insertLogs)
+				.releaseLogs(release)
+				.build();
 
 		// then
-		assertThat(dtos.get(0).getPid()).isEqualTo(3L);
+		assertThat(dtos.getProduct().getPId()).isEqualTo(3L);
 	}
 
 }

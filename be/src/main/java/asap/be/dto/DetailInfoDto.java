@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class DetailInfoDto {
     private DetailProductDto product;
-    private List<DetailReleaseInsertDto> logs;
+    private List<DetailInsertLogsDto> insertLogs;
+    private List<DetailReleaseDto> releaseLogs;
 
 }
