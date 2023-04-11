@@ -6,10 +6,14 @@ import asap.be.dto.DayMaxValueDto;
 import asap.be.dto.WarehouseDto;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static asap.be.config.CacheConstant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +56,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
+	@Cacheable(SIX_VALUE)
 	public DayMaxValueDto sixData(String date) {
 		return warehouseMybatisRepository.sixDate(date);
 	}

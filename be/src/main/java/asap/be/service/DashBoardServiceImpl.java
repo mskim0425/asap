@@ -9,6 +9,7 @@ import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static asap.be.config.CacheConstant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,6 +86,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	}
 
 	@Override
+	@Cacheable(MONTHLY_SUMMARY)
 	public List<YearStatusDto> getMonthlyStockSummary(String year) {
 		return releaseMybatisRepository.getMonthlyStockSummary(year);
 	}
