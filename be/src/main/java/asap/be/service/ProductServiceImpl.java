@@ -7,6 +7,7 @@ import asap.be.exception.ExceptionCode;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static asap.be.config.CacheConstant.*;
 
 @Slf4j
 @Service
@@ -25,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {MONTHLY_SUMMARY, SIX_VALUE, RANK_PRODUCT}, allEntries = true)
 	public void insertOrUpdateStock(PostProductDto dto) {
 
 		StringBuffer sb = new StringBuffer();

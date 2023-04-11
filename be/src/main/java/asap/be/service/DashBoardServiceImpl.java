@@ -49,6 +49,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	}
 
 	@Override
+	@Cacheable(RANK_PRODUCT)
 	public RankDto ProductCntRank() {
 		String date = LocalDate.now().toString();
 		List<Map<String, Object>> insertRankList = releaseMybatisRepository.insertRank(date);

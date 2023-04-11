@@ -51,7 +51,7 @@ public class ConcurrencyTest {
     public void beforeEach() throws InterruptedException {
         //트랜잭션 시작 TODO: 본인 디비에 저장해서 테스트 하슈
         status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-            PostProductDto test_data = PostProductDto.builder()
+        PostProductDto test_data = PostProductDto.builder()
                 .pName("TD")
                 .price(100)
                 .pCode("TD")
