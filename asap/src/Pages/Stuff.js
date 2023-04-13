@@ -1,6 +1,6 @@
 import "../style/stuff.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
@@ -8,22 +8,99 @@ import Loading from "../Component/loading/Loading";
 export default function Stuff() {
   const [loading, setloading] = useState(false);
   const [error, setError] = useState(null);
-  const [list, setList] = useState(null);
+  const [lists, setLists] = useState([]);
+  const [stores, setStores] = useState([]);
+  const [release, setRelease] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [shownComments, setShownComments] = useState({});
+  //물품 추가
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [code, setCode] = useState("");
+  const [warehouseId, setWarehouseId] = useState("");
+  const [stock, setStock] = useState("");
+  //검색
+  const [search, setSearch] = useState("");
 
-  const stuffList = async () => {
+  let data = {
+    pName: name,
+    price: price,
+    pCode: code,
+    wId: warehouseId,
+    pInsert: stock,
+  };
+
+  const addStuff = async () => {
     try {
+      const response = await axios.post("/prod", data);
+      console.log("postresponse", response);
       setloading(true);
-      const response = await axios.get("http://localhost:3001/stuff");
-      setList(response.data);
-    } catch (e) {
-      setError(e);
+    } catch (error) {
+      setError(error);
     }
     setloading(false);
   };
 
+  //리스트 가져오기
   useEffect(() => {
+    const stuffList = async () => {
+      try {
+        setloading(true);
+        const response = await axios.get("/find-all?lastId=10");
+        console.log("s리스트dssds", response.data);
+        setLists(response.data);
+      } catch (error) {
+        setError(error);
+      }
+      setloading(false);
+    };
+
     stuffList();
   }, []);
+
+  //리스트 클릭시 상세 내용보여주기
+  const toggleComment = (id) => {
+    setShownComments((prevShownComments) => ({
+      // ...prevShownComments,
+      [id]: !prevShownComments[id],
+    }));
+    //물품 상세내용 가져오기
+    const getDetail = async () => {
+      try {
+        const response = await axios.get(`/find-one?pId=${id}`);
+        // console.log("re", response.data);
+        setStores(response.data.insertLogs);
+        setProduct(response.data.product);
+        setRelease(response.data.releaseLogs);
+      } catch (e) {
+        setError(e);
+      }
+    };
+
+    getDetail();
+  };
+  // console.log("show", shownComments[9]);
+
+  //검색
+  const onSearch = async () => {
+    if (search === null || search === "") {
+      alert("검색어 없음");
+    } else {
+      const response = await axios.get("/product-names");
+      //상품명 목록을 가져와 검색단어 추출
+      const filteredName = response.data.filter((list) => list === search);
+      //리스트에서 검색한 상품정보가져오기
+      const searchProductInfo = lists.filter(
+        (list) => String(list.pname) === String(filteredName)
+      );
+      setLists(searchProductInfo);
+    }
+  };
+
+  const showAddProduct = () => {
+    const content = document.querySelector(".add_stuff");
+    content.classList.toggle("active");
+  };
 
   if (loading)
     return (
@@ -37,85 +114,127 @@ export default function Stuff() {
         <Error></Error>
       </div>
     );
-  if (!list) return null;
+  if (!lists) return null;
 
   return (
     <div className="container">
       <div className="visualization"></div>
+
       <div className="data">
         <div className="search">
           <input
             type="text"
             placeholder="상품을 검색을 해주세요."
             id="search"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
           />
-          <div>검색</div>
+          <div onClick={onSearch}>검색</div>
         </div>
-        <div className="list-table">
-          <div className="table-heading">
-            <div className="table-row">
-              <span class="head">상품명</span>
-              <span class="head">수량</span>
-              <span class="head">가격</span>
-              <span class="head">총 가격</span>
-              <span class="head">창고명</span>
-              <span class="head">창고 위치</span>
+        <div className="content active">
+          <button className="addButton" onClick={showAddProduct}>
+            +
+          </button>
+          <div className="add_stuff">
+            <div className="info_wrapper">
+              <div className="title">
+                <span>상품명</span>
+              </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              ></input>
             </div>
+            <div className="info_wrapper">
+              <div className="title">
+                <span>단가</span>
+              </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="info_wrapper">
+              <div className="title">
+                <span>바코드</span>
+              </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setCode(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="info_wrapper">
+              <div className="title">
+                <span>창고 ID</span>
+              </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setWarehouseId(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="info_wrapper">
+              <div className="title">
+                <span>입고량</span>
+              </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setStock(e.target.value);
+                }}
+              ></input>
+            </div>
+            <button onClick={addStuff}>추가</button>
           </div>
-          <div className="table-content">
-            {list.map((el, index) => {
-              console.log(index % 2);
-              return (
+          <div className="table">
+            <div className="header">
+              <div className="cell">상품 코드</div>
+              <div className="cell">상품명</div>
+              <div className="cell">단가</div>
+              <div className="cell">바코드</div>
+            </div>
+
+            {lists.map((list) => (
+              <>
                 <div
-                  className={index % 2 === 0 ? "info" : "info active"}
-                  key={el.id}
+                  key={list.pid}
+                  className="row"
+                  onClick={() => toggleComment(list.pid)}
                 >
-                  <span class="cell">{el.pName}</span>
-                  <span class="cell">{el.quantity}개</span>
-                  <span class="cell">{el.price}원</span>
-                  <span class="cell">총 {el.total}원</span>
-                  <span class="cell">{el.wName}</span>
-                  <span class="cell">{el.wLoc}</span>
+                  <div className="cell">{list.pid}</div>
+                  <div className="cell">{list.pname}</div>
+                  <div className="cell">${list.price}</div>
+                  <div className="cell">{list.pcode}</div>
                 </div>
-              );
-            })}
+                {shownComments[list.pid] ? (
+                  <div className="row">
+                    <td className="colsapn" colSpan={4}>
+                      {stores.map((store) => (
+                        <>
+                          <div className="detail_wrapper">
+                            <div className="detail_info">{store.receiveIn}</div>
+                            <div className="detail_info">{store.pinsert}</div>
+                            <div className="detail_info">{store.wname}</div>
+                            <div className="detail_info">{store.wloc}</div>
+                          </div>
+                        </>
+                      ))}
+                    </td>
+                  </div>
+                ) : null}
+              </>
+            ))}
           </div>
         </div>
       </div>
-      {/* <div className="add-data">
-        <div>
-          <h4>수량코드</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div>
-          <h4>상품명</h4>
-          <input type="text" id="name"></input>
-        </div>
-        <div>
-          <h4>수량</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div>
-          <h4>가격</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div>
-          <h4>총 가격</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div>
-          <h4>창고명</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div>
-          <h4>창고 위치</h4>
-          <input type="text" id="code"></input>
-        </div>
-        <div className="button">
-          <button>추가</button>
-        </div>
-      </div>
-      <section></section> */}
     </div>
   );
 }

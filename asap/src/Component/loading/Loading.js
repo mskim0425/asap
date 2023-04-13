@@ -3,13 +3,9 @@ import "./Loading.css";
 export default function Loading() {
   return (
     <div class="loading">
-      <div className="wrapper">
+      <div className="loading-wrapper">
         <span></span>
         <span></span>
-        <span></span>
-        <div class="content">
-          <h2>Loading</h2>
-        </div>
       </div>
     </div>
   );
