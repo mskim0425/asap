@@ -1,4 +1,4 @@
-# 배포 사이트  [https://soonerthebetter.site](soonerthebetter.site)
+# 배포 사이트  [https://soonerthebetter.site](https://soonerthebetter.site/)
 ```3월 28일 - 4월 13일```
 
 # 실시간 입, 재고관리 관리자페이지 구축
