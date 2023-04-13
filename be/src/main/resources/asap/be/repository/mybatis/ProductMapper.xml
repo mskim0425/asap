@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asap.be.repository.mybatis.ProductMapper">
+
+    <insert id="insertOrUpdateStock" parameterType="PostProductDto">
+        <if test="p.date == null">
+            SET @date = now();
+        </if>
+        <if test="p.date != null">
+            SET @date = #{p.date};
+        </if>
+
+        <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
+        <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
+            SELECT COALESCE((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
+        </selectKey>
+
+        <!-- 입고일때 -->
+        <if test="p.pInsert != null and p.pInsert != 0">
+            <choose>
+                <!-- 상품이 존재하는 경우 -->
+                <when test="pId != 0 and pId != null">
+                    <!-- 입력받은 wId와 Stock_table 의 wId가 같은 경우 -->
+                    UPDATE Stock_table
+                    SET cnt = cnt + #{p.pInsert}, receive_in = @date,
+                    <choose>
+                        <when test="#{p.date} != #{n}">
+                            pInsert = #{p.pInsert},
+                        </when>
+                        <otherwise>
+                            pInsert = pInsert + #{p.pInsert},
+                        </otherwise>
+                    </choose>
+                    pInsertAll = pInsertAll + #{p.pInsert}, pInsertLog = CONCAT( pInsertLog,',' ,@date,' : ',#{p.pInsert})
+                    WHERE pId = #{pId} AND wId = #{p.wId};
+
+                    <!-- 입력받은 wId와 Stock_table 의 wId가 다른 경우 -->
+                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert, pInsertAll, pInsertLog)
+                    SELECT #{pId}, #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}, #{p.pInsert}, CONCAT(@date,' : ',#{p.pInsert})
+                    WHERE NOT EXISTS (SELECT * FROM Stock_table WHERE pId = #{pId} AND wId = #{p.wId});
+                </when>
+
+                <!-- 상품이 존재하지 않는 경우 Product_table, Stock_table insert -->
+                <otherwise>
+                    INSERT INTO Product_table (pName, price, pCode, pStatus)
+                    VALUES (#{p.pName}, #{p.price}, #{p.pCode}, 1);
+
+                    INSERT INTO Stock_table (pId, wId, cnt, receive_in, pInsert, pInsertAll, pInsertLog)
+                    VALUES (LAST_INSERT_ID(), #{p.wId}, #{p.pInsert}, @date, #{p.pInsert}, #{p.pInsert}, CONCAT(@date,' : ',#{p.pInsert}));
+                </otherwise>
+            </choose>
+        </if>
+
+    </insert>
+
+    <insert id="insertOrUpdateRelease" parameterType="PostProductDto">
+        <!-- 완전하게 동일한 상품이 있는지 확인 후 PID를 가져온다 -->
+        <selectKey keyProperty="pId" resultType="Long" order="BEFORE">
+            SELECT COALESCE((SELECT pt.pId FROM Product_table AS pt WHERE pt.pName = #{p.pName}
+            AND pt.price = #{p.price} AND pt.pCode = #{p.pCode}), 0) AS pId
+        </selectKey>
+
+        <if test="p.date == null">
+            SET @date = now();
+        </if>
+        <if test="p.date != null">
+            SET @date = #{p.date};
+        </if>
+
+        <!-- 출고일때 -->
+        <if test="p.quantity != null and p.quantity != 0">
+            <!-- 출고테이블에 모든 쿼리를 저장하는 것 -->
+            INSERT INTO Release_table (sId, quantity, total, release_at)
+            SELECT sId, #{p.quantity}, #{p.quantity} * price, @date
+            FROM Stock_table, Product_table
+            WHERE #{p.quantity} &lt;= Stock_table.cnt
+            AND Stock_table.pId = Product_table.pId
+            AND Stock_table.pId = #{pId}
+            AND Stock_table.wId = #{p.wId};
+            <if test="true">
+                UPDATE Stock_table
+                SET cnt = cnt - #{p.quantity}
+                WHERE pId = #{pId} AND wId = #{p.wId} AND cnt &gt;= #{p.quantity};
+            </if>
+        </if>
+    </insert>
+
+    <update id="updateProduct">
+        UPDATE Product_table
+        SET pName = COALESCE(#{p.pName}, pName),
+            price = COALESCE(#{p.price}, price),
+            pCode = COALESCE(#{p.pCode}, pCode),
+            pStatus = COALESCE(#{p.pStatus}, pStatus)
+        WHERE pId = #{p.pId} AND EXISTS (
+        SELECT 1 FROM Stock_table WHERE pId = #{p.pId} AND sId = #{p.sId}
+        );
+    </update>
+
+    <select id="findById" resultType="EverythingDto">
+        SELECT p.pId, p.pName, p.price, p.pCode, p.pStatus,
+               s.sId, s.cnt, s.receive_in, s.wId,
+               w.wName, w.wLoc
+        FROM Product_table AS p
+        JOIN Stock_table AS s ON p.pId = s.pId AND s.sId = #{sId}
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE p.pId = #{pId}
+    </select>
+
+    <select id="findByName" resultType="EverythingDto">
+        SELECT p.pId, p.pName, p.price, p.pCode,
+               s.sId, s.cnt, s.receive_in,
+               s.wId, w.wName, w.wLoc
+        FROM Product_table AS p
+        JOIN Stock_table AS s ON p.pId = s.pId
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE p.pName = #{pName}
+    </select>
+
+    <select id="findByAll" resultType="EverythingPageDto">
+        <if test="lastId == null">
+            SET @lastId = (SELECT MAX(pId) FROM Product_table);
+        </if>
+        <if test="lastId != null">
+            SET @lastId = #{lastId};
+        </if>
+
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
+        FROM Product_table AS p
+        WHERE p.pId &lt; @lastId
+        ORDER BY p.pId DESC
+        LIMIT 10;
+        <!-- no offset 방식 -->
+    </select>
+
+    <select id="checkExistence" resultType="java.lang.Boolean">
+        SELECT NOT EXISTS(
+        SELECT 1 FROM Product_table WHERE pName = #{pName})
+    </select>
+
+    <!--     상품명을 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
+    <!--TODO: 수정 -->
+    <select id="findAllCntByPName" resultType="AllProductCntDto">
+        SELECT SUM(s.pInsertAll) AS pInsertCnt,
+               SUM(s.cnt) AS stockCnt,
+               MAX(s.receive_in) AS lastReceiveIn,
+               SUM(r.quantity) AS releaseCnt
+        FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        LEFT JOIN Release_table r ON s.sId = r.sId
+        WHERE p.pName = #{pName};
+    </select>
+
+    <select id="detailReleaseUsingPId" resultType="DetailReleaseDto">
+        SELECT r.release_at, r.quantity,
+               w.wName, w.wLoc, s.cnt
+        FROM Product_table AS p
+        JOIN Stock_table AS s ON p.pId = s.pId
+        LEFT JOIN Release_table r ON s.sId = r.sId
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE p.pId = #{pId} AND r.release_at IS NOT NULL;
+    </select>
+
+    <select id="detailInsertUsingPId" resultType="DetailInsertDto">
+        SELECT s.pInsertLog,
+               w.wName, w.wLoc, s.cnt
+        FROM Product_table AS p
+        JOIN Stock_table AS s ON p.pId = s.pId
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE p.pId = #{pId};
+    </select>
+
+    <select id="verifiedProduct" resultType="java.lang.Boolean">
+        SELECT NOT EXISTS(
+        SELECT * FROM Stock_table
+        WHERE pId = #{pId} AND sId = #{sId}) AS exists_product
+    </select>
+
+
+    <select id="findPIdByPNameAndWId" resultType="java.lang.Long">
+        SELECT p.pId AS pId FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE p.pName = #{pName} AND s.wId = #{wId}
+    </select>
+
+    <select id="findSIdByPNameAndWId" resultType="java.lang.Long">
+        SELECT s.sId AS sId FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE p.pName = #{pName} AND s.wId = #{wId}
+    </select>
+
+    <select id="showAllPName" resultType="java.lang.String">
+        SELECT DISTINCT pName
+        FROM Product_table
+    </select>
+
+    <select id="findProductById" resultType="DetailProductDto">
+        SELECT pId, pName, pCode, price, pStatus
+        FROM Product_table WHERE pId = #{pId}
+    </select>
+</mapper>

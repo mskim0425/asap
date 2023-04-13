@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asap.be.repository.mybatis.ReleaseMapper">
+
+    <select id="findAll" resultType="AllReleaseDto">
+        <if test="lastId == null">
+            SET @lastId = (SELECT MAX(rId) FROM Release_table);
+        </if>
+        <if test="lastId != null">
+            SET @lastId = #{lastId};
+        </if>
+
+        SELECT r.rId, r.quantity, r.total, r.release_at AS releaseAt, (@lastId - 10) AS lastid
+        FROM Release_table AS r
+        WHERE r.rId &lt; @lastId
+        ORDER BY r.rId DESC
+        LIMIT 10;
+    </select>
+
+    <select id="findReleaseById" resultType="Release">
+        SELECT * FROM Release_table WHERE sId = #{sId} ORDER BY release_at DESC
+    </select>
+
+    <select id="findStockByPId" resultType="Stock">
+        SELECT * FROM Stock_table WHERE pId = #{pId} AND sId = #{sId}
+    </select>
+
+    <select id="findStockByPNameAndWId" resultType="EverythingDto">
+        SELECT pt.pId, pt.pName, pt.price, pt.pCode, pt.pStatus,
+               s.sId, s.cnt, s.receive_in, s.wId,
+               w.wName, w.wLoc
+        FROM Product_table AS pt
+        JOIN Stock_table AS s ON pt.pId = s.pId AND s.wId = #{wId}
+        JOIN Warehouse_table AS w ON s.wId = w.wId
+        WHERE pt.pName = #{pName} AND pt.pCode = #{pCode};
+    </select>
+
+    <select id="totalByDates" resultType="MoneyDto">
+        SELECT release_at AS releaseat, SUM(total) AS money
+        FROM Release_table
+        WHERE release_at BETWEEN #{start_date} AND #{end_date}
+        GROUP BY release_at
+        ORDER BY release_at
+    </select>
+
+    <select id="cntProductByDate" resultType="ProductCntDto">
+        SELECT DATE(s.receive_in) AS date,
+               SUM(s.pInsert) AS insertCnt,
+               COALESCE(SUM(r.quantity), 0) AS releaseCnt
+        FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        LEFT JOIN Release_table r ON r.sId = s.sId AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
+        WHERE p.pName = #{pName} AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at}
+        GROUP BY DATE(s.receive_in)
+        ORDER BY DATE(s.receive_in) ASC;
+    </select>
+
+    <select id="insertCntRank" resultType="java.util.Map">
+        SELECT RANK() OVER (ORDER BY s.pInsert DESC) AS ranking,
+               p.pName,
+               s.pInsert AS insertCnt
+        FROM Stock_table s
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE s.receive_in = #{receive_in}
+        GROUP BY p.pId, s.pInsert
+        LIMIT 10;
+    </select>
+
+    <select id="releaseCntRank" resultType="java.util.Map">
+        SELECT RANK() OVER (ORDER BY SUM(quantity) DESC) as ranking,
+               (SELECT pName From Product_table WHERE pId = sId) AS pName,
+               SUM(quantity) as releaseCnt
+        FROM Release_table
+        WHERE release_at = #{release_at}
+        GROUP BY pName
+        LIMIT 10;
+    </select>
+
+    <resultMap id="yearStatusResult" type="YearStatusDto">
+        <result property="month" column="month"/>
+        <result property="total_cnt" column="total_cnt"/>
+        <result property="total_quantity" column="total_quantity"/>
+        <result property="total_pInsert" column="total_pInsert"/>
+    </resultMap>
+    <select id="getMonthlyStockSummary" resultMap="yearStatusResult">
+        SELECT
+            m.month,
+            COALESCE(s.total_cnt, 0) AS total_cnt,
+            COALESCE(s.total_pInsert, 0) AS total_pInsert,
+            COALESCE(s.total_quantity, 0) AS total_quantity
+        FROM
+            (   SELECT 1 AS month
+                UNION SELECT 2
+                UNION SELECT 3
+                UNION SELECT 4
+                UNION SELECT 5
+                UNION SELECT 6
+                UNION SELECT 7
+                UNION SELECT 8
+                UNION SELECT 9
+                UNION SELECT 10
+                UNION SELECT 11
+                UNION SELECT 12
+            ) AS m
+                LEFT JOIN (
+                SELECT
+                    MONTH(s.receive_in) AS month,
+                    SUM(s.cnt) AS total_cnt,
+                    SUM(s.pInsertAll) AS total_pInsert,
+                    SUM(r.quantity) AS total_quantity
+                FROM
+                    Stock_table s
+                    LEFT JOIN Release_table r ON s.sId = r.sId
+                WHERE
+                    YEAR(s.receive_in) = #{year} OR YEAR(r.release_at) = #{year}
+                GROUP BY
+                    MONTH(s.receive_in)
+            ) AS s ON m.month = s.month
+        ORDER BY
+            m.month
+    </select>
+
+    <select id="getCnt" parameterType="PostProductDto" resultType="java.lang.Integer">
+        SELECT COALESCE((SELECT cnt FROM Stock_table WHERE wId = #{p.wId}
+        AND pId = (SELECT pt.pId FROM Product_table pt
+        WHERE pt.pName = #{p.pName}
+        AND pt.price = #{p.price}
+        AND pt.pCode = #{p.pCode})) , 0) AS cnt;
+    </select>
+
+</mapper>
