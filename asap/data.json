@@ -1,0 +1,104 @@
+{
+  "stuff": [
+    {
+      "pName": "test",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-1",
+      "id": 1
+    },
+    {
+      "pName": "우유",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-2",
+      "id": 2
+    },
+    {
+      "pName": "초코우유",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-1",
+      "id": 3
+    },
+    {
+      "pName": "딸기우유",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-4",
+      "id": 4
+    },
+    {
+      "pName": "바나나우유",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-2",
+      "id": 5
+    },
+    {
+      "pName": "과자",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-3",
+      "id": 6
+    },
+    {
+      "pName": "음료",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-3",
+      "id": 7
+    },
+    {
+      "pName": "샌드위치",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-3",
+      "id": 8
+    },
+    {
+      "pName": "test2",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-3",
+      "id": 9
+    },
+    {
+      "pName": "test3",
+      "price": 1000,
+      "total": 10000,
+      "quantity": 10,
+      "wName": "창고",
+      "wLoc": "a-3",
+      "id": 10
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

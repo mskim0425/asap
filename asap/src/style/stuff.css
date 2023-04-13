@@ -1,0 +1,214 @@
+.container {
+  box-sizing: border-box;
+  width: 90%;
+  background-color: #eaeff2;
+}
+
+.visualization,
+.data {
+  margin: 20px;
+}
+
+.visualization {
+  height: 30%;
+  border: 1px solid red;
+}
+
+.data {
+  box-sizing: border-box;
+  animation-name: pullUp;
+  animation-duration: 1s;
+}
+
+.content {
+  /* border: 1px solid red; */
+  margin-top: 20px;
+  /* overflow: hidden; */
+}
+
+/* 상품 검색 */
+.search {
+  padding: 10px;
+  padding: 0;
+  /* overflow: hidden; */
+}
+
+.search input[type="text"],
+input[type="text"] ~ div {
+  outline: none;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.search input[type="text"] {
+  float: left;
+  width: 80%;
+  border-radius: 5px 0 0 5px;
+  background-color: #fff;
+  color: #888;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+.search input[type="text"]:focus,
+.search input[type="text"]:hover {
+  border: 1px solid #1b73e8;
+  box-shadow: 0 0 5px #1b73e8;
+}
+
+.search input[type="text"]::placeholder {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.search input[type="text"]:focus::placeholder {
+  opacity: 0;
+  visibility: none;
+}
+
+input[type="text"] ~ div {
+  float: right;
+  width: 20%;
+  text-align: center;
+  background-color: #1b73e8;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+}
+
+input[type="text"] ~ div:hover {
+  background-color: #104285;
+}
+
+/* 상품 목록 */
+.table {
+  display: table;
+  margin-right: 4%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.header {
+  display: table-row;
+  background-color: #1b73e8;
+  color: #fff;
+}
+
+.row {
+  display: table-row;
+  border-radius: 5px;
+  border-bottom: 1px solid #ebeef3;
+}
+
+.row:hover {
+  background-color: #ebeef3;
+  transition: 0.3s;
+  transform: translate(3px, -5px);
+  box-shadow: -10px 10px 10px rgba(211, 211, 211, 0.686);
+}
+
+.cell {
+  text-align: center;
+  display: table-cell;
+  padding: 10px 0;
+}
+
+/* 상세 내용 */
+.colsapn {
+  display: table-cell;
+  background-color: rgba(189, 220, 231, 0.603);
+  padding: 10px 0;
+  animation: fadeInDown 0.3s ease-in-out;
+}
+
+.detail_wrapper {
+  overflow: hidden;
+}
+
+.detail_info {
+  text-align: center;
+  box-sizing: border-box;
+  width: 25%;
+  /* border: 1px solid blue; */
+  float: left;
+}
+
+.addButton {
+  margin-bottom: 25px;
+}
+
+/* 상품 추가 */
+.add_stuff {
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  /* background-color: #fff; */
+  display: none;
+}
+
+.add_stuff.active {
+  display: block;
+}
+
+.info_wrapper {
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.title {
+  float: left;
+  width: 100px;
+  border: none;
+  /* border: 1px solid red; */
+}
+
+.info {
+  float: right;
+  outline: none;
+  /* border: 1px solid blue; */
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@keyframes pullUp {
+  0% {
+    transform: scaleY(0.1);
+  }
+  40% {
+    transform: scaleY(1.02);
+  }
+  60% {
+    transform: scaleY(0.98);
+  }
+  80% {
+    transform: scaleY(1.01);
+  }
+  100% {
+    transform: scaleY(0.98);
+  }
+  80% {
+    transform: scaleY(1.01);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0.6;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

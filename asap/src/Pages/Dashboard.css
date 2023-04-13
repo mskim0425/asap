@@ -1,0 +1,200 @@
+.Dashboard {
+  width: 100%;
+  display: flex;
+  overflow: scroll;
+}
+
+.leftBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.lb-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 28%;
+  height: 98%;
+}
+
+.lb-left-top{
+  height: 29%;
+}
+
+.lb-left-middle{
+  height: 69%;
+}
+
+.lb-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 69%;
+  height: 98%;
+}
+
+.rightBox {
+  width: 10%;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 5px #0000001e;
+  z-index: 1;
+}
+
+.lb-right-top{
+  height: 29%;
+}
+
+.lb-right-middle{
+  height: 39%;
+}
+
+.lb-right-bottom{
+  height: 29%;
+}
+
+.chartSection {
+  width: 100%;
+  box-shadow: 1px 1px 1px 1px #999;
+  border-radius: 15px;
+}
+
+.chartSection h2{
+  margin: 0.5vh 0;
+  font-size: large;
+  text-align: center;
+  font-weight: 600;
+  color: #000000;
+  text-shadow: 0px 0px 1px #cecbee, 0px 0px 2px #a0a5da, 0px 0px 2px #8992f0, 0px 0px 2px #95a3ba;
+}
+
+.chartbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chartCSS {
+  margin-top: 1.5vh;
+}
+
+/* @media (min-width: 1200px) {
+  .Dashboard {
+    grid-template-columns: repeat(1, 2fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .Dashboard {
+    grid-template-columns: repeat(2, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Dashboard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+} */
+
+.dailyRecordSection{
+  height: 90%;
+}
+
+.dailyRecords{
+  height: 100%;
+}
+
+.recordLine{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 33%;
+}
+
+.recordBox{
+  width: 45%;
+  height: 100%;
+  box-shadow: 0.5px 0.5px 0.5px 0.8px #585858;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.recordBox p{
+  text-align: center;
+  font-size: 1.5em;
+  margin: 4% 0;
+}
+
+.recordBox span{
+  font-size: small;
+  text-align: right;
+}
+
+.top10Section{
+  height: 100%;
+}
+
+.top10half{
+  height: 50%;
+}
+
+.top10{
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 1.7;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 10px 0;
+}
+.top10 td, th{
+  text-align: center;
+  vertical-align: middle;
+}
+
+.top10 thead th {
+	padding: 5px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #e7708d;
+}
+
+.top10 td {
+	padding: 2px;
+	vertical-align: top;
+}
+
+.top10 .even {
+	background: #fdf3f5;
+}
+
+.monthlyChartSection{
+  height: 80%;
+}
+
+.totalSalesChartSection{
+  height: 88%;
+}
+
+.dateController{
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-left: 20px;
+}
+
+.dateController input{
+  margin-left: 10px;
+}

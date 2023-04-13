@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+  color: #f7f7f7;
+  font-size: 100px;
+  display: inline-block;
+  font-weight: bold;
+  -webkit-text-stroke: 3px #1b73e8;
+}
+
+.heading + P {
+  color: #555;
+  text-align: center;
+  margin-top: 10px;
+  white-space: pre;
+  line-height: 1.5rem;
+}
+
+.heading ~ div {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.heading ~ div span {
+  color: #1b73e8;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.heading ~ div span:after {
+  content: "\f178";
+  font-family: fontawesome;
+  margin-left: 5px;
+}
