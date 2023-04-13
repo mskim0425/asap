@@ -46,7 +46,7 @@ export default function Stuff() {
     const stuffList = async () => {
       try {
         setloading(true);
-        const response = await axios.get("/find-all?lastId=10");
+        const response = await axios.get("/find-all?lastId=110");
         console.log("s리스트dssds", response.data);
         setLists(response.data);
       } catch (error) {
