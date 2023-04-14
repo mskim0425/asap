@@ -2,11 +2,7 @@ import axios from "axios"
 
 export const GetDailyRecord = async (date) => {
     try{
-        const response = await axios.get(`/six-value`,{
-            headers: {
-                'ngrok-skip-browser-warning': 'none'
-            }
-        })
+        const response = await axios.get(`/six-value`)
         const data = response.data
         const todayRecordData  = [
                 data.max_receive_item.item,
