@@ -5,6 +5,8 @@ import { React, useEffect, useState } from "react";
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
 
+import MonthlyChart from "../Component/Chart/MonthlyChart";
+
 export default function Stuff() {
   const [loading, setloading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,10 +21,15 @@ export default function Stuff() {
   const [code, setCode] = useState("");
   const [warehouseId, setWarehouseId] = useState("");
   const [stock, setStock] = useState("");
+
   //검색
   const [search, setSearch] = useState("");
 
-  let data = {
+  const [releaseQuantity, setReleaseQuantity] = useState("");
+  const [warehouses, setWarehouses] = useState("");
+  const [wid, setWid] = useState("");
+
+  let newData = {
     pName: name,
     price: price,
     pCode: code,
@@ -30,23 +37,12 @@ export default function Stuff() {
     pInsert: stock,
   };
 
-  const addStuff = async () => {
-    try {
-      const response = await axios.post("/prod", data);
-      console.log("postresponse", response);
-      setloading(true);
-    } catch (error) {
-      setError(error);
-    }
-    setloading(false);
-  };
-
   //리스트 가져오기
   useEffect(() => {
     const stuffList = async () => {
       try {
         setloading(true);
-        const response = await axios.get("/find-all?lastId=110");
+        const response = await axios.get("/find-all?lastId=20");
         console.log("s리스트dssds", response.data);
         setLists(response.data);
       } catch (error) {
@@ -68,10 +64,12 @@ export default function Stuff() {
     const getDetail = async () => {
       try {
         const response = await axios.get(`/find-one?pId=${id}`);
-        // console.log("re", response.data);
+        console.log("re", response.data.product);
+        // console.log("re", response.data.product.warehouses);
         setStores(response.data.insertLogs);
         setProduct(response.data.product);
         setRelease(response.data.releaseLogs);
+        setWarehouses(response.data.product.warehouses);
       } catch (e) {
         setError(e);
       }
@@ -79,7 +77,65 @@ export default function Stuff() {
 
     getDetail();
   };
+  // console.log("product", product);
   // console.log("show", shownComments[9]);
+
+  //새로운 물품 추가
+  const addStuff = async () => {
+    try {
+      await axios.post("/prod", newData);
+      // console.log("postresponse", response);
+      setloading(true);
+    } catch (error) {
+      setError(error);
+    }
+    setloading(false);
+  };
+
+  const pName = product.pname;
+  const productPrice = product.price;
+  const pcode = product.pcode;
+  const wId = Number(wid);
+  let quantityData = {
+    pName: pName,
+    price: productPrice,
+    pCode: pcode,
+    wId: wId,
+    pInsert: parseInt(stock),
+  };
+  console.log("입고", quantityData);
+
+  //입고량 수정
+  const stockQuantity = async () => {
+    try {
+      const response = await axios.post("/prod", quantityData);
+      console.log("출고", response);
+      setloading(true);
+    } catch (error) {
+      setError(error);
+    }
+    setloading(false);
+  };
+
+  var count = {
+    pName: pName,
+    price: productPrice,
+    pCode: pcode,
+    wId: wId,
+    quantity: parseInt(releaseQuantity),
+  };
+  console.log("count", count);
+  //출고량 수정
+  const releaseCount = async () => {
+    try {
+      const response = await axios.post("/prod", count);
+      console.log("postresponse", response);
+      setloading(true);
+    } catch (error) {
+      setError(error);
+    }
+    setloading(false);
+  };
 
   //검색
   const onSearch = async () => {
@@ -102,6 +158,16 @@ export default function Stuff() {
     content.classList.toggle("active");
   };
 
+  //출고 정보
+  // const useFor = (arr) => {
+  //   let result = [];
+
+  //   for (let i of arr) {
+  //     result.push(<div>{i}</div>);
+  //   }
+  //   return result;
+  // };
+
   if (loading)
     return (
       <div className="container">
@@ -118,7 +184,9 @@ export default function Stuff() {
 
   return (
     <div className="container">
-      <div className="visualization"></div>
+      <div className="visualization">
+        <MonthlyChart />
+      </div>
 
       <div className="data">
         <div className="search">
@@ -202,36 +270,83 @@ export default function Stuff() {
               <div className="cell">바코드</div>
             </div>
 
-            {lists.map((list) => (
-              <>
-                <div
-                  key={list.pid}
-                  className="row"
-                  onClick={() => toggleComment(list.pid)}
-                >
-                  <div className="cell">{list.pid}</div>
-                  <div className="cell">{list.pname}</div>
-                  <div className="cell">${list.price}</div>
-                  <div className="cell">{list.pcode}</div>
-                </div>
-                {shownComments[list.pid] ? (
-                  <div className="row">
-                    <td className="colsapn" colSpan={4}>
-                      {stores.map((store) => (
-                        <>
+            {lists &&
+              Array.from(lists).map((list, index) => {
+                return (
+                  <>
+                    <div
+                      key={index}
+                      className="row"
+                      onClick={() => toggleComment(list.pid)}
+                    >
+                      <div className="cell">{list.pid}</div>
+                      <div className="cell">{list.pname}</div>
+                      <div className="cell">${list.price}</div>
+                      <div className="cell">{list.pcode}</div>
+                    </div>
+                    {shownComments[list.pid] ? (
+                      <div className="detail">
+                        <td className="colsapn" colSpan={4}>
                           <div className="detail_wrapper">
-                            <div className="detail_info">{store.receiveIn}</div>
-                            <div className="detail_info">{store.pinsert}</div>
-                            <div className="detail_info">{store.wname}</div>
-                            <div className="detail_info">{store.wloc}</div>
+                            <div className="detail_row">
+                              <div className="detail_cell color">상품명</div>
+                              <div className="detail_cell color">가격</div>
+                              <div className="detail_cell color">바코드</div>
+                              <div className="detail_cell color">재고</div>
+                            </div>
+                            <div className="detail_row">
+                              <div className="detail_cell">{product.pname}</div>
+                              <div className="detail_cell">
+                                ${product.price}
+                              </div>
+                              <div className="detail_cell">{product.pcode}</div>
+                              <div className="detail_cell">{product.cnt}</div>
+                            </div>
                           </div>
-                        </>
-                      ))}
-                    </td>
-                  </div>
-                ) : null}
-              </>
-            ))}
+
+                          <div className="product_quantity">
+                            <div>
+                              <h3>창고 선택</h3>
+                              <select
+                                onChange={(e) => {
+                                  setWid(e.target.value);
+                                }}
+                              >
+                                <option value="none">선택</option>
+                                {Array.from(warehouses).map((el, index) => {
+                                  return (
+                                    <>
+                                      <option key={index} value={el.wid}>
+                                        {el.wid}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                              </select>
+                            </div>
+                            <div>
+                              <input
+                                type="text"
+                                onChange={(e) => setStock(e.target.value)}
+                              />
+                              <button onClick={stockQuantity}>입고량</button>
+                            </div>
+                            <div>
+                              <input
+                                type="text"
+                                onChange={(e) =>
+                                  setReleaseQuantity(e.target.value)
+                                }
+                              />
+                              <button onClick={releaseCount}>출고량</button>
+                            </div>
+                          </div>
+                        </td>
+                      </div>
+                    ) : null}
+                  </>
+                );
+              })}
           </div>
         </div>
       </div>
