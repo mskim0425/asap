@@ -19,7 +19,8 @@ export default function SSE () {
             let newdata = e.data
             if(e.data.includes("{")){
                 const test = [...newdata.split(`"`)]
-                newdata = `${test[7]}\n${test[11]}`
+
+                newdata = test.length >= 7 ? `${test[7]}\n${test[11]}` : `${test[1]}`
             }
             setMessage([...message, newdata])
         })
