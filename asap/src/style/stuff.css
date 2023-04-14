@@ -11,7 +11,7 @@
 
 .visualization {
   height: 30%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .data {
@@ -30,7 +30,7 @@
 .search {
   padding: 10px;
   padding: 0;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .search input[type="text"],
@@ -81,14 +81,16 @@ input[type="text"] ~ div:hover {
 
 /* 상품 목록 */
 .table {
-  display: table;
   margin-right: 4%;
   border-collapse: collapse;
   box-sizing: border-box;
   background-color: #fff;
   overflow: hidden;
   border-radius: 5px;
-  width: 100%;
+  height: 425px;
+  /* border: 1px solid red; */
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .header {
@@ -97,7 +99,8 @@ input[type="text"] ~ div:hover {
   color: #fff;
 }
 
-.row {
+.row,
+.detail {
   display: table-row;
   border-radius: 5px;
   border-bottom: 1px solid #ebeef3;
@@ -111,6 +114,7 @@ input[type="text"] ~ div:hover {
 }
 
 .cell {
+  width: 25%;
   text-align: center;
   display: table-cell;
   padding: 10px 0;
@@ -119,21 +123,51 @@ input[type="text"] ~ div:hover {
 /* 상세 내용 */
 .colsapn {
   display: table-cell;
-  background-color: rgba(189, 220, 231, 0.603);
-  padding: 10px 0;
+  background-color: #fff;
+  /* padding: 10px 0; */
   animation: fadeInDown 0.3s ease-in-out;
 }
 
 .detail_wrapper {
-  overflow: hidden;
+  display: table;
+  width: 100%;
 }
 
-.detail_info {
+.detail_row {
+  display: table-row;
   text-align: center;
   box-sizing: border-box;
-  width: 25%;
   /* border: 1px solid blue; */
+}
+
+.product_quantity {
+  /* display: flex; */
+  /* border: 1px solid red; */
+  overflow: hidden;
+  padding: 10px;
+}
+
+.product_quantity div:nth-child(1) {
   float: left;
+}
+
+.product_quantity div:nth-child(2) {
+  float: right;
+}
+
+.product_quantity input {
+  margin-right: 5px;
+  outline: none;
+  /* border: none; */
+}
+
+.detail_cell {
+  padding: 5px;
+  display: table-cell;
+}
+
+.detail_cell.color {
+  background-color: rgba(173, 216, 230, 0.387);
 }
 
 .addButton {
@@ -145,7 +179,7 @@ input[type="text"] ~ div:hover {
   box-sizing: border-box;
   border-radius: 5px;
   margin-bottom: 25px;
-  /* background-color: #fff; */
+  background-color: #fff;
   display: none;
 }
 
@@ -154,7 +188,7 @@ input[type="text"] ~ div:hover {
 }
 
 .info_wrapper {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   padding: 10px;
 }
 
@@ -169,6 +203,21 @@ input[type="text"] ~ div:hover {
   float: right;
   outline: none;
   /* border: 1px solid blue; */
+}
+
+.release_row,
+.store_row {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #d5d9de;
+}
+
+.store_row {
+  background-color: #ffeeee;
+}
+
+.release_row {
+  background-color: rgba(169, 229, 168, 0.504);
 }
 
 @media (max-width: 768px) {

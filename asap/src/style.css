@@ -130,6 +130,7 @@ table {
 
 body {
   line-height: 1;
+  overflow: hidden;
 }
 
 .body {
@@ -138,6 +139,10 @@ body {
   display: flex;
   box-sizing: border-box;
   background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 1200px) {
@@ -157,4 +162,3 @@ body {
     width: 450px;
   }
 }
-
