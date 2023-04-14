@@ -81,14 +81,16 @@ input[type="text"] ~ div:hover {
 
 /* 상품 목록 */
 .table {
-  display: table;
   margin-right: 4%;
   border-collapse: collapse;
   box-sizing: border-box;
   background-color: #fff;
   overflow: hidden;
   border-radius: 5px;
-  width: 100%;
+  height: 425px;
+  /* border: 1px solid red; */
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .header {
@@ -112,6 +114,7 @@ input[type="text"] ~ div:hover {
 }
 
 .cell {
+  width: 25%;
   text-align: center;
   display: table-cell;
   padding: 10px 0;
@@ -200,6 +203,21 @@ input[type="text"] ~ div:hover {
   float: right;
   outline: none;
   /* border: 1px solid blue; */
+}
+
+.release_row,
+.store_row {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #d5d9de;
+}
+
+.store_row {
+  background-color: #ffeeee;
+}
+
+.release_row {
+  background-color: rgba(169, 229, 168, 0.504);
 }
 
 @media (max-width: 768px) {

@@ -1,6 +1,6 @@
 import "../style/stuff.css";
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
 
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
@@ -64,7 +64,7 @@ export default function Stuff() {
     const getDetail = async () => {
       try {
         const response = await axios.get(`/find-one?pId=${id}`);
-        console.log("re", response.data.product);
+        console.log("re", response.data);
         // console.log("re", response.data.product.warehouses);
         setStores(response.data.insertLogs);
         setProduct(response.data.product);
@@ -103,13 +103,12 @@ export default function Stuff() {
     wId: wId,
     pInsert: parseInt(stock),
   };
-  console.log("입고", quantityData);
+  // console.log("입고", quantityData);
 
   //입고량 수정
   const stockQuantity = async () => {
     try {
-      const response = await axios.post("/prod", quantityData);
-      console.log("출고", response);
+      await axios.post("/prod", quantityData);
       setloading(true);
     } catch (error) {
       setError(error);
@@ -124,12 +123,11 @@ export default function Stuff() {
     wId: wId,
     quantity: parseInt(releaseQuantity),
   };
-  console.log("count", count);
+  // console.log("count", count);
   //출고량 수정
   const releaseCount = async () => {
     try {
-      const response = await axios.post("/prod", count);
-      console.log("postresponse", response);
+      await axios.post("/prod", count);
       setloading(true);
     } catch (error) {
       setError(error);
@@ -158,15 +156,18 @@ export default function Stuff() {
     content.classList.toggle("active");
   };
 
-  //출고 정보
-  // const useFor = (arr) => {
-  //   let result = [];
+  let page = 10;
+  const [height, setHeight] = useState(0);
+  const ref = useRef(null);
 
-  //   for (let i of arr) {
-  //     result.push(<div>{i}</div>);
-  //   }
-  //   return result;
-  // };
+  function paging() {
+    // getList(page);
+    page = page + 10;
+  }
+  useEffect(() => {
+    setHeight(ref);
+  }, [height]);
+  // console.log("높이", height.current);
 
   if (loading)
     return (
@@ -262,7 +263,8 @@ export default function Stuff() {
             </div>
             <button onClick={addStuff}>추가</button>
           </div>
-          <div className="table">
+          {/* 상품리스트 */}
+          <div className="table" ref={ref}>
             <div className="header">
               <div className="cell">상품 코드</div>
               <div className="cell">상품명</div>
@@ -340,6 +342,48 @@ export default function Stuff() {
                               />
                               <button onClick={releaseCount}>출고량</button>
                             </div>
+                          </div>
+                          <div>
+                            <div className="store_row">
+                              <div>입고일</div>
+                              <div>입고량</div>
+                              <div>창고 이름</div>
+                              <div>창고 위치</div>
+                            </div>
+                            {stores &&
+                              stores.map((store, index) => {
+                                return (
+                                  <div key={index}>
+                                    <div className="store_row">
+                                      <div>{store.receiveIn}</div>
+                                      <div>{store.pinsert}</div>
+                                      <div>{store.wname}</div>
+                                      <div>{store.wloc}</div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                          <div>
+                            <div className="release_row">
+                              <div>출고일</div>
+                              <div>출고량</div>
+                              <div>창고 이름</div>
+                              <div>창고 위치</div>
+                            </div>
+                            {release &&
+                              release.map((release, index) => {
+                                return (
+                                  <div key={index}>
+                                    <div className="release_row">
+                                      <div>{release.releaseAt}</div>
+                                      <div>{release.quantity}</div>
+                                      <div>{release.wname}</div>
+                                      <div>{release.wloc}</div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                           </div>
                         </td>
                       </div>
