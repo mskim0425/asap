@@ -61,28 +61,29 @@ export default function Top10() {
         </tbody>
       </table>
       </div>
+
       <div className="top10half">
-      <h2>일일 출고량 TOP 10</h2>
-      <table className="top10">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>상품명</th>
-            <th>출고량</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((el, index) => {
-            return (
-              <tr key={el} className={index%2===0 ? "even" : ""}>
-                <td>{index + 1}</td>
-                <td>{el[2]}</td>
-                <td>{commaChecker(el[3])}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+        <h2>일일 출고량 TOP 10</h2>
+        <table className="top10">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>상품명</th>
+              <th>출고량</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((el, index) => {
+              return (
+                <tr key={el} className={index%2===0 ? "even" : ""}>
+                  <td>{index + 1}</td>
+                  <td>{el[2]}</td>
+                  <td>{commaChecker(el[3])}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

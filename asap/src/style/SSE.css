@@ -63,3 +63,14 @@
     border: 1px solid #edd;
     color: #a66;
 }
+
+.in {
+    background-color: rgb(255, 166, 0);
+    border: 1px solid #edd;
+    color: rgb(255, 255, 255);
+}
+.out {
+    background-color: rgb(21, 255, 0);
+    border: 1px solid #edd;
+    color: rgb(255, 255, 255);
+}

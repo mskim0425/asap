@@ -16,7 +16,12 @@ export default function SSE () {
         })
 
         eventSourse.addEventListener('sse', async (e) => {
-            const newdata = e.data
+            let newdata = e.data
+            if(e.data.includes("{")){
+                const test = [...newdata.split(`"`)]
+
+                newdata = test.length >= 7 ? `${test[7]}\n${test[11]}` : `${test[1]}`
+            }
             setMessage([...message, newdata])
         })
     }, [])
@@ -27,7 +32,7 @@ export default function SSE () {
                 return (
                     <label key={index}>
                         <input type="checkbox" className="alertCheckbox" autoComplete="off" />
-                        <div className="alert error">
+                        <div className={el.includes("알림") ? (el.includes("입고") ? "alert in" : "alert out") : "alert error"}>
                             <span className="alertClose">X</span>
                             <span className="alertText">{el}
                                 <br className="clear"/>
@@ -39,5 +44,3 @@ export default function SSE () {
         </div>
     )
 }
-
-//{"userId":"user","title":"입고 알림!","content":"맛잠 +160 입고","notificationType":"RECEIVE"}

@@ -1,6 +1,3 @@
-import CalendarChart from "../Component/Chart/CalendarChart";
-import GeoChart from "../Component/Chart/GeoChart";
-import PieChart from "../Component/Chart/PieChart";
 import DailyRecord from "../Component/DailyRecord";
 import Top10 from "../Component/Top10";
 import MonthlyChart from "../Component/Chart/MonthlyChart";
