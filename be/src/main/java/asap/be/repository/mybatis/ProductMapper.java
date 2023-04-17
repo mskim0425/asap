@@ -37,5 +37,7 @@ public interface ProductMapper {
 	DetailProductDto findProductById(Long pId);
 
 	Long findSIdByPNameAndWId(String pName, Long wId);
+
+	List<DetailWarehouseDto> findProductWarehouseById(Long pId);
 }
 
