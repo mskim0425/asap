@@ -564,7 +564,7 @@ public class ProductRestDocs {
 	@Test
 	@DisplayName("상세페이지 수정")
 	void editDetailPage() throws Exception {
-		Long pId = 120L;
+		Long pId = 3L;
 		String content = gson.toJson(EDIT_PRODUCT_NAME);
 
 		given(productService.editDetailPage(anyLong(), any(EditProductDto.class))).willReturn(DETAIL_INFO_DTO);
