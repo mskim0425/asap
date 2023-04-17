@@ -51,7 +51,7 @@ public class ConcurrencyTest {
     public void beforeEach() throws InterruptedException {
         //트랜잭션 시작 TODO: 본인 디비에 저장해서 테스트 하슈
         status = transactionManager.getTransaction(new DefaultTransactionDefinition());
-            PostProductDto test_data = PostProductDto.builder()
+        PostProductDto test_data = PostProductDto.builder()
                 .pName("TD")
                 .price(100)
                 .pCode("TD")
@@ -75,9 +75,9 @@ public class ConcurrencyTest {
         //given 수량이 1000개인 데이터를 저장한다.
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         PostProductDto releaseData = PostProductDto.builder()
-                .pName("TD")
+                .pName("TestData")
                 .price(100)
-                .pCode("TD")
+                .pCode("TestData")
                 .wId(10L)
                 .quantity(1)
                 .build();
@@ -87,10 +87,10 @@ public class ConcurrencyTest {
                 serviceFacade.release("releaseLock", releaseData);
             });
             futures.add(future);
-       } CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+       }
+        log.info("{}", CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join());
 
-        List<EverythingDto> list = productMybatisRepository.findByName("TD");
-        log.info(" 사이즈 "+ list.get(0).getCnt());
+        List<EverythingDto> list = productMybatisRepository.findByName("TestData");
         Assertions.assertThat(list.get(0).getCnt()).isEqualTo(900);
     }
 }

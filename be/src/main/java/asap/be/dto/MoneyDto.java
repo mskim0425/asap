@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MoneyDto {
     private String releaseat; //2023-09-01 식으로
-    private int money;
+    private double money;
 }
 

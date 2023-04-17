@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static asap.be.config.CacheConstant.*;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	@CacheEvict(cacheNames = {"monthly-stock-summary", "six-value"}, allEntries = true)
+	@CacheEvict(cacheNames = {MONTHLY_SUMMARY, SIX_VALUE, RANK_PRODUCT}, allEntries = true)
 	public void insertOrUpdateStock(PostProductDto dto) {
 
 		StringBuffer sb = new StringBuffer();
