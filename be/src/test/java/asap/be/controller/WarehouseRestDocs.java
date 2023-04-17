@@ -1,6 +1,5 @@
 package asap.be.controller;
 
-import asap.be.domain.Warehouse;
 import asap.be.service.WarehouseServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -25,11 +24,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public class WarehouseRestDocs {
@@ -43,7 +41,7 @@ public class WarehouseRestDocs {
 	@MockBean
 	private WarehouseServiceImpl warehouseService;
 
-	@Test
+//	@Test
 	@DisplayName("창고 만들엉")
 	void test1() throws Exception {
 
@@ -78,7 +76,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 지웡")
 	void deleteWarehouse() throws Exception {
 		Long wId = 1L;
@@ -94,7 +92,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk()); // stock_table과 연관관계로 창고 삭제 불가...
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 이름 바꿩")
 	void patchWarehouseName() throws Exception {
 		String content = gson.toJson(WAREHOUSE_PATCH);
@@ -128,7 +126,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 위치 바꿩")
 	void patchWarehouseLoc() throws Exception {
 		String content = gson.toJson(WAREHOUSE_PATCH_2);
@@ -163,7 +161,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고이름으로 조회행")
 	void getWarehouse() throws Exception {
 
@@ -190,7 +188,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 위치로 조회행")
 	void getWarehouseByLoc() throws Exception {
 

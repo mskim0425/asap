@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
 				.pCode(product.getPCode())
 				.pName(product.getPName())
 				.cnt(insert.get(0).getCnt())
+				.warehouses(productMybatisRepository.findProductWarehouseById(product.getPId()))
 				.build();
 
 		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
@@ -120,27 +121,7 @@ public class ProductServiceImpl implements ProductService {
 	public DetailInfoDto editDetailPage(Long pId, EditProductDto dto) {
 		productMybatisRepository.updateProduct(dto);
 
-		DetailProductDto product = productMybatisRepository.findProductById(pId);
-		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
-		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
-
-		product = DetailProductDto.builder()
-				.pId(product.getPId())
-				.price(product.getPrice())
-				.pStatus(product.getPStatus())
-				.pCode(product.getPCode())
-				.pName(product.getPName())
-				.cnt(insert.get(0).getCnt())
-				.build();
-
-		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
-		insertLogLoop(insert, insertLogs);
-
-		return DetailInfoDto.builder()
-				.product(product)
-				.insertLogs(insertLogs)
-				.releaseLogs(release)
-				.build();
+		return detailPageUsingPId(pId);
 	}
 
 	private void verifiedProduct(Long pId, Long sId) {
