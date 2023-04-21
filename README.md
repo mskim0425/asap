@@ -7,7 +7,7 @@
 <a href="https://ibb.co/fFZf0G7"><img src="https://i.ibb.co/mTdkzF7/2023-04-21-214035.png" alt="2023-04-21-214035" border="0"></a>
  
 # Server Architecture  
-<a href="https://ibb.co/dgSnqZc"><img src="https://i.ibb.co/0tkPS5X/asap.png" alt="asap" border="0"></a>
+<a href="https://ibb.co/0q6038w"><img src="https://i.ibb.co/xhBnQP4/asap.png" alt="asap" border="0"></a>
 
 
 # Stack  
