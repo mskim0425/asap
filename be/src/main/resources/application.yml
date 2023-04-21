@@ -10,6 +10,7 @@ spring:
     url: jdbc:mysql://'${ENDPOINT}':'${PORT}'/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: '${DB_ID}'
     password: '${DB_PASSWORD}'
+
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto
   configuration:
