@@ -2,7 +2,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: localhost
+    host: host.docker.internal
     port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
