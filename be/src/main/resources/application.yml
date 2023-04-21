@@ -1,5 +1,22 @@
 spring:
-  profiles:
-    active: local
-  config:
-    import: classpath:application-local.yml
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # allowMultiQueries=true : 다중 insert 허용
+    url: jdbc:mysql://database-1.ckvcfoeqtntq.ap-northeast-2.rds.amazonaws.com:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: admin
+    password: hyoreal000501
+mybatis:
+  type-aliases-package: asap.be.domain, asap.be.dto
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    asap:
+      be:
+        repository: trace

@@ -5,7 +5,6 @@ import asap.be.dto.DetailInsertDto;
 import asap.be.dto.DetailInsertLogsDto;
 import asap.be.dto.DetailProductDto;
 import asap.be.dto.DetailReleaseDto;
-import asap.be.dto.DetailReleaseInsertDto;
 import asap.be.dto.EditProductDto;
 import asap.be.dto.EverythingDto;
 import asap.be.dto.EverythingPageDto;

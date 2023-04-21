@@ -140,7 +140,6 @@
     </select>
 
     <!--     상품명을 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
-    <!--TODO: 수정 -->
     <select id="findAllCntByPName" resultType="AllProductCntDto">
         SELECT SUM(s.pInsertAll) AS pInsertCnt,
                SUM(s.cnt) AS stockCnt,
@@ -198,5 +197,11 @@
     <select id="findProductById" resultType="DetailProductDto">
         SELECT pId, pName, pCode, price, pStatus
         FROM Product_table WHERE pId = #{pId}
+    </select>
+
+    <select id="findProductWarehouseById" resultType="DetailWarehouseDto">
+        SELECT s.wId, w.wName FROM Stock_table s
+        JOIN Warehouse_table w ON s.wId = w.wId
+        WHERE pId = #{pId}
     </select>
 </mapper>

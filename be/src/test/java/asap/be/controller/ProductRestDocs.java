@@ -1,16 +1,11 @@
 package asap.be.controller;
 
-import asap.be.domain.Product;
 import asap.be.dto.EditProductDto;
-import asap.be.dto.EverythingDto;
-import asap.be.dto.PostProductDto;
-import asap.be.service.ProductService;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -265,6 +260,9 @@ public class ProductRestDocs {
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
 										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
+										fieldWithPath("product.warehouses[]").type(JsonFieldType.ARRAY).description("창고 리스트"),
+										fieldWithPath("product.warehouses[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("product.warehouses[].wname").type(JsonFieldType.STRING).description("창고명"),
 										fieldWithPath("insertLogs[].receiveIn").type(JsonFieldType.STRING).description("입고 일자"),
 										fieldWithPath("insertLogs[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
 										fieldWithPath("insertLogs[].wname").type(JsonFieldType.STRING).description("창고명"),
@@ -590,6 +588,9 @@ public class ProductRestDocs {
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
 										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
+										fieldWithPath("product.warehouses[]").type(JsonFieldType.ARRAY).description("창고 리스트"),
+										fieldWithPath("product.warehouses[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
+										fieldWithPath("product.warehouses[].wname").type(JsonFieldType.STRING).description("창고명"),
 										fieldWithPath("insertLogs[].receiveIn").type(JsonFieldType.STRING).description("입고 일자"),
 										fieldWithPath("insertLogs[].pinsert").type(JsonFieldType.NUMBER).description("입고량"),
 										fieldWithPath("insertLogs[].wname").type(JsonFieldType.STRING).description("창고명"),

@@ -465,7 +465,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_상품_전체_수정">2.7. 상품 전체 수정</a></li>
 <li><a href="#_상품_상태_변경_삭제">2.8. 상품 상태 변경 (삭제)</a></li>
 <li><a href="#_상세_페이지_조회">2.9. 상세 페이지 조회</a></li>
-<li><a href="#_전체_페이지_조회">2.10. 전체 페이지 조회</a></li>
+<li><a href="#_상세_페이지_수정">2.10. 상세 페이지 수정</a></li>
+<li><a href="#_전체_페이지_조회">2.11. 전체 페이지 조회</a></li>
 </ul>
 </li>
 </ul>
@@ -517,15 +518,15 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 844
+Content-Length: 832
 
-[{"month":1,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":2,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":3,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":4,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":5,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":6,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":7,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":8,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":9,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":10,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":11,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":12,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000}]</code></pre>
+[{"month":1,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":2,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":3,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":4,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":5,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":6,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":7,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":8,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":9,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":10,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":11,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":12,"total_cnt":500,"total_pInsert":600,"total_quantity":100}]</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>[{"month":1,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":2,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":3,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":4,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":5,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":6,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":7,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":8,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":9,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":10,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":11,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000},{"month":12,"allQuantity":876543,"allReleaseAt":1000,"allInsert":5000}]</code></pre>
+<pre class="prettyprint highlight nowrap"><code>[{"month":1,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":2,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":3,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":4,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":5,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":6,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":7,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":8,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":9,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":10,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":11,"total_cnt":500,"total_pInsert":600,"total_quantity":100},{"month":12,"total_cnt":500,"total_pInsert":600,"total_quantity":100}]</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -554,17 +555,17 @@ Content-Length: 844
 <td class="tableblock halign-left valign-top"><p class="tableblock">월</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].allQuantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].total_cnt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">월 전체 수량</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].allReleaseAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].total_quantity</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">월 전체 출고량</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].allInsert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].total_pInsert</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">월 전체 입고량</p></td>
 </tr>
@@ -663,25 +664,6 @@ Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. /api/cnt-product-by-date/{p-id}</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>p-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 번호</p></td>
-</tr>
-</tbody>
-</table>
 <div class="literalblock">
 <div class="title">Request-Body</div>
 <div class="content">
@@ -708,7 +690,7 @@ Content-Length: 661
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Response-Fields</caption>
+<caption class="title">Table 3. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -788,7 +770,7 @@ Content-Length: 153
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. Response-Fields</caption>
+<caption class="title">Table 4. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -862,9 +844,11 @@ Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
-<div class="paragraph">
+<div class="literalblock">
 <div class="title">Request-Body</div>
-<p>NULL</p>
+<div class="content">
+<pre>NULL</pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="title">Http-Response</div>
@@ -874,19 +858,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 401
+Content-Length: 421
 
-[{"releaseat":"2023-01-01","money":5000},{"releaseat":"2023-01-02","money":6000},{"releaseat":"2023-01-03","money":7000},{"releaseat":"2023-01-04","money":5000},{"releaseat":"2023-01-05","money":6000},{"releaseat":"2023-01-06","money":7000},{"releaseat":"2023-01-07","money":5000},{"releaseat":"2023-01-08","money":6000},{"releaseat":"2023-01-09","money":7000},{"releaseat":"2023-01-10","money":5000}]</code></pre>
+[{"releaseat":"2023-01-01","money":5000.0},{"releaseat":"2023-01-02","money":6000.0},{"releaseat":"2023-01-03","money":7000.0},{"releaseat":"2023-01-04","money":5000.0},{"releaseat":"2023-01-05","money":6000.0},{"releaseat":"2023-01-06","money":7000.0},{"releaseat":"2023-01-07","money":5000.0},{"releaseat":"2023-01-08","money":6000.0},{"releaseat":"2023-01-09","money":7000.0},{"releaseat":"2023-01-10","money":5000.0}]</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>[{"releaseat":"2023-01-01","money":5000},{"releaseat":"2023-01-02","money":6000},{"releaseat":"2023-01-03","money":7000},{"releaseat":"2023-01-04","money":5000},{"releaseat":"2023-01-05","money":6000},{"releaseat":"2023-01-06","money":7000},{"releaseat":"2023-01-07","money":5000},{"releaseat":"2023-01-08","money":6000},{"releaseat":"2023-01-09","money":7000},{"releaseat":"2023-01-10","money":5000}]</code></pre>
+<pre class="prettyprint highlight nowrap"><code>[{"releaseat":"2023-01-01","money":5000.0},{"releaseat":"2023-01-02","money":6000.0},{"releaseat":"2023-01-03","money":7000.0},{"releaseat":"2023-01-04","money":5000.0},{"releaseat":"2023-01-05","money":6000.0},{"releaseat":"2023-01-06","money":7000.0},{"releaseat":"2023-01-07","money":5000.0},{"releaseat":"2023-01-08","money":6000.0},{"releaseat":"2023-01-09","money":7000.0},{"releaseat":"2023-01-10","money":5000.0}]</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Response-Fields</caption>
+<caption class="title">Table 5. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -953,7 +937,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Request-Fields</caption>
+<caption class="title">Table 6. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1007,19 +991,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 176
+Content-Length: 178
 
-{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":150,"receiveIn":"2023-04-08","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-17","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":150,"receiveIn":"2023-04-08","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-17","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Response-Fields</caption>
+<caption class="title">Table 7. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1121,7 +1105,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Request-Fields</caption>
+<caption class="title">Table 8. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1156,14 +1140,14 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock">창고 식별자</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pInsert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">저장 및 입고 시 사용</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quantity</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">입고량</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pInsert</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">입고 시 사용</p></td>
 </tr>
 </tbody>
 </table>
@@ -1175,19 +1159,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 175
+Content-Length: 178
 
-{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":49,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50049,"receiveIn":"2023-04-08","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":49,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50049,"receiveIn":"2023-04-08","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Response-Fields</caption>
+<caption class="title">Table 9. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1264,37 +1248,18 @@ Content-Length: 175
 <div class="listingblock">
 <div class="title">Curl-Request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/all-cnt?pName=%EC%86%8C%EA%B8%88' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/all-cnt?pName=%EA%B3%BC%EC%9E%90' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Http-Request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/all-cnt?pName=%EC%86%8C%EA%B8%88 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/all-cnt?pName=%EA%B3%BC%EC%9E%90 HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. /api/all-cnt/{p-id}</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>p-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품 번호</p></td>
-</tr>
-</tbody>
-</table>
 <div class="listingblock">
 <div class="title">Http-Response</div>
 <div class="content">
@@ -1303,19 +1268,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 88
+Content-Length: 91
 
-{"stockCnt":277709,"releaseCnt":255765,"lastReceiveIn":"2023-04-06","pinsertCnt":533675}</code></pre>
+{"stockCnt":1111917,"releaseCnt":1140525,"lastReceiveIn":"2023-04-30","pinsertCnt":2252442}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"stockCnt":277709,"releaseCnt":255765,"lastReceiveIn":"2023-04-06","pinsertCnt":533675}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"stockCnt":1111917,"releaseCnt":1140525,"lastReceiveIn":"2023-04-30","pinsertCnt":2252442}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Response-Fields</caption>
+<caption class="title">Table 10. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1354,9 +1319,14 @@ Content-Length: 88
 </div>
 <div class="sect2">
 <h3 id="_상품_이름_수정">2.4. 상품 이름 수정</h3>
-<div class="paragraph">
+<div class="listingblock">
 <div class="title">Curl-Request</div>
-<p>include::/Users/hyoreal51/IdeaProjects/asap/be/build/generated-snippets/</p>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/prod' -i -X PATCH \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}'</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="title">Http-Request</div>
@@ -1364,20 +1334,20 @@ Content-Length: 88
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /api/prod HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 62
+Content-Length: 58
 Host: localhost:8080
 
-{"pId":57777,"sId":57777,"pName":"새로 변경할 상품명"}</code></pre>
+{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Request-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pId":57777,"sId":57777,"pName":"새로 변경할 상품명"}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. Request-Fields</caption>
+<caption class="title">Table 11. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1416,19 +1386,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 192
+Content-Length: 212
 
-{"pname":"새로 변경할 상품명","price":10000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"새로 변경할 상품명","price":775,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"새로 변경할 상품명","price":10000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"새로 변경할 상품명","price":775,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Response-Fields</caption>
+<caption class="title">Table 12. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1508,7 +1478,7 @@ Content-Length: 192
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/prod' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -d '{"pId":57777,"sId":57777,"price":5000}'</code></pre>
+    -d '{"pId":120,"sId":120,"price":5000}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1517,20 +1487,20 @@ Content-Length: 192
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /api/prod HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 38
+Content-Length: 34
 Host: localhost:8080
 
-{"pId":57777,"sId":57777,"price":5000}</code></pre>
+{"pId":120,"sId":120,"price":5000}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Request-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pId":57777,"sId":57777,"price":5000}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"price":5000}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Request-Fields</caption>
+<caption class="title">Table 13. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1569,19 +1539,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 174
+Content-Length: 196
 
-{"pname":"상품명","price":5000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"감자깡","price":5000,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":5000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"감자깡","price":5000,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Response-Fields</caption>
+<caption class="title">Table 14. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1661,7 +1631,7 @@ Content-Length: 174
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/prod' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -d '{"pId":57777,"sId":57777,"pCode":"새로운 상품 바코드"}'</code></pre>
+    -d '{"pId":120,"sId":120,"pCode":"새로운 상품 바코드"}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1670,20 +1640,20 @@ Content-Length: 174
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /api/prod HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 62
+Content-Length: 58
 Host: localhost:8080
 
-{"pId":57777,"sId":57777,"pCode":"새로운 상품 바코드"}</code></pre>
+{"pId":120,"sId":120,"pCode":"새로운 상품 바코드"}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Request-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pId":57777,"sId":57777,"pCode":"새로운 상품 바코드"}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"pCode":"새로운 상품 바코드"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. Request-Fields</caption>
+<caption class="title">Table 15. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1722,19 +1692,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 186
+Content-Length: 185
 
-{"pname":"상품명","price":10000,"pcode":"새로운 상품 바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"감자깡","price":775,"pcode":"새로운 상품 바코드","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"새로운 상품 바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"감자깡","price":775,"pcode":"새로운 상품 바코드","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. Response-Fields</caption>
+<caption class="title">Table 16. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1814,7 +1784,7 @@ Content-Length: 186
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/prod' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -d '{"pId":57777,"sId":57777,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}'</code></pre>
+    -d '{"pId":120,"sId":120,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1823,20 +1793,20 @@ Content-Length: 186
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /api/prod HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 112
+Content-Length: 108
 Host: localhost:8080
 
-{"pId":57777,"sId":57777,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}</code></pre>
+{"pId":120,"sId":120,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Request-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pId":57777,"sId":57777,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"pName":"새로 변경할 상품명","price":2000,"pCode":"새로 변경할 바코드"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. Request-Fields</caption>
+<caption class="title">Table 17. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1885,19 +1855,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 202
+Content-Length: 203
 
-{"pname":"새로 변경할 상품명","price":2000,"pcode":"새로 변경할 바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+{"pname":"새로 변경할 상품명","price":2000,"pcode":"새로 변경할 바코드","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"새로 변경할 상품명","price":2000,"pcode":"새로 변경할 바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":1,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"새로 변경할 상품명","price":2000,"pcode":"새로 변경할 바코드","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. Response-Fields</caption>
+<caption class="title">Table 18. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1977,7 +1947,7 @@ Content-Length: 202
 <pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/prod' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -d '{"pId":57777,"sId":57777,"pStatus":0}'</code></pre>
+    -d '{"pId":120,"sId":120,"pStatus":0}'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1986,20 +1956,20 @@ Content-Length: 202
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /api/prod HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 37
+Content-Length: 33
 Host: localhost:8080
 
-{"pId":57777,"sId":57777,"pStatus":0}</code></pre>
+{"pId":120,"sId":120,"pStatus":0}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Request-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pId":57777,"sId":57777,"pStatus":0}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"pStatus":0}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. Request-Fields</caption>
+<caption class="title">Table 19. Request-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2038,19 +2008,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 175
+Content-Length: 195
 
-{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":0,"wid":1}</code></pre>
+{"pname":"감자깡","price":775,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":0}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50,"receiveIn":"2023-04-07","wname":"BMW M5","wloc":"Nicaragua","pid":57777,"sid":57777,"pstatus":0,"wid":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"감자깡","price":775,"pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","cnt":64,"receiveIn":"2022-09-29","wname":"Hyundai i35","wloc":"Slovenia","wid":96,"pid":120,"sid":120,"pstatus":0}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. Response-Fields</caption>
+<caption class="title">Table 20. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2153,19 +2123,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 555
+Content-Length: 907
 
-[{"release_at":"2023-02-08","quantity":101,"receive_in":"2023-02-08","cnt":172,"price":390,"wname":"Fiat Freemont","wloc":"Saint Lucia","pid":3,"sid":3,"pstatus":1,"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","wid":27,"rid":1,"pinsertLog":"2023-2-8 : 373"},{"release_at":"2023-04-07","quantity":100,"receive_in":"2023-02-08","cnt":172,"price":390,"wname":"Fiat Freemont","wloc":"Saint Lucia","pid":3,"sid":3,"pstatus":1,"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","wid":27,"rid":58121,"pinsertLog":"2023-2-8 : 373"}]</code></pre>
+{"product":{"price":390,"cnt":272,"warehouses":[{"wid":27,"wname":"Fiat Freemont"},{"wid":5,"wname":"Ford Focus"}],"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","pid":3,"pstatus":1},"insertLogs":[{"receiveIn":"2023-2-8","pinsert":373,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10 ","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"}],"releaseLogs":[{"releaseAt":"2023-02-08","quantity":101,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-07","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-10","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"}]}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>[{"release_at":"2023-02-08","quantity":101,"receive_in":"2023-02-08","cnt":172,"price":390,"wname":"Fiat Freemont","wloc":"Saint Lucia","pid":3,"sid":3,"pstatus":1,"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","wid":27,"rid":1,"pinsertLog":"2023-2-8 : 373"},{"release_at":"2023-04-07","quantity":100,"receive_in":"2023-02-08","cnt":172,"price":390,"wname":"Fiat Freemont","wloc":"Saint Lucia","pid":3,"sid":3,"pstatus":1,"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","wid":27,"rid":58121,"pinsertLog":"2023-2-8 : 373"}]</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"product":{"price":390,"cnt":272,"warehouses":[{"wid":27,"wname":"Fiat Freemont"},{"wid":5,"wname":"Ford Focus"}],"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","pid":3,"pstatus":1},"insertLogs":[{"receiveIn":"2023-2-8","pinsert":373,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10 ","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"}],"releaseLogs":[{"releaseAt":"2023-02-08","quantity":101,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-07","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-10","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"}]}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. Response-Fields</caption>
+<caption class="title">Table 21. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2180,85 +2150,256 @@ Content-Length: 555
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].release_at</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">출고일, NULL이면 입고</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 정보</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].quantity</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">출고 수량</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].receive_in</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">입고일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].cnt</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">재고수</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.price</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">단가</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pid</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wid</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">창고아이디</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pname</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pcode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">바코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].sid</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">재고코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pinsertLog</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">입고량</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].pstatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pstatus</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">상품상태</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pcode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">바코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.cnt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 재고</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[].wid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[].wname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].receiveIn</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">창고위치</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고 일자</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].rid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].pinsert</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">출고코드</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 위치</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].releaseAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 위치</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_전체_페이지_조회">2.10. 전체 페이지 조회</h3>
+<h3 id="_상세_페이지_수정">2.10. 상세 페이지 수정</h3>
+<div class="listingblock">
+<div class="title">Curl-Request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/find-one?pId=120' -i -X GET \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/find-one?pId=120 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 58
+Host: localhost:8080
+
+{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request-Body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Http-Response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 364
+
+{"product":{"price":775,"cnt":64,"warehouses":[{"wid":96,"wname":"Hyundai i35"}],"pname":"감자깡","pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","pid":120,"pstatus":1},"insertLogs":[{"receiveIn":"2022-9-29","pinsert":170,"wname":"Hyundai i35","wloc":"Slovenia"}],"releaseLogs":[{"releaseAt":"2022-09-29","quantity":106,"wname":"Hyundai i35","wloc":"Slovenia"}]}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response-Body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{"product":{"price":775,"cnt":64,"warehouses":[{"wid":96,"wname":"Hyundai i35"}],"pname":"감자깡","pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","pid":120,"pstatus":1},"insertLogs":[{"receiveIn":"2022-9-29","pinsert":170,"wname":"Hyundai i35","wloc":"Slovenia"}],"releaseLogs":[{"releaseAt":"2022-09-29","quantity":106,"wname":"Hyundai i35","wloc":"Slovenia"}]}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. Response-Fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.price</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">단가</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pstatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품상태</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.pcode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">바코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.cnt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">상품 재고</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[].wid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product.warehouses[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].receiveIn</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고 일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].pinsert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">입고량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>insertLogs[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 위치</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].releaseAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출고량</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].wname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>releaseLogs[].wloc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">창고 위치</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_전체_페이지_조회">2.11. 전체 페이지 조회</h3>
 <div class="listingblock">
 <div class="title">Curl-Request</div>
 <div class="content">
@@ -2300,7 +2441,7 @@ Content-Length: 678
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Response-Fields</caption>
+<caption class="title">Table 23. Response-Fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2348,7 +2489,7 @@ Content-Length: 678
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-05 04:41:01 +0900
+Last updated 2023-04-12 14:43:15 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
