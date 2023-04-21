@@ -2,14 +2,14 @@ spring:
   cache:
     type: redis
   redis:
-    host: '${REDIS_ID}'
-    port: '${REDIS_PORT}'
+    host: ${REDIS_ID}
+    port: ${REDIS_PORT}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # allowMultiQueries=true : 다중 insert 허용
-    url: jdbc:mysql://'${ENDPOINT}':'${PORT}'/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-    username: '${DB_ID}'
-    password: '${DB_PASSWORD}'
+    url: jdbc:mysql://${ENDPOINT}:${PORT}/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${DB_ID}
+    password: ${DB_PASSWORD}
 
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto
