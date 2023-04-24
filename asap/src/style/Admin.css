@@ -163,7 +163,7 @@ input[type="text"] ~ div:hover {
 .content {
   width: 100%;
   /* border: 1px solid red; */
-  box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3);
+  /* box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3); */
 }
 
 /* 상품 목록 */

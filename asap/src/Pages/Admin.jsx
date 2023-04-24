@@ -43,7 +43,7 @@ const AdminContent = () => {
       try {
         setloading(true);
         const response = await axios.get("/find-all?lastId=20");
-        console.log("s리스트dssds", response.data);
+        // console.log("s리스트dssds", response.data);
         setLists(response.data);
       } catch (error) {
         setError(error);

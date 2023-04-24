@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+#header {
+  padding: 10px 50px;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10000;
+}
+
+#header .logo {
+  /* border: 10px solid red; */
+  /* position: relative; */
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 2em;
+  /* display: inline; */
+}
+
+#header ul {
+  /* display: inline; */
+  /* border: 5px solid red; */
+  /* position: relative; */
+  display: flex;
+  gap: 40px;
+}
+
+#header ul li {
+  list-style: none;
+}
+
+#header ul li a {
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  font-size: 1.25em;
+}
+
+#header ul li.active a,
+#header ul li:hover a {
+  color: #30fe6c;
+}
+
+/* 메인페이지 전체 */
+#home {
+  /* position: relative; */
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--black);
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 100px;
+}
+
+#home .content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 650px;
+  z-index: 10;
+}
+
+#home .content h2 {
+  /* position: relative; */
+  font-size: 3em;
+  color: #30fe6c;
+}
+
+#home .content p {
+  /* position: relative; */
+  color: var(--white);
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+
+#home .scan {
+  /* border: 10px solid red; */
+  position: relative;
+  max-height: 90vh;
+}
+
+.scan h3 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  margin-top: 40px;
+  color: var(--white);
+  filter: drop-shadow(0 0 20px var(--white)) drop-shadow(0 0 30px var(--white));
+  letter-spacing: 2px;
+  animation: animateText 0.5s steps(1) infinite;
+}
+
+@keyframes animateText {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.scan .qrcode {
+  position: relative;
+  /* border: 1px solid red; */
+  width: 500px;
+  height: 500px;
+  /* background-size: 400px; */
+  background: url("../Images/QR_Code01.png");
+}
+
+.scan .qrcode:before {
+  content: "";
+  position: absolute;
+  /* border: 5px solid red; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../Images/QR_Code02.png");
+  animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    height: 0;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+.scan .qrcode:after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 18px;
+  /* inset: 5px; */
+  width: 95%;
+  height: 10px;
+  border-radius: 20px;
+  background: #30fe6c;
+  filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c);
+  animation: animationLine 4s ease-in-out infinite;
+}
+
+@keyframes animationLine {
+  0%,
+  100% {
+    top: 20px;
+  }
+  50% {
+    top: 100%;
+  }
+}
+
+.border {
+  /* border: 1px solid red; */
+  width: 520px;
+  height: 520px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("../Images/border.png");
+  background-repeat: no-repeat;
+}
