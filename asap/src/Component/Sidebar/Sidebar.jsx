@@ -6,8 +6,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const menuList = [
-    { id: 0, icon: "fa fa-bar-chart", title: "대시보드" },
-    { id: 1, icon: "fa fa-cog", title: "관리자" },
+    { id: 0, icon: "fa fa-bar-chart", title: "메인" },
+    { id: 1, icon: "fa fa-bar-chart", title: "대시보드" },
+    { id: 2, icon: "fa fa-cog", title: "관리자" },
   ];
 
   const navigator = (id) => () => {
@@ -22,6 +23,9 @@ const Sidebar = () => {
         navigate("/");
         break;
       case 1:
+        navigate("/dashboard");
+        break;
+      case 2:
         navigate("/admin");
         break;
       default:
