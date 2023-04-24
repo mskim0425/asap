@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
 
 import { GetDailyRecord } from "../apis/GetDailyRecord";
@@ -18,7 +19,7 @@ export default function DailyRecord() {
 
   return (
     <div className="dailyRecordSection">
-      <h2>{`2023-04-09 Daily Record`}</h2>
+      <h2>{`${format(Date.now(), "yyyy-MM-dd")} 일일 기록`}</h2>
       <div className="dailyRecords">
         <div className="recordLine">
           <div className="recordBox">
