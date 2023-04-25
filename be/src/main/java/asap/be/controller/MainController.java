@@ -55,6 +55,7 @@ public class MainController {
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
 		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
 		productService.insertOrUpdateStock(productDto);
+
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
 	}
 

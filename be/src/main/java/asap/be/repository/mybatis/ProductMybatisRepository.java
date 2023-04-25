@@ -100,4 +100,14 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.findProductWarehouseById(pId);
 	}
 
+	@Override
+	public Long findByUUID(String uuid) {
+		return productMapper.findByUUID(uuid);
+	}
+
+	@Override
+	public void saveS3ImageUrl(String imageURL, Long pId) {
+		productMapper.saveS3ImageUrl(imageURL, pId);
+	}
+
 }

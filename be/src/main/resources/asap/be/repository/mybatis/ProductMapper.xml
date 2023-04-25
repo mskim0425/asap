@@ -204,4 +204,16 @@
         JOIN Warehouse_table w ON s.wId = w.wId
         WHERE pId = #{pId}
     </select>
+
+    <select id="findByUUID" resultType="java.lang.Long">
+        SELECT pId
+        FROM Product_table
+        WHERE pCode = #{uuid}
+    </select>
+
+    <select id="saveS3ImageUrl">
+        UPDATE Product_table
+        SET pQr = #{imageURL}
+        WHERE pId = #{pId}
+    </select>
 </mapper>

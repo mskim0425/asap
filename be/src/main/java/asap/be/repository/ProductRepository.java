@@ -37,4 +37,8 @@ public interface ProductRepository {
 	Long findSIdByPNameAndWId(String pName, Long wId);
 
 	List<DetailWarehouseDto> findProductWarehouseById(Long pId);
+
+    Long findByUUID(String uuid);
+
+    void saveS3ImageUrl(String imageURL, Long pId);
 }
