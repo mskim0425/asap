@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -25,14 +24,12 @@ public class S3UploadService {
 
     private final AmazonS3 s3;
 
-    @Transactional
     public String uploadImage(ByteArrayInputStream in){
         ObjectMetadata objMeta = new ObjectMetadata();
         String s3FileName = UUID.randomUUID() + ".png";
 
         try (InputStream inputStream = in) {
             objMeta.setContentLength(inputStream.available());
-            objMeta.setContentType("png");
 
             s3.putObject(bucket, s3FileName, inputStream, objMeta);
             return s3.getUrl(bucket, s3FileName).toString();

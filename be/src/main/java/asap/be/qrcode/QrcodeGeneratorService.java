@@ -4,10 +4,11 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.pdf417.encoder.BarcodeMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,6 @@ public class QrcodeGeneratorService {
     //바코드 생성
     private final S3UploadService s3service;
 
-    @Transactional
     public String generateQRcodeImageURL(String url, int width, int height) throws WriterException, IOException {
         QRCodeWriter qr = new QRCodeWriter();
         BitMatrix matrix = qr.encode(url, BarcodeFormat.QR_CODE, width, height);
@@ -34,5 +34,10 @@ public class QrcodeGeneratorService {
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 
         return s3service.uploadImage(in);
+
+
+
     }
+
+    //바코드 이미지 만들어진거 s3저장
 }
