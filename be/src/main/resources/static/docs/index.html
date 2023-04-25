@@ -993,13 +993,13 @@ Vary: Access-Control-Request-Headers
 Content-Type: application/json
 Content-Length: 178
 
-{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-17","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
+{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-20","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-17","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"pname":"상품명","price":10000,"pcode":"상품바코드","cnt":50150,"receiveIn":"2023-04-20","wname":"BMW M5","wloc":"Nicaragua","wid":1,"pid":57777,"sid":57777,"pstatus":1}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1270,13 +1270,13 @@ Vary: Access-Control-Request-Headers
 Content-Type: application/json
 Content-Length: 91
 
-{"stockCnt":1111917,"releaseCnt":1140525,"lastReceiveIn":"2023-04-30","pinsertCnt":2252442}</code></pre>
+{"stockCnt":1148060,"releaseCnt":1176690,"lastReceiveIn":"2023-04-30","pinsertCnt":2324750}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"stockCnt":1111917,"releaseCnt":1140525,"lastReceiveIn":"2023-04-30","pinsertCnt":2252442}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"stockCnt":1148060,"releaseCnt":1176690,"lastReceiveIn":"2023-04-30","pinsertCnt":2324750}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -2247,7 +2247,7 @@ Content-Length: 907
 <div class="listingblock">
 <div class="title">Curl-Request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/find-one?pId=120' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/api/find-one?pId=3' -i -X GET \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{"pId":120,"sId":120,"pName":"새로 변경할 상품명"}'</code></pre>
@@ -2256,7 +2256,7 @@ Content-Length: 907
 <div class="listingblock">
 <div class="title">Http-Request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/find-one?pId=120 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /api/find-one?pId=3 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 58
@@ -2279,15 +2279,15 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 364
+Content-Length: 907
 
-{"product":{"price":775,"cnt":64,"warehouses":[{"wid":96,"wname":"Hyundai i35"}],"pname":"감자깡","pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","pid":120,"pstatus":1},"insertLogs":[{"receiveIn":"2022-9-29","pinsert":170,"wname":"Hyundai i35","wloc":"Slovenia"}],"releaseLogs":[{"releaseAt":"2022-09-29","quantity":106,"wname":"Hyundai i35","wloc":"Slovenia"}]}</code></pre>
+{"product":{"price":390,"cnt":272,"warehouses":[{"wid":27,"wname":"Fiat Freemont"},{"wid":5,"wname":"Ford Focus"}],"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","pid":3,"pstatus":1},"insertLogs":[{"receiveIn":"2023-2-8","pinsert":373,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10 ","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"}],"releaseLogs":[{"releaseAt":"2023-02-08","quantity":101,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-07","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-10","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"}]}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Response-Body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code>{"product":{"price":775,"cnt":64,"warehouses":[{"wid":96,"wname":"Hyundai i35"}],"pname":"감자깡","pcode":"47568c3c-bcef-4170-9ae8-0e815873b419","pid":120,"pstatus":1},"insertLogs":[{"receiveIn":"2022-9-29","pinsert":170,"wname":"Hyundai i35","wloc":"Slovenia"}],"releaseLogs":[{"releaseAt":"2022-09-29","quantity":106,"wname":"Hyundai i35","wloc":"Slovenia"}]}</code></pre>
+<pre class="prettyprint highlight nowrap"><code>{"product":{"price":390,"cnt":272,"warehouses":[{"wid":27,"wname":"Fiat Freemont"},{"wid":5,"wname":"Ford Focus"}],"pname":"소금","pcode":"97db8c78-34a1-4896-9ee6-a6c9acd657f4","pid":3,"pstatus":1},"insertLogs":[{"receiveIn":"2023-2-8","pinsert":373,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10 ","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-10","pinsert":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"},{"receiveIn":"2023-04-12","pinsert":534,"wname":"Ford Focus","wloc":"Andorra"}],"releaseLogs":[{"releaseAt":"2023-02-08","quantity":101,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-07","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"},{"releaseAt":"2023-04-10","quantity":100,"wname":"Fiat Freemont","wloc":"Saint Lucia"}]}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
