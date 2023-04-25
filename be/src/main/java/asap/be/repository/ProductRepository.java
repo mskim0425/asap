@@ -5,6 +5,7 @@ import asap.be.dto.*;
 import java.util.List;
 
 public interface ProductRepository {
+
 	void insertOrUpdateStock(PostProductDto dto);
 
 	void insertOrUpdateRelease(PostProductDto dto);
@@ -36,4 +37,8 @@ public interface ProductRepository {
 	Long findSIdByPNameAndWId(String pName, Long wId);
 
 	List<DetailWarehouseDto> findProductWarehouseById(Long pId);
+
+    Long findByUUID(String uuid);
+
+    void saveS3ImageUrl(String imageURL, Long pId);
 }

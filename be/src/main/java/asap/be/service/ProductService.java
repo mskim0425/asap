@@ -22,4 +22,8 @@ public interface ProductService {
 	Long findPIdByPNameAndWId(String pName, Long wId);
 
 	DetailInfoDto editDetailPage(Long pId, EditProductDto dto);
+
+	Long findByUUID(String uuid);
+
+    void saveS3ImageUrl(String imageURL, Long pId);
 }

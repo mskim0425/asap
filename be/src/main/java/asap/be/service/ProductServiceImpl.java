@@ -124,6 +124,17 @@ public class ProductServiceImpl implements ProductService {
 		return detailPageUsingPId(pId);
 	}
 
+	@Override
+	public Long findByUUID(String uuid) {
+		return productMybatisRepository.findByUUID(uuid);
+
+	}
+
+	@Override
+	public void saveS3ImageUrl(String imageURL, Long pId) {
+		productMybatisRepository.saveS3ImageUrl(imageURL, pId);
+	}
+
 	private void verifiedProduct(Long pId, Long sId) {
 		if (productMybatisRepository.verifiedProduct(pId, sId))
 			throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_EXISTS);

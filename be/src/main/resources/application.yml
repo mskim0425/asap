@@ -21,3 +21,15 @@ logging:
     asap:
       be:
         repository: trace
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    s3:
+      bucket: asap-qr
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

@@ -3,6 +3,7 @@ package asap.be.repository.mybatis;
 import asap.be.dto.*;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,6 +98,16 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Override
 	public List<DetailWarehouseDto> findProductWarehouseById(Long pId) {
 		return productMapper.findProductWarehouseById(pId);
+	}
+
+	@Override
+	public Long findByUUID(String uuid) {
+		return productMapper.findByUUID(uuid);
+	}
+
+	@Override
+	public void saveS3ImageUrl(String imageURL, Long pId) {
+		productMapper.saveS3ImageUrl(imageURL, pId);
 	}
 
 }

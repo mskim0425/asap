@@ -38,7 +38,8 @@ public class RedisConfig extends CachingConfigurerSupport {
 	// 레디스 캐시 설정
 	@Bean
 	public RedisCacheManager redisCacheManager() {
-		RedisCacheConfiguration redisCacheConfig = RedisCacheConfiguration
+		RedisCacheConfiguration redisCacheConfig =
+				RedisCacheConfiguration
 				.defaultCacheConfig() // 만료시간 없음, null value, prefix key 허용
 				.disableCachingNullValues() // null value 방지
 				.entryTtl(Duration.ofMinutes(DEFAULT_EXPIRE_MIN)) // default 유효시간 3분

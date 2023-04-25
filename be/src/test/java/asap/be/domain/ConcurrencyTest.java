@@ -68,14 +68,12 @@ public class ConcurrencyTest {
     @DisplayName("1개씩 100번 출고 요청 - Redisson 적용")
     public void AtOnce100_Redisson() throws InterruptedException {
         int threadcnt = 100;
-        //given 수량100개를 저장한다.
+        //given 수량이 1000개인 데이터를 저장한다.
         List<CompletableFuture<Void>> futures = new ArrayList<>();
-
-
         PostProductDto releaseData = PostProductDto.builder()
-                .pName("TD")
+                .pName("TestData")
                 .price(100)
-                .pCode("TD")
+                .pCode("TestData")
                 .wId(10L)
                 .quantity(1)
                 .build();
@@ -85,10 +83,10 @@ public class ConcurrencyTest {
                 serviceFacade.release("releaseLock", releaseData);
             });
             futures.add(future);
-       } CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+       }
+        log.info("{}", CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join());
 
-        List<EverythingDto> list = productMybatisRepository.findByName("TD");
-        log.info(" 사이즈 "+ list.get(0).getCnt());
+        List<EverythingDto> list = productMybatisRepository.findByName("TestData");
         Assertions.assertThat(list.get(0).getCnt()).isEqualTo(900);
     }
 }

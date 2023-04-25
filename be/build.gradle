@@ -48,10 +48,16 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // Spring Rest Docs
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor' // Spring Rest Docs, Asciidoctor
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // Redis
-    implementation 'org.springframework.session:spring-session-data-redis' // Redis 세션
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.redisson:redisson-spring-boot-starter:3.20.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis' // Redis
+	implementation 'org.springframework.session:spring-session-data-redis' // Redis 세션
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.20.0'
+
+	implementation 'com.google.zxing:core:3.5.1' // QR
+	implementation 'com.google.zxing:javase:3.5.1' //QR
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 
 }
 
