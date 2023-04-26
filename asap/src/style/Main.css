@@ -19,8 +19,9 @@
   /* position: relative; */
   color: var(--white);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 2em;
+  font-style: italic;
 }
 
 #header ul {
@@ -31,19 +32,46 @@
 }
 
 #header ul li {
+  position: relative;
+  /* border: 2px solid var(--black); */
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
+  /* background: linear-gradient(#555353, #363535, #303030);
+  box-shadow: inset 0 5px 1px rgba(0, 0, 0, 0.35), 0 5px 5px rgba(0, 0, 0, 0.5),
+    0 15px 25px rgba(0, 0, 0, 0.35); */
 }
+
+/* #header ul li:before {
+  content: "";
+  position: absolute;
+  inset: 5px 3px;
+  border-top: 1px solid #ccc;
+  filter: blur(2px);
+} */
 
 #header ul li a {
   text-decoration: none;
   color: var(--white);
-  font-weight: 500;
-  font-size: 1.25em;
+  /* font-weight: 500; */
+  /* font-size: 1.2em; */
+  z-index: 1000;
 }
 
-#header ul li.active a,
+#header ul li.active,
+#header ul li:hover {
+  /* color: #30fe6c; */
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.35),
+    inset 0 5px 5px rgba(0, 0, 0, 0.5), inset 0 15px 25px rgba(0, 0, 0, 0.35);
+}
+
+#header ul li.active,
 #header ul li:hover a {
-  color: #30fe6c;
+  color: #fff;
+  text-shadow: 0 0 5px #30fe6c, 0 0 8px #30fe6c;
 }
 
 /* 메인페이지 전체 */
@@ -51,7 +79,7 @@
   /* position: relative; */
   width: 100%;
   min-height: 100vh;
-  background-color: var(--black);
+  background-color: #333333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,7 +87,7 @@
 }
 
 #home .content {
-  border: 10px solid red;
+  /* border: 10px solid red; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -177,9 +205,35 @@
 #stuff,
 #contact {
   /* position: relative; */
-  background: #34353c;
+  background: #333333;
   min-height: 100vh;
   padding: 120px 100px;
+}
+
+#stuff .container2 {
+  /* position: relative; */
+  /* border: 1px solid red; */
+  /* padding: 20px; */
+  /* box-sizing: border-box; */
+  right: 100px;
+  width: 600px;
+  height: 600px;
+  /* overflow: hidden; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+#stuff .container2 .element {
+  /* position: relative; */
+  /* border: 1px solid red; */
+  width: 40px;
+  height: 40px;
+  background-color: var(--white);
+  scale: 0.75;
+  filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c);
 }
 
 #contact .contactText {
@@ -208,16 +262,27 @@
 
 #contact .content {
   /* border: 1px solid red; */
+  /* position: relative; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   margin: 40px 0;
 }
 
-#contact .content a {
-  border: 1px solid red;
+.contentWrapper {
+  /* border: 10px solid red; */
+  position: relative;
+  width: 450px;
+  height: 450px;
+}
+
+.contentWrapper a {
+  /* position: relative; */
+  position: absolute;
+  /* border: 1px solid red; */
   display: flex;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
   text-decoration: none;
@@ -226,8 +291,60 @@
   transition: 0.5s;
 }
 
-#contact .content a:hover {
-  border: 1px solid #30fe6c;
+.contentWrapper a span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--black);
+  overflow: hidden;
+  transform: rotate(calc(90deg * var(--i)));
+}
+
+.contentWrapper:nth-child(1) a:hover span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #30fe6c;
+  transform: translateX(-100%);
+  animation: aniamte 2s linear infinite;
+  animation-delay: calc(0.5s * var(--i));
+  filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c);
+}
+
+.contentWrapper:nth-child(2) a:hover span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #30fe6c;
+  transform: translateX(-100%);
+  animation: aniamte 2s linear infinite;
+  animation-delay: calc(0.5s * var(--i));
+  filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c)
+    hue-rotate(60deg);
+}
+
+.contentWrapper:nth-child(3) a:hover span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #30fe6c;
+  transform: translateX(-100%);
+  animation: aniamte 2s linear infinite;
+  animation-delay: calc(0.5s * var(--i));
+  filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c)
+    hue-rotate(180deg);
+}
+
+@keyframes aniamte {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%,
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 #contact .content a .fa {
