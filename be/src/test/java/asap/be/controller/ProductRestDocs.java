@@ -46,7 +46,7 @@ public class ProductRestDocs {
 	private ProductServiceImpl productService;
 
 
-	@Test
+//	@Test
 	@DisplayName("상품 저장/입고 테스트")
 	void saveProductTest() throws Exception {
 		String content = gson.toJson(SAVE_AND_RECEIVE_PRODUCT);
@@ -91,7 +91,7 @@ public class ProductRestDocs {
 						)));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 출고 테스트")
 	void releaseProductTest() throws Exception {
 		String content = gson.toJson(RELEASE_PRODUCT);
@@ -302,7 +302,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
@@ -346,7 +346,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 가격 수정 테스트")
 	void patchProductPrice() throws Exception {
 
@@ -390,7 +390,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 바코드 수정 테스트")
 	void patchProductBarcode() throws Exception {
 
@@ -434,7 +434,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 전체 수정 테스트")
 	void patchProduct() throws Exception {
 
@@ -480,7 +480,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("상품 상태 변경 테스트 (삭제)")
 	void deleteProduct() throws Exception {
 

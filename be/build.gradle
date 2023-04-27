@@ -57,8 +57,6 @@ dependencies {
 	implementation 'com.google.zxing:javase:3.5.1' //QR
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-
 }
 
 tasks.named('test') {
