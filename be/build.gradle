@@ -58,7 +58,7 @@ dependencies {
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
-
+	implementation group: 'com.theokanning.openai-gpt3-java', name: 'client', version: '0.9.0' // chatGpt
 }
 
 tasks.named('test') {
