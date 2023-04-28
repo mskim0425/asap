@@ -79,7 +79,7 @@
   /* position: relative; */
   width: 100%;
   min-height: 100vh;
-  background-color: #222;
+  background-color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,7 +205,7 @@
 #stuff,
 #contact {
   /* position: relative; */
-  background: #222;
+  background: #333;
   min-height: 100vh;
   padding: 120px 100px;
 }
