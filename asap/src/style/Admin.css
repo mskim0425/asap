@@ -4,16 +4,18 @@
   min-height: 100vh;
   /* border: 10px solid red; */
   transition: 0.5s;
-  background-color: var(--white);
+  /* background-color: var(--white); */
+  background-color: #333;
+  padding-top: 70px;
 }
 
 #chart {
   /* border: 1px solid red; */
-  margin: 20px;
+  /* margin: 20px; */
   box-sizing: border-box;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3);
+  /* box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3); */
 }
 
 #search {
@@ -53,18 +55,19 @@ input[type="text"] ~ div {
 input[type="text"] ~ div {
   width: 15%;
   text-align: center;
-  background-color: var(--blue);
+  background-color: forestgreen;
   color: var(--white);
   border-radius: 0 5px 5px 0;
-  box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3);
+  /* box-shadow: 0 0 15px var(--green); */
+  /* box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3); */
   line-height: 30px;
   cursor: pointer;
 }
 
 #search input[type="text"]:focus,
 #search input[type="text"]:hover {
-  border: 1px solid var(--blue);
-  box-shadow: 0 0 5px var(--blue);
+  border: 1px solid var(--green);
+  box-shadow: 0 0 5px var(--green);
 }
 
 #search input[type="text"]::placeholder {
@@ -78,7 +81,7 @@ input[type="text"] ~ div {
 }
 
 input[type="text"] ~ div:hover {
-  background-color: #104285;
+  box-shadow: 0 0 20px var(--green);
 }
 
 .addButton {
@@ -86,7 +89,7 @@ input[type="text"] ~ div:hover {
   right: 0;
   height: 30px;
   width: 30px;
-  background-color: var(--blue);
+  background-color: forestgreen;
   color: var(--white);
   cursor: pointer;
 }
@@ -119,7 +122,7 @@ input[type="text"] ~ div:hover {
   margin-top: 10px;
   border-radius: 5px;
   color: var(--white);
-  background-color: var(--blue);
+  background-color: forestgreen;
   cursor: pointer;
 }
 
@@ -142,7 +145,7 @@ input[type="text"] ~ div:hover {
   text-align: center;
   border-radius: 5px 0 0 5px;
   color: var(--white);
-  background-color: var(--blue);
+  background-color: forestgreen;
 }
 
 .info_wrapper > input {
@@ -175,13 +178,14 @@ input[type="text"] ~ div:hover {
   /* border: 1px solid red; */
   overflow: scroll;
   overflow-x: hidden;
+  filter: drop-shadow(0 0 10px #30fe6c);
 }
 
 .header {
   /* border: 1px solid red; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
-  background-color: #1b73e8;
+  background-color: forestgreen;
   color: #fff;
 }
 

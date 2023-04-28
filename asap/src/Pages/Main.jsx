@@ -1,53 +1,8 @@
 import "../style/Main.css";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const navigate = useNavigate();
-
-  const menuList = [
-    { id: 0, icon: "fa fa-bar-chart", title: "메인" },
-    { id: 1, icon: "fa fa-bar-chart", title: "대시보드" },
-    { id: 2, icon: "fa fa-cog", title: "관리자" },
-  ];
-
-  const navigator = (id) => () => {
-    //클릭된 메뉴 체크
-    const lists = document.querySelectorAll(".nav li");
-    // function active() {
-    lists.forEach((list) => list.classList.remove("active"));
-    this.classList.add("active");
-    // }
-
-    // 이동
-    switch (id) {
-      case 0:
-        navigate("/");
-        break;
-      case 1:
-        navigate("/dashboard");
-        break;
-      case 2:
-        navigate("/admin");
-        break;
-      default:
-    }
-  };
-
-  // const lists = document.querySelectorAll(".nav li");
-  // function active() {
-  //   lists.forEach((list) => list.classList.remove("active"));
-  //   this.classList.add("active");
-  // }
-
-  // lists.forEach((list) => list.addEventListener("click", active));
-
-  function menuToggle() {
-    const header = document.querySelector("#header");
-    header.classList.toggle("active");
-  }
-
   useEffect(() => {
     let container = document.querySelector(".container2");
     for (let i = 1; i <= 200; i++) {
@@ -95,23 +50,6 @@ const Main = () => {
 
   return (
     <div>
-      <div id="header">
-        <a href="#none" className="logo">
-          ASAP
-        </a>
-        <div className="menuToggle" onClick={menuToggle}></div>
-        <ul className="nav">
-          <li className="active">
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#stuff">Stuff</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-      </div>
       <section id="home">
         <div className="content">
           <h2>실시간 재고 관리 시스템</h2>
@@ -128,12 +66,10 @@ const Main = () => {
         <div className="squareText">
           <h3>QR CODE로 어디서든 물품 위치 확인 가능</h3>
           <span>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-            nostrum perferendis incidunt natus consequuntur facilis repellat
-            quasi facere fugiat quod eaque at illo vel tempora, exercitationem
-            officia totam minima voluptatem officiis aperiam hic voluptates
-            dignissimos ipsa. Ullam impedit nulla, consectetur recusandae quod
-            mollitia modi iure numquam, cum magni alias debitis!
+            ASAP는 재고 공급 및 수요 활동을 처리하여 판매 채널 전체에서
+            실시간으로 정확한 글로벌 가시성을 제공하는 클라우드 서비스
+            솔루션입니다. 고객의 구매 경험을 향상하고 재고 부족 및 과다 판매를
+            방지하도록 비즈니스 운영을 최적화할 수 있습니다.
           </span>
         </div>
       </section>
