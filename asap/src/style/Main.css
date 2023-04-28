@@ -79,7 +79,7 @@
   /* position: relative; */
   width: 100%;
   min-height: 100vh;
-  background-color: #333333;
+  background-color: #222;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,9 +205,13 @@
 #stuff,
 #contact {
   /* position: relative; */
-  background: #333333;
+  background: #222;
   min-height: 100vh;
   padding: 120px 100px;
+}
+
+#stuff {
+  position: relative;
 }
 
 #stuff .container2 {
@@ -229,11 +233,29 @@
 #stuff .container2 .element {
   /* position: relative; */
   /* border: 1px solid red; */
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: var(--white);
   scale: 0.75;
   filter: drop-shadow(0 0 20px #30fe6c) drop-shadow(0 0 30px #30fe6c);
+}
+
+#stuff .squareText {
+  color: var(--white);
+  /* border: 1px solid red; */
+  position: absolute;
+  margin: 0 10% 0 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+}
+
+#stuff .squareText h3 {
+  font-size: 1.5em;
+  color: #30fe6c;
+  font-weight: bold;
+  margin-bottom: 3%;
 }
 
 #contact .contactText {

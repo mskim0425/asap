@@ -1,7 +1,9 @@
 import axios from "axios";
 import { React, useEffect, useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import "../style/Admin.css";
+import warehouseData from "../warehouseData/warehouseData";
 
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
@@ -42,7 +44,7 @@ const AdminContent = () => {
     const stuffList = async () => {
       try {
         setloading(true);
-        const response = await axios.get("/find-all?lastId=20");
+        const response = await axios.get("/find-all?lastId=100");
         // console.log("s리스트dssds", response.data);
         setLists(response.data);
       } catch (error) {
@@ -88,6 +90,13 @@ const AdminContent = () => {
     }
     setloading(false);
   };
+
+  // const { table } = require("console");
+  // const xlsxFile = require("read-excel-file/node");
+
+  // xlsxFile("./Data.xlsx").then((sheets) => {
+  //   console.log(sheets);
+  // });
 
   const pName = product.pname;
   const productPrice = product.price;
@@ -150,6 +159,10 @@ const AdminContent = () => {
   const showAddProduct = () => {
     const content = document.querySelector(".add_stuff");
     content.classList.toggle("active");
+
+    let uuid = uuidv4();
+    // console.log(uuid);
+    setCode(uuid);
   };
 
   let page = 10;
@@ -229,9 +242,11 @@ const AdminContent = () => {
           </div>
           <input
             type="text"
+            value={code}
             onChange={(e) => {
               setCode(e.target.value);
             }}
+            readOnly
           ></input>
         </div>
         <div className="info_wrapper">
@@ -244,6 +259,10 @@ const AdminContent = () => {
               setWarehouseId(e.target.value);
             }}
           ></input>
+          <button>창고검색</button>
+          {/* <div className="warehouseLists"> */}
+          {/* <div></div> */}
+          {/* </div> */}
         </div>
         <div className="info_wrapper">
           <div className="stuff_title">

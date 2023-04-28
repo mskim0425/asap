@@ -1,15 +1,47 @@
 import "../style/Main.css";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  const lists = document.querySelectorAll(".nav li");
-  function active() {
+  const navigate = useNavigate();
+
+  const menuList = [
+    { id: 0, icon: "fa fa-bar-chart", title: "메인" },
+    { id: 1, icon: "fa fa-bar-chart", title: "대시보드" },
+    { id: 2, icon: "fa fa-cog", title: "관리자" },
+  ];
+
+  const navigator = (id) => () => {
+    //클릭된 메뉴 체크
+    const lists = document.querySelectorAll(".nav li");
+    // function active() {
     lists.forEach((list) => list.classList.remove("active"));
     this.classList.add("active");
-  }
+    // }
 
-  lists.forEach((list) => list.addEventListener("click", active));
+    // 이동
+    switch (id) {
+      case 0:
+        navigate("/");
+        break;
+      case 1:
+        navigate("/dashboard");
+        break;
+      case 2:
+        navigate("/admin");
+        break;
+      default:
+    }
+  };
+
+  // const lists = document.querySelectorAll(".nav li");
+  // function active() {
+  //   lists.forEach((list) => list.classList.remove("active"));
+  //   this.classList.add("active");
+  // }
+
+  // lists.forEach((list) => list.addEventListener("click", active));
 
   function menuToggle() {
     const header = document.querySelector("#header");
@@ -18,7 +50,7 @@ const Main = () => {
 
   useEffect(() => {
     let container = document.querySelector(".container2");
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 200; i++) {
       let dot = document.createElement("div");
       dot.classList.add("element");
       container.appendChild(dot);
@@ -93,6 +125,17 @@ const Main = () => {
       </section>
       <section id="stuff">
         <div className="container2"></div>
+        <div className="squareText">
+          <h3>QR CODE로 어디서든 물품 위치 확인 가능</h3>
+          <span>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+            nostrum perferendis incidunt natus consequuntur facilis repellat
+            quasi facere fugiat quod eaque at illo vel tempora, exercitationem
+            officia totam minima voluptatem officiis aperiam hic voluptates
+            dignissimos ipsa. Ullam impedit nulla, consectetur recusandae quod
+            mollitia modi iure numquam, cum magni alias debitis!
+          </span>
+        </div>
       </section>
       <section id="contact">
         <div className="contactText">
