@@ -18,5 +18,6 @@ public class DetailProductDto {
 	private int price;
 	private int pStatus;
 	private int cnt;
+	private String pQr;
 	private List<DetailWarehouseDto> warehouses;
 }

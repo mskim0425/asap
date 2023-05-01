@@ -195,7 +195,7 @@
     </select>
 
     <select id="findProductById" resultType="DetailProductDto">
-        SELECT pId, pName, pCode, price, pStatus
+        SELECT pId, pName, pCode, price, pStatus, pQr
         FROM Product_table WHERE pId = #{pId}
     </select>
 

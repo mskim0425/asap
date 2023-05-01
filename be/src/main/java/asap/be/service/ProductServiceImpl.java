@@ -98,6 +98,7 @@ public class ProductServiceImpl implements ProductService {
 				.pStatus(product.getPStatus())
 				.pCode(product.getPCode())
 				.pName(product.getPName())
+				.pQr(product.getPQr())
 				.cnt(insert.get(0).getCnt())
 				.warehouses(productMybatisRepository.findProductWarehouseById(product.getPId()))
 				.build();
