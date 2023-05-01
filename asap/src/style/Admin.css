@@ -232,8 +232,13 @@ input[type="text"] ~ div:hover {
 }
 
 .detail_cell {
+  /* border: 1px solid red; */
   padding: 10px;
   background-color: var(--white);
+}
+
+.detail_cell.height {
+  height: 160px;
 }
 
 .detail_cell.color {
@@ -251,7 +256,7 @@ input[type="text"] ~ div:hover {
 .stock,
 .release {
   box-sizing: border-box;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   margin: 0;
 }
 
@@ -268,7 +273,7 @@ input[type="text"] ~ div:hover {
 }
 
 .product_quantity div:nth-child(1) {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   float: left;
 }
 

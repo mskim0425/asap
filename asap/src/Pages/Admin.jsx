@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import "../style/Admin.css";
@@ -31,6 +31,11 @@ const AdminContent = () => {
   const [warehouses, setWarehouses] = useState("");
   const [wid, setWid] = useState("");
 
+  //페이징
+  const [pageParam, setPageParam] = useState(10);
+  const [target, setTarget] = useState(null);
+  // console.log("product",);
+
   let newData = {
     pName: name,
     price: price,
@@ -40,19 +45,24 @@ const AdminContent = () => {
   };
 
   //리스트 가져오기
-  useEffect(() => {
-    const stuffList = async () => {
-      try {
-        setloading(true);
-        const response = await axios.get("/find-all?lastId=100");
-        // console.log("s리스트dssds", response.data);
-        setLists(response.data);
-      } catch (error) {
-        setError(error);
-      }
-      setloading(false);
-    };
+  const stuffList = async () => {
+    try {
+      setloading(true);
+      const response = await axios.get(`/find-all?lastId=${pageParam}`);
+      let sortList = response.data.sort((a, b) => a.pid - b.pid);
+      // console.log("s리스트dssds", sortList);
+      setLists((prev) => [...prev, ...sortList]);
+      setPageParam(pageParam + 10);
+      console.log("page", pageParam);
+    } catch (error) {
+      setError(error);
+    }
+    setloading(false);
+  };
 
+  useEffect(() => {
+    // setPageParam(10);
+    // console.log(pageParam);
     stuffList();
   }, []);
 
@@ -90,13 +100,6 @@ const AdminContent = () => {
     }
     setloading(false);
   };
-
-  // const { table } = require("console");
-  // const xlsxFile = require("read-excel-file/node");
-
-  // xlsxFile("./Data.xlsx").then((sheets) => {
-  //   console.log(sheets);
-  // });
 
   const pName = product.pname;
   const productPrice = product.price;
@@ -165,18 +168,23 @@ const AdminContent = () => {
     setCode(uuid);
   };
 
-  let page = 10;
-  const [height, setHeight] = useState(0);
-  const ref = useRef(null);
-
-  function paging() {
-    // getList(page);
-    page = page + 10;
-  }
+  //무한스크롤
   useEffect(() => {
-    setHeight(ref);
-  }, [height]);
-  // console.log("높이", height.current);
+    let observer;
+    if (target) {
+      //스크롤끝부분
+      const onIntersect = async ([entry], observer, event) => {
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target);
+          await stuffList();
+          observer.observe(entry.target);
+        }
+      };
+      observer = new IntersectionObserver(onIntersect, { threshold: 1 });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
 
   if (loading)
     return (
@@ -253,16 +261,21 @@ const AdminContent = () => {
           <div className="stuff_title">
             <span>창고 ID</span>
           </div>
-          <input
+          <select
+            onChange={(e) => {
+              setWarehouseId(e.target.value);
+            }}
+          >
+            {warehouseData.map((data, index) => {
+              return <option>{Object.values(data)}</option>;
+            })}
+          </select>
+          {/* <input
             type="text"
             onChange={(e) => {
               setWarehouseId(e.target.value);
             }}
-          ></input>
-          <button>창고검색</button>
-          {/* <div className="warehouseLists"> */}
-          {/* <div></div> */}
-          {/* </div> */}
+          ></input> */}
         </div>
         <div className="info_wrapper">
           <div className="stuff_title">
@@ -295,6 +308,7 @@ const AdminContent = () => {
                 return (
                   <>
                     <div
+                      ref={setTarget}
                       key={index}
                       className="row"
                       onClick={() => toggleComment(list.pid)}
@@ -314,10 +328,18 @@ const AdminContent = () => {
                             <div className="detail_cell color">재고</div>
                           </div>
                           <div className="detail_row">
-                            <div className="detail_cell">{product.pname}</div>
-                            <div className="detail_cell">${product.price}</div>
-                            <div className="detail_cell">{product.pcode}</div>
-                            <div className="detail_cell">{product.cnt}</div>
+                            <div className="detail_cell height">
+                              {product.pname}
+                            </div>
+                            <div className="detail_cell height">
+                              ${product.price}
+                            </div>
+                            <div className="detail_cell height">
+                              <img src={product.pqr} alt="" />
+                            </div>
+                            <div className="detail_cell height">
+                              {product.cnt}
+                            </div>
                           </div>
                         </div>
 
@@ -407,6 +429,7 @@ const AdminContent = () => {
               })}
           </div>
         </div>
+        {/* <div ref={setTarget}>This is Target.</div> */}
       </div>
     </div>
   );
