@@ -34,7 +34,7 @@ const AdminContent = () => {
   //페이징
   const [pageParam, setPageParam] = useState(10);
   const [target, setTarget] = useState(null);
-  // console.log(target);
+  // console.log("product",);
 
   let newData = {
     pName: name,
@@ -334,7 +334,9 @@ const AdminContent = () => {
                             <div className="detail_cell height">
                               ${product.price}
                             </div>
-                            <div className="detail_cell qrcode height"></div>
+                            <div className="detail_cell qrcode height">
+                              <img src={product.pqr} alt="" />
+                            </div>
                             <div className="detail_cell height">
                               {product.cnt}
                             </div>
