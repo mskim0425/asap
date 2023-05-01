@@ -56,7 +56,7 @@ public class MainController {
 		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
 		productService.insertOrUpdateStock(productDto);
 
-		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getPName(), productDto.getWId(), productDto.getPCode()), HttpStatus.OK);
+		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getpName(), productDto.getwId(), productDto.getpCode()), HttpStatus.OK);
 	}
 
 	/**

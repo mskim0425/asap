@@ -37,21 +37,21 @@ public class ProductServiceImpl implements ProductService {
 		productMybatisRepository.insertOrUpdateStock(dto);
 
 		if (dto.getQuantity() != 0) {
-			verifiedProductByName(dto.getPName(), dto.getWId());
+			verifiedProductByName(dto.getpName(), dto.getwId());
 			verifiedQuantity(dto);
 		}
 
 		productMybatisRepository.insertOrUpdateRelease(dto);
 
-		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());
+		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getpName(), dto.getwId(), dto.getpCode());
 
-		if (everythingDto != null && dto.getPInsert() != 0) {
-			sb.append(dto.getPName()).append(" ").append("+").append(dto.getPInsert()).append(" 입고");
+		if (everythingDto != null && dto.getpInsert() != 0) {
+			sb.append(dto.getpName()).append(" ").append("+").append(dto.getpInsert()).append(" 입고");
 			notificationService.send("입고 알림!", sb.toString(), NotificationType.RECEIVE);
 		}
 
 		if (everythingDto != null && everythingDto.getCnt() >= dto.getQuantity() && dto.getQuantity() != 0) {
-			sb.append(dto.getPName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
+			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
 			notificationService.send("출고 알림!", sb.toString(), NotificationType.RELEASE);
 		}
 	}
