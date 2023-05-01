@@ -1,34 +1,34 @@
-#spring:
-#  cache:
-#    type: redis
-#  redis:
-#    host: 172.17.0.2
-#    port: 6379
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    # allowMultiQueries=true : 다중 insert 허용
-#    url: jdbc:mysql://database-1.ckvcfoeqtntq.ap-northeast-2.rds.amazonaws.com:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-#    username: admin
-#    password: hyoreal000501
-#mybatis:
-#  type-aliases-package: asap.be.domain, asap.be.dto
-#  configuration:
-#    map-underscore-to-camel-case: true
-#
-#logging:
-#  level:
-#    asap:
-#      be:
-#        repository: trace
-#
-#cloud:
-#  aws:
-#    credentials:
-#      access-key: ${AWS_ACCESS_KEY_ID}
-#      secret-key: ${AWS_SECRET_ACCESS_KEY}
-#    s3:
-#      bucket: asap-qr
-#    region:
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
+spring:
+  cache:
+    type: redis
+  redis:
+    host: 172.17.0.2
+    port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # allowMultiQueries=true : 다중 insert 허용
+    url: jdbc:mysql://database-1.ckvcfoeqtntq.ap-northeast-2.rds.amazonaws.com:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: admin
+    password: hyoreal000501
+mybatis:
+  type-aliases-package: asap.be.domain, asap.be.dto
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    asap:
+      be:
+        repository: trace
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    s3:
+      bucket: asap-qr
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
