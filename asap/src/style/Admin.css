@@ -241,11 +241,6 @@ input[type="text"] ~ div:hover {
   height: 160px;
 }
 
-.detail_cell.qrcode {
-  /* border: 1px solid red; */
-  /* background: url("../Images/qrcode.png") no-repeat center; */
-}
-
 .detail_cell.color {
   background-color: rgba(173, 216, 230, 0.387);
 }
@@ -261,7 +256,7 @@ input[type="text"] ~ div:hover {
 .stock,
 .release {
   box-sizing: border-box;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   margin: 0;
 }
 
@@ -278,7 +273,7 @@ input[type="text"] ~ div:hover {
 }
 
 .product_quantity div:nth-child(1) {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   float: left;
 }
 

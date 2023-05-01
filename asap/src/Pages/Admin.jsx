@@ -334,7 +334,7 @@ const AdminContent = () => {
                             <div className="detail_cell height">
                               ${product.price}
                             </div>
-                            <div className="detail_cell qrcode height">
+                            <div className="detail_cell height">
                               <img src={product.pqr} alt="" />
                             </div>
                             <div className="detail_cell height">
