@@ -232,8 +232,18 @@ input[type="text"] ~ div:hover {
 }
 
 .detail_cell {
+  /* border: 1px solid red; */
   padding: 10px;
   background-color: var(--white);
+}
+
+.detail_cell.height {
+  height: 160px;
+}
+
+.detail_cell.qrcode {
+  /* border: 1px solid red; */
+  background: url("../Images/qrcode.png") no-repeat center;
 }
 
 .detail_cell.color {

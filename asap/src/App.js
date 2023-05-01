@@ -23,7 +23,7 @@ function App() {
         <Route path="/loading" Component={Loading} />
       </Routes>
       {/* </div> */}
-      <SSE />
+      {/* <SSE /> */}
     </BrowserRouter>
   );
 }
