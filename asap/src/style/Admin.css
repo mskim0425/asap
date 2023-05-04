@@ -5,10 +5,16 @@
   /* border: 10px solid red; */
   transition: 0.5s;
   /* background-color: var(--white); */
-  background-color: #333;
+  background-color: var(--black);
+  display: flex;
+  justify-content: center;
   padding-top: 70px;
 }
 
+#sse {
+  /* border: 1px solid red; */
+  min-height: 100vh;
+}
 #chart {
   /* border: 1px solid red; */
   /* margin: 20px; */

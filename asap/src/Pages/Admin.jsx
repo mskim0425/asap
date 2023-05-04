@@ -8,6 +8,8 @@ import warehouseData from "../warehouseData/warehouseData";
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
 import Chart from "../Component/Chart/MonthlyChart";
+import SSE from "../Component/SSE";
+// import SSE from """
 
 const AdminContent = () => {
   const [loading, setloading] = useState(false);
@@ -91,6 +93,7 @@ const AdminContent = () => {
   };
 
   //새로운 물품 추가
+  console.log(newData);
   const addStuff = async () => {
     try {
       await axios.post("/prod", newData);
@@ -202,234 +205,240 @@ const AdminContent = () => {
 
   return (
     <div id="main">
-      <div id="chart">
+      {/* <div id="chart">
         <Chart />
-      </div>
-      <div id="search">
-        <div className="searchWrapper">
-          <input
-            type="text"
-            placeholder="상품을 검색을 해주세요."
-            id="search"
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <div onClick={onSearch}>검색</div>
-          <button className="addButton" onClick={showAddProduct}>
-            +
-          </button>
-        </div>
-      </div>
-      <div className="add_stuff">
-        <div className="info_wrapper">
-          <div className="stuff_title">
-            <span>상품명</span>
+      </div> */}
+      <div style={{ width: "1200px" }}>
+        <div id="search">
+          <div className="searchWrapper">
+            <input
+              type="text"
+              placeholder="상품을 검색을 해주세요."
+              id="search"
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            />
+            <div onClick={onSearch}>검색</div>
+            <button className="addButton" onClick={showAddProduct}>
+              +
+            </button>
           </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          ></input>
         </div>
-        <div className="info_wrapper">
-          <div className="stuff_title">
-            <span>단가</span>
+        <div className="add_stuff">
+          <div className="info_wrapper">
+            <div className="stuff_title">
+              <span>상품명</span>
+            </div>
+            <input
+              type="text"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            ></input>
           </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div className="info_wrapper">
-          <div className="stuff_title">
-            <span>바코드</span>
+          <div className="info_wrapper">
+            <div className="stuff_title">
+              <span>단가</span>
+            </div>
+            <input
+              type="text"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            ></input>
           </div>
-          <input
-            type="text"
-            value={code}
-            onChange={(e) => {
-              setCode(e.target.value);
-            }}
-            readOnly
-          ></input>
-        </div>
-        <div className="info_wrapper">
-          <div className="stuff_title">
-            <span>창고 ID</span>
+          <div className="info_wrapper">
+            <div className="stuff_title">
+              <span>바코드</span>
+            </div>
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => {
+                setCode(e.target.value);
+              }}
+              readOnly
+            ></input>
           </div>
-          <select
-            onChange={(e) => {
-              setWarehouseId(e.target.value);
-            }}
-          >
-            {warehouseData.map((data, index) => {
-              return <option>{Object.values(data)}</option>;
-            })}
-          </select>
-          {/* <input
+          <div className="info_wrapper">
+            <div className="stuff_title">
+              <span>창고 ID</span>
+            </div>
+            <select
+              onChange={(e) => {
+                setWarehouseId(e.target.value);
+              }}
+            >
+              <option value="none">선택</option>
+              {warehouseData.map((data, index) => {
+                return <option key={index}>{Object.values(data)}</option>;
+              })}
+            </select>
+            {/* <input
             type="text"
             onChange={(e) => {
               setWarehouseId(e.target.value);
             }}
           ></input> */}
-        </div>
-        <div className="info_wrapper">
-          <div className="stuff_title">
-            <span>입고량</span>
           </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setStock(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div className="button_wrapper">
-          <button onClick={addStuff}>추가</button>
-        </div>
-      </div>
-      <div id="list">
-        <div className="content active">
-          {/* 상품리스트 */}
-          <div className="table2">
-            <div className="header">
-              <div className="cell">상품 코드</div>
-              <div className="cell">상품명</div>
-              <div className="cell">단가</div>
-              <div className="cell">바코드</div>
+          <div className="info_wrapper">
+            <div className="stuff_title">
+              <span>입고량</span>
             </div>
+            <input
+              type="text"
+              onChange={(e) => {
+                setStock(e.target.value);
+              }}
+            ></input>
+          </div>
+          <div className="button_wrapper">
+            <button onClick={addStuff}>추가</button>
+          </div>
+        </div>
+        <div id="list">
+          <div className="content active">
+            {/* 상품리스트 */}
+            <div className="table2">
+              <div className="header">
+                <div className="cell">상품 코드</div>
+                <div className="cell">상품명</div>
+                <div className="cell">단가</div>
+                <div className="cell">바코드</div>
+              </div>
 
-            {lists &&
-              Array.from(lists).map((list, index) => {
-                return (
-                  <>
-                    <div
-                      ref={setTarget}
-                      key={index}
-                      className="row"
-                      onClick={() => toggleComment(list.pid)}
-                    >
-                      <div className="cell">{list.pid}</div>
-                      <div className="cell">{list.pname}</div>
-                      <div className="cell">${list.price}</div>
-                      <div className="cell">{list.pcode}</div>
-                    </div>
-                    {shownComments[list.pid] ? (
-                      <div className="detail">
-                        <div className="detail_wrapper">
-                          <div className="detail_row">
-                            <div className="detail_cell color">상품명</div>
-                            <div className="detail_cell color">가격</div>
-                            <div className="detail_cell color">바코드</div>
-                            <div className="detail_cell color">재고</div>
+              {lists &&
+                Array.from(lists).map((list, index) => {
+                  return (
+                    <>
+                      <div
+                        ref={setTarget}
+                        key={index}
+                        className="row"
+                        onClick={() => toggleComment(list.pid)}
+                      >
+                        <div className="cell">{list.pid}</div>
+                        <div className="cell">{list.pname}</div>
+                        <div className="cell">${list.price}</div>
+                        <div className="cell">{list.pcode}</div>
+                      </div>
+                      {shownComments[list.pid] ? (
+                        <div className="detail">
+                          <div className="detail_wrapper">
+                            <div className="detail_row">
+                              <div className="detail_cell color">상품명</div>
+                              <div className="detail_cell color">가격</div>
+                              <div className="detail_cell color">바코드</div>
+                              <div className="detail_cell color">재고</div>
+                            </div>
+                            <div className="detail_row">
+                              <div className="detail_cell height">
+                                {product.pname}
+                              </div>
+                              <div className="detail_cell height">
+                                ${product.price}
+                              </div>
+                              <div className="detail_cell height">
+                                <img src={product.pqr} alt="" />
+                              </div>
+                              <div className="detail_cell height">
+                                {product.cnt}
+                              </div>
+                            </div>
                           </div>
-                          <div className="detail_row">
-                            <div className="detail_cell height">
-                              {product.pname}
-                            </div>
-                            <div className="detail_cell height">
-                              ${product.price}
-                            </div>
-                            <div className="detail_cell height">
-                              <img src={product.pqr} alt="" />
-                            </div>
-                            <div className="detail_cell height">
-                              {product.cnt}
-                            </div>
-                          </div>
-                        </div>
 
-                        <div className="product_quantity">
+                          <div className="product_quantity">
+                            <div>
+                              <h3>창고 선택</h3>
+                              <select
+                                onChange={(e) => {
+                                  setWid(e.target.value);
+                                }}
+                              >
+                                <option value="none">선택</option>
+                                {Array.from(warehouses).map((el, index) => {
+                                  return (
+                                    <>
+                                      <option key={index} value={el.wid}>
+                                        {el.wid}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                              </select>
+                            </div>
+                            <div className="stock">
+                              <input
+                                type="text"
+                                onChange={(e) => setStock(e.target.value)}
+                              />
+                              <button onClick={stockQuantity}>입고량</button>
+                            </div>
+                            <div className="release">
+                              <input
+                                type="text"
+                                onChange={(e) =>
+                                  setReleaseQuantity(e.target.value)
+                                }
+                              />
+                              <button onClick={releaseCount}>출고량</button>
+                            </div>
+                          </div>
                           <div>
-                            <h3>창고 선택</h3>
-                            <select
-                              onChange={(e) => {
-                                setWid(e.target.value);
-                              }}
-                            >
-                              <option value="none">선택</option>
-                              {Array.from(warehouses).map((el, index) => {
+                            <div className="store_row">
+                              <div>입고일</div>
+                              <div>입고량</div>
+                              <div>창고 이름</div>
+                              <div>창고 위치</div>
+                            </div>
+                            {stores &&
+                              stores.map((store, index) => {
                                 return (
-                                  <>
-                                    <option key={index} value={el.wid}>
-                                      {el.wid}
-                                    </option>
-                                  </>
+                                  <div key={index}>
+                                    <div className="store_row">
+                                      <div>{store.receiveIn}</div>
+                                      <div>{store.pinsert}</div>
+                                      <div>{store.wname}</div>
+                                      <div>{store.wloc}</div>
+                                    </div>
+                                  </div>
                                 );
                               })}
-                            </select>
                           </div>
-                          <div className="stock">
-                            <input
-                              type="text"
-                              onChange={(e) => setStock(e.target.value)}
-                            />
-                            <button onClick={stockQuantity}>입고량</button>
-                          </div>
-                          <div className="release">
-                            <input
-                              type="text"
-                              onChange={(e) =>
-                                setReleaseQuantity(e.target.value)
-                              }
-                            />
-                            <button onClick={releaseCount}>출고량</button>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="store_row">
-                            <div>입고일</div>
-                            <div>입고량</div>
-                            <div>창고 이름</div>
-                            <div>창고 위치</div>
-                          </div>
-                          {stores &&
-                            stores.map((store, index) => {
-                              return (
-                                <div key={index}>
-                                  <div className="store_row">
-                                    <div>{store.receiveIn}</div>
-                                    <div>{store.pinsert}</div>
-                                    <div>{store.wname}</div>
-                                    <div>{store.wloc}</div>
+                          <div>
+                            <div className="release_row">
+                              <div>출고일</div>
+                              <div>출고량</div>
+                              <div>창고 이름</div>
+                              <div>창고 위치</div>
+                            </div>
+                            {release &&
+                              release.map((release, index) => {
+                                return (
+                                  <div key={index}>
+                                    <div className="release_row">
+                                      <div>{release.releaseAt}</div>
+                                      <div>{release.quantity}</div>
+                                      <div>{release.wname}</div>
+                                      <div>{release.wloc}</div>
+                                    </div>
                                   </div>
-                                </div>
-                              );
-                            })}
-                        </div>
-                        <div>
-                          <div className="release_row">
-                            <div>출고일</div>
-                            <div>출고량</div>
-                            <div>창고 이름</div>
-                            <div>창고 위치</div>
+                                );
+                              })}
                           </div>
-                          {release &&
-                            release.map((release, index) => {
-                              return (
-                                <div key={index}>
-                                  <div className="release_row">
-                                    <div>{release.releaseAt}</div>
-                                    <div>{release.quantity}</div>
-                                    <div>{release.wname}</div>
-                                    <div>{release.wloc}</div>
-                                  </div>
-                                </div>
-                              );
-                            })}
                         </div>
-                      </div>
-                    ) : null}
-                  </>
-                );
-              })}
+                      ) : null}
+                    </>
+                  );
+                })}
+            </div>
           </div>
+          {/* <div ref={setTarget}>This is Target.</div> */}
         </div>
-        {/* <div ref={setTarget}>This is Target.</div> */}
+      </div>
+      <div id="sse">
+        <SSE />
       </div>
     </div>
   );
