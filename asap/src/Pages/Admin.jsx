@@ -36,7 +36,6 @@ const AdminContent = () => {
   //페이징
   const [pageParam, setPageParam] = useState(10);
   const [target, setTarget] = useState(null);
-  // console.log("product",);
 
   let newData = {
     pName: name,
@@ -189,6 +188,12 @@ const AdminContent = () => {
     return () => observer && observer.disconnect();
   }, [target]);
 
+  const wareHouseId = (e) => {
+    let id = Number(e.target.value) + 1;
+    // console.log("e", id);
+    setWarehouseId(id);
+  };
+
   if (loading)
     return (
       <div className="container">
@@ -266,13 +271,21 @@ const AdminContent = () => {
               <span>창고 ID</span>
             </div>
             <select
+              id="selectWareHouse"
+              // onChange={(e, index) => {
+              //   setWarehouseId(index + 1);
+              // }}
               onChange={(e) => {
-                setWarehouseId(e.target.value);
+                wareHouseId(e);
               }}
             >
               <option value="none">선택</option>
               {warehouseData.map((data, index) => {
-                return <option key={index}>{Object.values(data)}</option>;
+                return (
+                  <option key={index} value={index}>
+                    {Object.values(data)}
+                  </option>
+                );
               })}
             </select>
             {/* <input
@@ -437,9 +450,7 @@ const AdminContent = () => {
           {/* <div ref={setTarget}>This is Target.</div> */}
         </div>
       </div>
-      <div id="sse">
-        <SSE />
-      </div>
+      <div id="sse">{/* <SSE /> */}</div>
     </div>
   );
 };
