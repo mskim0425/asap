@@ -39,10 +39,10 @@ const AdminContent = () => {
 
   let newData = {
     pName: name,
-    price: price,
+    price: Number(price),
     pCode: code,
     wId: warehouseId,
-    pInsert: stock,
+    pInsert: Number(stock),
   };
 
   //리스트 가져오기
