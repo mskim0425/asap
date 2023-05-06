@@ -75,7 +75,7 @@ public class MainController {
 	 * @param pName
 	 */
 	@GetMapping("/cnt-product-by-date")
-	public ResponseEntity<List<ProductCntDto>> getProductCntByDate(@RequestParam String pName) {
+	public ResponseEntity<List<ProductCntDto>> getProductCntByDate(@RequestParam(value = "pName", defaultValue = "") String pName) {
 
 		return new ResponseEntity<>(dashBoardService.CntProduct(pName), HttpStatus.OK);
 	}
