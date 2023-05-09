@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Repository
@@ -39,6 +41,15 @@ public class EmitterMyBatisRepository implements EmitterRepository {
 			if (key.startsWith(id)) emitters.remove(key);
 		});
 	}
+	@Override
+	public List<SseEmitter> getAll(){
+		List<SseEmitter> list = new CopyOnWriteArrayList<>();//동시성을 보장하는 ArrayList
+		for(SseEmitter se : emitters.values()){
+			list.add(se);
+		}
+		return list;
+	}
+
 }
 
 

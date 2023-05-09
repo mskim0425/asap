@@ -4,30 +4,31 @@ import asap.be.domain.notification.Notification;
 import asap.be.domain.notification.NotificationType;
 import asap.be.repository.EmitterRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
-	private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 	private static final Long DEFAULT_TIMEOUT = 120L * 1000 * 60; // SSE 유효시간
 	private final EmitterRepository emitterRepository;
-
+	private List<SseEmitter> deadEmitter = new CopyOnWriteArrayList<>();
 	/**
 	 * SSE 통신
 	 */
 	@Override
 	public SseEmitter connection(String lastEventId, HttpServletResponse response) {
 
-		String userid = "user"; // 고정 유저 아이디. 원래는 유저 별 고유 아이디여야 하지만 로그인이 없으니,,
+		String userid = "user"; // 로그인 정보를 기반으로 만들어야하는 곳이다.(로그인을 구현하지않아서 user라고 고정함)
 		String id = userid + "_" + System.currentTimeMillis(); // 데이터 유실 시점 파악 위함
 
 		// 클라이언트의 sse 연결 요청에 응답하기 위한 SseEmitter 객체 생성
@@ -59,16 +60,23 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public void sendToClient(SseEmitter emitter, String id, Object data) {
+		List<SseEmitter> list = emitterRepository.getAll();
 
-		try {
-			emitter.send(SseEmitter.event()
-					.id(id)
-					.name("sse")
-					.data(data));
-		} catch (IOException e) {
-			emitterRepository.deleteAllStartByWithId(id);
-//			log.error("SSE 연결 오류 발생! 오류났으니까 다 지울꺼임~", e);
+		for(SseEmitter se :list) {
+			try {
+				se.send(SseEmitter.event()
+						.id(id)
+						.name("sse")
+						.data(data));
+			} catch (IOException e) {
+				deadEmitter.add(se);
+			}
 		}
+	}
+
+	@Scheduled(fixedDelay = 10000)
+	public void flushDeadEmitters() {
+		deadEmitter.clear();
 	}
 
 	@Override
