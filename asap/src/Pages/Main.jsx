@@ -41,7 +41,6 @@ const Main = () => {
         scale: 0.2,
         opacity: 1,
       })
-
       .add({
         scale: 1,
         opacity: 0,

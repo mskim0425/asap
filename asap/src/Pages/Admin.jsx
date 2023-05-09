@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import "../style/Admin.css";
 import warehouseData from "../warehouseData/warehouseData";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import Error from "../Component/Error/Error";
 import Loading from "../Component/loading/Loading";
@@ -129,6 +130,7 @@ const AdminContent = () => {
   const addStuff = async () => {
     try {
       await axios.post("/prod", newData);
+      window.location.replace("/admin");
       setloading(true);
     } catch (error) {
       setError(error);
@@ -152,6 +154,7 @@ const AdminContent = () => {
   const stockQuantity = async () => {
     try {
       await axios.post("/prod", quantityData);
+      window.location.replace("/admin");
       setloading(true);
     } catch (error) {
       setError(error);
@@ -166,11 +169,11 @@ const AdminContent = () => {
     wId: wId,
     quantity: parseInt(releaseQuantity),
   };
-  // console.log("count", count);
   //출고량 수정
   const releaseCount = async () => {
     try {
       await axios.post("/prod", count);
+      window.location.replace("/admin");
       setloading(true);
     } catch (error) {
       setError(error);
@@ -745,9 +748,10 @@ const AdminContent = () => {
             </div>
           </div>
         </div>
-        {/* <div ref={ref}>dsgdfdg</div> */}
       </div>
-      <div id="sse">{/* <SSE /> */}</div>
+      <div id="sse">
+        <SSE />
+      </div>
     </div>
   );
 };
