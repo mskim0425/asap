@@ -26,7 +26,7 @@ public class QrcodeController {
         String url = original.replace(request.getRequestURI(), "");
 
         Long pId = productService.findByUUID(uuid);
-        url = new StringBuffer(url).append("/api/find-one?pId=").append(pId).toString();
+        url = new StringBuffer(url).append("/admin/").append(pId).toString();
 
         String imageURL = qrcodeGeneratorService.generateQRcodeImageURL(url, 150, 150);
 

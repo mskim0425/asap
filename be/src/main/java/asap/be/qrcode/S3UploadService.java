@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
@@ -15,13 +15,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
-
+@Component
 public class S3UploadService {
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+
+    private final String bucket = "asap-image";
 
     private final AmazonS3 s3;
 

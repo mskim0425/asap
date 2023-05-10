@@ -6,6 +6,7 @@ import asap.be.facade.RedissonLockServiceFacade;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -19,6 +20,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -44,7 +46,7 @@ public class ConcurrencyTest {
     TransactionStatus status;
 
     @BeforeEach
-    public void beforeEach() throws InterruptedException {
+    public void beforeEach() throws InterruptedException, IOException, WriterException {
         //트랜잭션 시작 TODO: 본인 디비에 저장해서 테스트 하슈
         status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         PostProductDto test_data = PostProductDto.builder()

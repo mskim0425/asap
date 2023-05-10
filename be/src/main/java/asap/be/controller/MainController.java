@@ -9,6 +9,7 @@ import asap.be.service.NotificationService;
 import asap.be.service.ProductService;
 import asap.be.service.ReleaseService;
 import asap.be.service.WarehouseService;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class MainController {
 	 *                     "wId": {{$randomInt}}, "quantity": {{$randomInt}}
 	 */
 	@PostMapping("/prod")
-	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) {
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) throws IOException, WriterException {
 		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
 		productService.insertOrUpdateStock(productDto);
 

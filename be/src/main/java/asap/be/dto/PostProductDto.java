@@ -18,6 +18,11 @@ public class PostProductDto {
 	private int pInsert;
 	private String date;
 
+	private Long pId;
+	private Long sId;
+
+	private int quantity;
+
 	public String getpName() {
 		return pName;
 	}
@@ -54,10 +59,6 @@ public class PostProductDto {
 		return quantity;
 	}
 
-	private Long pId;
-	private Long sId;
-
-	private int quantity;
 	public void addDate(String date) {
 		this.date = date;
 	}
