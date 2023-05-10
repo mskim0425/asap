@@ -4,7 +4,7 @@ import MonthlyChart from "../Component/Chart/MonthlyChart";
 import DailyCheckById from "../Component/Chart/DailyCheckbyItem";
 import TotalProduct from "../Component/Chart/TotalProduct";
 
-import "./Dashboard.css";
+import "../style/Dashboard.css";
 
 export default function Dashboard() {
 

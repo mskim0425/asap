@@ -1,3 +1,7 @@
+.sse{
+    width: 10vw;
+}
+
 .alert {
     position: relative;
     width: auto;
@@ -10,7 +14,7 @@
     cursor: pointer;
     font-family: sans-serif;
     font-weight: 400;
-    z-index: 99;
+    /* z-index: 99; */
 }
 
 .alertCheckbox {
