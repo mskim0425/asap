@@ -4,16 +4,16 @@
   min-height: 100vh;
   /* border: 10px solid red; */
   transition: 0.5s;
-  background-color: var(--white);
+  /* background-color: var(--white); */
+  background-color: var(--black);
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
 }
 
-#chart {
+#sse {
   /* border: 1px solid red; */
-  margin: 20px;
-  box-sizing: border-box;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3);
+  min-height: 100vh;
 }
 
 #search {
@@ -53,18 +53,20 @@ input[type="text"] ~ div {
 input[type="text"] ~ div {
   width: 15%;
   text-align: center;
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: rgb(12, 50, 12);
+  color: var(--green);
+  font-weight: bold;
   border-radius: 0 5px 5px 0;
-  box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3);
+  /* box-shadow: 0 0 15px var(--green); */
+  /* box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3); */
   line-height: 30px;
   cursor: pointer;
 }
 
 #search input[type="text"]:focus,
 #search input[type="text"]:hover {
-  border: 1px solid var(--blue);
-  box-shadow: 0 0 5px var(--blue);
+  border: 1px solid var(--green);
+  box-shadow: 0 0 5px var(--green);
 }
 
 #search input[type="text"]::placeholder {
@@ -78,7 +80,7 @@ input[type="text"] ~ div {
 }
 
 input[type="text"] ~ div:hover {
-  background-color: #104285;
+  box-shadow: 0 0 20px var(--green);
 }
 
 .addButton {
@@ -86,9 +88,15 @@ input[type="text"] ~ div:hover {
   right: 0;
   height: 30px;
   width: 30px;
-  background-color: var(--blue);
+  background-color: rgb(12, 50, 12);
   color: var(--white);
   cursor: pointer;
+}
+
+.addButton:hover,
+.stock button:hover,
+.release button:hover {
+  box-shadow: 0 0 5px var(--green);
 }
 
 /* 상품 추가 */
@@ -118,13 +126,15 @@ input[type="text"] ~ div:hover {
   border: none;
   margin-top: 10px;
   border-radius: 5px;
-  color: var(--white);
-  background-color: var(--blue);
+  color: var(--green);
+  font-weight: bold;
+  background-color: rgb(12, 50, 12);
   cursor: pointer;
 }
 
 .add_stuff button:hover {
-  background-color: #104285;
+  color: var(--white);
+  background-color: var(--green);
 }
 
 .info_wrapper {
@@ -141,8 +151,16 @@ input[type="text"] ~ div:hover {
   line-height: 30px;
   text-align: center;
   border-radius: 5px 0 0 5px;
-  color: var(--white);
-  background-color: var(--blue);
+  color: var(--green);
+  font-weight: bold;
+  background-color: rgb(12, 50, 12);
+}
+
+#selectWareHouse {
+  width: 70%;
+  border: none;
+  border-radius: 0;
+  outline: 0;
 }
 
 .info_wrapper > input {
@@ -163,26 +181,30 @@ input[type="text"] ~ div:hover {
 .content {
   width: 100%;
   /* border: 1px solid red; */
-  box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3);
+  /* box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3); */
 }
 
 /* 상품 목록 */
-.table2 {
+.table {
   background-color: #fff;
   border-collapse: collapse;
   border-radius: 5px;
-  height: 400px;
+  /* height: 300px; */
   /* border: 1px solid red; */
-  overflow: scroll;
-  overflow-x: hidden;
+  /* overflow: scroll; */
+  /* overflow-x: hidden; */
+  /* filter: drop-shadow(0 0 10px #30fe6c); */
 }
 
 .header {
   /* border: 1px solid red; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
-  background-color: #1b73e8;
-  color: #fff;
+  background-color: rgb(12, 50, 12);
+  /* color: #fff; */
+  color: var(--green);
+  font-weight: bold;
+  border-radius: 5px 5px 0 0;
 }
 
 .row {
@@ -194,10 +216,13 @@ input[type="text"] ~ div:hover {
 }
 
 .row:hover {
-  background-color: #ebeef3;
+  border: 1px solid var(--green);
+  font-weight: bold;
   transition: 0.3s;
   transform: translate(3px, -5px);
-  box-shadow: -10px 10px 10px rgba(211, 211, 211, 0.686);
+  filter: drop-shadow(0 0 5px #30fe6c) drop-shadow(0 0 2px #30fe6c);
+  /* box-shadow: -10px 10px 10px rgba(211, 211, 211, 0.686); */
+  box-shadow: -10px 10px 10px rgba(56, 56, 56, 0.686);
 }
 
 .cell {
@@ -209,8 +234,8 @@ input[type="text"] ~ div:hover {
 /* 상세 내용 */
 .detail_wrapper {
   animation: fadeInDown 0.3s ease-in-out;
-  /* border: 1px solid red; */
   width: 100%;
+  border-radius: 5px;
 }
 
 .detail_row {
@@ -223,48 +248,84 @@ input[type="text"] ~ div:hover {
 }
 
 .detail {
-  padding: 20px;
-  background-color: var(--lightgray);
+  padding: 20px 0;
+  background-color: var(--black);
 }
 
 .detail_cell {
+  /* border: 1px solid red; */
   padding: 10px;
   background-color: var(--white);
 }
 
+.detail_cell.height {
+  height: 160px;
+}
+
 .detail_cell.color {
-  background-color: rgba(173, 216, 230, 0.387);
+  background-color: rgb(12, 50, 12);
+  color: var(--green);
+  font-weight: bold;
 }
 
 .product_quantity {
-  border: 1px solid var(--lightgray);
+  border-top: 1px solid var(--lightgray);
+  /* border: 1px solid red; */
   padding: 20px;
+  gap: 10px;
   background-color: var(--white);
+  background-color: var(--black);
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
+}
+
+.product_quantity > div {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+}
+
+.product_quantity > div h3 {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.product_quantity > div > select {
+  width: 50%;
+  margin-left: 10px;
+  outline: none;
 }
 
 .stock,
 .release {
   box-sizing: border-box;
-  border: 1px solid green;
   margin: 0;
 }
 
 .stock input,
 .release input {
   border: 1px solid var(--gray);
+  /* border: 1px solid red; */
   width: 70%;
+  height: 25px;
+  border-radius: 5px 0 0 5px;
 }
 
 .stock button,
 .release button {
   width: 20%;
   height: 30px;
+  background-color: rgb(12, 50, 12);
+  border-radius: 0 5px 5px 0;
+  outline: 0;
+  border: 0;
+  color: var(--green);
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .product_quantity div:nth-child(1) {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   float: left;
 }
 
@@ -273,12 +334,7 @@ input[type="text"] ~ div:hover {
 }
 
 .product_quantity input {
-  margin-right: 5px;
   outline: none;
-}
-
-.test {
-  /* border: 1px solid red; */
 }
 
 .info {
@@ -287,19 +343,37 @@ input[type="text"] ~ div:hover {
   /* border: 1px solid blue; */
 }
 
-.release_row,
-.store_row {
-  display: flex;
-  justify-content: space-around;
-  border-bottom: 1px solid #d5d9de;
+.store_table {
+  border: 5px solid red;
+  width: 100%;
 }
 
-.store_row {
-  background-color: #ffeeee;
-}
-
+.store_row,
 .release_row {
-  background-color: rgba(169, 229, 168, 0.504);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.store_row.header {
+  border: 1px solid var(--green);
+  color: var(--white);
+  filter: drop-shadow(0 0 5px #30fe6c) drop-shadow(0 0 2px #30fe6c)
+    hue-rotate(60deg);
+}
+
+.store_row,
+.release_row {
+  color: var(--white);
+}
+
+.release_row.header {
+  border: 1px solid var(--green);
+  color: var(--white);
+  filter: drop-shadow(0 0 5px #30fe6c) drop-shadow(0 0 2px #30fe6c)
+    hue-rotate(180deg);
 }
 
 @media (max-width: 768px) {

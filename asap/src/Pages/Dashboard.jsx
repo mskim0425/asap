@@ -7,7 +7,6 @@ import TotalProduct from "../Component/Chart/TotalProduct";
 import "../style/Dashboard.css";
 
 export default function Dashboard() {
-
   return (
     <section className="Dashboard">
       <div className="leftBox">
@@ -16,7 +15,7 @@ export default function Dashboard() {
             <DailyRecord />
           </div>
           <div className="lb-left-middle chartSection">
-            <Top10/>
+            <Top10 />
           </div>
         </div>
         <div className="lb-right">
@@ -24,10 +23,10 @@ export default function Dashboard() {
             <MonthlyChart />
           </div>
           <div className="lb-right-middle chartSection">
-            <DailyCheckById/>
+            <DailyCheckById />
           </div>
           <div className="lb-right-bottom chartSection">
-            <TotalProduct/>
+            <TotalProduct />
           </div>
         </div>
       </div>

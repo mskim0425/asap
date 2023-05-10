@@ -12,10 +12,10 @@ export default function Error() {
     <div className="wrapper">
       <div>
         <div className="heading">PAGE NOT FOUND</div>
-        <p>
-          존재하지않은 주소를 입력하셨거나,
-          <pre>요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.</pre>
-        </p>
+        {/* <p> */}
+        {/* 존재하지않은 주소를 입력하셨거나, */}
+        {/* <pre>요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.</pre> */}
+        {/* </p> */}
         <div>
           <span onClick={moveToMain}>메인으로 가기</span>
         </div>
