@@ -36,34 +36,28 @@ public class ProductServiceImpl implements ProductService {
 	public void insertOrUpdateStock(PostProductDto dto) throws IOException, WriterException {
 
 		StringBuffer sb = new StringBuffer();
-		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // 실 배포시 적용하면 당일 총 입고량 올라감 히히
+		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-		productMybatisRepository.insertOrUpdateStock(dto); //입고
-
-		//QR코드 더하기
-		Long pId = productMybatisRepository.findByUUID(dto.getpCode());
-		String url = new StringBuffer("https://soonerthebetter.site").append("/admin/").append(pId).toString();
-		String imageUrl = qrcodeGeneratorService.generateQRcodeImageURL(url, 150, 150);
-		saveS3ImageUrl(imageUrl, pId);
-
-		if (dto.getQuantity() != 0) {
+		if(dto.getQuantity() != null) { //출고
 			verifiedProductByName(dto.getpName(), dto.getwId());
 			verifiedQuantity(dto);
+			productMybatisRepository.insertOrUpdateRelease(dto);
+
+			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
+			notificationService.send("출고 알림!", sb.toString(), NotificationType.RELEASE);
 		}
+		else { //입고
+			productMybatisRepository.insertOrUpdateStock(dto);
+			//QR코드 더하기
+			Long pId = productMybatisRepository.findByUUID(dto.getpCode());
+			String url = new StringBuffer("https://soonerthebetter.site").append("/admin/").append(pId).toString();
+			String imageUrl = qrcodeGeneratorService.generateQRcodeImageURL(url, 150, 150);
+			saveS3ImageUrl(imageUrl, pId);
 
-		productMybatisRepository.insertOrUpdateRelease(dto); // 출고
-
-		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getpName(), dto.getwId(), dto.getpCode());
-
-		if (everythingDto != null && dto.getpInsert() != 0) {
 			sb.append(dto.getpName()).append(" ").append("+").append(dto.getpInsert()).append(" 입고");
 			notificationService.send("입고 알림!", sb.toString(), NotificationType.RECEIVE);
 		}
 
-		if (everythingDto != null && everythingDto.getCnt() >= dto.getQuantity() && dto.getQuantity() != 0) {
-			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
-			notificationService.send("출고 알림!", sb.toString(), NotificationType.RELEASE);
-		}
 	}
 
 	@Override
