@@ -2,12 +2,14 @@ package asap.be.facade;
 
 import asap.be.dto.PostProductDto;
 import asap.be.service.ProductServiceImpl;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -18,7 +20,7 @@ public class RedissonLockServiceFacade {
     private final RedissonClient redissonClient;
     private final ProductServiceImpl productService;
 
-    public void save(PostProductDto dto) {
+    public void save(PostProductDto dto) throws IOException, WriterException {
         productService.insertOrUpdateStock(dto);
     }
 
@@ -35,7 +37,11 @@ public class RedissonLockServiceFacade {
             productService.insertOrUpdateStock(dto);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }finally {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
+        } finally {
             lock.unlock();
 
         }

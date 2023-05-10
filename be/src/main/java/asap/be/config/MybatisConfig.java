@@ -1,5 +1,7 @@
 package asap.be.config;
 
+import asap.be.qrcode.QrcodeGeneratorService;
+import asap.be.qrcode.S3UploadService;
 import asap.be.repository.EmitterRepository;
 import asap.be.repository.mybatis.EmitterMyBatisRepository;
 import asap.be.repository.mybatis.ProductMapper;
@@ -16,6 +18,7 @@ import asap.be.service.ReleaseService;
 import asap.be.service.ReleaseServiceImpl;
 import asap.be.service.WarehouseService;
 import asap.be.service.WarehouseServiceImpl;
+import com.amazonaws.services.s3.AmazonS3;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +29,11 @@ public class MybatisConfig {
 	private final ProductMapper productMapper;
 	private final WarehouseMapper warehouseMapper;
 	private final ReleaseMapper releaseMapper;
-
+	private final AmazonS3 amazonS3;
 	@Bean
 	public ProductService productService() {
-		return new ProductServiceImpl(releaseService(), notificationService(), productRepository());
+		return new ProductServiceImpl(releaseService(), notificationService(), new QrcodeGeneratorService(new S3UploadService(amazonS3)),productRepository());
 	}
-
 	@Bean
 	public ReleaseService releaseService() {
 		return new ReleaseServiceImpl(releaseRepository());

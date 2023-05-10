@@ -1,11 +1,13 @@
 package asap.be.service;
 
 import asap.be.dto.*;
+import com.google.zxing.WriterException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
-	void insertOrUpdateStock(PostProductDto dto);
+	void insertOrUpdateStock(PostProductDto dto) throws IOException, WriterException;
 
 	void updateProduct(EditProductDto dto);
 
