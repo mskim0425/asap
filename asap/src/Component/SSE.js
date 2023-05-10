@@ -16,22 +16,13 @@ export default function SSE () {
         })
 
         eventSourse.addEventListener('open', async (e) =>{
-            setMessage(["Connect Success !"])
+            setMessage(["SSE Connect Success !"])
         })
 
         eventSourse.addEventListener('sse', async (e) => {
-            let newdata = e.data
-
-            if(e.data.includes("연결")){
-                setMessage([newdata])
-
-            }else if(e.data.includes("알림")){
-                newdata = JSON.parse(newdata)
-                setMessage([...message, newdata])
-
-            }else if(e.data.includes("time")){
-                newdata = "SSE 연결이 종료되었습니다"
-                setMessage([...message, newdata])
+            let newdata = JSON.parse(e.data)
+            if(!newdata.title.includes("SSE")){
+                setMessage((old) => [...old, newdata.content])
             }
         })
 
@@ -51,8 +42,7 @@ export default function SSE () {
                 return (
                     <div key={index}
                         className={
-                            el.includes("알림") ? (el.includes("입고") ? "alert in" : "alert out")
-                            : (el.includes("종료") ? "alert end": "alert error")
+                            el.includes("SSE") ? "alert start" : (el.includes("입고") ? "alert in" : "alert out")
                         }>
                         <span className="alertText">{el}</span>
                     </div>
