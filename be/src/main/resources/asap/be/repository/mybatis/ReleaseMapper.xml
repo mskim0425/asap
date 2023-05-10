@@ -68,12 +68,14 @@
     </select>
 
     <select id="releaseCntRank" resultType="java.util.Map">
-        SELECT RANK() OVER (ORDER BY SUM(quantity) DESC) as ranking,
-               (SELECT pName From Product_table WHERE pId = sId) AS pName,
-               SUM(quantity) as releaseCnt
-        FROM Release_table
-        WHERE release_at = #{release_at}
-        GROUP BY pName
+        SELECT RANK() OVER (ORDER BY SUM(r.quantity) DESC) as ranking,
+               p.pName as pName,
+               SUM(r.quantity) as releaseCnt
+        FROM Release_table r
+        JOIN Stock_table s ON r.sId = s.sId
+        JOIN Product_table p ON s.pId = p.pId
+        WHERE r.release_at = #{release_at}
+        GROUP BY p.pName
         LIMIT 10;
     </select>
 
