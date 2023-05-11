@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -60,12 +59,17 @@ public class NotificationServiceImpl implements NotificationService {
 	public void sendToClient(SseEmitter emitter, String id, Object data) {
 
 		try {
+			emitter.onCompletion(() -> emitterRepository.deleteAllStartByWithId(id));
+			emitter.onTimeout(() -> emitterRepository.deleteAllStartByWithId(id));
+			emitter.onError((e) -> emitterRepository.deleteAllStartByWithId(id));
+
 			emitter.send(SseEmitter.event()
 					.id(id)
 					.name("sse")
 					.data(data));
 		} catch (IOException e) {
 			deadEmitter.add(emitter);
+			emitterRepository.deleteAllStartByWithId(id);
 		}
 
 	}
