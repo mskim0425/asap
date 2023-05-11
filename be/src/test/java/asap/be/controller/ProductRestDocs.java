@@ -280,7 +280,7 @@ public class ProductRestDocs {
 	@DisplayName("전체페이지 조회")
 	void totalPage() throws Exception {
 		Integer lastId = 10;
-		given(productService.findByAll(anyInt())).willReturn(ALL_INFO_DTO_LIST);
+		given(productService.findByAll(anyInt(),anyString())).willReturn(ALL_INFO_DTO_LIST);
 
 		ResultActions actions = mockMvc.perform(
 				RestDocumentationRequestBuilders.get("/api/find-all?lastId={lastId}", lastId).accept(MediaType.APPLICATION_JSON)
