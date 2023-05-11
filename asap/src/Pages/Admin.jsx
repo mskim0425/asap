@@ -24,26 +24,17 @@ const AdminContent = () => {
   const [code, setCode] = useState("");
   const [warehouseId, setWarehouseId] = useState("");
   const [stock, setStock] = useState("");
-
   //검색
   const [search, setSearch] = useState("");
 
   const [releaseQuantity, setReleaseQuantity] = useState("");
   const [warehouses, setWarehouses] = useState("");
   const [wid, setWid] = useState("");
-
   //페이징
   const [pageNumber, setPageNumber] = useState(10);
   const [ref, inView] = useInView();
-  const [target, setTarget] = useState(null);
 
-  let newData = {
-    pName: name,
-    price: Number(price),
-    pCode: code,
-    wId: warehouseId,
-    pInsert: Number(stock),
-  };
+  const [listId, setListId] = useState("");
 
   // 무한스크롤
   const stuffList = useCallback(async () => {
@@ -56,8 +47,6 @@ const AdminContent = () => {
       } else {
         setLists(sortList);
       }
-
-      console.log("s리스트dssds", lists);
     } catch (error) {
       setError(error);
     }
@@ -75,17 +64,22 @@ const AdminContent = () => {
   }, [inView, loading]);
 
   //리스트 클릭시 상세 내용보여주기
-  const toggleComment = (id) => {
-    setShownComments((prevShownComments) => ({
-      // ...prevShownComments,
-      [id]: !prevShownComments[id],
-    }));
+  const toggleComment = (id, modifiedQuantity) => {
+    setListId(id);
+    if (modifiedQuantity === "modifiedQuantity") {
+      setShownComments(() => ({
+        [id]: true,
+      }));
+    } else {
+      setShownComments((prevShownComments) => ({
+        // ...prevShownComments,
+        [id]: !prevShownComments[id],
+      }));
+    }
     //물품 상세내용 가져오기
     const getDetail = async () => {
       try {
         const response = await axios.get(`/find-one?pId=${id}`);
-        // console.log("re", response.data);
-        // console.log("re", response.data.product.warehouses);
         setStores(response.data.insertLogs);
         setProduct(response.data.product);
         setRelease(response.data.releaseLogs);
@@ -99,12 +93,24 @@ const AdminContent = () => {
   };
 
   //새로운 물품 추가
-  // console.log(newData);
   const addStuff = async () => {
     try {
+      let newData = {
+        pName: name,
+        price: Number(price),
+        pCode: code,
+        wId: warehouseId,
+        pInsert: Number(stock),
+      };
       await axios.post("/prod", newData);
       setloading(true);
-      window.location.replace("/admin");
+      setName("");
+      setPrice("");
+      let uuid = uuidv4();
+      setCode(uuid);
+      let id = (document.querySelector("#selectWareHouse").value = "none");
+      setWarehouseId(id);
+      setStock("");
     } catch (error) {
       setError(error);
     }
@@ -127,12 +133,11 @@ const AdminContent = () => {
         pInsert: parseInt(stock),
       };
       await axios.post("/prod", quantityData);
-      // window.location.replace("/admin");
-      setloading(true);
+      document.querySelector("#stockQuantity").value = "";
+      toggleComment(listId, "modifiedQuantity");
     } catch (error) {
       setError(error);
     }
-    setloading(false);
   };
 
   //출고량 수정
@@ -146,12 +151,11 @@ const AdminContent = () => {
         quantity: parseInt(releaseQuantity),
       };
       await axios.post("/prod", count);
-      // window.location.replace("/admin");
-      setloading(true);
+      document.querySelector("#releaseQuantity").value = "";
+      toggleComment(listId, "modifiedQuantity");
     } catch (error) {
       setError(error);
     }
-    setloading(false);
   };
 
   //검색
@@ -216,6 +220,7 @@ const AdminContent = () => {
             </button>
           </div>
         </div>
+
         <div className="add_stuff">
           <div className="info_wrapper">
             <div className="stuff_title">
@@ -226,6 +231,7 @@ const AdminContent = () => {
               onChange={(e) => {
                 setName(e.target.value);
               }}
+              value={name}
             ></input>
           </div>
           <div className="info_wrapper">
@@ -237,6 +243,7 @@ const AdminContent = () => {
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
+              value={price}
             ></input>
           </div>
           <div className="info_wrapper">
@@ -272,6 +279,7 @@ const AdminContent = () => {
               })}
             </select>
           </div>
+
           <div className="info_wrapper">
             <div className="stuff_title">
               <span>입고량</span>
@@ -281,6 +289,7 @@ const AdminContent = () => {
               onChange={(e) => {
                 setStock(e.target.value);
               }}
+              value={stock}
             ></input>
           </div>
           <div className="button_wrapper">
@@ -359,6 +368,7 @@ const AdminContent = () => {
                             </div>
                             <div className="stock">
                               <input
+                                id="stockQuantity"
                                 type="text"
                                 onChange={(e) => setStock(e.target.value)}
                               />
@@ -366,6 +376,7 @@ const AdminContent = () => {
                             </div>
                             <div className="release">
                               <input
+                                id="releaseQuantity"
                                 type="text"
                                 onChange={(e) =>
                                   setReleaseQuantity(e.target.value)
@@ -428,9 +439,7 @@ const AdminContent = () => {
           </div>
         </div>
       </div>
-      <div id="sse">
-        <SSE />
-      </div>
+      <div id="sse">{/* <SSE /> */}</div>
     </div>
   );
 };
