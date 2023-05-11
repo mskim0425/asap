@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 		StringBuffer sb = new StringBuffer();
 		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-		if(dto.getQuantity() != null) { //출고
+		if (dto.getQuantity() != null) { //출고
 			verifiedProductByName(dto.getpName(), dto.getwId());
 			verifiedQuantity(dto);
 			productMybatisRepository.insertOrUpdateRelease(dto);
