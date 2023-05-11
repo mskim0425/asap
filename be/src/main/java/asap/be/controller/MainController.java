@@ -133,9 +133,10 @@ public class MainController {
 	 * TODO: 전체페이지 상세페이지 CRUD 구현하기
 	 */
 	@GetMapping("/find-all")
-	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId){
+	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId,
+																	 @RequestParam(value = "order", defaultValue = "DESC")String order){
 
-		return new ResponseEntity<>(productService.findByAll(lastId),HttpStatus.OK);
+		return new ResponseEntity<>(productService.findByAll(lastId, order),HttpStatus.OK);
 
 	}
 

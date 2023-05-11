@@ -236,9 +236,9 @@ class ProductRepositoryTest {
 		Integer lastId = null; //10-20
 
 
-		List<EverythingPageDto> list = productMybatisRepository.findByAll(lastId);
+		List<EverythingPageDto> list = productMybatisRepository.findByAll(lastId,"DESC");
 		Integer nextData = list.get(0).getLastid();
-		List<EverythingPageDto> byAll = productMybatisRepository.findByAll(nextData);
+		List<EverythingPageDto> byAll = productMybatisRepository.findByAll(nextData,"DESC");
 		// then
 		assertThat(list.size()).isEqualTo(10);
 		assertThat(byAll.size()).isEqualTo(10);

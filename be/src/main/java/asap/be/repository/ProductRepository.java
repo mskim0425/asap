@@ -16,7 +16,7 @@ public interface ProductRepository {
 
 	List<EverythingDto> findByName(String pName);
 
-	List<EverythingPageDto> findByAll(Integer lastId);
+	List<EverythingPageDto> findByAll(Integer lastId, String order);
 
 	AllProductCntDto findAllCntByPName(String pName);
 
@@ -41,4 +41,6 @@ public interface ProductRepository {
     Long findByUUID(String uuid);
 
     void saveS3ImageUrl(String imageURL, Long pId);
+
+    List<EverythingPageDto> search(Integer lastId, String query, String order);
 }

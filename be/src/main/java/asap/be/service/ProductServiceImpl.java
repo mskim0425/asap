@@ -81,8 +81,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EverythingPageDto> findByAll(Integer lastId) {
-        return productMybatisRepository.findByAll(lastId);
+    public List<EverythingPageDto> findByAll(Integer lastId,  String order) {
+        return productMybatisRepository.findByAll(lastId, order);
     }
 
 	@Override

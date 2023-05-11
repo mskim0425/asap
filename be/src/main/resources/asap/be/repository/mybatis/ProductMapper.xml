@@ -129,7 +129,14 @@
         SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
         FROM Product_table AS p
         WHERE p.pId &lt; @lastId
-        ORDER BY p.pId DESC
+        <choose>
+            <when test='order == "ASC"'>
+                ORDER BY p.pId ASC
+            </when>
+            <when test='order == "DESC"'>
+                ORDER BY p.pId DESC
+            </when>
+        </choose>
         LIMIT 10;
         <!-- no offset 방식 -->
     </select>
@@ -215,5 +222,27 @@
         UPDATE Product_table
         SET pQr = #{imageURL}
         WHERE pId = #{pId}
+    </select>
+
+    <select id="search" resultType="EverythingPageDto">
+        <if test="lastId == null">
+            SET @lastId = (SELECT MAX(pId) FROM Product_table);
+        </if>
+        <if test="lastId != null">
+            SET @lastId = #{lastId};
+        </if>
+
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
+        FROM Product_table AS p
+        WHERE p.pId &lt; @lastId AND p.pName = #{pName}
+        <choose>
+            <when test='order == "ASC"'>
+                ORDER BY p.pId ASC
+            </when>
+            <when test='order == "DESC"'>
+                ORDER BY p.pId DESC
+            </when>
+        </choose>
+        LIMIT 10;
     </select>
 </mapper>

@@ -18,7 +18,7 @@ public interface ProductMapper {
 
 	List<EverythingDto> findByName(String pName);
 
-    List<EverythingPageDto> findByAll(Integer lastId);
+    List<EverythingPageDto> findByAll(Integer lastId, String order);
 
     AllProductCntDto findAllCntByPName(String pName);
 
@@ -43,5 +43,7 @@ public interface ProductMapper {
     Long findByUUID(String uuid);
 
 	void saveS3ImageUrl(String imageURL, Long pId);
+
+    List<EverythingPageDto> search(Integer lastId, String pName, String order);
 }
 
