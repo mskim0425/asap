@@ -9,24 +9,27 @@ export default function SSE () {
         const eventSourse = new EventSource(`${process.env.REACT_APP_SERVER_URL}/connect`, {
             "withCredentials": true,
             'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
             'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache',
             "Accept-Encoding": "gzip,deflate, br",
             "Accept" : "text/event-stream"
         })
 
-        eventSourse.addEventListener('sse', async (e) => {
-            let newdata = e.data
-            if(e.data.includes("알림")){
-                const test = [...newdata.split(`"`)]
-                newdata = test.length >= 7 ? `${test[7]}\n${test[11]}` : `${test[1]}`
-            }
-            if(e.data.includes("time")){
-                newdata = "SSE 연결이 종료되었습니다"
-            }
-            setMessage([...message, newdata])
+        eventSourse.addEventListener('open', async (e) =>{
+            setMessage(["SSE Connect Success !"])
         })
-        
+
+        eventSourse.addEventListener('sse', async (e) => {
+            let newdata = JSON.parse(e.data)
+            if(!newdata.title.includes("SSE")){
+                setMessage((old) => [...old, newdata.content])
+            }
+        })
+
+        eventSourse.onerror = (error) => {
+            eventSourse.close()
+        }
+
         return () => {
             eventSourse.close()
         }
@@ -37,21 +40,13 @@ export default function SSE () {
         <div className="sse">
             {message.length > 0 ? message.map((el,index) => {
                 return (
-                    <label key={index}>
-                        <input type="checkbox" className="alertCheckbox" autoComplete="off" />
-                        <div className={el.includes("알림") ? (el.includes("입고") ? "alert in" : "alert out") : (el.includes("종료") ? "alert end": "alert error")}>
-                            <span className="alertClose">X</span>
-                            <span className="alertText">{el}
-                                <br className="clear"/>
-                            </span>
-                        </div>
-                    </label>
-                )
-            }) : <div className="alert error">
-            <span className="alertText">메시지가 없습니다</span>
-        </div>}
-            
-            
+                    <div key={index}
+                        className={
+                            el.includes("SSE") ? "alert start" : (el.includes("입고") ? "alert in" : "alert out")
+                        }>
+                        <span className="alertText">{el}</span>
+                    </div>
+                )}) : null}
         </div>
     )
 }

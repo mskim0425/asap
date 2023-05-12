@@ -1,3 +1,7 @@
+.sse{
+    width: 10vw;
+}
+
 .alert {
     position: relative;
     width: auto;
@@ -10,16 +14,10 @@
     cursor: pointer;
     font-family: sans-serif;
     font-weight: 400;
-    z-index: 99;
+    color: rgb(255, 255, 255);
+    /* z-index: 99; */
 }
 
-.alertCheckbox {
-    display: none;
-}
-
-:checked + .alert {
-    display: none;
-}
 
 .alertText {
     display: table;
@@ -28,55 +26,28 @@
     font-size: 16px;
 }
 
-.alertClose {
-    float: right;
-    padding-top: 5px;
-    font-size: 10px;
-}
-
-.clear {
-    clear: both;
-}
-
-.info {
-    background-color: #eee;
-    border: 1px solid #ddd;
-    color: #999;
-}
-
-.success {
-    background-color: #efe;
-    border: 1px solid #ded;
-    color: #9a9;
-}
-.notice {
-    background-color: #eff;
-    border: 1px solid #dee;
-    color: #9aa;
-}
-.warning {
-    background-color: #fdf7df;
-    border: 1px solid #feec6f;
-    color: #c9971c;
-}
 .error {
     background-color: #fee;
     border: 1px solid #edd;
     color: #a66;
 }
 
+.start {
+    background-color: rgb(194, 32, 124);
+    border: 1px solid #edd;
+}
+
 .in {
     background-color: rgb(255, 166, 0);
     border: 1px solid #edd;
-    color: rgb(255, 255, 255);
 }
+
 .out {
     background-color: rgb(21, 255, 0);
     border: 1px solid #edd;
-    color: rgb(255, 255, 255);
 }
+
 .end{
     background-color: #f43737;
     border: 1px solid #edd;
-    color: rgb(255, 255, 255);
 }
