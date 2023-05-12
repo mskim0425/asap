@@ -1,31 +1,18 @@
 import { useState } from "react";
 
+import SignIn from "../Component/Sign/SignIn";
+import SignUp from "../Component/Sign/SignUp";
+
 import "../style/Sign.css";
 
-export const SignPage = () => {
+const SignPage = () => {
     const [panelState, setPanelState] = useState(false)
 
   return (
     <div className="signsection">
-      <div className={`container ${panelState ? "" : "right-panel-active"}`}>
-        <div className="container__form container--signup">
-          <form action="#" className="form" id="form1">
-            <h2 className="form__title">Sign Up</h2>
-            <input type="text" placeholder="Ni" className="input" />
-            <input type="email" placeholder="Email" className="input" />
-            <input type="password" placeholder="Password" className="input" />
-            <button className="btn">Sign Up</button>
-          </form>
-        </div>
-
-        <div className="container__form container--signin">
-          <form action="#" className="form" id="form2">
-            <h2 className="form__title">Sign In</h2>
-            <input type="email" placeholder="Email" className="input" />
-            <input type="password" placeholder="Password" className="input" />
-            <button className="btn">Sign In</button>
-          </form>
-        </div>
+      <div className={panelState ? "container" : "container right-panel-active"}>
+        <SignUp />
+        <SignIn />
 
         <div className="container__overlay">
           <div className="overlay">
@@ -45,3 +32,5 @@ export const SignPage = () => {
     </div>
   );
 };
+
+export default SignPage;
