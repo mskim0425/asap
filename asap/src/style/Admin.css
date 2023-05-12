@@ -18,7 +18,8 @@
 
 #search {
   /* border: 1px solid red; */
-  overflow: hidden;
+  position: relative;
+  /* overflow: hidden; */
   width: 100%;
   box-sizing: border-box;
   /* padding: 0 0 20px 0; */
@@ -31,6 +32,32 @@
   position: relative;
 }
 
+#autoComplete {
+  position: absolute;
+  top: 27px;
+  left: 20px;
+  width: 77.3%;
+  border-radius: 0 0 5px 5px;
+  background-color: var(--white);
+  color: var(--black);
+  box-shadow: 0 22px 30px var(--gray);
+}
+
+.no_searched_word {
+  padding: 10px;
+}
+
+.searchedword {
+  padding: 10px;
+}
+
+.searchedword:hover {
+  /* background-color: #30fe6c; */
+  background-color: 1px solid var(--green);
+  /* color: var(--white); */
+  box-shadow: 0 0 15px #30fe6c, 0 0 5px #30fe6c;
+}
+
 input[type="text"],
 input[type="text"] ~ div {
   outline: none;
@@ -40,7 +67,7 @@ input[type="text"] ~ div {
 }
 
 #search input[type="text"] {
-  padding: 0;
+  padding-left: 10px;
   box-sizing: border-box;
   width: 80%;
   border-radius: 5px 0 0 5px;
@@ -189,7 +216,7 @@ input[type="text"] ~ div:hover {
   background-color: #fff;
   border-collapse: collapse;
   border-radius: 5px;
-  /* height: 300px; */
+  /* height: 800px; */
   /* border: 1px solid red; */
   /* overflow: scroll; */
   /* overflow-x: hidden; */
