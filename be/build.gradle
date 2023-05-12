@@ -52,6 +52,7 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis' // Redis 세션
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.redisson:redisson-spring-boot-starter:3.20.0'
+	implementation  'org.springframework.boot:spring-boot-starter-mail'//이메일인증
 
 	implementation 'com.google.zxing:core:3.5.1' // QR
 	implementation 'com.google.zxing:javase:3.5.1' //QR

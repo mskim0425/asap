@@ -15,4 +15,16 @@
             AND password = #{password});
     </select>
 
+    <select id="findByEmail" resultType="java.lang.Boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM Member_table
+            WHERE email = #{email}
+                   )
+    </select>
+
+    <select id="updateVerified">
+        UPDATE Member_table
+        SET verified = 1
+        WHERE email = #{email}
+    </select>
 </mapper>

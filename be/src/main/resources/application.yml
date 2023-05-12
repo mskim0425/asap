@@ -10,6 +10,18 @@ spring:
     url: jdbc:mysql://database-1.ckvcfoeqtntq.ap-northeast-2.rds.amazonaws.com:3306/asap?serverTimezone=Asia/Seoul&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     username: admin
     password: hyoreal000501
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GOOGLE_EMAIL}
+    password: ${GOOGLE_APP_PASSWORD} # 발급받은 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto
