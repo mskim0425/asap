@@ -3,7 +3,6 @@ package asap.be.repository.mybatis;
 import asap.be.domain.Warehouse;
 import asap.be.dto.CountryDto;
 import asap.be.dto.DayMaxValueDto;
-
 import asap.be.dto.WarehouseDto;
 import asap.be.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +69,7 @@ public class WarehouseMybatisRepository implements WarehouseRepository {
 
 		return result;
 	}
+
 	@Override
 	public Map<String, String> max_receive_item(String date) {
 		return warehouseMapper.max_receive_item(date);

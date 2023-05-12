@@ -36,6 +36,7 @@ public class NotificationServiceImpl implements NotificationService {
 		// 유효시간 지정으로 시간이 지나면 클라이언트에서 자동으로 재연결 요청함
 		SseEmitter emitter = emitterRepository.save(id, new SseEmitter(DEFAULT_TIMEOUT));
 		response.setHeader("X-Accel-Buffering", "no"); // NGINX PROXY 에서의 필요설정
+		response.setCharacterEncoding("UTF-8");
 
 		// SseEmitter 의 완료/시간초과/에러로 인한 전송 불가 시 sseEmitter 삭제
 		emitter.onCompletion(() -> emitterRepository.deleteAllStartByWithId(id));
@@ -43,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
 		emitter.onError((e) -> emitterRepository.deleteAllStartByWithId(id));
 
 		// 연결 직후, 데이터 전송이 없을 시 503 에러 발생. 에러 방지 위한 더미데이터 전송
-		Notification notification = createNotification(userid, "SSE Connection check", "Connected. " + id, NotificationType.CONNECTION_CHECK);
+		Notification notification = createNotification(userid, "ASAP 실시간 알림", userid + "님, 환영합니다.", NotificationType.CONNECTION_CHECK);
 		sendToClient(emitter, userid, notification);
 
 		if (!lastEventId.isEmpty()) { // 클라이언트가 미수신한 Event 유실 예방, 연결이 끊켰거나 미수신된 데이터를 다 찾아서 보내준다.

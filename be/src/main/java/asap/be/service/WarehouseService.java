@@ -20,5 +20,5 @@ public interface WarehouseService {
 
 	List<CountryDto> countryStatus();
 
-    DayMaxValueDto sixData(String date);
+	DayMaxValueDto sixData(String date);
 }
