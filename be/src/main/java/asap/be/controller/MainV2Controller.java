@@ -2,7 +2,6 @@ package asap.be.controller;
 
 import asap.be.domain.Member;
 import asap.be.dto.EverythingPageDto;
-import asap.be.dto.MailDto;
 import asap.be.search.SearchService;
 import asap.be.service.MailService;
 import asap.be.service.MemberService;
@@ -10,8 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -41,8 +45,7 @@ public class MainV2Controller {
 		if (memberService.authenticateMember(member.getEmail(), member.getPassword())) {
 			session.setAttribute("memberId", member.getEmail());
 			return ResponseEntity.ok("로그인 성공");
-		}
-		else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
+		} else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
 	}
 
 	@GetMapping(value = "/logout", produces = "application/json; charset=utf8")
@@ -62,16 +65,15 @@ public class MainV2Controller {
 
 		if (!member.getEmail().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("잘못된 이메일 형식입니다.");
-		
+
 		memberService.save(member);
 		mailService.verifyEmail(member.getEmail());
 		mailService.sendCertificationMail(member.getEmail());
-		
-		
+
 		return ResponseEntity.ok("회원가입 되었습니다.");
 	}
 
-	@GetMapping(value="/check/{checkmail}", produces = "application/json; charset=utf8")
+	@GetMapping(value = "/check/{checkmail}", produces = "application/json; charset=utf8")
 	public ResponseEntity<String> checkEmail(@PathVariable("checkmail") String checkMail) {
 
 		String verify = checkMail.split("!")[0];

@@ -22,7 +22,6 @@ spring:
           starttls:
             enable: true
 
-
 mybatis:
   type-aliases-package: asap.be.domain, asap.be.dto
   configuration:

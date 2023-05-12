@@ -56,7 +56,8 @@ public class MainController {
 	 */
 	@PostMapping("/prod")
 	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto, HttpSession session) throws IOException, WriterException {
-		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
+
+		if (productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
 		productService.insertOrUpdateStock(productDto, session);
 
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getpName(), productDto.getwId(), productDto.getpCode()), HttpStatus.OK);
@@ -117,6 +118,7 @@ public class MainController {
 	 */
 	@GetMapping("/country-product-status")
 	public ResponseEntity<List<CountryDto>> getCountryProductStatus() {
+
 		return new ResponseEntity<>(dashBoardService.getCountryProductStatus(), HttpStatus.OK);
 	}
 
@@ -135,39 +137,41 @@ public class MainController {
 	 */
 	@GetMapping("/find-all")
 	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId,
-																	 @RequestParam(value = "order", defaultValue = "DESC")String order){
+																	 @RequestParam(value = "order", defaultValue = "DESC") String order) {
 
-		return new ResponseEntity<>(productService.findByAll(lastId, order),HttpStatus.OK);
-
+		return new ResponseEntity<>(productService.findByAll(lastId, order), HttpStatus.OK);
 	}
 
 	@GetMapping("/find-one")
-	public ResponseEntity<DetailInfoDto> getDetailInfo(@RequestParam(value = "pId") long pId){
+	public ResponseEntity<DetailInfoDto> getDetailInfo(@RequestParam(value = "pId") long pId) {
+
 		return new ResponseEntity<>(productService.detailPageUsingPId(pId), HttpStatus.OK);
 	}
 
 	@PatchMapping("/find-one")
 	public ResponseEntity<DetailInfoDto> editAndDeleteDetailInfo(@RequestParam(value = "pId") Long pId, @RequestBody EditProductDto dto) {
+
 		return new ResponseEntity<>(productService.editDetailPage(pId, dto), HttpStatus.OK);
 	}
 
 	@GetMapping("/six-value")
 	public ResponseEntity<DayMaxValueDto> getSixData(@RequestParam(value = "date", defaultValue = "") String date) {
-		if(date.isEmpty()) date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-		return new ResponseEntity<>(warehouseService.sixData(date),HttpStatus.OK);
+		if (date.isEmpty()) date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+		return new ResponseEntity<>(warehouseService.sixData(date), HttpStatus.OK);
 	}
 
 	@GetMapping("/product-names")
-	public ResponseEntity<List<String>> showAllPName(){
-		return new ResponseEntity<>(dashBoardService.showAllPName(),HttpStatus.OK);
+	public ResponseEntity<List<String>> showAllPName() {
+
+		return new ResponseEntity<>(dashBoardService.showAllPName(), HttpStatus.OK);
 	}
 
 	/**
 	 * SSE 통신
 	 * sse 통신 위해 MIME 타입은 text/event-stream 로 지정
-	 *
+	 * <p>
 	 * lastEventId : 클라이언트 미수신 Event 유실 예방 위함
 	 */
 	@GetMapping(value = "/connect", produces = "text/event-stream")
@@ -180,33 +184,38 @@ public class MainController {
 	// Release
 	@GetMapping("/release")
 	public ResponseEntity<List<AllReleaseDto>> getRelease(@RequestParam(value = "lastId", required = false) Integer lastId) {
+
 		return new ResponseEntity<>(releaseService.findAll(lastId), HttpStatus.OK);
 	}
 
 	@GetMapping("/release/{s-id}")
 	public ResponseEntity<List<Release>> getReleaseByStock(@PathVariable("s-id") Long sId) {
+
 		return new ResponseEntity<>(releaseService.findReleaseById(sId), HttpStatus.OK);
 	}
 
 	// Warehouse
 	@PostMapping("/warehouse")
 	public ResponseEntity<List<Warehouse>> postWarehouse(@RequestBody WarehouseDto.Post warehouse) {
+
 		warehouseService.wSave(warehouse);
 		return new ResponseEntity<>(warehouseService.findWarehouseByName(warehouse.getWname()), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/warehouse/{w-id}")
 	public ResponseEntity deleteWarehouse(@PathVariable("w-id") Long wId) {
+
 		warehouseService.wDelete(wId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PatchMapping("/warehouse")
 	public ResponseEntity<List<Warehouse>> patchWarehouse(@RequestBody WarehouseDto.Patch dto) {
+
 		warehouseService.wChange(dto);
 
 		List<Warehouse> warehouses = dto.getOldLoc() == null ?
-						warehouseService.findWarehouseByName(dto.getNewName()) : warehouseService.findWarehouseByLoc(dto.getNewLoc());
+				warehouseService.findWarehouseByName(dto.getNewName()) : warehouseService.findWarehouseByLoc(dto.getNewLoc());
 
 		return new ResponseEntity<>(warehouses, HttpStatus.OK);
 	}
@@ -215,8 +224,10 @@ public class MainController {
 	public ResponseEntity<List<Warehouse>> getWarehouseByName(@RequestParam(required = false) String wName, @RequestParam(required = false) String wLoc) {
 
 		List<Warehouse> warehouses = new ArrayList<>();
+
 		if (wName != null && wLoc == null) warehouses = warehouseService.findWarehouseByName(wName);
 		else if (wName == null && wLoc != null) warehouses = warehouseService.findWarehouseByLoc(wLoc);
+
 		return new ResponseEntity<>(warehouses, HttpStatus.OK);
 	}
 

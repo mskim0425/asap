@@ -1,9 +1,9 @@
 package asap.be.service;
 
 import asap.be.dto.CountryDto;
-import asap.be.dto.ProductCntDto;
 import asap.be.dto.DashboardDto.RankDto;
 import asap.be.dto.MoneyDto;
+import asap.be.dto.ProductCntDto;
 import asap.be.dto.YearStatusDto;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static asap.be.config.CacheConstant.*;
+import static asap.be.config.CacheConstant.MONTHLY_SUMMARY;
+import static asap.be.config.CacheConstant.RANK_PRODUCT;
 
 @Service
 @RequiredArgsConstructor
@@ -41,8 +42,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 			if (i < dto.size() && dto.get(i).getDate().equals(date.toString())) {
 				result.add(new ProductCntDto(date.toString(), dto.get(i).getInsertCnt(), dto.get(i).getReleaseCnt()));
 				i++;
-			}
-			else result.add(new ProductCntDto(date.toString(), 0, 0));
+			} else result.add(new ProductCntDto(date.toString(), 0, 0));
 		}
 
 		return result;

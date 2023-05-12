@@ -1,7 +1,16 @@
 package asap.be.service;
 
 import asap.be.domain.notification.NotificationType;
-import asap.be.dto.*;
+import asap.be.dto.AllProductCntDto;
+import asap.be.dto.DetailInfoDto;
+import asap.be.dto.DetailInsertDto;
+import asap.be.dto.DetailInsertLogsDto;
+import asap.be.dto.DetailProductDto;
+import asap.be.dto.DetailReleaseDto;
+import asap.be.dto.EditProductDto;
+import asap.be.dto.EverythingDto;
+import asap.be.dto.EverythingPageDto;
+import asap.be.dto.PostProductDto;
 import asap.be.exception.BusinessLogicException;
 import asap.be.exception.ExceptionCode;
 import asap.be.qrcode.QrcodeGeneratorService;
@@ -46,8 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
 			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
 			notificationService.send(session, "출고 알림!", sb.toString(), NotificationType.RELEASE);
-		}
-		else { //입고
+		} else { //입고
 			productMybatisRepository.insertOrUpdateStock(dto);
 			//QR코드 더하기
 			Long pId = productMybatisRepository.findByUUID(dto.getpCode());

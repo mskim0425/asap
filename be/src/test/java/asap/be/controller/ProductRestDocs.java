@@ -6,18 +6,21 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static asap.be.utils.MainControllerConstants.*;
@@ -46,12 +49,11 @@ public class ProductRestDocs {
 	private ProductServiceImpl productService;
 
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 저장/입고 테스트")
 	void saveProductTest() throws Exception {
 		String content = gson.toJson(SAVE_AND_RECEIVE_PRODUCT);
-
-		doNothing().when(productService).insertOrUpdateStock(SAVE_AND_RECEIVE_PRODUCT);
+		doNothing().when(productService).insertOrUpdateStock(SAVE_AND_RECEIVE_PRODUCT, Mockito.mock(HttpSession.class));
 
 		ResultActions actions =
 				mockMvc.perform(
@@ -91,11 +93,11 @@ public class ProductRestDocs {
 						)));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 출고 테스트")
 	void releaseProductTest() throws Exception {
 		String content = gson.toJson(RELEASE_PRODUCT);
-		doNothing().when(productService).insertOrUpdateStock(RELEASE_PRODUCT);
+		doNothing().when(productService).insertOrUpdateStock(RELEASE_PRODUCT, Mockito.mock(HttpSession.class));
 
 		ResultActions actions =
 				mockMvc.perform(
@@ -139,7 +141,7 @@ public class ProductRestDocs {
 	@DisplayName("상품 출고 예외 테스트1")
 	void releaseProductExceptionTest() throws Exception {
 		String content = gson.toJson(EXCEPTION_RELEASE_PRODUCT);
-		doNothing().when(productService).insertOrUpdateStock(EXCEPTION_RELEASE_PRODUCT);
+		doNothing().when(productService).insertOrUpdateStock(EXCEPTION_RELEASE_PRODUCT, Mockito.mock(HttpSession.class));
 
 		ResultActions actions =
 				mockMvc.perform(
@@ -177,7 +179,7 @@ public class ProductRestDocs {
 	@DisplayName("상품 출고 예외 테스트2")
 	void releaseProductExceptionNameTest() throws Exception {
 		String content = gson.toJson(NAME_EXCEPTION_RELEASE_PRODUCT);
-		doNothing().when(productService).insertOrUpdateStock(NAME_EXCEPTION_RELEASE_PRODUCT);
+		doNothing().when(productService).insertOrUpdateStock(NAME_EXCEPTION_RELEASE_PRODUCT, Mockito.mock(HttpSession.class));
 
 		ResultActions actions =
 				mockMvc.perform(
@@ -280,7 +282,7 @@ public class ProductRestDocs {
 	@DisplayName("전체페이지 조회")
 	void totalPage() throws Exception {
 		Integer lastId = 10;
-		given(productService.findByAll(anyInt(),anyString())).willReturn(ALL_INFO_DTO_LIST);
+		given(productService.findByAll(anyInt(), anyString())).willReturn(ALL_INFO_DTO_LIST);
 
 		ResultActions actions = mockMvc.perform(
 				RestDocumentationRequestBuilders.get("/api/find-all?lastId={lastId}", lastId).accept(MediaType.APPLICATION_JSON)
@@ -302,7 +304,7 @@ public class ProductRestDocs {
 				));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
@@ -346,7 +348,7 @@ public class ProductRestDocs {
 				));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 가격 수정 테스트")
 	void patchProductPrice() throws Exception {
 
@@ -390,7 +392,7 @@ public class ProductRestDocs {
 				));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 바코드 수정 테스트")
 	void patchProductBarcode() throws Exception {
 
@@ -434,7 +436,7 @@ public class ProductRestDocs {
 				));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 전체 수정 테스트")
 	void patchProduct() throws Exception {
 
@@ -480,7 +482,7 @@ public class ProductRestDocs {
 				));
 	}
 
-//	@Test
+	//	@Test
 	@DisplayName("상품 상태 변경 테스트 (삭제)")
 	void deleteProduct() throws Exception {
 

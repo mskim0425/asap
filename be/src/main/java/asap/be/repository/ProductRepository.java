@@ -1,6 +1,14 @@
 package asap.be.repository;
 
-import asap.be.dto.*;
+import asap.be.dto.AllProductCntDto;
+import asap.be.dto.DetailInsertDto;
+import asap.be.dto.DetailProductDto;
+import asap.be.dto.DetailReleaseDto;
+import asap.be.dto.DetailWarehouseDto;
+import asap.be.dto.EditProductDto;
+import asap.be.dto.EverythingDto;
+import asap.be.dto.EverythingPageDto;
+import asap.be.dto.PostProductDto;
 
 import java.util.List;
 
@@ -38,9 +46,9 @@ public interface ProductRepository {
 
 	List<DetailWarehouseDto> findProductWarehouseById(Long pId);
 
-    Long findByUUID(String uuid);
+	Long findByUUID(String uuid);
 
-    void saveS3ImageUrl(String imageURL, Long pId);
+	void saveS3ImageUrl(String imageURL, Long pId);
 
-    List<EverythingPageDto> search(Integer lastId, String query, String order);
+	List<EverythingPageDto> search(Integer lastId, String query, String order);
 }
