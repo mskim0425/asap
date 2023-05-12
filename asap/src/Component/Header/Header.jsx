@@ -39,6 +39,9 @@ const Header = () => {
       case 2:
         navigate("/admin");
         break;
+      case 3:
+        navigate("/sign");
+        break;
       default:
     }
   };
@@ -63,6 +66,9 @@ const Header = () => {
         </li>
         <li onClick={navigator(2)}>
           <a href="#none">Admin</a>
+        </li>
+        <li onClick={navigator(3)}>
+          <a href="#none">Sign<br/>Up / In</a>
         </li>
       </ul>
       {/* <ul className="nav">

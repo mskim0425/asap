@@ -7,6 +7,7 @@ import Admin from "./Pages/Admin";
 import StuffDetail from "./Pages/StuffDetail";
 import Error from "./Component/Error/Error";
 import Loading from "./Component/loading/Loading";
+import { SignPage } from "./Pages/Sign";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/error" Component={Error} />
         <Route path="/loading" Component={Loading} />
         <Route path="/admin/:id" Component={StuffDetail} />
+        <Route path="/sign" Component={SignPage} />
       </Routes>
     </BrowserRouter>
   );
