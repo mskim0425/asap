@@ -1,6 +1,7 @@
 import "../style/Main.css";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect } from "react";
+import NightCity from "../Component/Animation/NightCity";
 
 const Main = () => {
   // useEffect(() => {
@@ -61,7 +62,9 @@ const Main = () => {
         </div>
       </section>
       <section id="stuff">
-        <div className="container2"></div>
+        {/* <div className="container2"></div> */}
+        <NightCity />
+
         <div className="squareText">
           <h3>QR CODE로 어디서든 물품 위치 확인 가능</h3>
           <span>

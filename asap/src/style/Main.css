@@ -194,6 +194,7 @@
 
 #stuff {
   position: relative;
+  border: 1px solid red;
 }
 
 #stuff .container2 {
