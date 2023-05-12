@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const SignUp = () => {
+const SignUp = ({setPanelState}) => {
   const { register, handleSubmit } = useForm();
   const signUp = async (data) => {
     try{
         const response = await axios.post(`/signin`, data)
-        console.log(response.data)
+        window.alert(`${response.data}\n메일함을 확인하시고 이메일 인증을 해주세요\n인증 후 ASAP의 모든 기능을 사용하실 수 있습니다.`)
+        setPanelState(true)
     }
     catch(err){console.log(err)}
   }

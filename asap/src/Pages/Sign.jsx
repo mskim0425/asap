@@ -11,7 +11,7 @@ const SignPage = () => {
   return (
     <div className="signsection">
       <div className={panelState ? "container" : "container right-panel-active"}>
-        <SignUp />
+        <SignUp setPanelState={setPanelState} />
         <SignIn />
 
         <div className="container__overlay">
