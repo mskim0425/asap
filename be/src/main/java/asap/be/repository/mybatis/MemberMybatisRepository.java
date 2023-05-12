@@ -20,4 +20,14 @@ public class MemberMybatisRepository implements MemberRepository {
 	public boolean authenticateMember(String email, String password) {
 		return memberMapper.authenticateMember(email, password);
 	}
+
+	@Override
+	public boolean findByEmail(String email) {
+		return memberMapper.findByEmail(email);
+	}
+
+	@Override
+	public void updateVerified(String email) {
+		memberMapper.updateVerified(email);
+	}
 }

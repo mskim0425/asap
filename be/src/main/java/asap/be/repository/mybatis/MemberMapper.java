@@ -10,4 +10,8 @@ public interface MemberMapper {
 	void save(@Param("m") Member member);
 
 	boolean authenticateMember(String email, String password);
+
+    boolean findByEmail(String email);
+
+	void updateVerified(String email);
 }
