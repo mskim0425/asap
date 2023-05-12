@@ -3,13 +3,18 @@ package asap.be.config;
 import asap.be.qrcode.QrcodeGeneratorService;
 import asap.be.qrcode.S3UploadService;
 import asap.be.repository.EmitterRepository;
-import asap.be.repository.mybatis.EmitterMyBatisRepository;
+import asap.be.repository.MemberRepository;
+import asap.be.repository.mybatis.EmitterMybatisRepository;
+import asap.be.repository.mybatis.MemberMapper;
+import asap.be.repository.mybatis.MemberMybatisRepository;
 import asap.be.repository.mybatis.ProductMapper;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMapper;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMapper;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
+import asap.be.service.MemberService;
+import asap.be.service.MemberServiceImpl;
 import asap.be.service.NotificationService;
 import asap.be.service.NotificationServiceImpl;
 import asap.be.service.ProductService;
@@ -30,6 +35,8 @@ public class MybatisConfig {
 	private final WarehouseMapper warehouseMapper;
 	private final ReleaseMapper releaseMapper;
 	private final AmazonS3 amazonS3;
+	private final MemberMapper memberMapper;
+
 	@Bean
 	public ProductService productService() {
 		return new ProductServiceImpl(releaseService(), notificationService(), new QrcodeGeneratorService(new S3UploadService(amazonS3)),productRepository());
@@ -50,6 +57,11 @@ public class MybatisConfig {
 	}
 
 	@Bean
+	public MemberService memberService() {
+		return new MemberServiceImpl(new MemberMybatisRepository(memberMapper));
+	}
+
+	@Bean
 	public ProductMybatisRepository productRepository() {
 		return new ProductMybatisRepository(productMapper);
 	}
@@ -66,6 +78,6 @@ public class MybatisConfig {
 
 	@Bean
 	public EmitterRepository emitterRepository() {
-		return new EmitterMyBatisRepository();
+		return new EmitterMybatisRepository();
 	}
 }

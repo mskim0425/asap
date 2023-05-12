@@ -9,9 +9,9 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 
 @Component
 @Slf4j
@@ -20,11 +20,11 @@ public class RedissonLockServiceFacade {
     private final RedissonClient redissonClient;
     private final ProductServiceImpl productService;
 
-    public void save(PostProductDto dto) throws IOException, WriterException {
-        productService.insertOrUpdateStock(dto);
+    public void save(PostProductDto dto, HttpSession session) throws IOException, WriterException {
+        productService.insertOrUpdateStock(dto, session);
     }
 
-    public void release(String key, PostProductDto dto) {
+    public void release(String key, PostProductDto dto, HttpSession session) {
         RLock lock = redissonClient.getLock(key);
 
         try {
@@ -34,7 +34,7 @@ public class RedissonLockServiceFacade {
                 log.info("{} lock 획득 실패", key);
                 return;
             }
-            productService.insertOrUpdateStock(dto);
+            productService.insertOrUpdateStock(dto, session);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

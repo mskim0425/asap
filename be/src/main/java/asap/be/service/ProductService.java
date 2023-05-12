@@ -3,11 +3,12 @@ package asap.be.service;
 import asap.be.dto.*;
 import com.google.zxing.WriterException;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
-	void insertOrUpdateStock(PostProductDto dto) throws IOException, WriterException;
+	void insertOrUpdateStock(PostProductDto dto, HttpSession session) throws IOException, WriterException;
 
 	void updateProduct(EditProductDto dto);
 
@@ -27,5 +28,5 @@ public interface ProductService {
 
 	Long findByUUID(String uuid);
 
-    void saveS3ImageUrl(String imageURL, Long pId);
+	void saveS3ImageUrl(String imageURL, Long pId);
 }

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class EmitterMyBatisRepository implements EmitterRepository {
+public class EmitterMybatisRepository implements EmitterRepository {
 	private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 	private final Map<String, Object> eventCache = new ConcurrentHashMap<>();
 
@@ -41,10 +41,11 @@ public class EmitterMyBatisRepository implements EmitterRepository {
 			if (key.startsWith(id)) emitters.remove(key);
 		});
 	}
+
 	@Override
-	public List<SseEmitter> getAll(){
+	public List<SseEmitter> getAll() {
 		List<SseEmitter> list = new CopyOnWriteArrayList<>();//동시성을 보장하는 ArrayList
-		for(SseEmitter se : emitters.values()){
+		for (SseEmitter se : emitters.values()) {
 			list.add(se);
 		}
 		return list;
