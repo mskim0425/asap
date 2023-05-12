@@ -26,23 +26,31 @@ const AdminContent = () => {
   const [stock, setStock] = useState("");
   //검색
   const [search, setSearch] = useState("");
+  const [searchControl, setSearchControl] = useState("");
+  const [wordLists, setWordLists] = useState([]);
+  const [searchWordLists, setSearchWordLists] = useState([]);
+  const [isHaveSearchValue, setIsHaveSearchValue] = useState(false);
 
   const [releaseQuantity, setReleaseQuantity] = useState("");
   const [warehouses, setWarehouses] = useState("");
   const [wid, setWid] = useState("");
   //페이징
   const [pageNumber, setPageNumber] = useState(10);
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({
+    threshold: 1,
+    triggerOnce: true,
+    initialInView: true,
+  });
 
   const [listId, setListId] = useState("");
-
   // 무한스크롤
-  const stuffList = useCallback(async () => {
+  const stuffList = async (data, search) => {
     try {
       const response = await axios.get(`/find-all?lastId=${pageNumber}`);
       let sortList = response.data.sort((a, b) => a.pid - b.pid);
-
-      if (pageNumber !== 10) {
+      if (search === "search") {
+        setLists(data);
+      } else if (pageNumber !== 10 && search !== "search") {
         setLists((prevChallenges) => [...prevChallenges, ...sortList]);
       } else {
         setLists(sortList);
@@ -50,11 +58,10 @@ const AdminContent = () => {
     } catch (error) {
       setError(error);
     }
-  }, [pageNumber]);
-
+  };
   useEffect(() => {
     stuffList();
-  }, [stuffList]);
+  }, [pageNumber]);
 
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
@@ -62,6 +69,60 @@ const AdminContent = () => {
       setPageNumber((prevState) => prevState + 10);
     }
   }, [inView, loading]);
+
+  //자동완성
+  useEffect(() => {
+    const wordLists = async () => {
+      const responseNames = await axios.get("/product-names");
+      // console.log(responseNames.data);
+      setWordLists(responseNames.data);
+    };
+    wordLists();
+  }, []);
+
+  const autoComplete = (word) => {
+    setSearch(word);
+    if (word === "") {
+      setIsHaveSearchValue(false);
+    } else {
+      // const filteredWord = wordLists.filter((list) => list === word);
+      const filteredWord = wordLists.filter((list) => list.includes(word));
+      setSearchWordLists(filteredWord);
+      setIsHaveSearchValue(true);
+    }
+  };
+
+  //드롭다운 검색어 클릭시
+  const clickDropDownWord = (clickedItem) => {
+    // console.log("fdsf", clickedItem);
+    setSearch(clickedItem);
+    // console.log("22222222", search);
+    setIsHaveSearchValue(false);
+    // onSearch();
+  };
+
+  // Enter 입력이 되면 이벤트 실행
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSearch();
+    }
+  };
+
+  //검색
+  const onSearch = async () => {
+    console.log("search", search);
+
+    if (search === null || search === "") {
+      alert("검색어 없음");
+    } else {
+      // const responseNames = await axios.get("/product-names");
+      // console.log(responseNames.data);
+      // const filteredName = responseNames.data.filter((list) => list === search);
+      const response = await axios.get(`/search?order=asc&pName=${search}`);
+      stuffList(response.data, "search");
+      setSearchControl("search");
+    }
+  };
 
   //리스트 클릭시 상세 내용보여주기
   const toggleComment = (id, modifiedQuantity) => {
@@ -132,11 +193,16 @@ const AdminContent = () => {
         wId: wId,
         pInsert: parseInt(stock),
       };
-      await axios.post("/prod", quantityData);
-      document.querySelector("#stockQuantity").value = "";
-      toggleComment(listId, "modifiedQuantity");
+
+      if (wId === 0) {
+        alert("창고를 선택해주세요.");
+      } else {
+        await axios.post("/prod", quantityData);
+        document.querySelector("#stockQuantity").value = "";
+        toggleComment(listId, "modifiedQuantity");
+      }
     } catch (error) {
-      setError(error);
+      console.error(error);
     }
   };
 
@@ -150,26 +216,17 @@ const AdminContent = () => {
         wId: wId,
         quantity: parseInt(releaseQuantity),
       };
-      await axios.post("/prod", count);
-      document.querySelector("#releaseQuantity").value = "";
-      toggleComment(listId, "modifiedQuantity");
+      if (wId === 0) {
+        alert("창고를 선택해주세요.");
+      } else if (parseInt(releaseQuantity) > product.cnt) {
+        alert("출고량이 재고보다 많습니다.");
+      } else {
+        await axios.post("/prod", count);
+        document.querySelector("#releaseQuantity").value = "";
+        toggleComment(listId, "modifiedQuantity");
+      }
     } catch (error) {
-      setError(error);
-    }
-  };
-
-  //검색
-  const onSearch = async () => {
-    if (search === null || search === "") {
-      alert("검색어 없음");
-    } else {
-      const responseNames = await axios.get("/product-names");
-      const filteredName = responseNames.data.filter((list) => list === search);
-      console.log("filteredName:", String(filteredName));
-      const response = await axios.get(
-        `/search?order=asc&pName=${filteredName}`
-      );
-      setLists(response.data);
+      console.error(error);
     }
   };
 
@@ -209,8 +266,10 @@ const AdminContent = () => {
               type="text"
               placeholder="상품을 검색을 해주세요."
               id="search"
+              value={search}
+              onKeyPress={handleOnKeyPress}
               onChange={(e) => {
-                setSearch(e.target.value);
+                autoComplete(e.target.value);
               }}
             />
             <div onClick={onSearch}>검색</div>
@@ -218,6 +277,24 @@ const AdminContent = () => {
               +
             </button>
           </div>
+          {isHaveSearchValue && (
+            <div id="autoComplete">
+              {searchWordLists.length === 0 && (
+                <div class="no_searched_word">해당하는 단어가 없습니다</div>
+              )}
+              {searchWordLists.map((dropDownItem, dropDownIndex) => {
+                return (
+                  <div
+                    key={dropDownIndex}
+                    class="searchedword"
+                    onClick={() => clickDropDownWord(dropDownItem)}
+                  >
+                    {dropDownItem}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className="add_stuff">
@@ -358,7 +435,7 @@ const AdminContent = () => {
                                   return (
                                     <>
                                       <option key={index} value={el.wid}>
-                                        {el.wid}
+                                        {el.wname}
                                       </option>
                                     </>
                                   );
@@ -428,7 +505,8 @@ const AdminContent = () => {
                           </div>
                         </div>
                       ) : null}
-                      {lists.length - 1 === index ? (
+                      {lists.length - 1 === index &&
+                      searchControl !== "search" ? (
                         <div ref={ref}></div>
                       ) : null}
                     </>
