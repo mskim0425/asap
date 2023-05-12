@@ -66,8 +66,8 @@ public class MainV2Controller {
 		if (!member.getEmail().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("잘못된 이메일 형식입니다.");
 
-		memberService.save(member);
 		mailService.verifyEmail(member.getEmail());
+		memberService.save(member);
 		mailService.sendCertificationMail(member.getEmail());
 
 		return ResponseEntity.ok("회원가입 되었습니다.");

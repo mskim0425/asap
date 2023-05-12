@@ -63,9 +63,10 @@ public class MailServiceImpl implements MailService {
 		String url = "https://soonerthebetter.site/api/check/" + code + "!" + email;
 		helper.setTo(email);
 		helper.setSubject("ASAP 이메일 인증");
-		helper.setText("<br>안녕하세요, ASAP 가족이 되신걸 환영합니다</br>" +
-				"<br>ASAP를 정상적으로 이용하기 위해서는 이메일 인증이 필요합니다</br>" +
-				"아래의 링크를 누르시면 인증이 완료 됩니다." + url, true);
+		helper.setText("<br>안녕하세요, ASAP 가족이 되신걸 환영합니다.</br>" +
+				"<br>ASAP를 정상적으로 이용하기 위해서는 이메일 인증이 필요합니다.</br>" +
+				"<br>아래의 링크를 누르시면 인증이 완료 됩니다.</br><br></br>" +
+				"<br>" + url + "</br>", true);
 		helper.setFrom("mins402kim@gmail.com", "ASAP 관리자");
 
 		return message;
@@ -73,12 +74,11 @@ public class MailServiceImpl implements MailService {
 
 	/**
 	 * 인증번호 전송전에 이미 가입한 이메일여부 확인
-	 *
 	 * @param email
 	 */
 	@Override
 	public void verifyEmail(String email) {
-		if (!memberMybatisRepository.findByEmail(email))
+		if (memberMybatisRepository.findByEmail(email))
 			throw new BusinessLogicException(ExceptionCode.MEMBER_EXIST);
 	}
 
@@ -88,5 +88,4 @@ public class MailServiceImpl implements MailService {
 		redisUtil.deleteData(email);
 		memberMybatisRepository.updateVerified(email);
 	}
-
 }
