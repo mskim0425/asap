@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -22,7 +23,9 @@ public class MailServiceImpl implements MailService{
     private final MemberMybatisRepository memberMybatisRepository;
     private final RedisTemplate<String, String> redisTemplate;
 
+
     @Override
+    @Async("threadPoolTaskExecutor - Mail")
     public void sendCertificationMail(String email) {
         try {
             String code = UUID.randomUUID().toString().substring(0, 6); // 랜덤한 6자리 코드 생성
