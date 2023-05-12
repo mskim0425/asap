@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,9 @@ public class NotificationServiceImpl implements NotificationService {
 	 * SSE 통신
 	 */
 	@Override
-	public SseEmitter connection(String lastEventId, HttpServletResponse response) {
+	public SseEmitter connection(String lastEventId, HttpServletResponse response, HttpSession session) {
 
-		String userid = "user"; // 로그인 정보를 기반으로 만들어야하는 곳이다.(로그인을 구현하지않아서 user라고 고정함)
+		String userid = session.getAttribute("memberId").toString(); // 로그인 정보를 기반으로 만들어야하는 곳이다.(로그인을 구현하지않아서 user라고 고정함)
 		String id = userid + "_" + System.currentTimeMillis(); // 데이터 유실 시점 파악 위함
 
 		// 클라이언트의 sse 연결 요청에 응답하기 위한 SseEmitter 객체 생성
@@ -82,9 +83,10 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	@Transactional
 	// 알림 보낼 로직에 send 메서드 호출하면 됨
-	public void send(String title, String content, NotificationType notificationType) {
+	public void send(HttpSession session, String title, String content, NotificationType notificationType) {
 
-		String id = "user";
+		String id = session.getAttribute("memberId").toString();
+
 		Notification notification = createNotification(id, title, content, notificationType);
 
 		// 유저의 모든 SseEmitter 가져옴

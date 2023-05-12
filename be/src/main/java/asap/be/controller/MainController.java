@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -54,9 +55,9 @@ public class MainController {
 	 *                     "wId": {{$randomInt}}, "quantity": {{$randomInt}}
 	 */
 	@PostMapping("/prod")
-	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto) throws IOException, WriterException {
+	public ResponseEntity<EverythingDto> addProduct(@RequestBody PostProductDto productDto, HttpSession session) throws IOException, WriterException {
 		if(productDto == null) return new ResponseEntity<>(HttpStatus.ACCEPTED); //데이터 삽입용
-		productService.insertOrUpdateStock(productDto);
+		productService.insertOrUpdateStock(productDto, session);
 
 		return new ResponseEntity<>(releaseService.findStockByPNameAndWId(productDto.getpName(), productDto.getwId(), productDto.getpCode()), HttpStatus.OK);
 	}
@@ -170,9 +171,10 @@ public class MainController {
 	 * lastEventId : 클라이언트 미수신 Event 유실 예방 위함
 	 */
 	@GetMapping(value = "/connect", produces = "text/event-stream")
-	public ResponseEntity<SseEmitter> sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId, HttpServletResponse response) {
+	public ResponseEntity<SseEmitter> sseConnection(@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId,
+													HttpServletResponse response, HttpSession session) {
 
-		return new ResponseEntity<>(notificationService.connection(lastEventId, response), HttpStatus.OK);
+		return new ResponseEntity<>(notificationService.connection(lastEventId, response, session), HttpStatus.OK);
 	}
 
 	// Release

@@ -42,7 +42,7 @@ public class NotificationRestDocs {
 
 		String lastEventId = "";
 
-		given(notificationService.connection(anyString(), any())).willReturn(new SseEmitter());
+		given(notificationService.connection(anyString(), any(), any())).willReturn(new SseEmitter());
 
 		ResultActions actions =
 				mockMvc.perform(

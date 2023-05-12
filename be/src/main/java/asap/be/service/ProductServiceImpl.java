@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	@CacheEvict(cacheNames = {MONTHLY_SUMMARY, SIX_VALUE, RANK_PRODUCT}, allEntries = true)
-	public void insertOrUpdateStock(PostProductDto dto) throws IOException, WriterException {
+	public void insertOrUpdateStock(PostProductDto dto, HttpSession session) throws IOException, WriterException {
 
 		StringBuffer sb = new StringBuffer();
 		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -44,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 			productMybatisRepository.insertOrUpdateRelease(dto);
 
 			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
-			notificationService.send("출고 알림!", sb.toString(), NotificationType.RELEASE);
+			notificationService.send(session, "출고 알림!", sb.toString(), NotificationType.RELEASE);
 		}
 		else { //입고
 			productMybatisRepository.insertOrUpdateStock(dto);
@@ -55,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
 			saveS3ImageUrl(imageUrl, pId);
 
 			sb.append(dto.getpName()).append(" ").append("+").append(dto.getpInsert()).append(" 입고");
-			notificationService.send("입고 알림!", sb.toString(), NotificationType.RECEIVE);
+			notificationService.send(session, "입고 알림!", sb.toString(), NotificationType.RECEIVE);
 		}
 
 	}
@@ -79,19 +80,19 @@ public class ProductServiceImpl implements ProductService {
 		return productMybatisRepository.findByName(pName);
 	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<EverythingPageDto> findByAll(Integer lastId,  String order) {
-        return productMybatisRepository.findByAll(lastId, order);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<EverythingPageDto> findByAll(Integer lastId, String order) {
+		return productMybatisRepository.findByAll(lastId, order);
+	}
 
 	@Override
 	public AllProductCntDto findAllCntByPName(String pName) {
 		return productMybatisRepository.findAllCntByPName(pName);
 	}
 
-    @Override
-    public DetailInfoDto detailPageUsingPId(Long pId) {
+	@Override
+	public DetailInfoDto detailPageUsingPId(Long pId) {
 		DetailProductDto product = productMybatisRepository.findProductById(pId);
 		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
 		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
@@ -115,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
 				.insertLogs(insertLogs)
 				.releaseLogs(release)
 				.build();
-    }
+	}
 
 	@Override
 	public Long findPIdByPNameAndWId(String pName, Long wId) {
@@ -161,11 +162,11 @@ public class ProductServiceImpl implements ProductService {
 			for (String string : strings) {
 				String[] split = string.split(" : ");
 				insertLogs.add(DetailInsertLogsDto.builder()
-					.wName(insertDto.getWName())
-					.wLoc(insertDto.getWLoc())
-					.receiveIn(split[0])
-					.pInsert(Integer.parseInt(split[1]))
-					.build());
+						.wName(insertDto.getWName())
+						.wLoc(insertDto.getWLoc())
+						.receiveIn(split[0])
+						.pInsert(Integer.parseInt(split[1]))
+						.build());
 			}
 		}
 	}
