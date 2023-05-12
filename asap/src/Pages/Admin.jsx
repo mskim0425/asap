@@ -163,14 +163,13 @@ const AdminContent = () => {
     if (search === null || search === "") {
       alert("검색어 없음");
     } else {
-      const response = await axios.get("/product-names");
-      //상품명 목록을 가져와 검색단어 추출
-      const filteredName = response.data.filter((list) => list === search);
-      //리스트에서 검색한 상품정보가져오기
-      const searchProductInfo = lists.filter(
-        (list) => String(list.pname) === String(filteredName)
+      const responseNames = await axios.get("/product-names");
+      const filteredName = responseNames.data.filter((list) => list === search);
+      console.log("filteredName:", String(filteredName));
+      const response = await axios.get(
+        `/search?order=asc&pName=${filteredName}`
       );
-      setLists(searchProductInfo);
+      setLists(response.data);
     }
   };
 
@@ -439,7 +438,9 @@ const AdminContent = () => {
           </div>
         </div>
       </div>
-      <div id="sse">{/* <SSE /> */}</div>
+      <div id="sse">
+        <SSE />
+      </div>
     </div>
   );
 };
