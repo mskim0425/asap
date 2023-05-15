@@ -9,6 +9,9 @@ import StuffDetail from "./Pages/StuffDetail";
 import Error from "./Component/Error/Error";
 import Loading from "./Component/loading/Loading";
 
+import SSE from "./Component/SSE";
+import "./style/App.css";
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,12 +19,17 @@ function App() {
       <Routes>
         <Route path="/" Component={Main} />
         <Route path="/sign" Component={SignPage} />
-        <Route path="/dashboard" Component={Chart} />
         <Route path="/error" Component={Error} />
         <Route path="/loading" Component={Loading} />
-        <Route path="/admin" Component={Admin} />
         <Route path="/admin/:id" Component={StuffDetail} />
       </Routes>
+      <div className="sse_container">
+        <Routes>
+          <Route path="/dashboard" Component={Chart} />
+          <Route path="/admin" Component={Admin} />
+        </Routes>
+        <SSE />
+      </div>
     </BrowserRouter>
   );
 }

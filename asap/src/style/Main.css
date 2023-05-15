@@ -31,17 +31,16 @@
 
 #header ul li {
   position: relative;
-  /* border: 2px solid var(--black); */
   width: 100px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
+  cursor: pointer;
 }
 
-#header ul li a {
-  text-decoration: none;
+#header ul li .menu {
   color: var(--white);
   z-index: 1000;
 }
@@ -53,7 +52,7 @@
 }
 
 #header ul li.active,
-#header ul li:hover a {
+#header ul li:hover .menu {
   color: #fff;
   text-shadow: 0 0 5px #30fe6c, 0 0 8px #30fe6c;
 }
@@ -194,11 +193,13 @@
 
 #stuff {
   position: relative;
-  border: 1px solid red;
+  padding: 120px 300px;
+  /* border: 1px solid red; */
 }
 
 #stuff .container2 {
-  right: 100px;
+  /* border: 1px solid red; */
+  right: 50px;
   width: 600px;
   height: 600px;
   display: flex;

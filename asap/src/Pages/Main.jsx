@@ -1,52 +1,36 @@
 import "../style/Main.css";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect } from "react";
-import NightCity from "../Component/Animation/NightCity";
 
 const Main = () => {
-  // useEffect(() => {
-  //   let container = document.querySelector(".container2");
-  //   for (let i = 1; i <= 200; i++) {
-  //     let dot = document.createElement("div");
-  //     dot.classList.add("element");
-  //     container.appendChild(dot);
-  //   }
+  useEffect(() => {
+    let container = document.querySelector(".container2");
+    for (let i = 1; i <= 100; i++) {
+      let dot = document.createElement("div");
+      dot.classList.add("element");
+      container.appendChild(dot);
+    }
 
-  //   let dotAll = document.querySelectorAll(".element");
+    let dotAll = document.querySelectorAll(".element");
 
-  //   const animation = anime.timeline({
-  //     targets: dotAll,
-  //     // easing: "easeInOutExpo",
-  //     loop: true,
-  //     delay: anime.stagger(100, { grid: [10, 10], from: "center" }),
-  //   });
-  //   animation
-  //     .add({
-  //       rotateZ: 180,
-  //       transelateY: anime.stagger(-20, {
-  //         grid: [10, 10],
-  //         from: "center",
-  //         axis: "y",
-  //       }),
-  //       transelateX: anime.stagger(-20, {
-  //         grid: [10, 10],
-  //         from: "center",
-  //         axis: "x",
-  //         opacity: 1,
-  //       }),
-  //     })
-  //     .add({
-  //       borderRadius: 50,
-  //     })
-  //     .add({
-  //       scale: 0.2,
-  //       opacity: 1,
-  //     })
-  //     .add({
-  //       scale: 1,
-  //       opacity: 0,
-  //     });
-  // }, []);
+    const animation = anime.timeline({
+      targets: dotAll,
+      loop: true,
+      delay: anime.stagger(100, { grid: [10, 10], from: "center" }),
+    });
+    animation
+      .add({
+        borderRadius: 50,
+      })
+      .add({
+        scale: 0.2,
+        opacity: 1,
+      })
+      .add({
+        scale: 1,
+        opacity: 0,
+      });
+  }, []);
 
   return (
     <div>
@@ -62,8 +46,7 @@ const Main = () => {
         </div>
       </section>
       <section id="stuff">
-        {/* <div className="container2"></div> */}
-        <NightCity />
+        <div className="container2"></div>
 
         <div className="squareText">
           <h3>QR CODE로 어디서든 물품 위치 확인 가능</h3>

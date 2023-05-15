@@ -2,31 +2,20 @@
   box-sizing: border-box;
   left: 10%;
   min-height: 100vh;
-  /* border: 10px solid red; */
   transition: 0.5s;
-  /* background-color: var(--white); */
   background-color: var(--black);
   display: flex;
   justify-content: center;
-  padding-top: 70px;
-}
-
-#sse {
-  /* border: 1px solid red; */
-  min-height: 100vh;
 }
 
 #search {
   /* border: 1px solid red; */
   position: relative;
-  /* overflow: hidden; */
   width: 100%;
   box-sizing: border-box;
-  /* padding: 0 0 20px 0; */
 }
 
 .searchWrapper {
-  /* border: 1px solid blue; */
   margin: 20px;
   display: flex;
   position: relative;
@@ -52,9 +41,7 @@
 }
 
 .searchedword:hover {
-  /* background-color: #30fe6c; */
   background-color: 1px solid var(--green);
-  /* color: var(--white); */
   box-shadow: 0 0 15px #30fe6c, 0 0 5px #30fe6c;
 }
 
@@ -84,8 +71,6 @@ input[type="text"] ~ div {
   color: var(--green);
   font-weight: bold;
   border-radius: 0 5px 5px 0;
-  /* box-shadow: 0 0 15px var(--green); */
-  /* box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3); */
   line-height: 30px;
   cursor: pointer;
 }
@@ -130,7 +115,6 @@ input[type="text"] ~ div:hover {
 .add_stuff {
   margin: 20px;
   padding: 20px;
-  /* border: 1px solid red; */
   box-sizing: border-box;
   border-radius: 5px;
   margin-bottom: 25px;
@@ -165,7 +149,6 @@ input[type="text"] ~ div:hover {
 }
 
 .info_wrapper {
-  /* border: 1px solid red; */
   overflow: hidden;
   margin-bottom: 10px;
   box-shadow: 0 7px 15px rgba(111, 111, 111, 0.3);
@@ -191,7 +174,6 @@ input[type="text"] ~ div:hover {
 }
 
 .info_wrapper > input {
-  /* border: 1px solid red; */
   float: right;
   width: 70%;
   border-radius: 5px;
@@ -200,15 +182,12 @@ input[type="text"] ~ div:hover {
 
 /* 재고리스트 */
 #list {
-  /* border: 1px solid red; */
   margin: 20px;
   box-sizing: border-box;
 }
 
 .content {
   width: 100%;
-  /* border: 1px solid red; */
-  /* box-shadow: 0 7px 25px rgba(111, 111, 111, 0.3); */
 }
 
 /* 상품 목록 */
@@ -216,26 +195,18 @@ input[type="text"] ~ div:hover {
   background-color: #fff;
   border-collapse: collapse;
   border-radius: 5px;
-  /* height: 800px; */
-  /* border: 1px solid red; */
-  /* overflow: scroll; */
-  /* overflow-x: hidden; */
-  /* filter: drop-shadow(0 0 10px #30fe6c); */
 }
 
 .header {
-  /* border: 1px solid red; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   background-color: rgb(12, 50, 12);
-  /* color: #fff; */
   color: var(--green);
   font-weight: bold;
   border-radius: 5px 5px 0 0;
 }
 
 .row {
-  /* border: 1px solid red; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   width: 100%;
@@ -248,7 +219,6 @@ input[type="text"] ~ div:hover {
   transition: 0.3s;
   transform: translate(3px, -5px);
   filter: drop-shadow(0 0 5px #30fe6c) drop-shadow(0 0 2px #30fe6c);
-  /* box-shadow: -10px 10px 10px rgba(211, 211, 211, 0.686); */
   box-shadow: -10px 10px 10px rgba(56, 56, 56, 0.686);
 }
 
@@ -266,7 +236,6 @@ input[type="text"] ~ div:hover {
 }
 
 .detail_row {
-  /* border: 1px solid blue; */
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 2fr 1fr;
@@ -280,7 +249,6 @@ input[type="text"] ~ div:hover {
 }
 
 .detail_cell {
-  /* border: 1px solid red; */
   padding: 10px;
   background-color: var(--white);
 }
@@ -297,7 +265,6 @@ input[type="text"] ~ div:hover {
 
 .product_quantity {
   border-top: 1px solid var(--lightgray);
-  /* border: 1px solid red; */
   padding: 20px;
   gap: 10px;
   background-color: var(--white);
@@ -307,7 +274,6 @@ input[type="text"] ~ div:hover {
 }
 
 .product_quantity > div {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
 }
@@ -332,7 +298,6 @@ input[type="text"] ~ div:hover {
 .stock input,
 .release input {
   border: 1px solid var(--gray);
-  /* border: 1px solid red; */
   width: 70%;
   height: 25px;
   border-radius: 5px 0 0 5px;
@@ -352,7 +317,6 @@ input[type="text"] ~ div:hover {
 }
 
 .product_quantity div:nth-child(1) {
-  /* border: 1px solid red; */
   float: left;
 }
 
@@ -367,7 +331,6 @@ input[type="text"] ~ div:hover {
 .info {
   float: right;
   outline: none;
-  /* border: 1px solid blue; */
 }
 
 .store_table {

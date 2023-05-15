@@ -59,16 +59,20 @@ const Header = () => {
       <div className="menuToggle" onClick={menuToggle}></div>
       <ul className="nav">
         <li className="active" onClick={navigator(0)}>
-          <a href="#none">Home</a>
+          <div className="menu">Home</div>
         </li>
         <li onClick={navigator(1)}>
-          <a href="#none">Dashboard</a>
+          <div className="menu">Dashboard</div>
         </li>
         <li onClick={navigator(2)}>
-          <a href="#none">Admin</a>
+          <div className="menu">Admin</div>
         </li>
         <li onClick={navigator(3)}>
-          <a href="#none">Sign<br/>Up / In</a>
+          <div className="menu">
+            Sign
+            <br />
+            Up / In
+          </div>
         </li>
       </ul>
       {/* <ul className="nav">
