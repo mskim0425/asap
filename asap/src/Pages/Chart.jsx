@@ -1,4 +1,4 @@
-import "./Chart.css";
+import "../style/Chart.css";
 import axios from "axios";
 import MonthlyChart from "../Component/Chart/MonthlyChart";
 import ReactApexChart from "react-apexcharts";
@@ -6,7 +6,6 @@ import DailyCheckById from "../Component/Chart/DailyCheckbyItem";
 import { useEffect, useState } from "react";
 import { GetDailyRecord } from "../apis/GetDailyRecord";
 import { commaChecker } from "../Function/commaChecker";
-import SSE from "../Component/SSE";
 
 const Chart = () => {
   const [dailyData, setDailyData] = useState(new Array(8).fill("Loding..."));
@@ -212,9 +211,6 @@ const Chart = () => {
               </table>
             </div>
           </div>
-        </div>
-        <div id="sse">
-          <SSE />
         </div>
       </div>
     </div>

@@ -1,0 +1,9 @@
+.sse_container {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-top: 70px;
+  min-height: 100vh;
+  width: "100%";
+  background-color: var(--black);
+}

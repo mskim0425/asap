@@ -50,11 +50,15 @@ const AdminContent = () => {
       let sortList = response.data.sort((a, b) => a.pid - b.pid);
       if (search === "search") {
         setLists(data);
-      } else if (pageNumber !== 10 && search !== "search") {
+      } else if (search !== "search") {
         setLists((prevChallenges) => [...prevChallenges, ...sortList]);
-      } else {
-        setLists(sortList);
       }
+      // else if (pageNumber !== 10 && search !== "search") {
+      //   setLists((prevChallenges) => [...prevChallenges, ...sortList]);
+      // }
+      // else {
+      //   setLists(sortList);
+      // }
     } catch (error) {
       setError(error);
     }
@@ -515,9 +519,6 @@ const AdminContent = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div id="sse">
-        <SSE />
       </div>
     </div>
   );
