@@ -35,7 +35,7 @@ const AdminContent = () => {
   const [warehouses, setWarehouses] = useState("");
   const [wid, setWid] = useState("");
   //페이징
-  const [pageNumber, setPageNumber] = useState(10);
+  const [pageNumber, setPageNumber] = useState(30);
   const [ref, inView] = useInView({
     threshold: 1,
     triggerOnce: true,
@@ -70,7 +70,7 @@ const AdminContent = () => {
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading) {
-      setPageNumber((prevState) => prevState + 10);
+      setPageNumber((prevState) => prevState + 30);
     }
   }, [inView, loading]);
 
