@@ -45,5 +45,7 @@ public interface ProductMapper {
 	void saveS3ImageUrl(String imageURL, Long pId);
 
     List<EverythingPageDto> search(Integer lastId, String pName, String order);
+
+	String findLastReceiveIn(String uuid);
 }
 

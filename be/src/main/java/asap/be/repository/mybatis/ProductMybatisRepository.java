@@ -3,7 +3,6 @@ package asap.be.repository.mybatis;
 import asap.be.dto.*;
 import asap.be.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,9 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
 		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		productMapper.insertOrUpdateStock(dto,today);
+		String lastReceiveIn = findLastReceiveIn(dto.getpCode());
+
+		productMapper.insertOrUpdateStock(dto, lastReceiveIn != null ? lastReceiveIn : today);
 	}
 
 	@Override
@@ -113,6 +114,11 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Override
 	public List<EverythingPageDto> search(Integer lastId, String pName, String order) {
 		return productMapper.search(lastId, pName, order);
+	}
+
+	@Override
+	public String findLastReceiveIn(String uuid) {
+		return productMapper.findLastReceiveIn(uuid);
 	}
 
 }

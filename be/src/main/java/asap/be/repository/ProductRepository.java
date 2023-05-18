@@ -51,4 +51,6 @@ public interface ProductRepository {
 	void saveS3ImageUrl(String imageURL, Long pId);
 
 	List<EverythingPageDto> search(Integer lastId, String query, String order);
+
+	String findLastReceiveIn(String uuid);
 }

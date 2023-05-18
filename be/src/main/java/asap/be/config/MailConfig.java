@@ -35,6 +35,7 @@ public class MailConfig {
         return javaMailSender;
     }
 
+    // 세부 사항 설정
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", "smtp");

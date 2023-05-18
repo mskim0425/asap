@@ -126,7 +126,7 @@
             SET @lastId = #{lastId};
         </if>
 
-        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 30) AS lastid
         FROM Product_table AS p
         WHERE p.pId &lt; @lastId
         <choose>
@@ -137,7 +137,7 @@
                 ORDER BY p.pId DESC
             </when>
         </choose>
-        LIMIT 10;
+        LIMIT 30;
         <!-- no offset 방식 -->
     </select>
 
@@ -232,7 +232,7 @@
             SET @lastId = #{lastId};
         </if>
 
-        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 30) AS lastid
         FROM Product_table AS p
         WHERE p.pId &lt; @lastId AND p.pName = #{pName}
         <choose>
@@ -243,6 +243,14 @@
                 ORDER BY p.pId DESC
             </when>
         </choose>
-        LIMIT 10;
+        LIMIT 30;
     </select>
+
+    <select id="findLastReceiveIn" resultType="java.lang.String">
+        SELECT receive_in
+        FROM Stock_table AS s
+        JOIN Product_table AS p ON s.pId = p.pId
+        WHERE p.pCode = #{uuid}
+    </select>
+
 </mapper>
