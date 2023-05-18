@@ -9,4 +9,4 @@ CMD ["./mvnw", "clean", "package"]
 ARG JAR_FILE=./be/build/libs/be-0.0.1-SNAPSHOT.jar
 ADD ${JAR_FILE} be.jar
 
-ENTRYPOINT ["java", "-jar", "/be.jar", "--spring.profiles.active=default", "--aws.access-key-id=${AWS_ACCESS_KEY_ID}", "--aws.secret-access-key=${AWS_SECRET_ACCESS_KEY}"]
+ENTRYPOINT ["java", "-Duser.timezone=Asia/Seoul", "-jar", "/be.jar", "--spring.profiles.active=default", "--aws.access-key-id=${AWS_ACCESS_KEY_ID}", "--aws.secret-access-key=${AWS_SECRET_ACCESS_KEY}"]
