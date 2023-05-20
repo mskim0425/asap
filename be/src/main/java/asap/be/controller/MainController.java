@@ -1,9 +1,21 @@
 package asap.be.controller;
 
-
 import asap.be.domain.Release;
 import asap.be.domain.Warehouse;
-import asap.be.dto.*;
+import asap.be.dto.AllProductCntDto;
+import asap.be.dto.AllReleaseDto;
+import asap.be.dto.CountryDto;
+import asap.be.dto.DashboardDto;
+import asap.be.dto.DayMaxValueDto;
+import asap.be.dto.DetailInfoDto;
+import asap.be.dto.EditProductDto;
+import asap.be.dto.EverythingDto;
+import asap.be.dto.EverythingPageDto;
+import asap.be.dto.MoneyDto;
+import asap.be.dto.PostProductDto;
+import asap.be.dto.ProductCntDto;
+import asap.be.dto.WarehouseDto;
+import asap.be.dto.YearStatusDto;
 import asap.be.service.DashBoardService;
 import asap.be.service.NotificationService;
 import asap.be.service.ProductService;
@@ -71,7 +83,7 @@ public class MainController {
 	public ResponseEntity<EverythingDto> deleteAndUpdateProduct(@RequestBody EditProductDto dto) {
 
 		productService.updateProduct(dto);
-		return new ResponseEntity<>(productService.findById(dto.getPId(), dto.getSId()), HttpStatus.OK);
+		return new ResponseEntity<>(productService.findById(dto.getpId(), dto.getsId()), HttpStatus.OK);
 	}
 
 	/**
@@ -133,7 +145,6 @@ public class MainController {
 
 	/*
 	 * no Offset 방식으로 구현한 무한스크롤 페이지네이션
-	 * TODO: 전체페이지 상세페이지 CRUD 구현하기
 	 */
 	@GetMapping("/find-all")
 	public ResponseEntity<List<EverythingPageDto>> getAllProductData(@RequestParam(value = "lastId", required = false) Integer lastId,

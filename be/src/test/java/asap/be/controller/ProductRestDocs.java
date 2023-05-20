@@ -1,6 +1,7 @@
 package asap.be.controller;
 
 import asap.be.dto.EditProductDto;
+import asap.be.qrcode.QrcodeGeneratorService;
 import asap.be.service.ProductServiceImpl;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,12 +23,16 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentRequest;
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,8 +52,11 @@ public class ProductRestDocs {
 	@MockBean
 	private ProductServiceImpl productService;
 
+	@MockBean
+	private QrcodeGeneratorService qrcodeGeneratorService;
 
-	//	@Test
+
+//	@Test
 	@DisplayName("상품 저장/입고 테스트")
 	void saveProductTest() throws Exception {
 		String content = gson.toJson(SAVE_AND_RECEIVE_PRODUCT);
@@ -72,15 +79,14 @@ public class ProductRestDocs {
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
 										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("pInsert").type(JsonFieldType.NUMBER).description("입고량"),
-										fieldWithPath("quantity").description("출고 시 사용").attributes(key("ignored").value(true))
+										fieldWithPath("pInsert").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
 						responseFields(
 								List.of(
 										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
 										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
 										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최신 입고일"),
 										fieldWithPath("wname").type(JsonFieldType.STRING).description("재고 보유 창고명"),
@@ -93,7 +99,7 @@ public class ProductRestDocs {
 						)));
 	}
 
-	//	@Test
+//	@Test
 	@DisplayName("상품 출고 테스트")
 	void releaseProductTest() throws Exception {
 		String content = gson.toJson(RELEASE_PRODUCT);
@@ -114,9 +120,8 @@ public class ProductRestDocs {
 								List.of(
 										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("pInsert").description("저장 및 입고 시 사용").attributes(key("ignored").value(true)),
 										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
@@ -124,7 +129,7 @@ public class ProductRestDocs {
 								List.of(
 										fieldWithPath("pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("pcode").type(JsonFieldType.STRING).description("상품 바코드"),
 										fieldWithPath("cnt").type(JsonFieldType.NUMBER).description("재고량"),
 										fieldWithPath("receiveIn").type(JsonFieldType.STRING).description("최신 입고일"),
 										fieldWithPath("wname").type(JsonFieldType.STRING).description("재고 보유 창고명"),
@@ -158,10 +163,9 @@ public class ProductRestDocs {
 								List.of(
 										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량"),
-										fieldWithPath("pInsert").description("입고 시 사용").attributes(key("ignored").value(true))
+										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
 						responseFields(
@@ -196,10 +200,9 @@ public class ProductRestDocs {
 								List.of(
 										fieldWithPath("pName").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("price").type(JsonFieldType.NUMBER).description("상품 단가"),
-										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드 이미지"),
+										fieldWithPath("pCode").type(JsonFieldType.STRING).description("상품 바코드"),
 										fieldWithPath("wId").type(JsonFieldType.NUMBER).description("창고 식별자"),
-										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량"),
-										fieldWithPath("pInsert").description("입고 시 사용").attributes(key("ignored").value(true))
+										fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("입고량")
 								)
 						),
 						responseFields(
@@ -261,6 +264,7 @@ public class ProductRestDocs {
 										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("product.pqr").type(JsonFieldType.STRING).description("QR코드 이미지"),
 										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
 										fieldWithPath("product.warehouses[]").type(JsonFieldType.ARRAY).description("창고 리스트"),
 										fieldWithPath("product.warehouses[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
@@ -281,7 +285,7 @@ public class ProductRestDocs {
 	@Test
 	@DisplayName("전체페이지 조회")
 	void totalPage() throws Exception {
-		Integer lastId = 10;
+		Integer lastId = 30;
 		given(productService.findByAll(anyInt(), anyString())).willReturn(ALL_INFO_DTO_LIST);
 
 		ResultActions actions = mockMvc.perform(
@@ -291,6 +295,7 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"find-all",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("단가"),
@@ -304,7 +309,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	//	@Test
+	@Test
 	@DisplayName("상품 이름 수정 테스트")
 	void patchProductName() throws Exception {
 
@@ -323,6 +328,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-product-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -348,7 +355,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	//	@Test
+	@Test
 	@DisplayName("상품 가격 수정 테스트")
 	void patchProductPrice() throws Exception {
 
@@ -367,6 +374,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-product-price",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -392,7 +401,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	//	@Test
+	@Test
 	@DisplayName("상품 바코드 수정 테스트")
 	void patchProductBarcode() throws Exception {
 
@@ -411,6 +420,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-product-barcode",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -436,7 +447,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	//	@Test
+	@Test
 	@DisplayName("상품 전체 수정 테스트")
 	void patchProduct() throws Exception {
 
@@ -455,6 +466,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-product",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -482,7 +495,7 @@ public class ProductRestDocs {
 				));
 	}
 
-	//	@Test
+	@Test
 	@DisplayName("상품 상태 변경 테스트 (삭제)")
 	void deleteProduct() throws Exception {
 
@@ -501,6 +514,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"delete-product",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -545,6 +560,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().is4xxClientError())
 				.andDo(document(
 						"patch-product-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("pId").type(JsonFieldType.NUMBER).description("상품 식별자"),
@@ -581,6 +598,8 @@ public class ProductRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-find-one",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("product").type(JsonFieldType.OBJECT).description("상품 정보"),
@@ -589,6 +608,7 @@ public class ProductRestDocs {
 										fieldWithPath("product.pid").type(JsonFieldType.NUMBER).description("상품코드"),
 										fieldWithPath("product.pname").type(JsonFieldType.STRING).description("상품명"),
 										fieldWithPath("product.pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("product.pqr").type(JsonFieldType.STRING).description("QR코드 이미지"),
 										fieldWithPath("product.cnt").type(JsonFieldType.NUMBER).description("상품 재고"),
 										fieldWithPath("product.warehouses[]").type(JsonFieldType.ARRAY).description("창고 리스트"),
 										fieldWithPath("product.warehouses[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
@@ -606,6 +626,66 @@ public class ProductRestDocs {
 
 				));
 
+	}
+
+	@Test
+	@DisplayName("검색 테스트")
+	void searchTest() throws Exception {
+		Integer lastId = 30;
+		String pName = "소금";
+		given(productService.findByAll(anyInt(), anyString())).willReturn(ALL_INFO_DTO_LIST);
+
+		ResultActions actions = mockMvc.perform(
+				RestDocumentationRequestBuilders.get("/api/search?lastId={lastId}&pName={pName}", lastId, pName).accept(MediaType.APPLICATION_JSON)
+		);
+
+		actions.andExpect(status().isOk())
+				.andDo(document(
+						"find-all",
+						getDocumentRequest(),
+						getDocumentResponse(),
+						responseFields(
+								List.of(
+										fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("단가"),
+										fieldWithPath("[].pid").type(JsonFieldType.NUMBER).description("상품코드"),
+										fieldWithPath("[].pname").type(JsonFieldType.STRING).description("상품명"),
+										fieldWithPath("[].pcode").type(JsonFieldType.STRING).description("바코드"),
+										fieldWithPath("[].lastid").type(JsonFieldType.NUMBER).description("무한스크롤을 사용하기 위한 데이터")
+								)
+						)
+
+				));
+	}
+
+	@Test
+	@DisplayName("QR코드 생성 테스트")
+	void generateQRCodeImageTest() throws Exception {
+		// given
+		String uuid = "09aafcd6-621f-4724-a4c7-177494ffd4ee";
+		Long pId = 576186L;
+		String imageUrl = "생성된 이미지 url";
+
+		given(productService.findByUUID(anyString())).willReturn(pId);
+		given(qrcodeGeneratorService.generateQRcodeImageURL(anyString(), anyInt(), anyInt())).willReturn(imageUrl);
+		doNothing().when(productService).saveS3ImageUrl(anyString(), anyLong());
+
+		// when
+		ResultActions actions =
+				mockMvc.perform(
+						RestDocumentationRequestBuilders.get("/api/{uuid}", uuid)
+								.accept(MediaType.APPLICATION_JSON)
+				);
+
+		// then
+		actions.andExpect(status().isCreated())
+				.andDo(document(
+						"generate-qrcode",
+						getDocumentResponse(),
+						pathParameters(
+								parameterWithName("uuid").description("바코드")
+						),
+						responseBody()
+				));
 	}
 
 }
