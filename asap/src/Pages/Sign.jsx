@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useRecoilValue } from "recoil";
 
 import SignIn from "../Component/Sign/SignIn";
 import SignUp from "../Component/Sign/SignUp";
+import { isLogin } from "../state/atoms";
 
 import "../style/Sign.css";
 
 const SignPage = () => {
     const [panelState, setPanelState] = useState(false)
+    const loginState = useRecoilValue(isLogin)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+      if(loginState){
+        navigate('/admin')
+      }
+    },[])
 
   return (
     <div className="signsection">

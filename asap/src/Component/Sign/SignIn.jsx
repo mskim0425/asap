@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
 import { isLogin } from "../../state/atoms";
 
 const SignIn = () => {
   const setLoginState = useSetRecoilState(isLogin)
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate()
+  
   const signIn = async (data) => {
     try{
         await axios.post(`/login`, data)
         setLoginState(true)
-        navigate('/admin')
+        window.location.reload()
     }
     catch(err){console.log(err)}
   }
