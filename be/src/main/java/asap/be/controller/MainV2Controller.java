@@ -45,7 +45,7 @@ public class MainV2Controller {
 		if (memberService.authenticateMember(member.getEmail(), member.getPassword())) {
 			session.setAttribute("memberId", member.getEmail());
 			return ResponseEntity.ok("로그인 성공");
-		} else return new ResponseEntity<>("로그인 실패", HttpStatus.UNAUTHORIZED);
+		} else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
 	}
 
 	@GetMapping(value = "/logout", produces = "application/json; charset=utf8")
@@ -64,7 +64,7 @@ public class MainV2Controller {
 	public ResponseEntity<String> signIn(@RequestBody Member member) {
 
 		if (!member.getEmail().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
-			return new ResponseEntity<>("잘못된 이메일 형식입니다.", HttpStatus.NOT_ACCEPTABLE);
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("잘못된 이메일 형식입니다.");
 
 		mailService.verifyEmail(member.getEmail());
 		memberService.save(member);
