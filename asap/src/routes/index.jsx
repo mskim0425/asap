@@ -10,7 +10,12 @@ const Layout = () => {
   return (
     <div className="sse_container">
       <Outlet />
-      {loginState ? <SSE /> : null}
+      {loginState ? <SSE /> : 
+      <div className="sse">
+        <div className={"alert"}>
+          <span className="alertText">SSE 기능을 확인하시려면 회원가입 후 로그인 해주세요 !</span>
+        </div>
+      </div>}
     </div>
   );
 };
