@@ -1,7 +1,11 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { isLogin } from "../../state/atoms";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [loginState, setLoginState] = useRecoilState(isLogin)
 
   const menuList = [
     { id: 0, icon: "fa fa-bar-chart", title: "메인" },
@@ -51,6 +55,15 @@ const Header = () => {
     header.classList.toggle("active");
   }
 
+  const logOut = async () => {
+    try{
+      await axios.get("/logout")
+      setLoginState(false)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <div id="header">
       <a href="#none" className="logo">
@@ -67,13 +80,18 @@ const Header = () => {
         <li onClick={navigator(2)}>
           <div className="menu">Admin</div>
         </li>
-        <li onClick={navigator(3)}>
-          <div className="menu">
-            Sign
-            <br />
-            Up / In
-          </div>
-        </li>
+        {loginState ?
+          <li onClick={logOut}>
+            <div className="menu">LogOut</div>
+          </li>
+          : <li onClick={navigator(3)}>
+              <div className="menu">
+                Sign
+                <br />
+                Up / In
+              </div>
+            </li>
+        }
       </ul>
       {/* <ul className="nav">
         {menuList.map((list, index) => {

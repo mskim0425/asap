@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
+import { isLogin } from "../../state/atoms";
 
 const SignIn = () => {
+  const setLoginState = useSetRecoilState(isLogin)
   const { register, handleSubmit } = useForm();
+  
   const signIn = async (data) => {
     try{
-        const response = await axios.post(`/login`, data)
-        console.log(response.data)
+        await axios.post(`/login`, data)
+        setLoginState(true)
+        window.location.reload()
     }
     catch(err){console.log(err)}
   }
