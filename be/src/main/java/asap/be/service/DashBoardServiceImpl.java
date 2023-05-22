@@ -31,7 +31,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public List<ProductCntDto> CntProduct(String pName) {
 
-		LocalDate today = LocalDate.now().minusDays(1);
+		LocalDate today = LocalDate.now();
 		LocalDate start = today.minusDays(20); // 오늘 제외한 최근 21일
 
 		List<ProductCntDto> result = new ArrayList<>();
