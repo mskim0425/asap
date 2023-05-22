@@ -1,0 +1,51 @@
+.sse {
+  width: 10vw;
+}
+
+.alert {
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  margin: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  cursor: hand;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+}
+
+.alertText {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 16px;
+}
+
+.error {
+  background-color: #fee;
+  border: 1px solid #edd;
+  color: #a66;
+}
+
+.start {
+  background-color: rgb(194, 32, 124);
+  border: 1px solid #edd;
+}
+
+.in {
+  background-color: rgb(255, 166, 0);
+  border: 1px solid #edd;
+}
+
+.out {
+  background-color: rgb(21, 255, 0);
+  border: 1px solid #edd;
+}
+
+.end {
+  background-color: #f43737;
+  border: 1px solid #edd;
+}

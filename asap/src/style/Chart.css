@@ -1,0 +1,143 @@
+#chartContainer {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: var(--black);
+  padding: 30px;
+  min-height: 100vh;
+}
+
+#wrapper {
+  display: flex;
+}
+.widthSetting {
+  width: 1200px;
+}
+
+#monthlyChart,
+#currentSituation,
+.stockInfo,
+#releasePrice,
+#top10 div {
+  border-radius: 10px;
+}
+
+#monthlyChart,
+#currentSituation {
+  padding: 20px;
+}
+
+#quantityChart,
+#top10 {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#quantityChart {
+  height: 250px;
+}
+
+#quantityChart > div,
+#top10 div {
+  width: 47%;
+  height: 100%;
+}
+
+#top10 div {
+  background-color: rgb(12, 50, 12);
+}
+
+#top10 {
+  height: 490px;
+}
+
+#monthlyChart,
+#currentSituation,
+#releasePrice {
+  width: 100%;
+  height: 330px;
+  background-color: rgb(12, 50, 12);
+}
+
+#currentSituation {
+  margin-top: 30px;
+}
+
+#releasePrice {
+  margin-top: 30px;
+}
+
+.stockInfo {
+  color: var(--white);
+  padding: 20px;
+  background-color: rgb(12, 50, 12);
+}
+.stockInfo h2 {
+  border-bottom: 1px solid var(--green);
+  padding-bottom: 5px;
+}
+.stockInfo div {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.infoTitle {
+  padding-left: 20px;
+  position: relative;
+}
+.infoTitle.color::before {
+  content: "●";
+  color: var(--green);
+  position: absolute;
+  left: 0;
+  height: 50%;
+  transform: translateY(-20%);
+}
+.infoTitle::before {
+  content: "●";
+  color: #e14f61;
+  position: absolute;
+  left: 0;
+  height: 50%;
+  transform: translateY(-20%);
+}
+
+.monthlyChartSection h2,
+#currentSituation div h2 {
+  color: var(--white);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.monthlyYearHandleInput,
+#currentSituation div select {
+  border: 1px solid var(--white);
+  background-color: rgb(12, 50, 12);
+  color: var(--white);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+#top10 div h2 {
+  color: var(--white);
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2em;
+  margin: 20px;
+}
+
+#top10 div table {
+  width: 100%;
+  line-height: 35px;
+}
+
+#top10 div table > tr {
+  background-color: var(--green);
+  font-weight: bold;
+}
+
+#top10 div table tbody {
+  text-align: center;
+  color: var(--white);
+}

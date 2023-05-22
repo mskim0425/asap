@@ -1,0 +1,84 @@
+#navigation {
+  /* position: fixed; */
+  width: 200px;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(--blue);
+  padding-left: 10px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+#toggle {
+  /* border: 1px solid red; */
+  display: inline-block;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+#navigation.active {
+  width: 60px;
+}
+
+#navigation ul {
+  width: 100%;
+}
+
+#navigation ul li {
+  position: relative;
+  border-radius: 30px 0 0 30px;
+}
+
+#navigation ul li a {
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.icon,
+.title {
+  /* border: 1px solid black; */
+  display: inline-block;
+  min-width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#navigation ul li:hover,
+#navigation ul li.active {
+  background-color: var(--white);
+}
+
+#navigation ul li:hover::before,
+#navigation ul li.active::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -30px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0px var(--white);
+}
+
+#navigation ul li:hover::after,
+#navigation ul li.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -30px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 15px -15px 0px var(--white);
+}
+
+#navigation ul li:hover span,
+#navigation ul li.active span {
+  color: var(--blue);
+}
