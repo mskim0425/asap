@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -56,6 +57,7 @@ public class ReleaseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"find-all-release",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고 코드"),
@@ -85,6 +87,7 @@ public class ReleaseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-release-by-sid",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고 코드"),

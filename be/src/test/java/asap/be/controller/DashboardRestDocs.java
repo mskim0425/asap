@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -62,6 +63,7 @@ public class DashboardRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"cnt-product-by-date",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),
@@ -107,6 +109,7 @@ public class DashboardRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"product-rank",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("insertRankDto[]").type(JsonFieldType.ARRAY).description("금일 상품별 입고량 TOP 10"),
@@ -139,6 +142,7 @@ public class DashboardRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"monthly-stock-summary",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),
@@ -164,6 +168,7 @@ public class DashboardRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"country-product-status",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과 데이터"),
@@ -190,6 +195,7 @@ public class DashboardRestDocs {
 		//T
 		actions.andExpect(status().isOk())
 				.andDo(document("total-product-amount",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[]").type(JsonFieldType.ARRAY).description("결과데이터"),

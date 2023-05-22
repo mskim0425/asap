@@ -29,7 +29,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @Transactional
 @SpringBootTest
 @Slf4j
@@ -134,7 +133,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.updateProduct(name);
 
 		// then
-		EverythingDto findProd1 = productMybatisRepository.findById(name.getPId(), name.getSId());
+		EverythingDto findProd1 = productMybatisRepository.findById(name.getpId(), name.getsId());
 		assertThat(findProd1.getPname()).isEqualTo(name.getPName());
 
 		// 가격 변경
@@ -148,7 +147,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.updateProduct(price);
 
 		// then
-		EverythingDto findProd2 = productMybatisRepository.findById(price.getPId(), price.getSId());
+		EverythingDto findProd2 = productMybatisRepository.findById(price.getpId(), price.getsId());
 		assertThat(price.getPrice()).isEqualTo(findProd2.getPrice());
 
 		// 바코드 변경
@@ -162,7 +161,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.updateProduct(barcode);
 
 		// then
-		EverythingDto findProd3 = productMybatisRepository.findById(barcode.getPId(), barcode.getSId());
+		EverythingDto findProd3 = productMybatisRepository.findById(barcode.getpId(), barcode.getsId());
 		assertThat(barcode.getPCode()).isEqualTo(findProd3.getPcode());
 
 		// 전체 변경
@@ -178,7 +177,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.updateProduct(all);
 
 		// then
-		EverythingDto findProd4 = productMybatisRepository.findById(all.getPId(), all.getSId());
+		EverythingDto findProd4 = productMybatisRepository.findById(all.getpId(), all.getsId());
 		assertThat(findProd4.getPname()).isEqualTo(all.getPName());
 		assertThat(findProd4.getPrice()).isEqualTo(all.getPrice());
 		assertThat(findProd4.getPcode()).isEqualTo(all.getPCode());
@@ -194,7 +193,7 @@ class ProductRepositoryTest {
 		productMybatisRepository.updateProduct(delete);
 
 		// then
-		EverythingDto findProd5 = productMybatisRepository.findById(delete.getPId(), delete.getSId());
+		EverythingDto findProd5 = productMybatisRepository.findById(delete.getpId(), delete.getsId());
 		assertThat(findProd5.getPStatus()).isEqualTo(delete.getPStatus());
 	}
 
@@ -232,16 +231,15 @@ class ProductRepositoryTest {
 	@DisplayName("전부 찾기")
 	void findAll() {
 		// given
-
 		Integer lastId = null; //10-20
-
 
 		List<EverythingPageDto> list = productMybatisRepository.findByAll(lastId,"DESC");
 		Integer nextData = list.get(0).getLastid();
 		List<EverythingPageDto> byAll = productMybatisRepository.findByAll(nextData,"DESC");
+
 		// then
-		assertThat(list.size()).isEqualTo(10);
-		assertThat(byAll.size()).isEqualTo(10);
+		assertThat(list.size()).isEqualTo(30);
+		assertThat(byAll.size()).isEqualTo(30);
 	}
 
 	@Test

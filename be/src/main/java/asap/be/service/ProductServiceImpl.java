@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void updateProduct(EditProductDto dto) {
-		verifiedProduct(dto.getPId(), dto.getSId());
+		verifiedProduct(dto.getpId(), dto.getsId());
 		productMybatisRepository.updateProduct(dto);
 	}
 

@@ -7,7 +7,7 @@
 
 Team <ASAP>
 
-v1.0.6, 2023.04.03
+v2.0.6, 2023.05.19
 
 ***
 
@@ -338,3 +338,38 @@ include::{snippets}/find-all/response-body.adoc[]
 
 .Response-Fields
 include::{snippets}/find-all/response-fields.adoc[]
+
+== Member
+=== 회원가입
+
+.Curl-Request
+include::{snippets}/Sign_Up/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/Sign_Up/http-request.adoc[]
+
+.Request-Body
+include::{snippets}/Sign_Up/request-body.adoc[]
+
+.Http-Response
+include::{snippets}/Sign_Up/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/Sign_Up/response-body.adoc[]
+
+=== 로그인
+
+.Curl-Request
+include::{snippets}/Login/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/Login/http-request.adoc[]
+
+.Request-Body
+include::{snippets}/Login/request-body.adoc[]
+
+.Http-Response
+include::{snippets}/Login/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/Login/response-body.adoc[]

@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentRequest;
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
@@ -60,6 +62,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"post-warehouse",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
@@ -110,6 +114,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-warehouse-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("newName").type(JsonFieldType.STRING).description("새로운 창고 이름"),
@@ -144,6 +150,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-warehouse-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("newLoc").type(JsonFieldType.STRING).description("새로운 창고 위치"),
@@ -178,6 +186,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-warehouse-by-name",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
@@ -205,6 +214,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-warehouse-by-loc",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
