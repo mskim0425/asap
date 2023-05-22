@@ -9,35 +9,44 @@ export default function SSE () {
         const eventSourse = new EventSource(`${process.env.REACT_APP_SERVER_URL}/connect`, {
             "withCredentials": true,
             'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
             'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache',
             "Accept-Encoding": "gzip,deflate, br",
             "Accept" : "text/event-stream"
         })
 
-        eventSourse.addEventListener('sse', async (e) => {
-            const newdata = e.data
-            setMessage([...message, newdata])
+        eventSourse.addEventListener('open', async (e) =>{
+            setMessage(["SSE Connect Success !"])
         })
+
+        eventSourse.addEventListener('sse', async (e) => {
+            let newdata = JSON.parse(e.data)
+            if(!newdata.title.includes("SSE")){
+                setMessage((old) => [...old, newdata.content])
+            }
+        })
+
+        eventSourse.onerror = (error) => {
+            eventSourse.close()
+        }
+
+        return () => {
+            eventSourse.close()
+        }
+
     }, [])
 
     return (
         <div className="sse">
             {message.length > 0 ? message.map((el,index) => {
                 return (
-                    <label key={index}>
-                        <input type="checkbox" className="alertCheckbox" autoComplete="off" />
-                        <div className="alert error">
-                            <span className="alertClose">X</span>
-                            <span className="alertText">{el}
-                                <br className="clear"/>
-                            </span>
-                        </div>
-                    </label>
-                )
-            }) : null}
+                    <div key={index}
+                        className={
+                            el.includes("SSE") ? "alert start" : (el.includes("입고") ? "alert in" : "alert out")
+                        }>
+                        <span className="alertText">{el}</span>
+                    </div>
+                )}) : null}
         </div>
     )
 }
-
-//{"userId":"user","title":"입고 알림!","content":"맛잠 +160 입고","notificationType":"RECEIVE"}

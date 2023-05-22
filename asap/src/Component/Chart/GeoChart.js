@@ -27,7 +27,7 @@ export default function GeoChart() {
     }, [])
 
     const options = {
-        width: "90%",
+        width: "95%",
         height: "90%",
     }
 
