@@ -52,12 +52,12 @@
         JOIN Product_table p ON s.pId = p.pId
         LEFT JOIN Release_table r ON r.sId = s.sId AND DATE(r.release_at) BETWEEN #{start_at} AND #{end_at}
         WHERE p.pName = #{pName} AND DATE(s.receive_in) BETWEEN #{start_at} AND #{end_at}
-        GROUP BY DATE(s.receive_in)
+        GROUP BY date, p.pName
         ORDER BY DATE(s.receive_in) ASC;
     </select>
 
     <select id="insertCntRank" resultType="java.util.Map">
-        SELECT RANK() OVER (ORDER BY s.pInsert DESC) AS ranking,
+        SELECT RANK() OVER (ORDER BY SUM(s.pInsert) DESC) AS ranking,
                p.pName,
                SUM(s.pInsert) AS insertCnt
         FROM Stock_table s
