@@ -91,8 +91,8 @@ public class ReleaseRepositoryTest {
 				.build();
 		productMybatisRepository.insertOrUpdateStock(productDto);
 
-		Long pId = productMybatisRepository.findPIdByPNameAndWId(productDto.getPName(), productDto.getWId());
-		Long sId = productMybatisRepository.findSIdByPNameAndWId(productDto.getPName(), productDto.getWId());
+		Long pId = productMybatisRepository.findPIdByPNameAndWId(productDto.getpName(), productDto.getwId());
+		Long sId = productMybatisRepository.findSIdByPNameAndWId(productDto.getpName(), productDto.getwId());
 		// when
 		List<Stock> stock = releaseMybatisRepository.findStockByPId(pId,sId);
 

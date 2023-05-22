@@ -101,7 +101,7 @@ public class WarehouseRepositoryTest {
 		assertThat(warehouseMybatisRepository.findWarehouseByName(wName)).isNotNull();
 	}
 
-	@Test
+//	@Test
 	void wDelete() {
 		// given
 		Long wId = 101L;

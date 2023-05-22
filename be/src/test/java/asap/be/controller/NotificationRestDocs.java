@@ -3,7 +3,6 @@ package asap.be.controller;
 import asap.be.service.NotificationServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,8 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import javax.servlet.http.HttpServletResponse;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -45,7 +42,7 @@ public class NotificationRestDocs {
 
 		String lastEventId = "";
 
-		given(notificationService.connection(anyString(), any())).willReturn(new SseEmitter());
+		given(notificationService.connection(anyString(), any(), any())).willReturn(new SseEmitter());
 
 		ResultActions actions =
 				mockMvc.perform(

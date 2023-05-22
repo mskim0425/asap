@@ -7,7 +7,7 @@
 
 Team <ASAP>
 
-v1.0.6, 2023.04.03
+v2.0.6, 2023.05.19
 
 ***
 
@@ -57,8 +57,6 @@ include::{snippets}/cnt-product-by-date/curl-request.adoc[]
 .Http-Request
 include::{snippets}/cnt-product-by-date/http-request.adoc[]
 
-include::{snippets}/cnt-product-by-date/path-parameters.adoc[]
-
 .Request-Body
  NULL
 
@@ -98,7 +96,7 @@ include::{snippets}/total-product-amount/curl-request.adoc[]
 include::{snippets}/total-product-amount/http-request.adoc[]
 
 .Request-Body
-NULL
+ NULL
 
 .Http-Response
 include::{snippets}/total-product-amount/http-response.adoc[]
@@ -162,8 +160,6 @@ include::{snippets}/get-all-cnt/curl-request.adoc[]
 .Http-Request
 include::{snippets}/get-all-cnt/http-request.adoc[]
 
-include::{snippets}/get-all-cnt/path-parameters.adoc[]
-
 .Http-Response
 include::{snippets}/get-all-cnt/http-response.adoc[]
 
@@ -175,7 +171,7 @@ include::{snippets}/get-all-cnt/response-fields.adoc[]
 
 === 상품 이름 수정
 .Curl-Request
-include::{snippets}/
+include::{snippets}/patch-product-name/curl-request.adoc[]
 
 .Http-Request
 include::{snippets}/patch-product-name/http-request.adoc[]
@@ -303,6 +299,26 @@ include::{snippets}/find-one/response-body.adoc[]
 .Response-Fields
 include::{snippets}/find-one/response-fields.adoc[]
 
+=== 상세 페이지 수정
+
+.Curl-Request
+include::{snippets}/patch-find-one/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/patch-find-one/http-request.adoc[]
+
+.Request-Body
+include::{snippets}/patch-find-one/request-body.adoc[]
+
+.Http-Response
+include::{snippets}/patch-find-one/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/patch-find-one/response-body.adoc[]
+
+.Response-Fields
+include::{snippets}/patch-find-one/response-fields.adoc[]
+
 === 전체 페이지 조회
 
 .Curl-Request
@@ -322,3 +338,38 @@ include::{snippets}/find-all/response-body.adoc[]
 
 .Response-Fields
 include::{snippets}/find-all/response-fields.adoc[]
+
+== Member
+=== 회원가입
+
+.Curl-Request
+include::{snippets}/Sign_Up/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/Sign_Up/http-request.adoc[]
+
+.Request-Body
+include::{snippets}/Sign_Up/request-body.adoc[]
+
+.Http-Response
+include::{snippets}/Sign_Up/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/Sign_Up/response-body.adoc[]
+
+=== 로그인
+
+.Curl-Request
+include::{snippets}/Login/curl-request.adoc[]
+
+.Http-Request
+include::{snippets}/Login/http-request.adoc[]
+
+.Request-Body
+include::{snippets}/Login/request-body.adoc[]
+
+.Http-Response
+include::{snippets}/Login/http-response.adoc[]
+
+.Response-Body
+include::{snippets}/Login/response-body.adoc[]

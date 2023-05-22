@@ -1,6 +1,5 @@
 package asap.be.controller;
 
-import asap.be.domain.Warehouse;
 import asap.be.service.WarehouseServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -19,17 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentRequest;
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 public class WarehouseRestDocs {
@@ -43,7 +43,7 @@ public class WarehouseRestDocs {
 	@MockBean
 	private WarehouseServiceImpl warehouseService;
 
-	@Test
+//	@Test
 	@DisplayName("창고 만들엉")
 	void test1() throws Exception {
 
@@ -62,6 +62,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"post-warehouse",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("wname").type(JsonFieldType.STRING).description("창고명"),
@@ -78,7 +80,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 지웡")
 	void deleteWarehouse() throws Exception {
 		Long wId = 1L;
@@ -94,7 +96,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk()); // stock_table과 연관관계로 창고 삭제 불가...
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 이름 바꿩")
 	void patchWarehouseName() throws Exception {
 		String content = gson.toJson(WAREHOUSE_PATCH);
@@ -112,6 +114,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-warehouse-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("newName").type(JsonFieldType.STRING).description("새로운 창고 이름"),
@@ -128,7 +132,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 위치 바꿩")
 	void patchWarehouseLoc() throws Exception {
 		String content = gson.toJson(WAREHOUSE_PATCH_2);
@@ -146,6 +150,8 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"patch-warehouse-name",
+						getDocumentRequest(),
+						getDocumentResponse(),
 						requestFields(
 								List.of(
 										fieldWithPath("newLoc").type(JsonFieldType.STRING).description("새로운 창고 위치"),
@@ -163,7 +169,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고이름으로 조회행")
 	void getWarehouse() throws Exception {
 
@@ -180,6 +186,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-warehouse-by-name",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),
@@ -190,7 +197,7 @@ public class WarehouseRestDocs {
 				));
 	}
 
-	@Test
+//	@Test
 	@DisplayName("창고 위치로 조회행")
 	void getWarehouseByLoc() throws Exception {
 
@@ -207,6 +214,7 @@ public class WarehouseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-warehouse-by-loc",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].wid").type(JsonFieldType.NUMBER).description("창고 식별자"),

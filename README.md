@@ -1,6 +1,7 @@
 # 배포 사이트  [https://soonerthebetter.site](https://soonerthebetter.site/)
 ```3월 28일 - 4월 13일``` 
-작업 진행중!!
+작업 진행중!!  
+
 
 # 실시간 입, 재고관리 관리자페이지 구축
 관리자 업데이트 중        
@@ -12,4 +13,4 @@
 
 # Stack  
 front - REACT  
-back - Spring Boot, MyBatis, MySQL, Redis, Docker, Nginx  
+back - Spring Boot, MyBatis, MySQL, Redis, Docker, Nginx 

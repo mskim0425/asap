@@ -126,11 +126,18 @@
             SET @lastId = #{lastId};
         </if>
 
-        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 10) AS lastid
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 30) AS lastid
         FROM Product_table AS p
         WHERE p.pId &lt; @lastId
-        ORDER BY p.pId DESC
-        LIMIT 10;
+        <choose>
+            <when test='order == "ASC"'>
+                ORDER BY p.pId ASC
+            </when>
+            <when test='order == "DESC"'>
+                ORDER BY p.pId DESC
+            </when>
+        </choose>
+        LIMIT 30;
         <!-- no offset 방식 -->
     </select>
 
@@ -140,7 +147,6 @@
     </select>
 
     <!--     상품명을 통해 재고량, 입고량, 출고량이 조회되는 컨트롤러와 메소드 -> 각 창고에있는거까지 모두 다.  -->
-    <!--TODO: 수정 -->
     <select id="findAllCntByPName" resultType="AllProductCntDto">
         SELECT SUM(s.pInsertAll) AS pInsertCnt,
                SUM(s.cnt) AS stockCnt,
@@ -196,7 +202,55 @@
     </select>
 
     <select id="findProductById" resultType="DetailProductDto">
-        SELECT pId, pName, pCode, price, pStatus
+        SELECT pId, pName, pCode, price, pStatus, pQr
         FROM Product_table WHERE pId = #{pId}
     </select>
+
+    <select id="findProductWarehouseById" resultType="DetailWarehouseDto">
+        SELECT s.wId, w.wName FROM Stock_table s
+        JOIN Warehouse_table w ON s.wId = w.wId
+        WHERE pId = #{pId}
+    </select>
+
+    <select id="findByUUID" resultType="java.lang.Long">
+        SELECT pId
+        FROM Product_table
+        WHERE pCode = #{uuid}
+    </select>
+
+    <select id="saveS3ImageUrl">
+        UPDATE Product_table
+        SET pQr = #{imageURL}
+        WHERE pId = #{pId}
+    </select>
+
+    <select id="search" resultType="EverythingPageDto">
+        <if test="lastId == null">
+            SET @lastId = (SELECT MAX(pId) FROM Product_table);
+        </if>
+        <if test="lastId != null">
+            SET @lastId = #{lastId};
+        </if>
+
+        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 30) AS lastid
+        FROM Product_table AS p
+        WHERE p.pId &lt; @lastId AND p.pName = #{pName}
+        <choose>
+            <when test='order == "ASC"'>
+                ORDER BY p.pId ASC
+            </when>
+            <when test='order == "DESC"'>
+                ORDER BY p.pId DESC
+            </when>
+        </choose>
+        LIMIT 30;
+    </select>
+
+    <select id="findLastReceiveIn" resultType="java.lang.String">
+        SELECT receive_in
+        FROM Stock_table AS s
+        JOIN Product_table AS p ON s.pId = p.pId
+        WHERE p.pCode = #{uuid}
+    </select>
+
 </mapper>

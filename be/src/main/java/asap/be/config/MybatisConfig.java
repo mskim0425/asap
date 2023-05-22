@@ -1,13 +1,20 @@
 package asap.be.config;
 
+import asap.be.qrcode.QrcodeGeneratorService;
+import asap.be.qrcode.S3UploadService;
 import asap.be.repository.EmitterRepository;
-import asap.be.repository.mybatis.EmitterMyBatisRepository;
+import asap.be.repository.MemberRepository;
+import asap.be.repository.mybatis.EmitterMybatisRepository;
+import asap.be.repository.mybatis.MemberMapper;
+import asap.be.repository.mybatis.MemberMybatisRepository;
 import asap.be.repository.mybatis.ProductMapper;
 import asap.be.repository.mybatis.ProductMybatisRepository;
 import asap.be.repository.mybatis.ReleaseMapper;
 import asap.be.repository.mybatis.ReleaseMybatisRepository;
 import asap.be.repository.mybatis.WarehouseMapper;
 import asap.be.repository.mybatis.WarehouseMybatisRepository;
+import asap.be.service.MemberService;
+import asap.be.service.MemberServiceImpl;
 import asap.be.service.NotificationService;
 import asap.be.service.NotificationServiceImpl;
 import asap.be.service.ProductService;
@@ -16,6 +23,7 @@ import asap.be.service.ReleaseService;
 import asap.be.service.ReleaseServiceImpl;
 import asap.be.service.WarehouseService;
 import asap.be.service.WarehouseServiceImpl;
+import com.amazonaws.services.s3.AmazonS3;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +34,13 @@ public class MybatisConfig {
 	private final ProductMapper productMapper;
 	private final WarehouseMapper warehouseMapper;
 	private final ReleaseMapper releaseMapper;
+	private final AmazonS3 amazonS3;
+	private final MemberMapper memberMapper;
 
 	@Bean
 	public ProductService productService() {
-		return new ProductServiceImpl(releaseService(), notificationService(), productRepository());
+		return new ProductServiceImpl(releaseService(), notificationService(), new QrcodeGeneratorService(new S3UploadService(amazonS3)),productRepository());
 	}
-
 	@Bean
 	public ReleaseService releaseService() {
 		return new ReleaseServiceImpl(releaseRepository());
@@ -45,6 +54,11 @@ public class MybatisConfig {
 	@Bean
 	public NotificationService notificationService() {
 		return new NotificationServiceImpl(emitterRepository());
+	}
+
+	@Bean
+	public MemberService memberService() {
+		return new MemberServiceImpl(new MemberMybatisRepository(memberMapper));
 	}
 
 	@Bean
@@ -64,6 +78,6 @@ public class MybatisConfig {
 
 	@Bean
 	public EmitterRepository emitterRepository() {
-		return new EmitterMyBatisRepository();
+		return new EmitterMybatisRepository();
 	}
 }

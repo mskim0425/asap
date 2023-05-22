@@ -54,38 +54,38 @@ public class MainControllerConstants {
 
 	public static final EditProductDto EDIT_PRODUCT_NAME =
 			EditProductDto.builder()
-					.pId(120L)
-					.sId(120L)
+					.pId(57777L)
+					.sId(57777L)
 					.pName("새로 변경할 상품명")
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_PRICE =
 			EditProductDto.builder()
-					.pId(120L)
-					.sId(120L)
+					.pId(57777L)
+					.sId(57777L)
 					.price(5000)
 					.build();
 
 	public static final EditProductDto EDIT_PRODUCT_BARCODE =
 			EditProductDto.builder()
-					.pId(120L)
-					.sId(120L)
+					.pId(57777L)
+					.sId(57777L)
 					.pCode("새로운 상품 바코드")
 					.build();
 
 	public static final EditProductDto EDIT_ALL =
 			EditProductDto.builder()
-					.pId(120L)
-					.sId(120L)
+					.pId(57777L)
+					.sId(57777L)
 					.pName("새로 변경할 상품명")
 					.price(2000)
-					.pCode("새로 변경할 바코드")
+					.pCode("새로운 상품 바코드")
 					.build();
 
 	public static final EditProductDto DELETE_PRODUCT =
 			EditProductDto.builder()
-					.pId(120L)
-					.sId(120L)
+					.pId(57777L)
+					.sId(57777L)
 					.pStatus(0)
 					.build();
 
@@ -276,13 +276,13 @@ public class MainControllerConstants {
 	public static final EverythingDto SAVE_EVERYTHING_DTO =
 			EverythingDto.builder()
 					.pId(1L)
-					.pname(SAVE_AND_RECEIVE_PRODUCT.getPName())
+					.pname(SAVE_AND_RECEIVE_PRODUCT.getpName())
 					.price(SAVE_AND_RECEIVE_PRODUCT.getPrice())
-					.pcode(SAVE_AND_RECEIVE_PRODUCT.getPCode())
+					.pcode(SAVE_AND_RECEIVE_PRODUCT.getpCode())
 					.sId(1L)
-					.cnt(SAVE_AND_RECEIVE_PRODUCT.getPInsert())
+					.cnt(SAVE_AND_RECEIVE_PRODUCT.getpInsert())
 					.receiveIn(LocalDate.now().toString())
-					.wId(SAVE_AND_RECEIVE_PRODUCT.getWId())
+					.wId(SAVE_AND_RECEIVE_PRODUCT.getwId())
 					.wname(WAREHOUSE.getWName())
 					.wloc(WAREHOUSE.getWLoc())
 					.pStatus(1)

@@ -100,8 +100,8 @@ class DashBoardServiceImplTest2 {
 
         //then
         Map<String, String> data = warehouseMybatisRepository.max_receive_item("1992-04-25");
-        assertThat(data.get("item")).isEqualTo(productDto.getPName());
-        assertThat(data.get("item")).isNotEqualTo(dummyDto.getPName());
+        assertThat(data.get("item")).isEqualTo(productDto.getpName());
+        assertThat(data.get("item")).isNotEqualTo(dummyDto.getpName());
 
     }
     @Test
@@ -109,18 +109,18 @@ class DashBoardServiceImplTest2 {
     void max_release_item(){
         //given
         productDto = PostProductDto.builder()
-                .pName(productDto.getPName())
+                .pName(productDto.getpName())
                 .price(productDto.getPrice())
-                .pCode(productDto.getPCode())
+                .pCode(productDto.getpCode())
                 .wId(10L)
                 .quantity(10000)
                 .date("1992-04-25")
                 .build();
 
         dummyDto = PostProductDto.builder()
-                .pName(dummyDto.getPName())
+                .pName(dummyDto.getpName())
                 .price(dummyDto.getPrice())
-                .pCode(dummyDto.getPCode())
+                .pCode(dummyDto.getpCode())
                 .wId(14L)
                 .quantity(500)
                 .date("1992-04-25")
@@ -131,15 +131,15 @@ class DashBoardServiceImplTest2 {
 
         //then
         Map<String, String> data = warehouseMybatisRepository.max_release_item("1992-04-25");
-        assertThat(data.get("item")).isEqualTo(productDto.getPName());
-        assertThat(data.get("item")).isNotEqualTo(dummyDto.getPName());
+        assertThat(data.get("item")).isEqualTo(productDto.getpName());
+        assertThat(data.get("item")).isNotEqualTo(dummyDto.getpName());
     }
 
     @Test
     @DisplayName("최대 입고 창고 위치")
     void max_receive_warehouse(){
         String maxWLoc = warehouseMybatisRepository.max_receive_warehouse("1992-04-25");
-        String warehouseLocByWId = warehouseMybatisRepository.findWarehouseLocByWId(productDto.getWId());
+        String warehouseLocByWId = warehouseMybatisRepository.findWarehouseLocByWId(productDto.getwId());
         assertThat(maxWLoc).isEqualTo(warehouseLocByWId);
     }
     @Test
@@ -147,18 +147,18 @@ class DashBoardServiceImplTest2 {
     void max_release_warehouse(){
         //given
         productDto = PostProductDto.builder()
-                .pName(productDto.getPName())
+                .pName(productDto.getpName())
                 .price(productDto.getPrice())
-                .pCode(productDto.getPCode())
+                .pCode(productDto.getpCode())
                 .wId(10L)
                 .quantity(10000)
                 .date("1992-04-25")
                 .build();
 
         dummyDto = PostProductDto.builder()
-                .pName(dummyDto.getPName())
+                .pName(dummyDto.getpName())
                 .price(dummyDto.getPrice())
-                .pCode(dummyDto.getPCode())
+                .pCode(dummyDto.getpCode())
                 .wId(14L)
                 .quantity(500)
                 .date("1992-04-25")
@@ -167,7 +167,7 @@ class DashBoardServiceImplTest2 {
         productMybatisRepository.insertOrUpdateRelease(productDto); // 상품 최대 수용개수 삽입
         productMybatisRepository.insertOrUpdateRelease(dummyDto);
         String maxWLoc = warehouseMybatisRepository.max_release_warehouse("1992-04-25");
-        String warehouseLocByWId = warehouseMybatisRepository.findWarehouseLocByWId(productDto.getWId());
+        String warehouseLocByWId = warehouseMybatisRepository.findWarehouseLocByWId(productDto.getwId());
         assertThat(maxWLoc).isEqualTo(warehouseLocByWId);
     }
 
@@ -175,7 +175,7 @@ class DashBoardServiceImplTest2 {
     @DisplayName("총 입고량")
     void total_pInsert(){
         Integer total_pinsert = warehouseMybatisRepository.total_pinsert("1992-04-25");
-        assertThat(total_pinsert).isEqualTo(productDto.getPInsert() + dummyDto.getPInsert());
+        assertThat(total_pinsert).isEqualTo(productDto.getpInsert() + dummyDto.getpInsert());
     }
     @Test
     @DisplayName("총 출고량")
@@ -189,18 +189,18 @@ class DashBoardServiceImplTest2 {
     void six_values_test(){
         //given
         productDto = PostProductDto.builder()
-                .pName(productDto.getPName())
+                .pName(productDto.getpName())
                 .price(productDto.getPrice())
-                .pCode(productDto.getPCode())
+                .pCode(productDto.getpCode())
                 .wId(10L)
                 .quantity(10000)
                 .date("1992-04-25")
                 .build();
 
         dummyDto = PostProductDto.builder()
-                .pName(dummyDto.getPName())
+                .pName(dummyDto.getpName())
                 .price(dummyDto.getPrice())
-                .pCode(dummyDto.getPCode())
+                .pCode(dummyDto.getpCode())
                 .wId(14L)
                 .quantity(500)
                 .date("1992-04-25")
@@ -225,6 +225,6 @@ class DashBoardServiceImplTest2 {
     void getAllPName(){
         List<String> data = dashBoardService.showAllPName();
 
-        assertThat(data.contains(productDto.getPName())).isTrue();
+        assertThat(data.contains(productDto.getpName())).isTrue();
     }
 }

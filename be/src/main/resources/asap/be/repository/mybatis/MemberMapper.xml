@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asap.be.repository.mybatis.MemberMapper">
+
+    <insert id="save" parameterType="Member">
+        INSERT INTO Member_table(email, nickname, password)
+        VALUES(#{m.email}, #{m.nickname}, #{m.password});
+    </insert>
+
+    <select id="authenticateMember" resultType="java.lang.Boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM Member_table
+            WHERE email = #{email}
+            AND password = #{password});
+    </select>
+
+    <select id="findByEmail" resultType="java.lang.Boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM Member_table
+            WHERE email = #{email}
+                   )
+    </select>
+
+    <select id="updateVerified">
+        UPDATE Member_table
+        SET verified = 1
+        WHERE email = #{email}
+    </select>
+</mapper>

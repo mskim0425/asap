@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static asap.be.utils.ApiDocumentUtils.getDocumentResponse;
 import static asap.be.utils.MainControllerConstants.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -56,12 +57,13 @@ public class ReleaseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"find-all-release",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고 코드"),
 										fieldWithPath("[].quantity").type(JsonFieldType.NUMBER).description("출고량"),
 										fieldWithPath("[].total").type(JsonFieldType.NUMBER).description("총 가격"),
-										fieldWithPath("[].releaseAt").type(JsonFieldType.STRING).description("출고일자"),
+										fieldWithPath("[].releaseAt[]").type(JsonFieldType.ARRAY).description("출고일자"),
 										fieldWithPath("[].lastid").type(JsonFieldType.NUMBER).description("무한스크롤을 사용하기 위한 데이터")
 								)
 						)
@@ -85,6 +87,7 @@ public class ReleaseRestDocs {
 		actions.andExpect(status().isOk())
 				.andDo(document(
 						"get-release-by-sid",
+						getDocumentResponse(),
 						responseFields(
 								List.of(
 										fieldWithPath("[].rid").type(JsonFieldType.NUMBER).description("출고 코드"),

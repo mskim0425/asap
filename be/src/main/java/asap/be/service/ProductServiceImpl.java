@@ -1,16 +1,29 @@
 package asap.be.service;
 
 import asap.be.domain.notification.NotificationType;
-import asap.be.dto.*;
+import asap.be.dto.AllProductCntDto;
+import asap.be.dto.DetailInfoDto;
+import asap.be.dto.DetailInsertDto;
+import asap.be.dto.DetailInsertLogsDto;
+import asap.be.dto.DetailProductDto;
+import asap.be.dto.DetailReleaseDto;
+import asap.be.dto.EditProductDto;
+import asap.be.dto.EverythingDto;
+import asap.be.dto.EverythingPageDto;
+import asap.be.dto.PostProductDto;
 import asap.be.exception.BusinessLogicException;
 import asap.be.exception.ExceptionCode;
+import asap.be.qrcode.QrcodeGeneratorService;
 import asap.be.repository.mybatis.ProductMybatisRepository;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,42 +37,42 @@ import static asap.be.config.CacheConstant.*;
 public class ProductServiceImpl implements ProductService {
 	private final ReleaseService releaseService;
 	private final NotificationService notificationService;
+	private final QrcodeGeneratorService qrcodeGeneratorService;
 	private final ProductMybatisRepository productMybatisRepository;
 
 	@Override
 	@Transactional
 	@CacheEvict(cacheNames = {MONTHLY_SUMMARY, SIX_VALUE, RANK_PRODUCT}, allEntries = true)
-	public void insertOrUpdateStock(PostProductDto dto) {
+	public void insertOrUpdateStock(PostProductDto dto, HttpSession session) throws IOException, WriterException {
 
 		StringBuffer sb = new StringBuffer();
-		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // 실 배포시 적용하면 당일 총 입고량 올라감 히히
+		dto.addDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-		productMybatisRepository.insertOrUpdateStock(dto);
-
-		if (dto.getQuantity() != 0) {
-			verifiedProductByName(dto.getPName(), dto.getWId());
+		if (dto.getQuantity() != null) { //출고
+			verifiedProductByName(dto.getpName(), dto.getwId());
 			verifiedQuantity(dto);
+			productMybatisRepository.insertOrUpdateRelease(dto);
+
+			sb.append(dto.getpName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
+			notificationService.send(session, "출고 알림!", sb.toString(), NotificationType.RELEASE);
+		} else { //입고
+			productMybatisRepository.insertOrUpdateStock(dto);
+			//QR코드 더하기
+			Long pId = productMybatisRepository.findByUUID(dto.getpCode());
+			String url = new StringBuffer("https://soonerthebetter.site").append("/admin/").append(pId).toString();
+			String imageUrl = qrcodeGeneratorService.generateQRcodeImageURL(url, 150, 150);
+			saveS3ImageUrl(imageUrl, pId);
+
+			sb.append(dto.getpName()).append(" ").append("+").append(dto.getpInsert()).append(" 입고");
+			notificationService.send(session, "입고 알림!", sb.toString(), NotificationType.RECEIVE);
 		}
 
-		productMybatisRepository.insertOrUpdateRelease(dto);
-
-		EverythingDto everythingDto = releaseService.findStockByPNameAndWId(dto.getPName(), dto.getWId(), dto.getPCode());
-
-		if (everythingDto != null && dto.getPInsert() != 0) {
-			sb.append(dto.getPName()).append(" ").append("+").append(dto.getPInsert()).append(" 입고");
-			notificationService.send("입고 알림!", sb.toString(), NotificationType.RECEIVE);
-		}
-
-		if (everythingDto != null && everythingDto.getCnt() >= dto.getQuantity() && dto.getQuantity() != 0) {
-			sb.append(dto.getPName()).append(" ").append("-").append(dto.getQuantity()).append(" 출고");
-			notificationService.send("출고 알림!", sb.toString(), NotificationType.RELEASE);
-		}
 	}
 
 	@Override
 	@Transactional
 	public void updateProduct(EditProductDto dto) {
-		verifiedProduct(dto.getPId(), dto.getSId());
+		verifiedProduct(dto.getpId(), dto.getsId());
 		productMybatisRepository.updateProduct(dto);
 	}
 
@@ -75,19 +88,19 @@ public class ProductServiceImpl implements ProductService {
 		return productMybatisRepository.findByName(pName);
 	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<EverythingPageDto> findByAll(Integer lastId) {
-        return productMybatisRepository.findByAll(lastId);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<EverythingPageDto> findByAll(Integer lastId, String order) {
+		return productMybatisRepository.findByAll(lastId, order);
+	}
 
 	@Override
 	public AllProductCntDto findAllCntByPName(String pName) {
 		return productMybatisRepository.findAllCntByPName(pName);
 	}
 
-    @Override
-    public DetailInfoDto detailPageUsingPId(Long pId) {
+	@Override
+	public DetailInfoDto detailPageUsingPId(Long pId) {
 		DetailProductDto product = productMybatisRepository.findProductById(pId);
 		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
 		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
@@ -98,7 +111,9 @@ public class ProductServiceImpl implements ProductService {
 				.pStatus(product.getPStatus())
 				.pCode(product.getPCode())
 				.pName(product.getPName())
+				.pQr(product.getPQr())
 				.cnt(insert.get(0).getCnt())
+				.warehouses(productMybatisRepository.findProductWarehouseById(product.getPId()))
 				.build();
 
 		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
@@ -109,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
 				.insertLogs(insertLogs)
 				.releaseLogs(release)
 				.build();
-    }
+	}
 
 	@Override
 	public Long findPIdByPNameAndWId(String pName, Long wId) {
@@ -120,27 +135,18 @@ public class ProductServiceImpl implements ProductService {
 	public DetailInfoDto editDetailPage(Long pId, EditProductDto dto) {
 		productMybatisRepository.updateProduct(dto);
 
-		DetailProductDto product = productMybatisRepository.findProductById(pId);
-		List<DetailReleaseDto> release = productMybatisRepository.detailReleaseUsingPId(pId);
-		List<DetailInsertDto> insert = productMybatisRepository.detailInsertUsingPId(pId);
+		return detailPageUsingPId(pId);
+	}
 
-		product = DetailProductDto.builder()
-				.pId(product.getPId())
-				.price(product.getPrice())
-				.pStatus(product.getPStatus())
-				.pCode(product.getPCode())
-				.pName(product.getPName())
-				.cnt(insert.get(0).getCnt())
-				.build();
+	@Override
+	public Long findByUUID(String uuid) {
+		return productMybatisRepository.findByUUID(uuid);
 
-		List<DetailInsertLogsDto> insertLogs = new ArrayList<>();
-		insertLogLoop(insert, insertLogs);
+	}
 
-		return DetailInfoDto.builder()
-				.product(product)
-				.insertLogs(insertLogs)
-				.releaseLogs(release)
-				.build();
+	@Override
+	public void saveS3ImageUrl(String imageURL, Long pId) {
+		productMybatisRepository.saveS3ImageUrl(imageURL, pId);
 	}
 
 	private void verifiedProduct(Long pId, Long sId) {
@@ -164,11 +170,11 @@ public class ProductServiceImpl implements ProductService {
 			for (String string : strings) {
 				String[] split = string.split(" : ");
 				insertLogs.add(DetailInsertLogsDto.builder()
-					.wName(insertDto.getWName())
-					.wLoc(insertDto.getWLoc())
-					.receiveIn(split[0])
-					.pInsert(Integer.parseInt(split[1]))
-					.build());
+						.wName(insertDto.getWName())
+						.wLoc(insertDto.getWLoc())
+						.receiveIn(split[0])
+						.pInsert(Integer.parseInt(split[1]))
+						.build());
 			}
 		}
 	}

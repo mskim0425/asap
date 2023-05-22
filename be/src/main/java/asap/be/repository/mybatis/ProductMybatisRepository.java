@@ -20,7 +20,9 @@ public class ProductMybatisRepository implements ProductRepository {
 	@Transactional
 	public void insertOrUpdateStock(PostProductDto dto) {
 		String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		productMapper.insertOrUpdateStock(dto,today);
+		String lastReceiveIn = findLastReceiveIn(dto.getpCode());
+
+		productMapper.insertOrUpdateStock(dto, lastReceiveIn != null ? lastReceiveIn : today);
 	}
 
 	@Override
@@ -44,8 +46,8 @@ public class ProductMybatisRepository implements ProductRepository {
 	}
 
     @Override
-    public List<EverythingPageDto> findByAll(Integer lastId) {
-        return productMapper.findByAll(lastId);
+    public List<EverythingPageDto> findByAll(Integer lastId, String order) {
+        return productMapper.findByAll(lastId, order);
     }
 
     @Override
@@ -94,5 +96,29 @@ public class ProductMybatisRepository implements ProductRepository {
 		return productMapper.findSIdByPNameAndWId(pName, wId);
 	}
 
+	@Override
+	public List<DetailWarehouseDto> findProductWarehouseById(Long pId) {
+		return productMapper.findProductWarehouseById(pId);
+	}
+
+	@Override
+	public Long findByUUID(String uuid) {
+		return productMapper.findByUUID(uuid);
+	}
+
+	@Override
+	public void saveS3ImageUrl(String imageURL, Long pId) {
+		productMapper.saveS3ImageUrl(imageURL, pId);
+	}
+
+	@Override
+	public List<EverythingPageDto> search(Integer lastId, String pName, String order) {
+		return productMapper.search(lastId, pName, order);
+	}
+
+	@Override
+	public String findLastReceiveIn(String uuid) {
+		return productMapper.findLastReceiveIn(uuid);
+	}
 
 }
