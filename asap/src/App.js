@@ -17,11 +17,11 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" Component={Main} />
-        <Route path="/sign" Component={SignPage} />
-        <Route path="/error" Component={Error} />
-        <Route path="/loading" Component={Loading} />
-        <Route path="/admin/:id" Component={StuffDetail} />
+        <Route path="/" element={<Main/>} />
+        <Route path="/sign" element={<SignPage/>} />
+        <Route path="/error" element={<Error/>} />
+        <Route path="/loading" element={<Loading/>} />
+        <Route path="/admin/:id" element={<StuffDetail/>} />
         
         <Route path="/" element={<Layout />}>
           <Route path="dashboard" element={<Chart />} />

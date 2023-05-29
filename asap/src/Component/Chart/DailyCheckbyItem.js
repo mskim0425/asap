@@ -20,27 +20,28 @@ export default function DailyCheckById() {
     getProductNames();
   }, []);
 
+  
+  // 제품명별 데이터 가져오기
+  const getCheckDataByProduct = async () => {
+    const getData = await getDailyCheckByProductName(selectName);
+    console.log("getData", selectName, getData);
+    setCheckData(getData);
+  };
+
   // 제품명 선택
   const productNameHandler = (e) => {
     setSelectName(e.target.value);
     getCheckDataByProduct();
   };
 
-  // 제품명별 데이터 가져오기
-  const getCheckDataByProduct = async () => {
-    const getData = await getDailyCheckByProductName(selectName);
-    console.log("getData", getData);
-    setCheckData(getData);
-  };
+  useEffect(()=>{
+    getCheckDataByProduct()
+  }, [selectName])
 
   const options = {
     series: {
-      0: {
-        type: "line",
-        targetAxisIndex: 1,
-        color: "#2FFB6A",
-      },
-      1: { type: "bars", targetAxisIndex: 0, color: "#E14F61" },
+      0: { type: "bars", targetAxisIndex: 0, color: "#E14F61" },
+      1: { type: "bars", targetAxisIndex: 0, color: "#32B2CF" },
     },
     title: "Month",
     backgroundColor: "#0C320C",
@@ -80,6 +81,7 @@ export default function DailyCheckById() {
     height: "100%",
     animation: { duration: 700, easing: "inAndOut", startup: true },
   };
+
   return (
     <div>
       <h2>{`최근 21일간 ${selectName ?? "제품별"} 입출고 현황`}</h2>
