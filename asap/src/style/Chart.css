@@ -88,7 +88,7 @@
 }
 .infoTitle.color::before {
   content: "●";
-  color: var(--green);
+  color: #e14f61;
   position: absolute;
   left: 0;
   height: 50%;
@@ -96,7 +96,7 @@
 }
 .infoTitle::before {
   content: "●";
-  color: #e14f61;
+  color: #32B2CF;
   position: absolute;
   left: 0;
   height: 50%;

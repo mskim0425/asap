@@ -61,7 +61,7 @@ const Chart = () => {
         type: "donut",
         foreColor: "#ffffff",
       },
-      colors: ["#2FFB6A", "#E14F61"],
+      colors: ["#E14F61", "#32B2CF"],
       // fill: {
       //데이터색
       // colors: ["#2FFB6A", "#E91E63"],
