@@ -66,7 +66,7 @@ const Header = () => {
 
   return (
     <div id="header">
-      <a href="#none" className="logo">
+      <a href="/" className="logo">
         ASAP
       </a>
       <div className="menuToggle" onClick={menuToggle}></div>
