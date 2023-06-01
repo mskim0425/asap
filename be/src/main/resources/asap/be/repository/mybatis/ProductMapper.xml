@@ -226,15 +226,19 @@
 
     <select id="search" resultType="EverythingPageDto">
         <if test="lastId == null">
-            SET @lastId = (SELECT MAX(pId) FROM Product_table);
+            SET @lastId = 100;
         </if>
         <if test="lastId != null">
             SET @lastId = #{lastId};
         </if>
+        SET @searchId = 0;
 
-        SELECT p.pId, p.pName, p.price, p.pCode, (@lastId - 30) AS lastid
+        SELECT p.pId, p.pName, p.price, p.pCode,
+              (@lastId - 100) AS lastid,
+              (@searchId := @searchId + 1) AS searchId
         FROM Product_table AS p
-        WHERE p.pId &lt; @lastId AND p.pName = #{pName}
+        WHERE p.pName = #{pName}
+        HAVING searchId > lastid
         <choose>
             <when test='order == "ASC"'>
                 ORDER BY p.pId ASC
@@ -243,7 +247,7 @@
                 ORDER BY p.pId DESC
             </when>
         </choose>
-        LIMIT 100;  -- TODO: 검색 무한스크롤로 구현할지?
+        LIMIT 100;
     </select>
 
     <select id="findLastReceiveIn" resultType="java.lang.String">
